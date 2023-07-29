@@ -1,0 +1,49 @@
+#landing {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  z-index: 0;
+}
+
+#landing-background-video {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+
+#landing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#landing-header-name {
+  z-index: 100;
+  margin: 0;
+  height: fit-content;
+  font-size: 48px;
+
+  background-color: transparent;
+  color: white;
+  position: absolute;
+  left: 1vw;
+  top: 1vh;
+}
+
+#login-page-button {
+  z-index: 100;
+  margin: 0;
+  background-color: transparent;
+  color: white;
+  position: absolute;
+  right: 1vw;
+  top: 1vh;
+  border: none;
+  font-size: 30px;
+}
+
+#login-page-button:hover {
+  color: yellow;
+  font-size: 36px;
+}
