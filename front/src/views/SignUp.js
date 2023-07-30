@@ -4,9 +4,9 @@ import "../css/login.css";
 const Template = (props) => {
   return (
     <div id='login'>
-      <h1>Sign In Your Desk</h1>
+      <h1>Submit Your Desk</h1>
 
-      <button onClick={props.loginSetFalse} id='login-exit-button'>
+      <button onClick={props.signUpSetFalse} id='login-exit-button'>
         X
       </button>
       <div id='login-id-box'>
@@ -27,17 +27,38 @@ const Template = (props) => {
           placeholder='비밀번호'
         />
       </div>
+      <div id='login-email-box'>
+        <input
+          type='email'
+          id='login-email'
+          onChange={props.emailHandler}
+          value={props.email}
+          placeholder='E-mail'
+        />
+      </div>
 
       <br />
 
+      <div>취미를 선택하세요</div>
+      <div id='login-hobby-box'>
+        <input type='checkbox' id='login-hobby-workout' />
+        <label for='login-hobby-workout'>운동</label>
+        <input type='checkbox' id='login-hobby-read' />
+        <label for='login-hobby-read'>독서</label>
+        <input type='checkbox' id='login-hobby-music' />
+        <label for='login-hobby-music'>음악</label>
+        <br />
+
+        <input type='checkbox' id='login-hobby-drawing' />
+        <label for='login-hobby-drawing'>그림</label>
+        <input type='checkbox' id='login-hobby-photo' />
+        <label for='login-hobby-photo'>사진</label>
+      </div>
+
+      <br />
       <button onClick={props.submitInfoToServer} id='login-button'>
         입력
       </button>
-      <div id='login-sub-buttons'>
-        <a href='/'>id 찾기</a>
-        <a href='/'>비밀 번호 찾기</a>
-        <a onClick={props.signUpSetTrue}>회원가입</a>
-      </div>
     </div>
   );
 };
@@ -45,7 +66,8 @@ const Template = (props) => {
 const Login = (props) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [signUp, setsignUp] = useState(false);
+  const [email, setEmail] = useState("");
+  const [hobby, setHobby] = useState([]);
 
   const idHandler = (e) => {
     e.preventDefault();
@@ -57,16 +79,22 @@ const Login = (props) => {
     setPassword(e.target.value);
   };
 
-  const signUpHandler = (e) => {
+  const emailHandler = (e) => {
     e.preventDefault();
-    setsignUp(true);
+    setEmail(e.target.value);
+  };
+
+  const hobbyHandler = (e) => {
+    e.preventDefault();
+    setHobby(e.target.value);
   };
 
   const submitInfoToServer = async () => {
-    let url = "/api/login";
+    let url = "/api/signup";
     let data = {
       id,
       password,
+      email,
     };
 
     let res = await axios.post(url, data, {
@@ -78,11 +106,14 @@ const Login = (props) => {
   return Template({
     id,
     password,
+    email,
+    hobby,
     idHandler,
     passwordHandler,
+    emailHandler,
+    hobbyHandler,
     submitInfoToServer,
-    signUpHandler,
-    signUpSetTrue: props.signUpSetTrue,
+    signUpSetFalse: props.signUpSetFalse,
     loginSetFalse: props.loginSetFalse,
   });
 };
