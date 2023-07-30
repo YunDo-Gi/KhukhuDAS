@@ -1,14 +1,19 @@
+html {
+  background: url(../assets/video.mp4) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 #landing {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   text-align: center;
   z-index: 0;
 }
 
 #landing-background-video {
-  width: 100vw;
-  margin: 0;
-  padding: 0;
   z-index: 1;
 }
 
@@ -26,7 +31,7 @@
 
   background-color: transparent;
   color: white;
-  position: absolute;
+  position: fixed;
   left: 1vw;
   top: 1vh;
 }
@@ -36,9 +41,9 @@
   margin: 0;
   background-color: transparent;
   color: white;
-  position: absolute;
+  position: fixed;
   right: 1vw;
-  top: 1vh;
+  top: 3vh;
   border: none;
   font-size: 30px;
 }

@@ -4,16 +4,16 @@ import backgroundVideo from "../assets/video.mp4";
 import Login from "./Login";
 const Template = (props) => {
   return (
-    <div id='landing'>
-      <h1 id='landing-header-name'>project name</h1>
+    <div id="landing">
+      <h1 id="landing-header-name">project name</h1>
       <video
         src={backgroundVideo}
         autoPlay
         loop
         muted
-        id='landing-background-video'
+        id="landing-background-video"
       />
-      <button id='login-page-button' onClick={props.isLoginHandler}>
+      <button id="login-page-button" onClick={props.isLoginHandler}>
         login
       </button>
       {props.isLogin && <Login loginSetFalse={props.loginSetFalse} />}
