@@ -7,9 +7,9 @@ html {
 }
 
 #landing {
-  /* display: flex; */
   flex-direction: column;
   text-align: center;
+  max-height: 100vh;
   z-index: 0;
 }
 
@@ -24,7 +24,7 @@ html {
 }
 
 #landing-header-name {
-  z-index: 100;
+  z-index: 2;
   margin: 0;
   height: fit-content;
   font-size: 48px;
@@ -37,7 +37,7 @@ html {
 }
 
 #login-page-button {
-  z-index: 100;
+  z-index: 2;
   margin: 0;
   background-color: transparent;
   color: white;
@@ -51,4 +51,14 @@ html {
 #login-page-button:hover {
   color: yellow;
   font-size: 36px;
+}
+
+#login-sub-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+}
+
+#login-sub-buttons > a {
+  text-decoration: none;
 }
