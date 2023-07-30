@@ -2,8 +2,8 @@
   z-index: 100;
   background-color: white;
   position: absolute;
-  width: 30vw;
-  height: 40vh;
+  width: 500px;
+  height: 540px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,6 +16,18 @@
   top: 0.5vh;
   border: none;
   background-color: white;
+}
+
+#login-button {
+  width: 265px;
+  margin-bottom: 1vh;
+  background-color: white;
+  border: 1px solid gray;
+}
+#login-sub-buttons {
+  display: flex;
+  width: 15vw;
+  justify-content: space-between;
 }
 
 #login-id-box {
@@ -40,4 +52,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+#login-id,
+#login-pw,
+#login-email {
+  border: 1px solid gray;
+  width: 265px;
+  height: 40px;
+}
+
+#login-id {
+  border-radius: 3%;
+  border-bottom: none;
+}
+
+#login-email {
+  border-radius: 3%;
+  border-top: none;
 }
