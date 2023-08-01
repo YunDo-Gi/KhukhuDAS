@@ -1,27 +1,26 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "test")
-
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class test {
+@AllArgsConstructor
+@Entity
+@Table(name = "_user")
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @
     private String id;
-
-    @Column
-    private String pw;
-
-    @Column
+    private String password;
     private String email;
+
 }
