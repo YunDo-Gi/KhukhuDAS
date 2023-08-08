@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-// @PropertySource("/src/main/resources/application.properties") // property의 경로, 후처리기를 대신 사용중
+//@PropertySource("classpath:src/main/resources/application.properties") // property의 경로, 후처리기를 대신 사용중
 public class JwtService {
-    @Value("${secret_key}") // property를 주입시키는 역할
-    private static String secret_key;
+    //@Value("${secret_key}") // property를 주입시키는 역할
+    private static String secret_key = "4D4Z1TZIhrndkU78jzufWz6htOc5hDPqKINGOFTHEWORLD";
 
     public String extractUserEmail(String jwt) {
         return extractClaims(jwt, Claims::getSubject);
