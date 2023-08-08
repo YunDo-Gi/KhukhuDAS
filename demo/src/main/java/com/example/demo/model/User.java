@@ -26,9 +26,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userNumber;
-    private String id;
+    private String fullName;
     private String password;
     private String email;
+    private String job;
+    private String city;
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
@@ -47,7 +49,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.id;
+        return this.email;
     }
 
     @Override
@@ -70,7 +72,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    private enum Role {
+    public enum Role {
         User,
         Admin
     }
