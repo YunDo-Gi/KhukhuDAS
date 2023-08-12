@@ -1,26 +1,23 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Mesh } from "three";
 import "../css/landing.css";
-import backgroundVideo from "../assets/video.mp4";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import Overlay from "./overlay/Landing";
+import word from "./words";
+import camera from "../assets/camera-overlays_23.png";
+import { MeshBasicMaterial } from "three";
+
 const Template = (props) => {
   return (
-    <div id='landing'>
-      <h1 id='landing-header-name'>project name</h1>
-      <video
-        src={backgroundVideo}
-        autoPlay
-        loop
-        muted
-        id='landing-background-video'
-      />
-      <button id='login-page-button' onClick={props.isLoginHandler}>
-        Sign In
-      </button>
+    <div id="landing">
+      <Overlay word={props.word} />
       {props.isLogin && (
         <Login
           loginSetFalse={props.loginSetFalse}
           signUpSetTrue={props.signUpSetTrue}
+          className="landing-login-modal"
         />
       )}
       {props.isSignUp && <SignUp signUpSetFalse={props.signUpSetFalse} />}
@@ -28,10 +25,12 @@ const Template = (props) => {
   );
 };
 
+// mount될 시 바로 실행
 const Landing = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
-
+  const [i, setI] = useState(0);
+  const words = word;
   const isLoginHandler = (e) => {
     e.preventDefault();
     console.log(isLogin);
@@ -54,16 +53,26 @@ const Landing = () => {
     setIsSignUp(false);
   };
 
-  return (
-    <Template
-      isLogin={isLogin}
-      isSignUp={isSignUp}
-      isLoginHandler={isLoginHandler}
-      loginSetFalse={loginSetFalse}
-      signUpSetFalse={signUpSetFalse}
-      signUpSetTrue={signUpSetTrue}
-    />
-  );
+  while (true) {
+    setTimeout(() => {
+      if (i == word.length - 1) setI(0);
+      else setI(i + 1);
+    }, 500);
+
+    return (
+      <>
+        <Template
+          isLogin={isLogin}
+          isSignUp={isSignUp}
+          isLoginHandler={isLoginHandler}
+          loginSetFalse={loginSetFalse}
+          signUpSetFalse={signUpSetFalse}
+          signUpSetTrue={signUpSetTrue}
+          word={words[i]}
+        />
+      </>
+    );
+  }
 };
 
 export default Landing;
