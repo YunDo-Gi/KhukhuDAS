@@ -3,39 +3,40 @@ import axios from "axios";
 import "../css/login.css";
 const Template = (props) => {
   return (
-    <div id='login'>
-      <h1>Sign In Your Desk</h1>
-
-      <button onClick={props.loginSetFalse} id='login-exit-button'>
+    <div id="login">
+      <button onClick={props.loginSetFalse} id="login-exit-button">
         X
       </button>
-      <div id='login-id-box'>
+
+      <h1>Sign In Your Desk</h1>
+
+      <div id="login-id-box">
         <input
-          type='text'
-          id='login-id'
+          type="text"
+          id="login-id"
           onChange={props.idHandler}
           value={props.id}
-          placeholder='아이디'
+          placeholder="아이디"
         />
       </div>
-      <div id='login-pw-box'>
+      <div id="login-pw-box">
         <input
-          type='password'
-          id='login-pw'
+          type="password"
+          id="login-pw"
           onChange={props.passwordHandler}
           value={props.password}
-          placeholder='비밀번호'
+          placeholder="비밀번호"
         />
       </div>
 
       <br />
 
-      <button onClick={props.submitInfoToServer} id='login-button'>
+      <button onClick={props.submitInfoToServer} id="login-button">
         입력
       </button>
-      <div id='login-sub-buttons'>
-        <a href='/'>id 찾기</a>
-        <a href='/'>비밀 번호 찾기</a>
+      <div id="login-sub-buttons">
+        <a href="/">id 찾기</a>
+        <a href="/">비밀 번호 찾기</a>
         <a onClick={props.signUpSetTrue}>회원가입</a>
       </div>
     </div>
@@ -63,7 +64,7 @@ const Login = (props) => {
   };
 
   const submitInfoToServer = async () => {
-    let url = "/api/login";
+    let url = "/api/v1/auth/authenticate";
     let data = {
       id,
       password,
