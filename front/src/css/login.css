@@ -1,9 +1,8 @@
 #login {
   z-index: 100;
   background-color: white;
-  position: absolute;
   width: 500px;
-  height: 540px;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,8 +11,9 @@
 
 #login-exit-button {
   position: absolute;
-  right: 0.5vw;
-  top: 0.5vh;
+  right: 10px;
+  top: 0;
+  padding: 15px;
   border: none;
   background-color: white;
 }
