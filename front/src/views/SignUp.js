@@ -3,60 +3,60 @@ import axios from "axios";
 import "../css/login.css";
 const Template = (props) => {
   return (
-    <div id='login'>
+    <div id="login">
       <h1>Submit Your Desk</h1>
 
-      <button onClick={props.signUpSetFalse} id='login-exit-button'>
+      <button onClick={props.signUpSetFalse} id="login-exit-button">
         X
       </button>
-      <div id='login-id-box'>
+      <div id="login-id-box">
         <input
-          type='text'
-          id='login-id'
+          type="text"
+          id="login-id"
           onChange={props.idHandler}
           value={props.id}
-          placeholder='아이디'
+          placeholder="아이디"
         />
       </div>
-      <div id='login-pw-box'>
+      <div id="login-pw-box">
         <input
-          type='password'
-          id='login-pw'
+          type="password"
+          id="login-pw"
           onChange={props.passwordHandler}
           value={props.password}
-          placeholder='비밀번호'
+          placeholder="비밀번호"
         />
       </div>
-      <div id='login-email-box'>
+      <div id="login-email-box">
         <input
-          type='email'
-          id='login-email'
+          type="email"
+          id="login-email"
           onChange={props.emailHandler}
           value={props.email}
-          placeholder='E-mail'
+          placeholder="E-mail"
         />
       </div>
 
       <br />
 
       <div>취미를 선택하세요</div>
-      <div id='login-hobby-box'>
-        <input type='checkbox' id='login-hobby-workout' />
-        <label for='login-hobby-workout'>운동</label>
-        <input type='checkbox' id='login-hobby-read' />
-        <label for='login-hobby-read'>독서</label>
-        <input type='checkbox' id='login-hobby-music' />
-        <label for='login-hobby-music'>음악</label>
+      <div id="login-hobby-box">
+        <input type="checkbox" id="login-hobby-workout" />
+        <label for="login-hobby-workout">운동</label>
+        <input type="checkbox" id="login-hobby-read" />
+        <label for="login-hobby-read">독서</label>
+        <input type="checkbox" id="login-hobby-music" />
+        <label for="login-hobby-music">음악</label>
         <br />
 
-        <input type='checkbox' id='login-hobby-drawing' />
-        <label for='login-hobby-drawing'>그림</label>
-        <input type='checkbox' id='login-hobby-photo' />
-        <label for='login-hobby-photo'>사진</label>
+        <input type="checkbox" id="login-hobby-drawing" />
+        <label for="login-hobby-drawing">그림</label>
+        <input type="checkbox" id="login-hobby-photo" />
+        <label for="login-hobby-photo">사진</label>
       </div>
 
       <br />
-      <button onClick={props.submitInfoToServer} id='login-button'>
+      <button onClick={props.submitInfoToServer} id="login-button">
         입력
       </button>
     </div>
@@ -90,7 +90,7 @@ const Login = (props) => {
   };
 
   const submitInfoToServer = async () => {
-    let url = "/api/signup";
+    let url = "/api/v1/auth/register";
     let data = {
       id,
       password,
