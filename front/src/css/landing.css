@@ -1,65 +1,47 @@
 html {
-  background: url(../assets/video.mp4) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-color: blueviolet;
+  background-color: #dfe3e2;
 }
 
-#landing {
+.landing-overlay-hello-left {
+  margin: 0;
+  padding: 0;
+  font-size: 4vw;
+  color: rgb(0, 0, 0);
+}
+
+.landing-overlay-hello-right {
+  margin: 0;
+  padding: 0;
+  font-size: 4vw;
+  color: rgb(0, 0, 0);
+}
+
+#landing-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
-  text-align: center;
-  max-height: 100vh;
-  z-index: 0;
+  position: relative;
+  bottom: 20vh;
 }
 
-#landing-background-video {
-  z-index: 1;
+/* .landing-overlay-hello {
+  opacity: 0;
+  transition: opacity 1500ms;
 }
+
+.landing-overlay-hello-visible {
+  opacity: 1;
+  transition: opacity 1000ms;
+} */
 
 #landing {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#landing-header-name {
-  z-index: 2;
-  margin: 0;
-  height: fit-content;
-  font-size: 48px;
-
-  background-color: transparent;
-  color: white;
-  position: fixed;
-  left: 1vw;
-  top: 1vh;
-}
-
-#login-page-button {
-  z-index: 2;
-  margin: 0;
-  background-color: transparent;
-  color: white;
-  position: fixed;
-  right: 1vw;
-  top: 3vh;
-  border: none;
-  font-size: 30px;
-}
-
-#login-page-button:hover {
-  color: yellow;
-  font-size: 36px;
-}
-
-#login-sub-buttons {
-  display: flex;
-  justify-content: space-between;
-  width: 30%;
-}
-
-#login-sub-buttons > a {
-  text-decoration: none;
+  flex-direction: column;
+  text-align: center;
+  height: 100vh;
+  max-height: 100vh;
+  z-index: 0;
 }
