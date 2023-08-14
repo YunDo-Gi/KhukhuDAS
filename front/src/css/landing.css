@@ -7,6 +7,7 @@ html {
   padding: 0;
   font-size: 4vw;
   color: rgb(0, 0, 0);
+  font-style: italic;
 }
 
 .landing-overlay-hello-right {
@@ -17,23 +18,13 @@ html {
 }
 
 #landing-overlay {
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  position: relative;
-  bottom: 20vh;
+  top: 4rem;
 }
-
-/* .landing-overlay-hello {
-  opacity: 0;
-  transition: opacity 1500ms;
-}
-
-.landing-overlay-hello-visible {
-  opacity: 1;
-  transition: opacity 1000ms;
-} */
 
 #landing {
   display: flex;
@@ -41,7 +32,12 @@ html {
   align-items: center;
   flex-direction: column;
   text-align: center;
-  height: 100vh;
-  max-height: 100vh;
-  z-index: 0;
+  z-index: 10;
+}
+
+.landing-overlay-hello-left,
+.landing-overlay-hello-right {
+  font-size: 60px;
+  font-weight: bolder;
+  color: white;
 }

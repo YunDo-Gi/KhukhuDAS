@@ -20,7 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
-@Slf4j
 public class User implements UserDetails {
 
     @Id
@@ -31,6 +30,7 @@ public class User implements UserDetails {
     private String email;
     private String job;
     private String city;
+    private String token;
     @Enumerated(value = EnumType.STRING)
     private Role role;
 

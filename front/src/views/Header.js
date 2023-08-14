@@ -1,10 +1,10 @@
 import { React, useEffect, useState, useRef } from "react";
 import Login from "./Login";
-import SignUp from "./SignUp";
+import Register from "./Register";
 import "../css/header.css";
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
 
   const isLoginHandler = (e) => {
     e.preventDefault();
@@ -13,34 +13,35 @@ const Header = () => {
   };
 
   const loginSetFalse = (e) => {
-    e.preventDefault();
     setIsLogin(false);
   };
 
-  const signUpSetTrue = (e) => {
-    e.preventDefault();
-    setIsSignUp(true);
+  const registerSetTrue = () => {
+    setIsRegister(true);
     setIsLogin(false);
   };
 
-  const signUpSetFalse = (e) => {
-    e.preventDefault();
-    setIsSignUp(false);
+  const registerSetFalse = () => {
+    setIsRegister(false);
   };
 
   return (
-    <div id="header-box">
-      <span className="header-title">내 방 어때 !?</span>
-      <div className="header-login" onClick={isLoginHandler}>
+    <div id='header-box'>
+      <span className='header-title'>내 방 어때 !?</span>
+      <div className='header-login' onClick={isLoginHandler}>
         Login
       </div>
-      <div className="header-explore">Explore</div>
-      <div className="header-about">About</div>
+      <div className='header-explore'>Explore</div>
+      <div className='header-about'>About</div>
 
       {isLogin && (
-        <Login loginSetFalse={loginSetFalse} signUpSetTrue={signUpSetTrue} />
+        <Login
+          loginSetFalse={loginSetFalse}
+          registerSetTrue={registerSetTrue}
+          className='landing-login-modal'
+        />
       )}
-      {isSignUp && <SignUp signUpSetFalse={signUpSetFalse} />}
+      {isRegister && <Register close={registerSetFalse} />}
     </div>
   );
 };

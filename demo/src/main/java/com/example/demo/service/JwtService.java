@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +18,9 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-//@PropertySource("classpath:src/main/resources/application.properties") // property의 경로, 후처리기를 대신 사용중
 public class JwtService {
-    //@Value("${secret_key}") // property를 주입시키는 역할
-    private static String secret_key = "4D4Z1TZIhrndkU78jzufWz6htOc5hDPqKINGOFTHEWORLD";
+    @Value("${secret.key}") // property를 주입시키는 역할, static이면 가져올 수 없다.
+    private String secret_key;
 
     public String extractUserEmail(String jwt) {
         return extractClaims(jwt, Claims::getSubject);
@@ -36,23 +36,23 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24) )
+                //.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24) )
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public boolean isTokenValid(String jwt, UserDetails userDetails) {
         String userEmail = extractUserEmail(jwt);
-        return userEmail.equals(userDetails.getUsername()) && !isTokenExpired(jwt);
+        return userEmail.equals(userDetails.getUsername()); //&& !isTokenExpired(jwt);
     }
 
-    private boolean isTokenExpired(String jwt) {
-        return extractExpiration(jwt).before(new Date());
-    }
+//    private boolean isTokenExpired(String jwt) {
+//        return extractExpiration(jwt).before(new Date());
+//    }
 
-    private Date extractExpiration(String jwt) {
-        return extractClaims(jwt, Claims::getExpiration);
-    }
+//    private Date extractExpiration(String jwt) {
+//        return extractClaims(jwt, Claims::getExpiration);
+//    }
 
     private Claims extractAllClaims(String jwt) {
         return Jwts

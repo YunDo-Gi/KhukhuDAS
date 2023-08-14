@@ -1,4 +1,4 @@
-#login {
+#register {
   z-index: 100;
   background-color: white;
   width: 500px;
@@ -9,7 +9,7 @@
   justify-content: center;
 }
 
-#login-exit-button {
+#register-exit-button {
   position: absolute;
   right: 10px;
   top: 0;
@@ -18,8 +18,9 @@
   background-color: white;
 }
 
-#login-id,
-#login-pw {
+#register-fullName,
+#register-pw,
+#register-email {
   border: 0.03rem solid gray;
   font-size: 7px;
   width: 16rem;
@@ -27,20 +28,31 @@
   padding: 0;
 }
 
-#login-id {
+#register-email,
+#register-fullName {
   border-bottom: none;
 }
 
-.login--buttons {
-  width: 16rem;
-  text-align: center;
-  display: flex;
-  font-weight: lighter;
-  justify-content: space-between;
-  align-items: center;
+#register-job {
+  border-top: 0;
+  border: 0.03rem solid gray;
+  font-size: 7px;
+  height: 2rem;
+  width: 16.06rem;
 }
 
-#login-button {
+.warning {
+  color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 16rem;
+  margin-bottom: 3vh;
+  font-weight: 100;
+  font-size: 1px;
+}
+
+#register-button {
   width: 3.5rem;
   padding: 5px;
   color: white;
@@ -50,9 +62,11 @@
   border-radius: 4px;
 }
 
-#login-sub-button {
-  position: relative;
-  color: #1c65c9;
-  font-size: 7px;
-  right: 0;
+.login-button {
+  width: 16rem;
+  text-align: center;
+  display: flex;
+  font-weight: lighter;
+  justify-content: right;
+  align-items: center;
 }
