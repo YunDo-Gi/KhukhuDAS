@@ -21,7 +21,7 @@ const Landing = () => {
     setTimeout(() => {
       if (i == word.length - 1) setI(0);
       else setI(i + 1);
-    }, 700);
+    }, 23000);
 
     return (
       <>

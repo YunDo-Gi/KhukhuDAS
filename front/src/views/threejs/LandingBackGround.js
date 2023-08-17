@@ -9,7 +9,7 @@ import { AmbientLight } from "three";
 
 export default function LandingBackGround({
   speed = 2,
-  count = 6,
+  count = 9,
   depth = 8,
   easing = (x) => Math.sqrt(1 - Math.pow(x - 1, 2)),
 }) {

@@ -21,7 +21,7 @@ export default function DownMesh({ index, z, speed }) {
     // Randomly distributing the objects along the vertical
     y: THREE.MathUtils.randFloatSpread(height * 6),
     // This gives us a random value between -1 and 1, we will multiply it with the viewport width
-    x: THREE.MathUtils.randFloatSpread(1.5),
+    x: THREE.MathUtils.randFloatSpread(0.5),
     // How fast objects spin, randFlost gives us a value between min and max, in this case 8 and 12
     spin: THREE.MathUtils.randFloat(8, 12),
     // Some random rotations, Math.PI represents 360 degrees in radian
@@ -36,7 +36,7 @@ export default function DownMesh({ index, z, speed }) {
     // We cap dt at 0.1 because now it can't accumulate while the user changes the tab, it will simply stop
     if (dt < 0.1)
       ref.current.position.set(
-        index === 0 ? 0 : data.x * width,
+        data.x,
         (data.y = -Math.tan(
           state.clock.elapsedTime / Math.log((index + 5) ** 2)
         )),
@@ -51,21 +51,20 @@ export default function DownMesh({ index, z, speed }) {
     );
 
     // If they're too far up, set them back to the bottom
-    if (data.y < -1000 * index - 7) {
-      console.log(data.y);
-
-      data.y = height;
-    }
+    // if (data.y == 0) {
+    //   data.x = -data.x;
+    //   console.log(data.x, data.y);
+    // }
   });
 
   // Using drei's detailed is a nice trick to reduce the vertex count because
   // we don't need high resolution for objects in the distance. The model contains 3 decimated meshes ...
 
-  console.log(nodes);
-
   return (
     <Detailed ref={ref} distances={[0, 65, 80]}>
-      <group></group>
+      <group>
+        <primitive object={scene} />
+      </group>
     </Detailed>
   );
 }
