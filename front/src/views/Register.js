@@ -49,21 +49,6 @@ const Template = (props) => {
         {props.job == "" && <div>*직업: 필수 정보입니다.</div>}
       </div>
 
-      <div>취미를 선택하세요 (개발 중)</div>
-
-      <div id='register-hobby-box'>
-        <input type='checkbox' id='register-hobby-workout' />
-        <label for='register-hobby-workout'>운동</label>
-        <input type='checkbox' id='register-hobby-read' />
-        <label for='register-hobby-read'>독서</label>
-        <input type='checkbox' id='register-hobby-music' />
-        <label for='register-hobby-music'>음악</label>
-        <input type='checkbox' id='register-hobby-drawing' />
-        <label for='register-hobby-drawing'>그림</label>
-        <input type='checkbox' id='register-hobby-photo' />
-        <label for='register-hobby-photo'>사진</label>
-      </div>
-      <br />
       <div className='login-button'>
         <button onClick={props.submitInfoToServer} id='register-button'>
           입력
