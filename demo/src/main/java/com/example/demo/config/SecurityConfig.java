@@ -2,19 +2,39 @@ package com.example.demo.config;
 
 // 보안 구성 클래스
 
-import jakarta.servlet.Filter;
+import com.example.demo.Repository.UserRepository;
+import com.example.demo.auth.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableWebSecurity // spring security 사용을 어노테이션, 보통 configurer과 함께 사용
@@ -22,26 +42,90 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
+
+
+    private final UserDetailsService userDetailsService;
+
+    private final LoginSuccessHandler loginSuccessHandler;
+
+    private final LoginFailureHandler loginFailureHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(
-                        AbstractHttpConfigurer::disable // csrf disable
-                )
+                .httpBasic(HttpBasicConfigurer -> HttpBasicConfigurer.disable())
+                .formLogin(formLogin -> formLogin.disable())
+                .csrf(AbstractHttpConfigurer -> AbstractHttpConfigurer.disable())// csrf disable
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))//headerOpetaion
                 .authorizeHttpRequests(
                         req -> req
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/auth/**")).permitAll() // requestMatcher 안에 있는 url은 전부 승인 처리
-                                .anyRequest().authenticated()             // 나머지 경로는 전부 승인 받아야함
+                                .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                                .requestMatchers(request -> CorsUtils.isPreFlightRequest(request)).permitAll()
+                                .anyRequest().permitAll()
+        // 나머지 경로는 전부 승인 받아야함
                 )
                 .sessionManagement(
                         // 세션을 stateless하게 만든다.
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .cors(cors -> cors.disable())
+                .exceptionHandling(exceptionHanding -> exceptionHanding.accessDeniedHandler(new CustomAccessDeniedHandler()))
+                .exceptionHandling(authenticationEntryPoint -> authenticationEntryPoint.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
 
-        return http.getOrBuild();
+                .addFilterAfter(jSONLoginFilter(), LogoutFilter.class)
+                 .addFilterBefore(jwtAuthFilter, JSONLoginFilter.class); // JWT Token 필터를 id/password 인증 필터 이전에 추가
+
+
+        return http.build();
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    //추후 필터 체인에 커스텀하여 리팩토링 할 예정
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setUserDetailsService(userDetailsService);
+        return new ProviderManager(provider);
+    }
+    @Bean
+    public JSONLoginFilter jSONLoginFilter() throws Exception {
+        JSONLoginFilter jSONLoginFilter
+                = new JSONLoginFilter();
+        jSONLoginFilter.setAuthenticationManager(authenticationManager());
+        jSONLoginFilter.setAuthenticationSuccessHandler(loginSuccessHandler);
+        jSONLoginFilter.setAuthenticationFailureHandler(loginFailureHandler);
+        return jSONLoginFilter;
+    }
+
+
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//
+//        configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:3000"));
+//        configuration.addAllowedOriginPattern("*");
+//        configuration.addAllowedMethod("*");
+//
+//        configuration.addAllowedHeader("Authorization");
+//        configuration.addAllowedHeader("Content-Type");
+//        configuration.addExposedHeader("Cache-Control");
+//
+//        configuration.addExposedHeader("authorization");
+//        configuration.addExposedHeader("Cache-Control");
+//        configuration.addExposedHeader("Content-Type");
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
+
+
+
+
 }

@@ -1,0 +1,37 @@
+spring:
+  # DATABASE
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/test
+    username: sa
+    password:
+  # JPA
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+
+  h2:
+    console:
+      enabled: false
+      path: /console
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 200MB
+
+
+
+server:
+  compression:
+    enabled: true
+    mime-types: text/html,text/plain,text/css,application/javascript,application/json, application/zip, application/octet-stream
+
+
+jwt :
+  secret : "4D4Z1TZIhrndkU78jzufWz6htOc5hDPqKINGOFTHEWORLD"

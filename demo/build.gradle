@@ -19,15 +19,21 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven {url 'https://jitpack.io' }
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
-	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	implementation 'commons-fileupload:commons-fileupload:1.5'
+	implementation 'commons-io:commons-io:2.11.0'
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0.1'
+	implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.1'
+
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 

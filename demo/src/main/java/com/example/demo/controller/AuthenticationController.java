@@ -1,47 +1,42 @@
 package com.example.demo.controller;
 
-import com.example.demo.auth.AuthenticationRequest;
-import com.example.demo.auth.AuthenticationResponse;
-import com.example.demo.auth.AuthenticationService;
-import com.example.demo.auth.RegisterRequest;
+import com.example.demo.dto.AuthenticationRequest;
+import com.example.demo.dto.AuthenticationResponse;
+import com.example.demo.service.AuthenticationService;
+import com.example.demo.dto.RegisterRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
-import java.util.NoSuchElementException;
+import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationController {
 
-    private final AuthenticationService service;
+    private final AuthenticationService authenticationService;
 
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register (
-            @RequestBody RegisterRequest request
+    @PostMapping("/sign-up")
+    public ResponseEntity<?> register (Principal principal,
+                                       @RequestPart String signUpRequest,
+                                       @RequestPart(required = false) MultipartFile profileImg,
+                                       HttpServletRequest httpServletRequest,
+                                       HttpServletResponse httpServletResponse
     ) {
-        try{return ResponseEntity.ok(service.register(request));}
+        try{
+            log.info("여기 진입");
+            return authenticationService.register(principal, signUpRequest, profileImg, httpServletRequest, httpServletResponse);
+        }
         catch (Exception e){
             log.info(e.getMessage());
-            return ResponseEntity.status(204).body(null);
+            return ResponseEntity.status(204).build();
         }
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate (
-            @RequestBody AuthenticationRequest request
-    ) {
-       try{ return ResponseEntity.ok(service.authenticate(request));}
-       catch (Exception e){
-           log.info(e.getMessage());
-           return ResponseEntity.status(204).body(null);
-       }
-    }
 }

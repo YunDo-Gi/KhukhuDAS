@@ -1,4 +1,4 @@
-package com.example.demo.auth;
+package com.example.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthenticationRequest {
-    private String email;
-    private String password;
+public class AuthenticationResponse {
+       Long userId;
+       String nickname;
+       String profileImgURL;
 }
