@@ -55,13 +55,12 @@ public class MediaService {
 
 
     public ResponseEntity<?> responseProfileImg(String imgURL) throws IOException {
-        System.out.println("test");
         InputStream imageStream = new FileInputStream(MAIN_DIR_NAME + SUB_DIR_NAME + "/profileImg/" + imgURL);
-//		InputStream imageStream = new FileInputStream("/home/ubuntu/images/feed/" + imagename);
         byte[] imageByteArray = IOUtils.toByteArray(imageStream);
         imageStream.close();
         return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
     }
+
 
 
     public MediaType findMediaType(String fileName) {

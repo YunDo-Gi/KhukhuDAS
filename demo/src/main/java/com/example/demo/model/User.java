@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "member")
+@Table(name = "user_info")
 public class User extends BaseTimeEntity implements UserDetails{
 
     @Id
@@ -34,6 +35,18 @@ public class User extends BaseTimeEntity implements UserDetails{
     private String job;
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user") //양방향
+    private List<Room> rooms = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user") //양방향
+    private List<RoomLike> roomLikes = new ArrayList<>();
+
+
+    @OneToMany(mappedBy ="user")
+    private List<Comment> diaryComments = new ArrayList<>();
+
+
 
     @Override  // 계정이 갖고 있는 권한 목록 리턴
     public Collection<? extends GrantedAuthority> getAuthorities() {
