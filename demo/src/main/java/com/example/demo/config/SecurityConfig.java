@@ -104,26 +104,26 @@ public class SecurityConfig {
     }
 
 
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//
-//        configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:3000"));
-//        configuration.addAllowedOriginPattern("*");
-//        configuration.addAllowedMethod("*");
-//
-//        configuration.addAllowedHeader("Authorization");
-//        configuration.addAllowedHeader("Content-Type");
-//        configuration.addExposedHeader("Cache-Control");
-//
-//        configuration.addExposedHeader("authorization");
-//        configuration.addExposedHeader("Cache-Control");
-//        configuration.addExposedHeader("Content-Type");
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:3000"));
+        configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedMethod("*");
+
+        configuration.addAllowedHeader("Authorization");
+        configuration.addAllowedHeader("Content-Type");
+        configuration.addExposedHeader("Cache-Control");
+
+        configuration.addExposedHeader("authorization");
+        configuration.addExposedHeader("Cache-Control");
+        configuration.addExposedHeader("Content-Type");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
 
 
