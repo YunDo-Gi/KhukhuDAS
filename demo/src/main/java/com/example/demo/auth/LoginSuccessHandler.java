@@ -1,6 +1,6 @@
 package com.example.demo.auth;
 
-import com.example.demo.Repository.UserRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.dto.AuthenticationResponse;
 import com.example.demo.model.User;
 import com.example.demo.service.JwtService;
