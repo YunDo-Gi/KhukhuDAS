@@ -28,8 +28,9 @@ public class Room extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private InterestType interestType;
 
-    @Column(columnDefinition = "INT DEFAULT 0")
-    private int view;
+    @Builder.Default
+    private int view = 0;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
