@@ -23,17 +23,53 @@ body
     outline: none;
 }
 
-button {
-	font-family: 'baloo2';
+/* 반응형으로 추후 수정 */
+.button 
+{
+    border: none;
+    padding: 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover
+{
+    background-color: #cccccc;
+}
+
+.button:first-child
+{
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.button:last-child
+{
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.navigation {
+    display: inline-flex;
+    font-family: 'baloo2';
 	font-size: 12pt;
 	text-align: center;
 	position: absolute;
-	min-width: 80px;
-	border-radius: 0;
 	z-index: 1;
+	margin: auto;
+	bottom: 10%;
+    left: 50%;
 }
 
-.pauseButton {
-	right: 50%;
-	bottom: 10%;
+.label
+{
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    padding: 15px 32px;
+    background-color: aliceblue;
+}
+
+.is-active {
+
 }

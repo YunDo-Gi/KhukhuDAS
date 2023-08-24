@@ -18,18 +18,38 @@ export default class Camera
         this.setControls()
 
         // Buttons
-        document.getElementById("floor_change_btn").addEventListener("click", () => {
+        document.getElementsByClassName("is-next")[0].addEventListener("click", () => {
             console.log("clicked")
             gsap.to(this.instance.position, {duration: 1, y: this.instance.position.y + 10, ease: "power2.inOut"})
+        })
+
+        document.getElementsByClassName("is-previous")[0].addEventListener("click", () => {
+            console.log("clicked")
+            gsap.to(this.instance.position, {duration: 1, y: this.instance.position.y - 10, ease: "power2.inOut"})
         })
     }
 
     setInstance()
     {
-        this.instance = new THREE.PerspectiveCamera(75, this.sizes.width / this.sizes.height, 0.1, 100)
+        this.instance = new THREE.PerspectiveCamera(
+            75, 
+            this.sizes.width / this.sizes.height, 
+            0.1, 
+            100)
         this.instance.position.set(0, 10, 0)
         this.scene.add(this.instance)
     }
+
+    // setOrthographicCamera()
+    // {
+    //     this.orthographicCamera = new THREE.OrthographicCamera(
+    //         -this.sizes.width / 2, 
+    //         this.sizes.width / 2, 
+    //         this.sizes.height / 2, 
+    //         -this.sizes.height / 2, 
+    //         0.1, 
+    //         100)
+    // }
 
     setControls()
     {
@@ -67,7 +87,7 @@ export default class Camera
 
     resize()
     {
-        this.instance.aspect = this.sizes.width / this.sizes.height
+        this.instance.aspect = this.sizes.aspectRatio
         this.instance.updateProjectionMatrix()
     }
 
