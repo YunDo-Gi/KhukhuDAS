@@ -8,6 +8,7 @@ import World from './World/World.js'
 import Resources from './Utils/Resources.js'
 import sources from './sources.js'
 import Raycast from './Raycast.js'
+import Preloader from './Preloader.js'
 
 let instance = null
 
@@ -38,6 +39,7 @@ export default class Experience
         this.camera = new Camera()
         this.renderer = new Renderer()
         // this.raycast = new Raycast()
+        this.preloader = new Preloader()
 
         // helpers
         const axisHelper = new THREE.AxesHelper(10)

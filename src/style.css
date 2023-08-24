@@ -2,9 +2,10 @@
 {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-html,
+/* html,
 body
 {
     position: fixed;
@@ -13,11 +14,22 @@ body
     width: 100%;
     height: 100%;
     background: ivory;
+} */
+
+.experience
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
 }
 
 .webgl
 {
     position: fixed;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
     outline: none;
@@ -58,8 +70,9 @@ body
 	position: absolute;
 	z-index: 1;
 	margin: auto;
-	bottom: 10%;
+	bottom: 5%;
     left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .label

@@ -77,8 +77,11 @@ export default class Resources extends EventEmitter
 
         this.loaded++
 
+        console.log("Loaded: " + source.name)
+
         if(this.loaded === this.toLoad)
         {
+            console.log("All loaded")
             this.trigger('ready')
         }
     }

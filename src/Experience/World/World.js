@@ -1,12 +1,16 @@
 import * as THREE from 'three'
 
 import Experience from '../Experience.js'
+import EventEmitter from '../Utils/EventEmitter.js'
+import Cube from './Cube.js'
 import Painting from './Painting.js'
 
-export default class World
+export default class World extends EventEmitter
 {
     constructor()
     {
+        super()
+
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
@@ -19,6 +23,8 @@ export default class World
             this.painting = new Painting()
             this.camera = this.experience.camera
             console.log(this.painting.model)
+
+            this.cube = new Cube()
             
             // this.camera.setPosition(this.painting.model.getObjectByName('frame'))
             // this.camera.setTarget(this.painting.model)
@@ -28,11 +34,13 @@ export default class World
             // this.painting.model.castShadow = true
             // this.painting.model.receiveShadow = true
 
-            // this.setSunLight()
+            this.setSunLight()
 
             // this.pointlight =  new THREE.PointLight(0xffffff, 100, 100)
             // this.pointlight.position.set(-20, 10, 0)
             // this.scene.add(this.pointlight)
+
+            this.trigger('worldReady')
         })
         
         // Test mesh

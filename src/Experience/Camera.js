@@ -15,6 +15,7 @@ export default class Camera
         this.world = this.experience.world
         
         this.setInstance()
+        this.setOrthographicCamera()
         this.setControls()
 
         // Buttons
@@ -40,16 +41,17 @@ export default class Camera
         this.scene.add(this.instance)
     }
 
-    // setOrthographicCamera()
-    // {
-    //     this.orthographicCamera = new THREE.OrthographicCamera(
-    //         -this.sizes.width / 2, 
-    //         this.sizes.width / 2, 
-    //         this.sizes.height / 2, 
-    //         -this.sizes.height / 2, 
-    //         0.1, 
-    //         100)
-    // }
+    setOrthographicCamera()
+    {
+        this.orthographicCamera = new THREE.OrthographicCamera(
+            -this.sizes.width / 2, 
+            this.sizes.width / 2, 
+            this.sizes.height / 2, 
+            -this.sizes.height / 2, 
+            0.1, 
+            100)
+        this.scene.add(this.orthographicCamera)
+    }
 
     setControls()
     {

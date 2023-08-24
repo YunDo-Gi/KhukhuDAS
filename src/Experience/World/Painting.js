@@ -4,14 +4,15 @@ import Experience from '../Experience.js'
 
 export default class Painting
 {
-    constructor()
+    constructor() 
     {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
 
         // Setup
-        this.resource = this.resources.items.RoomPhotoModel2
+        this.resource = this.resources.items.RoomPaintingModel2
+        this.roomChildren = {}
 
         this.setModel()
     }
@@ -20,20 +21,29 @@ export default class Painting
     {
         this.model = this.resource.scene
         this.model.scale.set(0.005, 0.005, 0.005)
-        this.scene.add(this.model)
 
-        // this.model.traverse((child) =>
-        // {
-        //     if(child instanceof THREE.Mesh)
-        //     {
-        //         child.castShadow = true
-        //     }
-        // })
+        this.model.traverse((child) =>
+        {
+            if(child instanceof THREE.Mesh)
+            {
+                this.roomChildren[child.name.toLowerCase()] = child
+                child.castShadow = true
+                child.receiveShadow = true
+                // this.model.scale.set(0, 0, 0)
+            }
+        })
+
+        this.scene.add(this.model)
     }
 
     getModel()
     {
         return this.model
+    }
+
+    getRoomChildren()
+    {
+        return this.roomChildren
     }
 
     setTextures()
