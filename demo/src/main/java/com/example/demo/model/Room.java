@@ -40,7 +40,7 @@ public class Room extends BaseTimeEntity {
     private List<MediaObject> objects = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "room")
     private List<RoomLike> roomLikes = new ArrayList<>();
 
     @OneToMany(mappedBy = "room")
