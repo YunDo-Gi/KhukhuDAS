@@ -13,48 +13,32 @@
   </head>
 
   <body>
-    <form class="d-flex flex-column justify-content-center align-items-center needs-validation was-validated" novalidate>
-      
-      <p class="fs-2 mb-5 mt-3">계정 만들기</p>
-      <!-- 이름 입력부 -->
-      <div class="mb-3 w-50">
-        <label for="exampleInputName1" class="form-label" >Name</label>
-        <input type="text" class="form-control" id="exampleInputName1" required/>
+    <form class="d-flex flex-column align-items-center mt-3">
+
+      <!-- 헤더 입력부 -->
+      <div class="text-bg-primary">계정 생성 페이지</p>
+      </div>
+
+      <!-- 폼 작성부 -->
+      <div class="basic-info-container container-sm mt-5 d-flex flex-column align-items-center " style="width: 30%;">
+      <!-- 아이디 입력부 -->
+      <div class="w-100 mb-3">
+        <input type="text" class="form-control" id="InputID" placeholder="아이디" required/>
         <div class="valid-feedback">
           Looks good!
         </div>
       </div>
-
-      <!-- Email Address 입력부 -->
-      <div class="mb-3 w-50">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          required
-        />
-
-        <div id="emailHelp" class="form-text">
-          We'll never share your email with anyone else.
-        </div>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-      </div>
-
 
       <!-- Password 입력부 -->
-      <div class="mb-3 w-50">
-        <label for="Password" class="form-label">Password</label>
+      <div class="w-100 mb-3">
         <input
           type="password"
           class="form-control password-input"
-          id="Password"
+          id="InputPassword"
           required
           minlength="8"
           maxlength="20"
+          placeholder="비밀번호"
         />
         
         <div class="valid-feedback">
@@ -65,34 +49,90 @@
         </div>
       </div>
 
-      <div class="mb-3 w-50">
-        <label for="validationCustom04" class="form-label">State</label>
-    <select class="form-select" id="validationCustom04" required>
-      <option selected disabled value="">Choose...</option>
-      <option>학생</option>
-        <option>교사</option>
-      <option>군인</option>
-    </select>
-    <div class="invalid-feedback">
-      Please select a valid state.
-    </div>
-      </div>
-      
-      </div>
-      <div class="position-relative w-50">
-        <div id="liveAlertPlaceholder" class="start-0 w-75"></div>
-      </div>
-      <div
-        class="form-check d-flex flex-column w-50 p-0 justify-content-between"
-      >
-       
-        <div class="d-flex w-100 justify-content-between mt-3">
-          <a href="/front/views/login.html" class="link-underline-light">로그인하러 가기</a>
-          <button type="submit" class="btn btn-primary form-check btns">
-            Submit
-          </button>
+      <!-- Email Address 입력부 -->
+      <div class=" w-100">
+        <input
+          type="email"
+          class="form-control"
+          id="InputEmail"
+          aria-describedby="emailHelp"
+          required
+          placeholder="이메일"
+        />
+
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          We'll never share your email with anyone else.
         </div>
       </div>
+      </div>
+      
+      <div class="border mt-3 mb-3" style="width: 30%"></div>
+
+      <div class="basic-info-container container-sm  d-flex flex-column align-items-center   " style="width: 30%; height: 16rem;">
+        
+        <!-- 이름 입력부 -->
+        <div class="w-100 mb-3">
+          <input type="text" class="form-control" id="InputName" placeholder="이름" required/>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+
+        <div class="w-100 mb-3 d-flex align-items-center justify-content-between">
+          <!-- 나이 입력부 -->
+          <span style="width: 48%">
+            <select class="form-select" id="InputAge" required>
+              <option selected disabled value="">나이</option>
+            </select>
+          </span>
+          
+
+          <!-- 직업 입력부 -->
+          <span class="m"style="width: 48%">
+            <select class="form-select" id="InputJob" required>
+              <option selected disabled value="">직업</option>
+              <option>학생</option>
+              <option>교사</option>
+              <option>군인</option>
+              <option>회사원</option>
+              <option>자영업</option>
+              <option>해당사항없음</option>
+            </select>
+            
+          </span>
+        </div>
+        
+        <!-- 전화번호 입력부 -->
+        <div class="w-100 mb-3">
+          <input type="text" class="form-control" id="InputPhoneNumber" placeholder="휴대전화번호" required=""/>
+        </div>
+
+        <!-- 프로필 이미지 입력부 -->
+        <div class="w-100">
+          <input class="form-control profile-img" type="file" id="formFile">
+          <div id="profileHelpBlock" class="form-text">
+            프로필 이미지로 사용할 이미지를 선택해주세요.
+          </div>
+        </div>
+
+        <div class="form-check d-flex flex-column w-100 p-0 justify-content-between">
+          <div class="d-flex w-100 justify-content-between mt-3">
+            <a href="/front/views/login.html" class="link-underline-light">로그인하러 가기</a>
+            <button type="submit" class="btn btn-primary form-check btns">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+
+      <div class="liveAlertPlaceholder"></div>
     </form>
 
     <script
@@ -102,7 +142,7 @@
     ></script>
 
     <script
-      src="../js/validate.js"
+      src="../scripts/validate.js"
       crossorigin="anonymous"
     ></script>
   </body>
