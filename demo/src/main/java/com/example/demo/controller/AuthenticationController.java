@@ -39,4 +39,22 @@ public class AuthenticationController {
         }
     }
 
+    @GetMapping("/validate-phone-number/{phoneNumber}")
+    public ResponseEntity<Void> validatePhoneNumber(Principal principal, @PathVariable String phoneNumber) {
+        authenticationService.validatePhoneNumber(principal, phoneNumber);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/validate-email/{email}")
+    public ResponseEntity<Void> validateEmail(Principal principal, @PathVariable String email) {
+        authenticationService.validateEmail(principal, email);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/validate-nickname/{nickname}")
+    public ResponseEntity<Void> validateNickanme(Principal principal, @PathVariable String nickname){
+        authenticationService.validateNickname(principal, nickname);
+        return ResponseEntity.ok().build();
+    }
+
 }
