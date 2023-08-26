@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,75 +10,61 @@
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
     crossorigin="anonymous"
     />
+
   </head>
 
-  <body>
-    <form class="d-flex flex-column align-items-center">
-
+  <body class="d-flex w-100 h-100 align-items-center justify-content-center">
+    <form class="w-100 d-flex flex-column align-items-center register-form">
       <!-- 헤더 입력부 -->
-      <div class="fs-3 mb-3 mt-3">계정 생성 페이지</p>
-      </div>
+      <div class="fs-2 position-absolute" style="top: 10%;">계정 생성 페이지</div>
 
-      <!-- 폼 작성부 -->
+      <!-- 상위 폼 작성부 -->
       <div class="basic-info-container container-sm d-flex flex-column align-items-center " style="width: 30%;">
-      <!-- 아이디 입력부 -->
-      <div class="w-100 mb-3">
-        <input type="text" class="form-control" id="InputID" placeholder="아이디" required/>
-        <div class="valid-feedback">
-          Looks good!
+        <!-- 아이디 입력부 -->
+        <div class="w-100 mb-3">
+          <input type="text" class="form-control" id="InputID" placeholder="아이디" required/>
         </div>
-      </div>
 
-      <!-- Password 입력부 -->
-      <div class="w-100 mb-3">
-        <input
-          type="password"
-          class="form-control password-input"
-          id="InputPassword"
-          required
-          minlength="8"
-          maxlength="20"
-          placeholder="비밀번호"
-        />
-        
-        <div class="valid-feedback">
-          Looks good!
+        <!-- Password 입력부 -->
+        <div class="w-100 mb-3">
+          <input
+            type="password"
+            class="form-control password-input"
+            id="InputPassword"
+            required
+            minlength="6"
+            maxlength="14"
+            placeholder="비밀번호"
+          />
+          <div class="form-text">
+            비밀번호는 6~14자 사이로 작성해주세요.
+          </div>
         </div>
-        <div class="invalid-feedback">
-          Your password must be 8-20 characters long.
-        </div>
-      </div>
 
-      <!-- Email Address 입력부 -->
-      <div class=" w-100">
-        <input
-          type="email"
-          class="form-control"
-          id="InputEmail"
-          aria-describedby="emailHelp"
-          required
-          placeholder="이메일"
-        />
-
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-        <div class="invalid-feedback">
-          We'll never share your email with anyone else.
-        </div>
-      </div>
+        <!-- Email Address 입력부 -->
+        <span class="d-flex justify-content-between w-100">
+          <input 
+            type="text"
+            class="form-control"
+            style="width:73%;"
+            id="InputEmail"
+            aria-describedby="emailHelp"
+            required
+            placeholder="이메일"
+          />
+          <input class="form-control w-25" type="text" value="@khu.ac.kr " aria-label="readonly input example" readonly>
+        </span>
       </div>
       
-      <div class="border mt-3 mb-3" style="width: 30%"></div>
+      <!-- 구분선 -->
+      <div class="border mt-3 mb-3" style="width: 29%"></div>
 
-      <div class="basic-info-container container-sm  d-flex flex-column align-items-center   " style="width: 30%; height: 16rem;">
+      <!-- 하위 폼 작성부 -->
+      <div class="basic-info-container container-sm  d-flex flex-column align-items-center " style="width: 30%; height: 16rem;">
         
         <!-- 이름 입력부 -->
         <div class="w-100 mb-3">
           <input type="text" class="form-control" id="InputName" placeholder="이름" required/>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
         </div>
 
         <div class="w-100 mb-3 d-flex align-items-center justify-content-between">
@@ -94,45 +80,45 @@
           <span class="m"style="width: 48%">
             <select class="form-select" id="InputJob" required>
               <option selected disabled value="">직업</option>
-              <option>학생</option>
-              <option>교사</option>
-              <option>군인</option>
-              <option>회사원</option>
-              <option>자영업</option>
-              <option>해당사항없음</option>
+              <option value="student">학생</option>
+              <option value="teacher">교사</option>
+              <option value="soldier">군인</option>
+              <option value="salaryman">회사원</option>
+              <option value="self-employment">자영업</option>
+              <option value="none">해당사항없음</option>
             </select>
-            
           </span>
         </div>
         
         <!-- 전화번호 입력부 -->
         <div class="w-100 mb-3">
-          <input type="text" class="form-control" id="InputPhoneNumber" placeholder="휴대전화번호" required=""/>
+          <input type="text" class="form-control" id="InputPhoneNumber" placeholder="휴대전화번호" required/>
+          
+          <div id="phoneHelpBlock" class="form-text mb-1">
+           전화번호는 숫자만 입력해주세요.
+          </div>
         </div>
-
+       
         <!-- 프로필 이미지 입력부 -->
-        <div class="w-100">
-          <input class="form-control profile-img" type="file" id="formFile">
-          <div id="profileHelpBlock" class="form-text mb-1">
+        <div class="w-100" style="display: grid;">
+          <div class="w-100 d-flex justify-content-between">
+            <input class="form-control profile-img" type="file" id="InputProfile" style="width: 88%; display: inline;">
+            <img id="previewImg" style="width:10%;"/>
+          </div>
+          <div id="profileHelpBlock" class="form-text mb-1" accept="image/*">
             프로필 이미지로 사용할 이미지를 선택해주세요.
           </div>
         </div>
-
-        <div class="form-check d-flex flex-column w-100 p-0 justify-content-between">
-          <div class="d-flex w-100 justify-content-between mt-3">
-            <a href="/front/views/login.html" class="link-underline-light">로그인하러 가기</a>
+        
+        
+        <div class="d-flex w-100 justify-content-between mt-3">
+            <a href="./login.html" class="link-underline-light">로그인하러 가기</a>
             <button type="submit" class="btn btn-primary form-check btns">
               Submit
             </button>
           </div>
-        </div>
       </div>
     </div>
-
-    
-
-
-      <div class="liveAlertPlaceholder"></div>
     </form>
 
     <script
@@ -141,9 +127,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <script
-      src="../scripts/validate.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="../scripts/register.js">
+    </script>
   </body>
 </html>
