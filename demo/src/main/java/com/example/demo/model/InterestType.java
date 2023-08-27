@@ -14,7 +14,7 @@ public enum InterestType {
     EXCERSICE("EXCERSICE"),
     GAMING("GAMING");
 
-    private final String intrest;
+    private final String interest;
 
 
 }
