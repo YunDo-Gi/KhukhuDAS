@@ -5,79 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Register</title>
     <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-    crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
     />
-
   </head>
 
-  <body class="d-flex w-100 h-100 align-items-center justify-content-center">
-    <form class="w-100 d-flex flex-column align-items-center register-form">
-      <!-- 헤더 입력부 -->
-      <div class="fs-2 position-absolute" style="top: 10%;">계정 생성 페이지</div>
+  <body class="d-flex w-100 h-100 flex-column">
+    <!-- 헤더 입력부 -->
+    <div
+      class="fs-3 mb-5 text-bg-primary d-flex justify-content-center w-100 align-items-center"
+      style="top: 10%; height: 10%"
+    >
+      계정 생성 페이지
+    </div>
 
+    <form
+      class="w-100 d-flex flex-column align-items-center register-form mt-5"
+    >
       <!-- 상위 폼 작성부 -->
-      <div class="basic-info-container container-sm d-flex flex-column align-items-center " style="width: 30%;">
-        <!-- 아이디 입력부 -->
-        <div class="w-100 mb-3">
-          <input type="text" class="form-control" id="InputID" placeholder="아이디" required/>
-        </div>
+      <div
+        class="basic-info-container container-sm d-flex flex-column align-items-center"
+        style="width: 30%"
+      >
+        <!-- Email Address 입력부 -->
+        <span class="d-flex justify-content-between w-100 mb-3">
+          <input
+            type="text"
+            class="form-control"
+            style="width: 64%; height: 3rem"
+            id="InputEmail"
+            aria-describedby="emailHelp"
+            required
+            placeholder="이메일"
+          />
+          <input
+            class="form-control"
+            type="text"
+            value="@khu.ac.kr"
+            aria-label="readonly input example"
+            style="width: 34%"
+            readonly
+          />
+        </span>
 
         <!-- Password 입력부 -->
-        <div class="w-100 mb-3">
+        <div class="w-100">
           <input
             type="password"
             class="form-control password-input"
+            style="height: 3rem"
             id="InputPassword"
             required
             minlength="6"
             maxlength="14"
             placeholder="비밀번호"
           />
-          <div class="form-text">
-            비밀번호는 6~14자 사이로 작성해주세요.
-          </div>
+          <div class="form-text">비밀번호는 6~14자 사이로 작성해주세요.</div>
         </div>
-
-        <!-- Email Address 입력부 -->
-        <span class="d-flex justify-content-between w-100">
-          <input 
-            type="text"
-            class="form-control"
-            style="width:73%;"
-            id="InputEmail"
-            aria-describedby="emailHelp"
-            required
-            placeholder="이메일"
-          />
-          <input class="form-control w-25" type="text" value="@khu.ac.kr " aria-label="readonly input example" readonly>
-        </span>
       </div>
-      
+
       <!-- 구분선 -->
       <div class="border mt-3 mb-3" style="width: 29%"></div>
 
       <!-- 하위 폼 작성부 -->
-      <div class="basic-info-container container-sm  d-flex flex-column align-items-center " style="width: 30%; height: 16rem;">
-        
+      <div
+        class="basic-info-container container-sm d-flex flex-column align-items-center"
+        style="width: 30%; height: 16rem"
+      >
         <!-- 이름 입력부 -->
         <div class="w-100 mb-3">
-          <input type="text" class="form-control" id="InputName" placeholder="이름" required/>
+          <input
+            type="text"
+            class="form-control"
+            style="height: 3rem"
+            id="InputName"
+            placeholder="사용자 이름"
+            minlength="2"
+            required
+          />
         </div>
 
-        <div class="w-100 mb-3 d-flex align-items-center justify-content-between">
+        <!-- 닉네임 입력부 -->
+        <div class="w-100 mb-3">
+          <input
+            type="text"
+            class="form-control"
+            style="height: 3rem"
+            id="InputNick"
+            placeholder="닉네임"
+            required
+          />
+        </div>
+
+        <div
+          class="w-100 mb-3 d-flex align-items-center justify-content-between"
+        >
           <!-- 나이 입력부 -->
           <span style="width: 48%">
             <select class="form-select" id="InputAge" required>
-              <option selected disabled value="">나이</option>
+              <option selected disabled value="" style="height: 3rem">
+                나이
+              </option>
             </select>
           </span>
-          
 
           <!-- 직업 입력부 -->
-          <span class="m"style="width: 48%">
+          <span class="m" style="width: 48%">
             <select class="form-select" id="InputJob" required>
               <option selected disabled value="">직업</option>
               <option value="student">학생</option>
@@ -89,37 +124,73 @@
             </select>
           </span>
         </div>
-        
+
         <!-- 전화번호 입력부 -->
         <div class="w-100 mb-3">
-          <input type="text" class="form-control" id="InputPhoneNumber" placeholder="휴대전화번호" required/>
-          
+          <input
+            type="text"
+            class="form-control"
+            id="InputPhoneNumber"
+            placeholder="휴대전화번호"
+            style="height: 3rem"
+            minlength="11"
+            required
+          />
+
           <div id="phoneHelpBlock" class="form-text mb-1">
-           전화번호는 숫자만 입력해주세요.
+            전화번호는 숫자만 입력해주세요.
           </div>
         </div>
-       
+
         <!-- 프로필 이미지 입력부 -->
-        <div class="w-100" style="display: grid;">
-          <div class="w-100 d-flex justify-content-between">
-            <input class="form-control profile-img" type="file" id="InputProfile" style="width: 88%; display: inline;">
-            <img id="previewImg" style="width:10%;"/>
+        <div class="w-100">
+          <div class="w-100 d-flex justify-content-between h-50">
+            <div class="input-group mb-3" style="width: 85%">
+              <input
+                class="form-control profile-img position-relative"
+                type="file"
+                id="InputProfile"
+              />
+            </div>
+            <img
+              id="previewImg"
+              class="mb-3"
+              style="
+                width: 12%;
+                border: 1px solid rgba(199, 199, 199, 0.384);
+                border-radius: 5px;
+              "
+              src="../../public/default-avatar.jpg"
+            />
           </div>
           <div id="profileHelpBlock" class="form-text mb-1" accept="image/*">
             프로필 이미지로 사용할 이미지를 선택해주세요.
           </div>
         </div>
-        
-        
+
         <div class="d-flex w-100 justify-content-between mt-3">
-            <a href="./login.html" class="link-underline-light">로그인하러 가기</a>
-            <button type="submit" class="btn btn-primary form-check btns">
-              Submit
-            </button>
-          </div>
+          <a
+            href="./login.html"
+            class="link-underline-light text-decoration-none d-flex flex-column align-items-center justify-content-center"
+            >로그인하러 가기</a
+          >
+          <button
+            type="submit"
+            class="btn btn-primary form-check btns btn-submit"
+          >
+            Submit
+          </button>
+        </div>
       </div>
-    </div>
     </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("DOM이 준비되었습니다!");
+      });
+    </script>
+
+    <script src="../scripts/register.js"></script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -127,7 +198,8 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="../scripts/register.js">
+    <script>
+      console.log("라이브러리 로딩이 끝나고 인라인 스크립트가 실행되었습니다.");
     </script>
   </body>
 </html>
