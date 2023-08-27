@@ -1,4 +1,4 @@
-const id = document.querySelector("#InputID");
+const nick = document.querySelector("#InputNick");
 const password = document.querySelector("#InputPassword");
 const email = document.querySelector("#InputEmail");
 const realname = document.querySelector("#InputName");
@@ -7,6 +7,7 @@ const age = document.querySelector("#InputAge");
 const phoneNumber = document.querySelector("#InputPhoneNumber");
 const form = document.querySelector(".register-form");
 const profile = document.querySelector("#InputProfile");
+const button = document.querySelector(".btn-submit");
 
 // 나이 추가 함수
 const addInputAgeValue = () => {
@@ -16,17 +17,10 @@ const addInputAgeValue = () => {
   }
 };
 
-// 이미지를 생성하는 함수
-const createProfileImage = () => {
-  const file = profile.files[0];
-  console.log(file);
-
-  return file;
-};
-
 // 이미지 URL을 받아와서 보여주는 함수
 const handleFiles = (e) => {
-  const selectedFile = createProfileImage();
+  console.log("이미지 선택");
+  const selectedFile = profile.files[0];
   const fileReader = new FileReader();
 
   fileReader.readAsDataURL(selectedFile);
@@ -35,29 +29,38 @@ const handleFiles = (e) => {
     document.getElementById("previewImg").src = fileReader.result;
   };
 };
-
 profile.addEventListener("change", handleFiles);
 
+// 회원 가입 함수
+// 성공 시 토큰을 localStorage에 저장 (키 : jwt)
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  let body = JSON.stringify({
-    email: email.value,
-    job: job.options[job.selectedIndex].value,
-    realName: realname.value,
-    password: password.value,
-    age: age.options[age.selectedIndex].value,
-    nickname: id.value,
-    phoneNumber: phoneNumber.value,
-    profile: createProfileImage(),
-  });
+  let body = new FormData();
+  body.append(
+    "signUpRequest",
+    JSON.stringify({
+      email: email.value + "@khu.ac.kr",
+      job: job.options[job.selectedIndex].value,
+      realName: realname.value,
+      password: password.value,
+      age: age.options[age.selectedIndex].value,
+      nickname: nick.value,
+      phoneNumber: phoneNumber.value,
+    })
+  );
+  body.append("profileImg", profile.files[0]);
 
-  const req = await fetch("http://localhost:8080/api/auth/sign-up", {
+  fetch("http://127.0.0.1:8080/api/auth/sign-up", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: body,
+  }).then((res) => {
+    if (res.status < 300) {
+      console.log("회원 가입에 성공했습니다.");
+      alert("회원 가입에 성공했습니다. \n로그인 페이지로 이동합니다.");
+    } else {
+      alert("이미 등록된 정보가 존재합니다.");
+    }
   });
 });
 
