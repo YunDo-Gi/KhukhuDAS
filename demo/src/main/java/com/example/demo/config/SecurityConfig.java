@@ -63,14 +63,11 @@ public class SecurityConfig {
                         // 세션을 stateless하게 만든다.
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .cors(Customizer.withDefaults()) // 변경 사항 >> CorsConfigurationSource로 생성한 Cors 규칙을 적용하기 위해 변경했습니다.
+                .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())
                 .exceptionHandling(exceptionHanding -> exceptionHanding.accessDeniedHandler(new CustomAccessDeniedHandler()))
                 .exceptionHandling(authenticationEntryPoint -> authenticationEntryPoint.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
-
                 .addFilterAfter(jSONLoginFilter(), LogoutFilter.class)
-                 .addFilterBefore(jwtAuthFilter, JSONLoginFilter.class); // JWT Token 필터를 id/password 인증 필터 이전에 추가
-
-
+                .addFilterBefore(jwtAuthFilter, JSONLoginFilter.class); // JWT Token 필터를 id/password 인증 필터 이전에 추가
         return http.build();
     }
 
