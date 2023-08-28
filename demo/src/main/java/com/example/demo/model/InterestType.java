@@ -12,7 +12,9 @@ public enum InterestType {
     PICTURE("PICTURE"),
     PHOTO("PHOTO"),
     EXCERSICE("EXCERSICE"),
-    GAMING("GAMING");
+    GAMING("GAMING"),
+
+    ETC("ETC");
 
     private final String interest;
 

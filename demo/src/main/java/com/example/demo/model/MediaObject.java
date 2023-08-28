@@ -15,7 +15,6 @@ public class MediaObject extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String mediaObjectName;
     private String mediaObjectPath;
 
     @ManyToOne(fetch = FetchType.LAZY)
