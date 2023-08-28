@@ -58,6 +58,7 @@ form.addEventListener("submit", async (e) => {
     if (res.status < 300) {
       console.log("회원 가입에 성공했습니다.");
       alert("회원 가입에 성공했습니다. \n로그인 페이지로 이동합니다.");
+      location.href="./login.html"
     } else {
       alert("이미 등록된 정보가 존재합니다.");
     }
