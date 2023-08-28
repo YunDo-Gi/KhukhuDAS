@@ -12,35 +12,59 @@
     />
   </head>
 
-  <body class="d-flex flex-column align-items-center h-100 align-items-center justify-content-center">
-    <div class="fs-2 position-absolute" style="top: 10%;">로그인(폰트 및 로고 추가 예정)</div>
+  <body
+    class="d-flex flex-column align-items-center h-100 align-items-center justify-content-center"
+  >
+    <!-- 헤더 입력부 -->
+    <div
+      class="fs-3 mb-4 text-bg-primary d-flex justify-content-center w-100 position-absolute align-items-center"
+      style="top: 0; height: 10%"
+    >
+      로그인
+    </div>
     <form
-      class="position-absolute start-25 d-flex flex-column justify-content-center align-items-center needs-validation was-validated"
+      class="position-absolute start-25 d-flex flex-column justify-content-center align-items-center register-form"
       novalidate
       action="#"
-      style="width:30%;"
+      style="width: 30%; height: 50%"
     >
-      <!-- 아이디 입력부 -->
-      <div class="w-100 mb-3">
-        <label for="InputID" class="form-label">아이디</label>
-        <input type="text" class="form-control" id="InputID"  required/>
-      </div>
-      </div>
+      <div class="w-100 m-xxl-5">
+        <!-- Email Address 입력부 -->
+        <span class="d-flex justify-content-between w-100 mb-3">
+          <input
+            type="text"
+            class="form-control"
+            style="width: 64%; height: 3rem"
+            id="InputEmail"
+            aria-describedby="emailHelp"
+            required
+            placeholder="이메일"
+          />
+          <input
+            class="form-control"
+            type="text"
+            value="@khu.ac.kr"
+            aria-label="readonly input example"
+            style="width: 34%"
+            readonly
+          />
+        </span>
 
-
-      <!-- Password 입력부 -->
-      <div class="mb-3 w-100">
-        <label for="InputPassword" class="form-label">비밀번호</label>
-        <input
-          type="password"
-          class="form-control"
-          id="InputPassword"
-          required
-          minlength="6"
-          maxlength="14"
-        />
-        <div id="passwordHelpBlock" class="form-text">
-          비밀번호는 6~14자 사이로 작성해주세요.
+        <!-- Password 입력부 -->
+        <div class="w-100 mb-3">
+          <input
+            type="password"
+            class="form-control"
+            id="InputPassword"
+            required
+            minlength="6"
+            maxlength="14"
+            placeholder="비밀번호"
+            style="height: 3rem"
+          />
+          <div id="passwordHelpBlock" class="form-text">
+            비밀번호는 6~14자 사이로 작성해주세요.
+          </div>
         </div>
       </div>
 
@@ -48,7 +72,11 @@
         class="form-check d-flex flex-column w-100 p-0 justify-content-between"
       >
         <div class="d-flex w-100 justify-content-between mt-3">
-          <a href="./register.html" class="link-underline-light">계정 만들기</a>
+          <a
+            href="./register.html"
+            class="link-underline-light text-decoration-none d-flex flex-column align-items-center justify-content-center"
+            >계정 만들기</a
+          >
           <button type="submit" class="btn btn-primary form-check">
             Submit
           </button>
@@ -61,8 +89,6 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
-    <script src="../scripts/login.js">
-      
-    </script>
+    <script src="../scripts/login.js"></script>
   </body>
 </html>

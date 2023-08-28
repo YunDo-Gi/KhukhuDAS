@@ -25,14 +25,26 @@ public class User extends BaseTimeEntity implements UserDetails{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
     private String realName;
+
+    @Column(unique = true)
     private String nickname;
+
     private String password;
+
+    @Column(unique = true)
     private String email;
+
     private int age;
+
     private String profileImgURL;
+
+    @Column(unique = true)
     private String phoneNumber;
+
     private String job;
+
     @Enumerated(value = EnumType.STRING)
     private Role role;
 

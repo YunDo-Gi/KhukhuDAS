@@ -4,12 +4,14 @@ package com.example.demo.config;
 
 import com.example.demo.auth.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,6 +34,7 @@ import java.util.List;
 @EnableWebSecurity // spring security 사용을 어노테이션, 보통 configurer과 함께 사용
 @RequiredArgsConstructor
 @EnableMethodSecurity
+@Slf4j
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
 
@@ -54,13 +57,13 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                                 .requestMatchers(request -> CorsUtils.isPreFlightRequest(request)).permitAll()
                                 .anyRequest().permitAll()
-        // 나머지 경로는 전부 승인 받아야함
+                        // 나머지 경로는 전부 승인 받아야함
                 )
                 .sessionManagement(
                         // 세션을 stateless하게 만든다.
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .cors(cors -> cors.disable())
+                .cors(Customizer.withDefaults()) // 변경 사항 >> CorsConfigurationSource로 생성한 Cors 규칙을 적용하기 위해 변경했습니다.
                 .exceptionHandling(exceptionHanding -> exceptionHanding.accessDeniedHandler(new CustomAccessDeniedHandler()))
                 .exceptionHandling(authenticationEntryPoint -> authenticationEntryPoint.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
 
@@ -100,11 +103,11 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:3000"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080"));
         configuration.addAllowedOriginPattern("*");
         configuration.addAllowedMethod("*");
 
-        configuration.addAllowedHeader("Authorization");
+        configuration.addAllowedHeader("authorization");
         configuration.addAllowedHeader("Content-Type");
         configuration.addExposedHeader("Cache-Control");
 
