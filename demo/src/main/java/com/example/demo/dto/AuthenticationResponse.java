@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class AuthenticationResponse {
-       Long userId;
+       Long memberId;
        String nickname;
        String profileImgURL;
 }

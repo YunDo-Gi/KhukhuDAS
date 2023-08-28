@@ -1,8 +1,8 @@
 package com.example.demo.auth;
 
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.MemberRepository;
 import com.example.demo.dto.AuthenticationResponse;
-import com.example.demo.model.User;
+import com.example.demo.model.Member;
 import com.example.demo.service.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ import java.io.IOException;
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final JwtService jwtService;
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
 
 
@@ -35,9 +35,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Authorization", jwtToken);
-        User user = userRepository.findByEmail(email).get();
+        Member member = memberRepository.findByEmail(email).get();
         ObjectMapper objectMapper = new ObjectMapper();
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse(user.getId(), user.getNickname(), user.getProfileImgURL());
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse(member.getId(), member.getNickname(), member.getProfileImgURL());
         response.getWriter().write(objectMapper.writeValueAsString(authenticationResponse));
 
 

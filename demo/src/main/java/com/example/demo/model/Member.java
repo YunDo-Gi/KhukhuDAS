@@ -18,12 +18,12 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_info")
-public class User extends BaseTimeEntity implements UserDetails{
+@Table(name = "member")
+public class Member extends BaseTimeEntity implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "member_id")
     private Long id;
 
     private String realName;
@@ -48,14 +48,14 @@ public class User extends BaseTimeEntity implements UserDetails{
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user") //양방향
+    @OneToMany(mappedBy = "member") //양방향
     private List<Room> rooms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user") //양방향
+    @OneToMany(mappedBy = "member") //양방향
     private List<RoomLike> roomLikes = new ArrayList<>();
 
 
-    @OneToMany(mappedBy ="user")
+    @OneToMany(mappedBy = "member")
     private List<Comment> diaryComments = new ArrayList<>();
 
 
