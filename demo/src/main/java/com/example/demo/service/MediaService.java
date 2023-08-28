@@ -16,7 +16,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class MediaService {
-    private final String MAIN_DIR_NAME = System.getProperty("member.dir") +  "/demo/src/main/resources";
+    private final String MAIN_DIR_NAME = System.getProperty("user.dir") +  "/demo/src/main/resources";
 
     private final String SUB_DIR_NAME = "/static";
 
