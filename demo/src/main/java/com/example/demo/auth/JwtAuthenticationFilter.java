@@ -45,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 재인증하지 않기 위해 사용자가 인증되었는지 확인.
         // 로그인은 되어있고 아직 인증은 안된 경우
         // context는 container의 인스턴스!
-        log.info("[doFilterInternal] token 값 유효성 체크 시작");
+        log.info("[doFilterInternal] token 값 유효성 체크 시작" + " 토큰 : " + accessToken);
         if (accessToken.isPresent() && SecurityContextHolder.getContext().getAuthentication() == null && jwtService.validateToken(accessToken.get())) {
             String email = jwtService.extractUserEmail(accessToken.get());
             UserDetails userDetails = userDetailsServiceImp.loadUserByUsername(email);
