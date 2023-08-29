@@ -23,6 +23,8 @@
     >
       대충 메인페이지
     </div>
+
+    <!-- navbar -->
     <div class="hamburger-menu">
         <input id="menu__toggle" type="checkbox" />
         <label class="menu__btn" for="menu__toggle">
@@ -30,22 +32,23 @@
         </label>
     
         <ul class="menu__box">
-          <li><a class="menu__item" href="#">Create Room</a></li>
-          <li><a class="menu__item" href="#">About</a></li>
+          <li><a class="menu__item create" href="./createRoom.html">Create Room</a></li>
+          <li><a class="menu__item" href="./about.html">About</a></li>
+          <li><a class="menu__item logout" href="#" data-bs-toggle="modal" data-bs-target="#logout-modal">Logout</a></li>
         </ul>
       </div>
 
-      <!-- 모달 창 -->
+      <!-- login 모달 창 -->
       <div
       class="modal fade"
-      id="exampleModal"
+      id="login-modal"
       tabindex="-1"
     >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              First, You need to do login.
+            <h1 class="modal-title fs-5" id="login-modal">
+              Login
             </h1>
             <button
               type="button"
@@ -56,7 +59,6 @@
           </div>
 
           <div class="modal-body">
-            게시글을 작성하기 위해선 로그인이 필요합니다. <br />
             로그인 하시겠습니까?
           </div>
 
@@ -68,13 +70,54 @@
             >
               Close
             </button>
-            <a type="button" a class="page-link btn" href="./login.html">
+            <a  a class="page-link btn" href="./login.html">
               Login
             </a>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- logout 모달 창 -->
+    <div
+      class="modal fade"
+      id="logout-modal"
+      tabindex="-1"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="logout-modal">
+              Logout
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            로그아웃 하시겠습니까?
+          </div>
+
+          <div class="modal-footer pagination">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <a class="page-link logout-btn btn">
+              Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </body>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
