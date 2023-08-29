@@ -13,14 +13,14 @@ export default [
     //     ]
     // },
     {
-        name: 'paintingRoomModel',
+        name: 'PaintingRoomModel',
         type: 'gltfModel',
-        path: 'models/Room/painting.gltf'
+        path: 'models/Room/room_painting.gltf'
     },
     {
         name: 'basicRoomModel',
         type: 'gltfModel',
-        path: 'models/Room/basic.gltf'
+        path: 'models/Room/room_basic.gltf'
     },
     {
         name: 'RoomModel2',
@@ -40,6 +40,21 @@ export default [
     {
         name: 'RoomPhotoModel2',
         type: 'gltfModel',
-        path: 'models/Room/room_photo_2.gltf'
+        path: 'models/Room/room_photo.gltf'
+    },
+    {
+        name: 'SoccerRoomModel',
+        type: 'gltfModel',
+        path: 'models/Room/room_soccer.gltf'
+    },
+    {
+        name: 'GameRoomModel',
+        type: 'gltfModel',
+        path: 'models/Room/room_game.gltf'
+    },
+    {
+        name: 'ReadingRoomModel',
+        type: 'gltfModel',
+        path: 'models/Room/room_reading.gltf'
     }
 ]

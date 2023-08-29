@@ -34,8 +34,8 @@ public class Comment extends BaseTimeEntity {
     private Room room; //방 PK
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user")
-    private User user; //유저 PK
+    @JoinColumn(name = "member_id")
+    private Member member; //유저 PK
 
 
 

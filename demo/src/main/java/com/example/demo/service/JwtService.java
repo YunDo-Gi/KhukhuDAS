@@ -73,7 +73,7 @@ public class JwtService {
 
     public boolean validateToken(String token) { //토큰 발리데이션
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(token).parseClaimsJws(token);
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secret_key).parseClaimsJws(token);
             log.info("토큰 유효 체크 완료");
             return !claims.getBody().getExpiration().before(new Date());
         } catch (SignatureException | MalformedJwtException e) {

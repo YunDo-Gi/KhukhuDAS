@@ -16,7 +16,9 @@ public enum ErrCode {
     DUPLICATED_NICKNAME("KKDAS005", "이미 사용중인 닉네임입니다.", HttpStatus.BAD_REQUEST.value()),
 
 
-    INTERNAL_SERVER_ERROR("KKDAS500", "서버 요청 처리 실패.", HttpStatus.INTERNAL_SERVER_ERROR.value());
+    INTERNAL_SERVER_ERROR("KKDAS500", "서버 요청 처리 실패.", HttpStatus.INTERNAL_SERVER_ERROR.value()),
+    NO_SUCH_ROOM("KKDAS006","해당 ROOM이 없습니다." , HttpStatus.BAD_REQUEST.value() ),
+    NO_PERMISSION_ROOM("KKDAS007", "해당 ROOM을 접근할 권리가 없습니다.", HttpStatus.FORBIDDEN.value());
 
 
     private final String code;

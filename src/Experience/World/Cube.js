@@ -8,6 +8,8 @@ export default class Cube
     {
         this.experience = new Experience()
         this.scene = this.experience.scene
+        this.world = this.experience.world
+
 
         const geometry = new THREE.BoxGeometry( 1, 1, 1 );
         const material = new THREE.MeshBasicMaterial( {color: 'pink'} );

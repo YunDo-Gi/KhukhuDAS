@@ -19,15 +19,15 @@ export default class Camera
         this.setControls()
 
         // Buttons
-        document.getElementsByClassName("is-next")[0].addEventListener("click", () => {
-            console.log("clicked")
-            gsap.to(this.instance.position, {duration: 1, y: this.instance.position.y + 10, ease: "power2.inOut"})
-        })
+        // document.getElementsByClassName("is-next")[0].addEventListener("click", () => {
+        //     console.log("clicked")
+        //     gsap.to(this.instance.position, {duration: 1, y: this.instance.position.y + 10, ease: "power2.inOut"})
+        // })
 
-        document.getElementsByClassName("is-previous")[0].addEventListener("click", () => {
-            console.log("clicked")
-            gsap.to(this.instance.position, {duration: 1, y: this.instance.position.y - 10, ease: "power2.inOut"})
-        })
+        // document.getElementsByClassName("is-previous")[0].addEventListener("click", () => {
+        //     console.log("clicked")
+        //     gsap.to(this.instance.position, {duration: 1, y: this.instance.position.y - 10, ease: "power2.inOut"})
+        // })
     }
 
     setInstance()
@@ -37,8 +37,12 @@ export default class Camera
             this.sizes.width / this.sizes.height, 
             0.1, 
             100)
-        this.instance.position.set(0, 10, 0)
         this.scene.add(this.instance)
+        this.instance.position.set(-10, 5, -10)
+
+
+        // this.helper = new THREE.CameraHelper(this.instance)
+        // this.scene.add(this.helper)
     }
 
     setOrthographicCamera()
@@ -51,6 +55,9 @@ export default class Camera
             0.1, 
             100)
         this.scene.add(this.orthographicCamera)
+
+        // this.helper = new THREE.CameraHelper(this.orthographicCamera)
+        // this.scene.add(this.helper)
     }
 
     setControls()
@@ -91,6 +98,12 @@ export default class Camera
     {
         this.instance.aspect = this.sizes.aspectRatio
         this.instance.updateProjectionMatrix()
+
+        this.orthographicCamera.left = -this.sizes.width / 2
+        this.orthographicCamera.right = this.sizes.width / 2
+        this.orthographicCamera.top = this.sizes.height / 2
+        this.orthographicCamera.bottom = -this.sizes.height / 2
+        this.orthographicCamera.updateProjectionMatrix()
     }
 
     movePosition()

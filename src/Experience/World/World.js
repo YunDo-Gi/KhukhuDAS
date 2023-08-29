@@ -22,7 +22,7 @@ export default class World extends EventEmitter
             // this.environment = new Environment()
             this.painting = new Painting()
             this.camera = this.experience.camera
-            console.log(this.painting.model)
+            // console.log(this.painting.model)
 
             this.cube = new Cube()
             
@@ -34,7 +34,7 @@ export default class World extends EventEmitter
             // this.painting.model.castShadow = true
             // this.painting.model.receiveShadow = true
 
-            this.setSunLight()
+            // this.setSunLight()
 
             // this.pointlight =  new THREE.PointLight(0xffffff, 100, 100)
             // this.pointlight.position.set(-20, 10, 0)

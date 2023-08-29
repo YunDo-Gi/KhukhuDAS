@@ -1,9 +1,10 @@
 package com.example.demo.service;
 
 
-import com.example.demo.repository.UserRepository;
-import com.example.demo.model.User;
+import com.example.demo.model.Member;
+import com.example.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,20 +13,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserDetailsServiceImp implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println(username);
+        Member member = Member.builder().build();
+        try {
+            member = memberRepository.findByEmail(username).orElseThrow();
+            log.info("사용자 이메일 정보: " + member.getEmail());
+        }catch (Exception exception){
+            log.info("사용자 인증 실패");
+            throw exception;
+        }
 
-        User user = userRepository.findByEmail(username).get();
-        System.out.println(user.getEmail());
-        return User.builder().email(user.getEmail())
-                .password(user.getPassword())
-                .role(user.getRole())
+        return Member.builder().email(member.getEmail())
+                .password(member.getPassword())
+                .role(member.getRole())
                 .build();
     }
 }

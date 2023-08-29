@@ -3,11 +3,10 @@ package com.example.demo.service;
 import com.example.demo.controller.converter.ObjectToDtoUtil;
 import com.example.demo.dto.AuthenticationResponse;
 import com.example.demo.dto.RegisterRequest;
-import com.example.demo.exception.ErrCode;
 import com.example.demo.exception.auth.*;
+import com.example.demo.model.Member;
 import com.example.demo.model.Role;
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.xml.bind.ValidationException;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -29,7 +27,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class AuthenticationService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
@@ -48,7 +46,7 @@ public class AuthenticationService {
                 profileImgURL = mediaService.uploadProfileImg(profileImg);
             }
 
-            User user = User.builder()
+            Member member = Member.builder()
                     .email(registerRequest.getEmail())
                     .job(registerRequest.getJob())
                     .realName(registerRequest.getRealName())
@@ -61,13 +59,13 @@ public class AuthenticationService {
                     .build();
 
 
-            userRepository.save(user); //데이터베이스 저장
+            memberRepository.save(member); //데이터베이스 저장
 
             HttpHeaders httpHeaders = new HttpHeaders();
-            String jwtToken = jwtService.generateToken(user.getEmail());
+            String jwtToken = jwtService.generateToken(member.getEmail());
             httpHeaders.add("Authorization", jwtToken);
 
-            AuthenticationResponse authenticationResponse = new AuthenticationResponse(user.getId(), user.getNickname(), user.getProfileImgURL());
+            AuthenticationResponse authenticationResponse = new AuthenticationResponse(member.getId(), member.getNickname(), member.getProfileImgURL());
             return new ResponseEntity<AuthenticationResponse>(authenticationResponse, httpHeaders, HttpStatus.CREATED);
 
         }catch(Exception exception){
@@ -83,7 +81,7 @@ public class AuthenticationService {
 
         //회원 정보 수정시 기존과 동일하다면 무시
         if (principal != null) {
-            String currentUserPhoneNumber = userRepository.findByEmail(principal.getName()).orElseThrow(InvalidAccessTokenException::new).getPhoneNumber();
+            String currentUserPhoneNumber = memberRepository.findByEmail(principal.getName()).orElseThrow(InvalidAccessTokenException::new).getPhoneNumber();
             if (currentUserPhoneNumber.equals(phoneNumber)) {
                 return;
             }
@@ -93,7 +91,7 @@ public class AuthenticationService {
             throw new InvalidPhoneNumberPatternException();
         }
         //이미 존재하여 중복
-        Optional<User> user = userRepository.findByPhoneNumber(phoneNumber);
+        Optional<Member> user = memberRepository.findByPhoneNumber(phoneNumber);
         if (user.isPresent()) {
             throw new DuplicatedPhoneNumberException();
         }
@@ -102,7 +100,7 @@ public class AuthenticationService {
     public void validateEmail(Principal principal, String email) {
 
         if (principal != null) {
-            String currentUserEmail = userRepository.findByEmail(principal.getName()).orElseThrow(InvalidAccessTokenException::new).getEmail();
+            String currentUserEmail = memberRepository.findByEmail(principal.getName()).orElseThrow(InvalidAccessTokenException::new).getEmail();
             if (currentUserEmail.equals(email)) {
                 return;
             }
@@ -112,7 +110,7 @@ public class AuthenticationService {
             throw new InvalidEmailPatternException();
         }
 
-        Optional<User> member = userRepository.findByEmail(email);
+        Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent()) {
             throw new DuplicatedEmailException();
         }
@@ -121,12 +119,12 @@ public class AuthenticationService {
 
     public void validateNickname(Principal principal, String nickname){
         if(principal != null){
-            String  currentNickname = userRepository.findByEmail(principal.getName()).orElseThrow(InvalidAccessTokenException::new).getNickname();
+            String  currentNickname = memberRepository.findByEmail(principal.getName()).orElseThrow(InvalidAccessTokenException::new).getNickname();
             if(currentNickname.equals(nickname)){
                 return;
             }
         }
-        Optional<User> user = userRepository.findByNickname(nickname);
+        Optional<Member> user = memberRepository.findByNickname(nickname);
         if(user.isPresent()){
             throw new DuplicatedNicknameException();
         }
