@@ -20,8 +20,7 @@ const addInputAgeValue = () => {
 };
 
 // 이미지 URL을 받아와서 보여주는 함수
-const handleFiles = (e) => {
-  console.log("이미지 선택");
+const handleFiles = () => {
   const selectedFile = profile.files[0];
   const fileReader = new FileReader();
 
@@ -52,21 +51,24 @@ form.addEventListener("submit", (e) => {
       phoneNumber: phoneNumber.value,
     })
   );
-  body.append("profileImg", handleFiles());
+
+  body.append("profileImg", profile.files[0]);
 
   const res = fetch("http://localhost:8080/api/auth/sign-up", {
     method: "POST",
     body: body,
   })
     .then((res) => {
-      if (res.status < 300) {
+      if (res.status==201) {
         alert("회원 가입에 성공했습니다. \n로그인 페이지로 이동합니다.");
         location.href = "./login.html";
       } else {
         alert("이미 등록된 정보가 존재합니다.");
       }
     })
-    .catch((e) => alert(e));
+    .catch((e) => {
+      alert("회원 가입 요청을 보냈으나 서버로부터 응답받을 수 없습니다.\n로그인을 시도해보시는 것을 권장합니다.");
+    });
 });
 profile.addEventListener("change", handleFiles);
 addInputAgeValue();
