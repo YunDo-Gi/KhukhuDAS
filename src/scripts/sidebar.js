@@ -15,7 +15,6 @@ const isTokenExpire = (token) => {
         exp = parseJwt(token).exp
 
     if(token == null) {
-        alert("로그인 되어 있지 않습니다.")
         return true;
     }
     else if(new Date().getTime() < exp){
@@ -43,22 +42,28 @@ var token = localStorage.getItem("jwt");
 const sidebarChangeContent = async (token) => {
     const menu__box = document.querySelector(".menu__box");
     let node = document.createElement('li');
-    let child = null;
     
     if(isTokenExpire(token)) {
-        child = document.createElement('a');
-        child.classList.add("menu__item");
-        child.setAttribute("data-bs-toggle", "modal");
-        child.setAttribute("data-bs-target", "#exampleModal");
-        child.innerText="Login";
-        node.appendChild(child);
+        let login = document.createElement('a');
+        login.classList.add("menu__item");
+        login.setAttribute("data-bs-toggle", "modal");
+        login.setAttribute("data-bs-target", "#login-modal");
+        login.innerText="Login";
+        login.href="#"
+        node.appendChild(login);
+        menu__box.prepend(node);
+
+        const logout = document.querySelector(".logout");
+        logout.style.display="none";
+
+        const create = document.querySelector(".create");
+        create.style.display="none";
     } 
     else {
         let avatar = document.createElement('img');
-        let userName = document.createElement('div');
+        let userName = document.createElement('a');
         let a = document.createElement('a');
-        
-        child = document.createElement('div');
+        let child = document.createElement('div');
         
         child.classList.add("userInfo");
         child.classList.add("d-flex");
@@ -69,19 +74,43 @@ const sidebarChangeContent = async (token) => {
         a.classList.add("userInfo")
         a.classList.add("menu_item");
         
-        avatar.src = "http://localhost:8080/api/profileImg/" + localStorage.getItem("profileImgUrl");
+        avatar.src = "http://localhost:3001/public/default-avatar.jpg"
+        if(localStorage.getItem("profileImgUrl") != "l") {
+            avatar.src = "http://localhost:8080/api/profileImg/" + localStorage.getItem("profileImgUrl");
+        }
+        avatar.alt = "Avatar"
         avatar.classList.add("w-25")
         userName.innerText = localStorage.getItem("nickname");
+        userName.href="./user.html"
+        userName.style.textDecoration="none"
         
         child.appendChild(avatar);
         child.appendChild(userName);
         node.appendChild(child);
         node.appendChild(a);
+
+        menu__box.prepend(node)
+
+        const logout = document.querySelector(".logout");
+        logout.style.display="block";
+
+        const create = document.querySelector(".create");
+        create.style.display="block";
     }
-    node.classList.add("underline") // underline 표시용
-    menu__box.prepend(node)
+    
 }
 
 const hamburger = document.querySelector(".hamburger-menu");
 
 hamburger.addEventListener("click", sidebarChangeContent(token));
+
+
+const lg = document.querySelector(".logout-btn");
+lg.addEventListener("click", (e) => {
+    e.preventDefault();
+    localStorage.removeItem("userId");
+    localStorage.removeItem("nickname");
+    localStorage.removeItem("profileImgUrl");
+    localStorage.removeItem("jwt");
+    location.replace("./index.html");
+})
