@@ -10,15 +10,33 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    <link
+      href="./sidebar.css"
+      rel="stylesheet"
+    />
   </head>
 
   <body class="d-flex w-100 h-100 flex-column">
-    <!-- 헤더 입력부 -->
-    <div
-      class="fs-3 mb-5 text-bg-primary d-flex justify-content-center w-100 align-items-center"
-      style="top: 10%; height: 10%"
-    >
-      계정 생성 페이지
+
+  <!-- 헤더 입력부 -->
+  <div
+  class="fs-3 mb-5 text-bg-primary d-flex justify-content-center w-100 align-items-center"
+  style="top: 10%; height: 10%"
+  >
+  계정 생성 페이지
+  </div>
+
+    <!-- navbar -->
+    <div class="hamburger-menu">
+      <input id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle">
+        <span></span>
+      </label>
+  
+      <ul class="menu__box">
+      <li><a class="menu__item" href="./index.html">Home</a></li>
+        <li><a class="menu__item" href="./about.html">About</a></li>
+      </ul>
     </div>
 
     <form
@@ -30,28 +48,28 @@
         style="width: 30%"
       >
         <!-- Email Address 입력부 -->
-        <span class="d-flex justify-content-between w-100 mb-3">
+        <span class="d-flex justify-content-between w-100 mb-3 form-floating">
           <input
             type="text"
             class="form-control"
-            style="width: 64%; height: 3rem"
+            style="width: 70%; height: 3rem"
             id="InputEmail"
             aria-describedby="emailHelp"
             required
             placeholder="이메일"
           />
+          <label for="InputEmail">Email address</label>
           <input
-            class="form-control"
-            type="text"
+            class="form-control "
             value="@khu.ac.kr"
             aria-label="readonly input example"
-            style="width: 34%"
-            readonly
+            style="width: 28%; text-align-last:center; padding: 0; font-size:large; color:#35383A;"
+            disabled
           />
         </span>
 
         <!-- Password 입력부 -->
-        <div class="w-100">
+        <div class="w-100 form-floating">
           <input
             type="password"
             class="form-control password-input"
@@ -62,6 +80,7 @@
             maxlength="14"
             placeholder="비밀번호"
           />
+          <label for="InputPassword">Password</label>
           <div class="form-text">비밀번호는 6~14자 사이로 작성해주세요.</div>
         </div>
       </div>
@@ -75,7 +94,7 @@
         style="width: 30%; height: 16rem"
       >
         <!-- 이름 입력부 -->
-        <div class="w-100 mb-3">
+        <div class="w-100 mb-3 form-floating">
           <input
             type="text"
             class="form-control"
@@ -85,10 +104,11 @@
             minlength="2"
             required
           />
+          <label for="InputName">Name</label>
         </div>
 
         <!-- 닉네임 입력부 -->
-        <div class="w-100 mb-3">
+        <div class="w-100 mb-3 form-floating">
           <input
             type="text"
             class="form-control"
@@ -97,6 +117,7 @@
             placeholder="닉네임"
             required
           />
+          <label for="InputNick">Account Name</label>
         </div>
 
         <div
@@ -126,7 +147,7 @@
         </div>
 
         <!-- 전화번호 입력부 -->
-        <div class="w-100 mb-3">
+        <div class="w-100 mb-3 form-floating">
           <input
             type="text"
             class="form-control"
@@ -136,7 +157,7 @@
             minlength="11"
             required
           />
-
+          <label for="InputPhoneNumber">Phone number</label>
           <div id="phoneHelpBlock" class="form-text mb-1">
             전화번호는 숫자만 입력해주세요.
           </div>
@@ -197,7 +218,9 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
-
+    <script
+    src="../scripts/sidebar.js"
+  ></script>
     <script>
       console.log("라이브러리 로딩이 끝나고 인라인 스크립트가 실행되었습니다.");
     </script>
