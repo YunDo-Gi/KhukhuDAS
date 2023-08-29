@@ -2,12 +2,19 @@ const id = document.querySelector("#InputEmail");
 const password = document.querySelector("#InputPassword");
 const form = document.querySelector(".register-form");
 
+localStorage.removeItem("userId");
+localStorage.removeItem("nickname");
+localStorage.removeItem("profileImgUrl");
+localStorage.removeItem("jwt");
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  let principal = id.value + "@khu.ac.kr";
+  let credential = password.value;
 
   let body = JSON.stringify({
-    principal: id.value + "@khu.ac.kr",
-    credential: password.value,
+    principal: principal,
+    credential: credential,
   });
 
   fetch("http://localhost:8080/login", {
@@ -28,6 +35,7 @@ form.addEventListener("submit", async (e) => {
       let profileImgUrl = userInfo[2].substring(30, userInfo[2].length - 1);
 
       localStorage.setItem("userId", userId);
+      localStorage.setItem("principal", principal);
       localStorage.setItem("nickname", nickname);
       localStorage.setItem("profileImgUrl", profileImgUrl);
 
