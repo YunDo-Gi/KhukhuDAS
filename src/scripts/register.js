@@ -51,15 +51,17 @@ form.addEventListener("submit", (e) => {
       phoneNumber: phoneNumber.value,
     })
   );
-
-  body.append("profileImg", profile.files[0]);
+  if (profile.files[0] != null) body.append("profileImg", profile.files[0]);
+  else {
+    // 기본 이미지 추가 코드 작성
+  }
 
   const res = fetch("http://localhost:8080/api/auth/sign-up", {
     method: "POST",
     body: body,
   })
     .then((res) => {
-      if (res.status==201) {
+      if (res.status == 201) {
         alert("회원 가입에 성공했습니다. \n로그인 페이지로 이동합니다.");
         location.href = "./login.html";
       } else {
@@ -67,7 +69,9 @@ form.addEventListener("submit", (e) => {
       }
     })
     .catch((e) => {
-      alert("회원 가입 요청을 보냈으나 서버로부터 응답받을 수 없습니다.\n로그인을 시도해보시는 것을 권장합니다.");
+      alert(
+        "회원 가입 요청을 보냈으나 서버로부터 응답받을 수 없습니다.\n로그인을 시도해보시는 것을 권장합니다."
+      );
     });
 });
 profile.addEventListener("change", handleFiles);
