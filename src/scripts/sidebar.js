@@ -26,10 +26,21 @@ const isTokenExpire = (token) => {
     return false;
 }
 
+const getProfileImg = async (url) => {
+    try {
+        const img = await fetch("http://localhost:8080/api/profileImg/" + url);  
+        return img;
+    } 
+    catch (error) {
+        alert(error);
+        return null;
+    }
+        
+}
 
 var token = localStorage.getItem("jwt");
 
-const sidebarChangeContent = (token) => {
+const sidebarChangeContent = async (token) => {
     const menu__box = document.querySelector(".menu__box");
     let node = document.createElement('li');
     let child = null;
@@ -52,12 +63,15 @@ const sidebarChangeContent = (token) => {
         child.classList.add("userInfo");
         child.classList.add("d-flex");
         child.classList.add("justify-content-around");
+        child.classList.add("align-items-center");
+        child.classList.add("mb-4");
         child.classList.add("w-75");
         a.classList.add("userInfo")
         a.classList.add("menu_item");
         
-        avatar.alt = "Avatar";
-        userName.innerText ="사용자 명";
+        avatar.src = "http://localhost:8080/api/profileImg/" + localStorage.getItem("profileImgUrl");
+        avatar.classList.add("w-25")
+        userName.innerText = localStorage.getItem("nickname");
         
         child.appendChild(avatar);
         child.appendChild(userName);

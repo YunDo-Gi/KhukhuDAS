@@ -9,6 +9,8 @@ const form = document.querySelector(".register-form");
 const profile = document.querySelector("#InputProfile");
 const button = document.querySelector(".btn-submit");
 
+let reload = localStorage.getItem("reload");
+
 // 나이 추가 함수
 const addInputAgeValue = () => {
   for (let i = 0; i < 100; i++) {
@@ -28,12 +30,13 @@ const handleFiles = (e) => {
   fileReader.onload = function () {
     document.getElementById("previewImg").src = fileReader.result;
   };
+
+  return selectedFile;
 };
-profile.addEventListener("change", handleFiles);
 
 // 회원 가입 함수
 // 성공 시 토큰을 localStorage에 저장 (키 : jwt)
-form.addEventListener("submit", async (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   let body = new FormData();
@@ -49,20 +52,21 @@ form.addEventListener("submit", async (e) => {
       phoneNumber: phoneNumber.value,
     })
   );
-  body.append("profileImg", profile.files[0]);
+  body.append("profileImg", handleFiles());
 
-  fetch("http://127.0.0.1:8080/api/auth/sign-up", {
+  const res = fetch("http://localhost:8080/api/auth/sign-up", {
     method: "POST",
     body: body,
-  }).then((res) => {
-    if (res.status < 300) {
-      console.log("회원 가입에 성공했습니다.");
-      alert("회원 가입에 성공했습니다. \n로그인 페이지로 이동합니다.");
-      location.href="./login.html"
-    } else {
-      alert("이미 등록된 정보가 존재합니다.");
-    }
-  });
+  })
+    .then((res) => {
+      if (res.status < 300) {
+        alert("회원 가입에 성공했습니다. \n로그인 페이지로 이동합니다.");
+        location.href = "./login.html";
+      } else {
+        alert("이미 등록된 정보가 존재합니다.");
+      }
+    })
+    .catch((e) => alert(e));
 });
-
+profile.addEventListener("change", handleFiles);
 addInputAgeValue();
