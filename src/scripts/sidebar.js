@@ -102,11 +102,21 @@ const sidebarChangeContent = async (token) => {
 };
 
 const request = (method, url) => {
-    const req = new XMLHttpRequest();
-    req.open(method, url);
-    req.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-    req.send();
-  }
+  const req = new XMLHttpRequest();
+  req.open(method, url);
+  req.setRequestHeader(
+    "Authorization",
+    "Bearer " + localStorage.getItem("jwt")
+  );
+  req.setRequestHeader("Origin", "http://localhost:3000");
+  req.onreadystatechange = function (aEvt) {
+    if (req.readyState == 4) {
+      alert("Status: ", req.status);
+      alert("Response message: ", req.responseText);
+    }
+  };
+  req.send();
+};
 
 const hamburger = document.querySelector(".hamburger-menu");
 
@@ -117,12 +127,10 @@ lg.addEventListener("click", async (e) => {
   e.preventDefault();
 
   const url = "http://localhost:8080/api/logout";
-  await request("GET", url);
-    
+  let status = await request("GET", url);
   localStorage.removeItem("userId");
   localStorage.removeItem("nickname");
   localStorage.removeItem("profileImgUrl");
   localStorage.removeItem("jwt");
   location.replace("./index.html");
 });
-

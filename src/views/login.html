@@ -10,37 +10,33 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
-    <link
-      href="./sidebar.css"
-      rel="stylesheet"
-    />
+    <link href="../css/sidebar.css" rel="stylesheet" />
   </head>
 
   <body
     class="d-flex flex-column align-items-center h-100 align-items-center justify-content-center"
   >
-  <!-- 헤더 입력부 -->
-  <div
-  class="fs-3 mb-4 text-bg-primary d-flex justify-content-center w-100 position-absolute align-items-center"
-  style="top: 0; height: 10%"
->
-  로그인
-</div>
+    <!-- 헤더 입력부 -->
+    <div
+      class="fs-3 mb-4 text-bg-primary d-flex justify-content-center w-100 position-absolute align-items-center"
+      style="top: 0; height: 10%"
+    >
+      로그인
+    </div>
 
-  <!-- navbar -->
-  <div class="hamburger-menu">
-    <input id="menu__toggle" type="checkbox" />
-    <label class="menu__btn" for="menu__toggle">
-      <span></span>
-    </label>
+    <!-- navbar -->
+    <div class="hamburger-menu">
+      <input id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle">
+        <span></span>
+      </label>
 
-    <ul class="menu__box">
-      <li><a class="menu__item" href="./index.html">Home</a></li>
-      <li><a class="menu__item" href="./about.html">About</a></li>
-    </ul>
-  </div>
+      <ul class="menu__box">
+        <li><a class="menu__item" href="./index.html">Home</a></li>
+        <li><a class="menu__item" href="./about.html">About</a></li>
+      </ul>
+    </div>
 
-    
     <form
       class="position-absolute start-25 d-flex flex-column justify-content-center align-items-center register-form"
       novalidate
@@ -64,7 +60,13 @@
             class="form-control"
             value="@khu.ac.kr"
             aria-label="readonly input example"
-            style="width: 28%; text-align-last:center; padding: 0; font-size:large; color:#35383A;"
+            style="
+              width: 28%;
+              text-align-last: center;
+              padding: 0;
+              font-size: large;
+              color: #35383a;
+            "
             disabled
           />
         </span>

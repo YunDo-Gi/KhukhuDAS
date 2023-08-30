@@ -10,21 +10,17 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
-    <link
-      href="./sidebar.css"
-      rel="stylesheet"
-    />
+    <link href="../css/sidebar.css" rel="stylesheet" />
   </head>
 
   <body class="d-flex w-100 h-100 flex-column">
-
-  <!-- 헤더 입력부 -->
-  <div
-  class="fs-3 mb-5 text-bg-primary d-flex justify-content-center w-100 align-items-center"
-  style="top: 10%; height: 10%"
-  >
-  계정 생성 페이지
-  </div>
+    <!-- 헤더 입력부 -->
+    <div
+      class="fs-3 mb-5 text-bg-primary d-flex justify-content-center w-100 align-items-center"
+      style="top: 10%; height: 10%"
+    >
+      계정 생성 페이지
+    </div>
 
     <!-- navbar -->
     <div class="hamburger-menu">
@@ -32,9 +28,9 @@
       <label class="menu__btn" for="menu__toggle">
         <span></span>
       </label>
-  
+
       <ul class="menu__box">
-      <li><a class="menu__item" href="./index.html">Home</a></li>
+        <li><a class="menu__item" href="./index.html">Home</a></li>
         <li><a class="menu__item" href="./about.html">About</a></li>
       </ul>
     </div>
@@ -60,10 +56,16 @@
           />
           <label for="InputEmail">Email address</label>
           <input
-            class="form-control "
+            class="form-control"
             value="@khu.ac.kr"
             aria-label="readonly input example"
-            style="width: 28%; text-align-last:center; padding: 0; font-size:large; color:#35383A;"
+            style="
+              width: 28%;
+              text-align-last: center;
+              padding: 0;
+              font-size: large;
+              color: #35383a;
+            "
             disabled
           />
         </span>
@@ -218,9 +220,7 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
-    <script
-    src="../scripts/sidebar.js"
-  ></script>
+    <script src="../scripts/sidebar.js"></script>
     <script>
       console.log("라이브러리 로딩이 끝나고 인라인 스크립트가 실행되었습니다.");
     </script>
