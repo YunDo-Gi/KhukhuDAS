@@ -101,30 +101,28 @@ const sidebarChangeContent = async (token) => {
   }
 };
 
+const request = (method, url) => {
+    const req = new XMLHttpRequest();
+    req.open(method, url);
+    req.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
+    req.send();
+  }
+
 const hamburger = document.querySelector(".hamburger-menu");
 
 hamburger.addEventListener("click", sidebarChangeContent(token));
 
 const lg = document.querySelector(".logout-btn");
-lg.addEventListener("click", (e) => {
+lg.addEventListener("click", async (e) => {
   e.preventDefault();
+
+  const url = "http://localhost:8080/api/logout";
+  await request("GET", url);
+    
   localStorage.removeItem("userId");
   localStorage.removeItem("nickname");
   localStorage.removeItem("profileImgUrl");
   localStorage.removeItem("jwt");
   location.replace("./index.html");
-
-  const url = "http://localhost:8080/api/logout";
-  fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("jwt"),
-    },
-  })
-    .then((res) => {
-      alert(res.status);
-      if (res.status == 200) alert("로그아웃 되었습니다.");
-      else alert("Server Error");
-    })
-    .catch((e) => alert(e));
 });
+
