@@ -30,9 +30,11 @@ form.addEventListener("submit", async (e) => {
       const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
       const { value, done } = await reader.read();
       let userInfo = value.substring(1, value.length - 1).split(",");
-      let userId = userInfo[0].substring(11, userInfo[0].length);
-      let nickname = userInfo[1].substring(12, userInfo[1].length - 1);
-      let profileImgUrl = userInfo[2].substring(30, userInfo[2].length - 1);
+      let userId = userInfo[0].replace('"memberId":', "");
+      let nickname = userInfo[1].replace('"nickname":', "");
+      nickname = nickname.substring(1, nickname.length - 1);
+      let profileImgUrl = userInfo[2].substring(29, userInfo[2].length - 1);
+      profileImgUrl = profileImgUrl.replace("\\", "");
 
       localStorage.setItem("userId", userId);
       localStorage.setItem("principal", principal);
