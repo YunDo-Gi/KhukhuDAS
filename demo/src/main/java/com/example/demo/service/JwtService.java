@@ -51,6 +51,14 @@ public class JwtService {
     }
 
 
+    public Long getExpireTime(String token) {
+        Date expirationDate =  Jwts.parser().setSigningKey(secret_key).parseClaimsJws(token).getBody().getExpiration();
+        long now = new Date().getTime();
+        return ((expirationDate.getTime() - now) % 1000) + 1;
+    }
+
+
+
     public String generateToken(String username) {
         Claims claims = Jwts.claims().setSubject(username);
         Date now = new Date();

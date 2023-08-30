@@ -1,6 +1,7 @@
 package com.example.demo.auth;
 
 import com.example.demo.service.JwtService;
+import com.example.demo.service.RedisService;
 import com.example.demo.service.UserDetailsServiceImp;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
@@ -27,6 +28,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsServiceImp userDetailsServiceImp;
 
+    private final RedisService redisService;
+
     @Override
     protected void doFilterInternal(
             @Nonnull HttpServletRequest request,
@@ -46,7 +49,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 로그인은 되어있고 아직 인증은 안된 경우
         // context는 container의 인스턴스!
         log.info("[doFilterInternal] token 값 유효성 체크 시작" + " 토큰 : " + accessToken);
-        if (accessToken.isPresent() && SecurityContextHolder.getContext().getAuthentication() == null && jwtService.validateToken(accessToken.get())) {
+        if (accessToken.isPresent() && SecurityContextHolder.getContext().getAuthentication() == null
+                && jwtService.validateToken(accessToken.get()) && !redisService.hasKey(accessToken.get())) {
             String email = jwtService.extractUserEmail(accessToken.get());
             UserDetails userDetails = userDetailsServiceImp.loadUserByUsername(email);
             Authentication authentication = jwtService.getAuthentication(userDetails); //Authentication 객체 생성

@@ -34,7 +34,7 @@ dependencies {
 	implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0.1'
 	implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.1'
 
-
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	compileOnly 'org.projectlombok:lombok'

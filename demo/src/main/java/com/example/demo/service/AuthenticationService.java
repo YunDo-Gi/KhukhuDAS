@@ -7,6 +7,7 @@ import com.example.demo.exception.auth.*;
 import com.example.demo.model.Member;
 import com.example.demo.model.Role;
 import com.example.demo.repository.MemberRepository;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -31,6 +33,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
+    private final RedisService redisService;
     private final MediaService mediaService;
 
     //회원가입
@@ -132,6 +135,14 @@ public class AuthenticationService {
     }
 
 
-
-
+    public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        Optional<String> getAccessToken = jwtService.extractAccessToken(httpServletRequest);
+        if(getAccessToken.isPresent()){
+            String userEmail = jwtService.extractUserEmail(getAccessToken.get());
+            Long expiration = jwtService.getExpireTime(getAccessToken.get());
+            redisService.setDataWithExpiration(getAccessToken.get(), "BLACKLIST_ACCESSTOKEN_" + userEmail, expiration);
+        }else{
+            throw new InvalidAccessTokenException();
+        }
+    }
 }

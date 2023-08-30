@@ -4,14 +4,17 @@ import com.example.demo.dto.AuthenticationRequest;
 import com.example.demo.dto.AuthenticationResponse;
 import com.example.demo.service.AuthenticationService;
 import com.example.demo.dto.RegisterRequest;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 
 @RestController
@@ -30,7 +33,6 @@ public class AuthenticationController {
                                        HttpServletResponse httpServletResponse
     ) {
         try{
-            log.info("여기 진입");
             return authenticationService.register(principal, signUpRequest, profileImg, httpServletRequest, httpServletResponse);
         }
         catch (Exception e){
@@ -38,6 +40,16 @@ public class AuthenticationController {
             return ResponseEntity.status(204).build();
         }
     }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
+        authenticationService.logout(httpServletRequest, httpServletResponse);
+        return ResponseEntity.ok().build();
+    }
+
+
+
+
 
     @GetMapping("/validate-phone-number/{phoneNumber}")
     public ResponseEntity<Void> validatePhoneNumber(Principal principal, @PathVariable String phoneNumber) {
