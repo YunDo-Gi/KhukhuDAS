@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))//headerOpetaion
                 .authorizeHttpRequests(
                         req -> req
-                                .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers(request -> CorsUtils.isPreFlightRequest(request)).permitAll()
                                 .anyRequest().permitAll()
                         // 나머지 경로는 전부 승인 받아야함
