@@ -74,7 +74,7 @@ const sidebarChangeContent = async (token) => {
     a.classList.add("userInfo");
     a.classList.add("menu_item");
 
-    avatar.src = "http://localhost:3001/public/default-avatar.jpg";
+    avatar.src = "http://localhost:3000/public/default-avatar.jpg";
     if (localStorage.getItem("profileImgUrl") != "l") {
       avatar.src =
         "http://localhost:8080/api/profileImg/" +
