@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 
 import com.example.demo.service.MediaService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,4 +25,10 @@ public class MediaController {
     public ResponseEntity<?> userSearch(@PathVariable("imagename") String imagename) throws IOException {
         return mediaService.responseProfileImg(imagename);
     }
+
+    @GetMapping(value = "/room-object/{roomId}")
+    public void roomObject(@PathVariable(value = "roomId") Long roomId, HttpServletResponse httpServletResponse) throws IOException {
+        mediaService.responseMediaFile(roomId, httpServletResponse);
+    }
+
 }
