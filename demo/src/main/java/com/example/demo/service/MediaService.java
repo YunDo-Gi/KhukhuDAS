@@ -4,6 +4,7 @@ import com.example.demo.exception.auth.InternalServerException;
 import com.example.demo.model.MediaObject;
 import com.example.demo.model.Room;
 import com.example.demo.repository.MediaObjectRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +12,10 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -23,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @Slf4j
 @Service
@@ -155,19 +160,32 @@ public class MediaService {
     }
 
 
-    public ResponseEntity<List<FileSystemResource>> responseMediaFile(List<String> fileNames) throws IOException {
-        HttpHeaders header = new HttpHeaders();
-        List<FileSystemResource> fsrs = new ArrayList<>();
-        for(String fileName : fileNames) {
-            String file = MAIN_DIR_NAME + SUB_DIR_NAME + "/room/" + fileName;
-            FileSystemResource fsr = new FileSystemResource(file);
 
-            Path filePath = Paths.get(fileName);
-            header.add("Content-Type", Files.probeContentType(filePath));
-            header.setContentType(org.springframework.http.MediaType.APPLICATION_OCTET_STREAM);
-            header.add("Content-Disposition", "attachment; filename=" + fsr.getFilename());
+
+    public void responseMediaFile(Long roomId, HttpServletResponse httpServletResponse) throws IOException {
+        List<String> fileNames = mediaObjectRepository.findAllByRoomId(roomId).stream().map(MediaObject::getMediaObjectPath).collect(Collectors.toList());
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(org.springframework.http.MediaType.MULTIPART_MIXED);
+        header.add("Content-Disposition", "attachment; filename=" + "\"RoomId" + roomId + "Object.zip\"");
+        try (ZipOutputStream zipOutputStream = new ZipOutputStream(httpServletResponse.getOutputStream())) {
+            for (String fileName : fileNames) {
+                log.info("fileName is " + fileName );
+                FileSystemResource fileSystemResource = new FileSystemResource(MAIN_DIR_NAME + SUB_DIR_NAME + fileName);
+                ZipEntry zipEntry = new ZipEntry(fileSystemResource.getFilename());
+                zipEntry.setSize(fileSystemResource.contentLength());
+                zipEntry.setTime(System.currentTimeMillis());
+
+                zipOutputStream.putNextEntry(zipEntry);
+
+                StreamUtils.copy(fileSystemResource.getInputStream(), zipOutputStream);
+
+                zipOutputStream.closeEntry();
+            }
+            zipOutputStream.finish();
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            throw new InternalServerException(e);
         }
-        return new ResponseEntity<List<FileSystemResource>>(fsrs, header, HttpStatus.OK);
 
     }
 
