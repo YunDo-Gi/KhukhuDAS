@@ -28,7 +28,15 @@ const getUserInfo = () => {
     }).then(res => {
         console.log(res.json());
     }).then(e=>console.log(e));
+
+    document.querySelector("#previewImg").src = "http://localhost:3000/public/default-avatar.jpg";
+    if (localStorage.getItem("profileImgUrl") != "l") {
+        document.querySelector("#previewImg").src =
+        "http://localhost:8080/api/profileImg/" +
+        localStorage.getItem("profileImgUrl");
+    }
 }
+
 
 // 입장 시 데이터 받아옴
 // 받아온 정보를 저장해야함. (그래야 취소한 경우 다시 복구 가능)
