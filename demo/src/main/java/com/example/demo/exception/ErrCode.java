@@ -15,6 +15,7 @@ public enum ErrCode {
     DUPLICATED_EMAIL("KKDAS004", "사용중인 이메일입니다.", HttpStatus.BAD_REQUEST.value()),
     DUPLICATED_NICKNAME("KKDAS005", "이미 사용중인 닉네임입니다.", HttpStatus.BAD_REQUEST.value()),
 
+    NOT_FOUND_MEMBER("KKDAS006", "유저정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND.value()),
 
     INTERNAL_SERVER_ERROR("KKDAS500", "서버 요청 처리 실패.", HttpStatus.INTERNAL_SERVER_ERROR.value()),
     NO_SUCH_ROOM("KKDAS006","해당 ROOM이 없습니다." , HttpStatus.BAD_REQUEST.value() ),
