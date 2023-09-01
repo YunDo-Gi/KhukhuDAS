@@ -1,12 +1,13 @@
 spring:
   # DATABASE
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/test
-    username: sa
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/kkdas
+    username: kkdas
+    password: 1234
   # JPA
   jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
     hibernate:
       ddl-auto: create
     properties:
@@ -19,10 +20,10 @@ spring:
       host: localhost
       port: 6379
 
-  h2:
-    console:
-      enabled: false
-      path: /console
+#  h2:
+#    console:
+#      enabled: false
+#      path: /console
 
   servlet:
     multipart:
