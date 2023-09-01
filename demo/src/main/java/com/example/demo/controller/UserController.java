@@ -14,7 +14,7 @@ import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/auth/")
+@RequestMapping("/api/auth")
 @Slf4j
 public class UserController {
 

@@ -32,7 +32,7 @@ public class UserService {
 
     //자신의 프로필일 경우
     public ResponseEntity<?> getMyProfile(Principal principal) {
-        if(principal != null) throw new InvalidAccessTokenException();
+        if(principal == null) throw new InvalidAccessTokenException();
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
         MyProfileResponse myProfileResponse = MyProfileResponse.builder()
                 .age(member.getAge())
