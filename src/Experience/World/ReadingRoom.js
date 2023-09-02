@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 import Experience from '../Experience.js'
 
-export default class Painting
+export default class ReadingRoom
 {
     constructor() 
     {
@@ -11,8 +11,9 @@ export default class Painting
         this.resources = this.experience.resources
 
         // Setup
-        this.resource = this.resources.items.PaintingRoomModel
+        this.resource = this.resources.items.ReadingRoomModel
         this.roomChildren = {}
+        this.framePosition = null
 
         this.setModel()
     }
@@ -21,7 +22,10 @@ export default class Painting
     {
         this.model = this.resource.scene
         console.log(this.model.children[0].name)
-
+        // for(child in this.model.children)
+        // {
+        //     console.log(child)
+        // }
         this.model.scale.set(0.4, 0.4, 0.4)
         this.model.position.set(0, 0, 0)
         // this.model.rotation.y = -Math.PI * 0.25
@@ -30,10 +34,17 @@ export default class Painting
         {
             if(child instanceof THREE.Mesh)
             {
+                if(child.name.includes('canvas4'))
+                {
+                    this.framePosition = child.position
+                    // console.log(this.framePosition)
+                }
                 this.roomChildren[child.name.toLowerCase()] = child
                 // child.castShadow = true
                 // child.receiveShadow = true
                 this.roomChildren[child.name.toLowerCase()].scale.set(0, 0, 0)
+                // console.log(this.roomChildren[child.name.toLowerCase()].material)
+                this.roomChildren[child.name.toLowerCase()].material.lights = false
                 // this.model.scale.set(0, 0, 0)
             }
         })
@@ -51,9 +62,9 @@ export default class Painting
         return this.roomChildren
     }
 
-    setTextures()
+    getFramePosition()
     {
-        
+        return this.framePosition
     }
 
     // getSelectables()

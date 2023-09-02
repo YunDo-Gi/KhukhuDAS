@@ -2,8 +2,11 @@ import * as THREE from 'three'
 
 import Experience from '../Experience.js'
 import EventEmitter from '../Utils/EventEmitter.js'
+import Controls from './Controls.js'
+
 import Cube from './Cube.js'
 import Painting from './Painting.js'
+import ReadingRoom from './ReadingRoom.js'
 
 export default class World extends EventEmitter
 {
@@ -20,9 +23,10 @@ export default class World extends EventEmitter
         {
             // Setup
             // this.environment = new Environment()
-            this.painting = new Painting()
+            this.readingRoom = new ReadingRoom()
             this.camera = this.experience.camera
             // console.log(this.painting.model)
+            this.controls = new Controls()
 
             this.cube = new Cube()
             
@@ -62,12 +66,6 @@ export default class World extends EventEmitter
         // this.scene.add(testMesh2)
     }
 
-    getPainting()
-    {
-        console.log(this.painting)
-        return this.painting
-    }
-
     setSunLight()
     {
         this.sunLight = new THREE.DirectionalLight('#ffffff', 0.5)
@@ -79,8 +77,11 @@ export default class World extends EventEmitter
         this.scene.add(this.sunLight)
     }
 
-    getObject()
+    update()
     {
-        return [this.testMesh, this.testMesh2]
+        if (this.controls)
+        {
+            this.controls.update()
+        }
     }
 }

@@ -9,6 +9,7 @@ import Resources from './Utils/Resources.js'
 import sources from './sources.js'
 import Raycast from './Raycast.js'
 import Preloader from './Preloader.js'
+import Controls from './World/Controls.js'
 
 let instance = null
 
@@ -40,12 +41,13 @@ export default class Experience
         this.renderer = new Renderer()
         // this.raycast = new Raycast()
         this.preloader = new Preloader()
+        this.controls = new Controls()
 
         // helpers
         const axisHelper = new THREE.AxesHelper(10)
         this.scene.add(axisHelper)
 
-        const gridHelper = new THREE.GridHelper(100, 100)
+        const gridHelper = new THREE.GridHelper(20, 20)
         this.scene.add(gridHelper)
 
         // Resize event
@@ -71,5 +73,9 @@ export default class Experience
     {
         this.camera.update()
         this.renderer.update()
+        if(this.controls)
+        {
+            this.controls.update()
+        }
     }
 }

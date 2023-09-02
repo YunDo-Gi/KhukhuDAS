@@ -17,53 +17,58 @@ export default class Camera
         this.setInstance()
         this.setOrthographicCamera()
         this.setControls()
-
-        // Buttons
-        // document.getElementsByClassName("is-next")[0].addEventListener("click", () => {
-        //     console.log("clicked")
-        //     gsap.to(this.instance.position, {duration: 1, y: this.instance.position.y + 10, ease: "power2.inOut"})
-        // })
-
-        // document.getElementsByClassName("is-previous")[0].addEventListener("click", () => {
-        //     console.log("clicked")
-        //     gsap.to(this.instance.position, {duration: 1, y: this.instance.position.y - 10, ease: "power2.inOut"})
-        // })
     }
 
     setInstance()
     {
         this.instance = new THREE.PerspectiveCamera(
-            75, 
-            this.sizes.width / this.sizes.height, 
+            35, //75
+            this.sizes.aspectRatio,
             0.1, 
             100)
         this.scene.add(this.instance)
-        this.instance.position.set(-10, 5, -10)
-
+        // this.instance.position.set(2, 0, -7)
 
         // this.helper = new THREE.CameraHelper(this.instance)
         // this.scene.add(this.helper)
+
+        this.instance.position.x = 29;
+        this.instance.position.y = 14;
+        this.instance.position.z = 12;
     }
 
     setOrthographicCamera()
     {
         this.orthographicCamera = new THREE.OrthographicCamera(
-            -this.sizes.width / 2, 
-            this.sizes.width / 2, 
-            this.sizes.height / 2, 
-            -this.sizes.height / 2, 
-            0.1, 
-            100)
+            (-this.sizes.aspectRatio * this.sizes.frustumSize) / 2,
+            (this.sizes.aspectRatio * this.sizes.frustumSize) / 2,
+            this.sizes.frustumSize / 2,
+            -this.sizes.frustumSize / 2,
+            -10,
+            10)
+
+        // this.orthographicCamera = new THREE.OrthographicCamera(
+        //     -this.sizes.width / 2, 
+        //     this.sizes.width / 2, 
+        //     this.sizes.height / 2, 
+        //     -this.sizes.height / 2, 
+        //     -100, 
+        //     100)
         this.scene.add(this.orthographicCamera)
 
-        // this.helper = new THREE.CameraHelper(this.orthographicCamera)
-        // this.scene.add(this.helper)
+        this.orthographicCamera.position.y = 5.65;
+        this.orthographicCamera.position.z = 10;
+        this.orthographicCamera.rotation.x = -Math.PI / 6;
+
+        console.log(this.orthographicCamera)
+        this.helper = new THREE.CameraHelper(this.orthographicCamera)
+        this.scene.add(this.helper)
     }
 
     setControls()
     {
         this.controls = new OrbitControls(this.instance, this.canvas)
-        // this.controls.target.set(-20, 0, 0)
+        // this.controls.target.set(2, 2, 0)
         // 수평 방향 회전 제한
         this.controls.minAzimuthAngle = Math.PI * 0.5
         this.controls.maxAzimuthAngle = Math.PI 
@@ -78,7 +83,7 @@ export default class Camera
 
         this.controls.rotateSpeed = 0.5
 
-        // this.controls.enableZoom = false
+        this.controls.enableZoom = true
         this.controls.enableDamping = true
     }
 
@@ -114,5 +119,10 @@ export default class Camera
     update()
     {
         this.controls.update()
+
+        this.helper.matrixWorldNeedsUpdate = true
+        this.helper.update()
+        this.helper.position.copy(this.orthographicCamera.position)
+        this.helper.rotation.copy(this.orthographicCamera.rotation)
     }
 }
