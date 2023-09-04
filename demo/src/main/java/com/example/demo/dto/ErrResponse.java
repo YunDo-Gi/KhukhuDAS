@@ -22,7 +22,7 @@ public class ErrResponse {
     public ErrResponse(ErrCode errCode) {
         this.code = errCode.getCode();
         this.message = errCode.getMessage();
-        this.code = errCode.getCode();
+        this.status = errCode.getStatus();
     }
 
 }

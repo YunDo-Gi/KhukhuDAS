@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionAdvisor {
 
         @ExceptionHandler(CustomException.class)
-        protected ResponseEntity<ErrResponse> handleBreakingCustomException(CustomException exception) {
+        protected ResponseEntity<ErrResponse> handleCustomException(CustomException exception) {
             log.info(exception.getMessage());
             return ResponseEntity
                     .status(exception.getStatus())
