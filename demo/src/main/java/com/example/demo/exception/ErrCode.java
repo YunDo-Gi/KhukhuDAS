@@ -19,7 +19,10 @@ public enum ErrCode {
 
     INTERNAL_SERVER_ERROR("KKDAS500", "서버 요청 처리 실패.", HttpStatus.INTERNAL_SERVER_ERROR.value()),
     NO_SUCH_ROOM("KKDAS006","해당 ROOM이 없습니다." , HttpStatus.BAD_REQUEST.value() ),
-    NO_PERMISSION_ROOM("KKDAS007", "해당 ROOM을 접근할 권리가 없습니다.", HttpStatus.FORBIDDEN.value());
+    NO_PERMISSION_ROOM("KKDAS007", "해당 ROOM을 접근할 권리가 없습니다.", HttpStatus.FORBIDDEN.value()),
+
+    NO_EXIST_LIKE("KKDAS008", "좋아요 이력이 없습니다.", HttpStatus.BAD_REQUEST.value()),
+    ALREADY_LIKE("DDKAS009", "이미 좋아요 이력이 있습니다.", HttpStatus.BAD_REQUEST.value());
 
 
     private final String code;

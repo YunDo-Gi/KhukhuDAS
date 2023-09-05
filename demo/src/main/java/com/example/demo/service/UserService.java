@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.controller.converter.ObjectToDtoUtil;
 import com.example.demo.dto.ModifyProfileRequest;
 import com.example.demo.dto.MyProfileResponse;
+import com.example.demo.dto.UserProfileResponse;
 import com.example.demo.exception.auth.InvalidAccessTokenException;
 import com.example.demo.exception.auth.NotFoundMemberException;
 import com.example.demo.model.Member;
@@ -88,5 +89,21 @@ public class UserService {
         }
         member.setProfileImgURL(toSetProfileImgURL);
         return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getUserProfile(Long userId) {
+        Member member = memberRepository.findById(userId).orElseThrow(NotFoundMemberException::new);
+        UserProfileResponse userProfileResponse = UserProfileResponse.builder()
+                .age(member.getAge())
+                .userId(member.getId())
+                .realName(member.getRealName())
+                .phoneNumber(member.getPhoneNumber())
+                .nickname(member.getNickname())
+                .email(member.getEmail())
+                .profileImgURL(member.getProfileImgURL())
+                .createdDateTime(member.getCreatedAt())
+                .job(member.getJob())
+                .build();
+        return new ResponseEntity<UserProfileResponse>(userProfileResponse, HttpStatus.OK);
     }
 }

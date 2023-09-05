@@ -14,7 +14,7 @@ import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 @Slf4j
 public class UserController {
 
@@ -22,13 +22,13 @@ public class UserController {
 
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/profile")
-    public ResponseEntity<?> getProfile(Principal principal){
+    @GetMapping("/auth/profile")
+    public ResponseEntity<?> getMyProfile(Principal principal){
         return userService.getMyProfile(principal);
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PutMapping("/profile")
+    @PutMapping("/auth/profile")
     public ResponseEntity<?> modifyProfile (Principal principal,
                                        @RequestPart String updateRequest,
                                        @RequestPart(required = false) MultipartFile profileImg,
@@ -44,6 +44,11 @@ public class UserController {
         }
     }
 
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getUserProfile(@PathVariable("userId") Long userId){
+        return userService.getUserProfile(userId);
+    }
 
 
 

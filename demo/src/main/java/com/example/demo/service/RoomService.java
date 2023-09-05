@@ -5,14 +5,16 @@ import com.example.demo.dto.RoomRequest;
 import com.example.demo.dto.RoomResponse;
 import com.example.demo.exception.auth.InternalServerException;
 import com.example.demo.exception.auth.InvalidAccessTokenException;
+import com.example.demo.exception.auth.NotFoundMemberException;
+import com.example.demo.exception.room.AlreadyLikeException;
+import com.example.demo.exception.room.NoExistLikeException;
 import com.example.demo.exception.room.NoPermissionRoomException;
 import com.example.demo.exception.room.NoSuchRoomException;
-import com.example.demo.model.InterestType;
-import com.example.demo.model.MediaObject;
-import com.example.demo.model.Member;
-import com.example.demo.model.Room;
+import com.example.demo.model.*;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.RoomLikeRepository;
 import com.example.demo.repository.RoomRepository;
+import com.example.demo.service.MediaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -37,6 +40,7 @@ public class RoomService {
 
     private final MemberRepository memberRepository;
 
+    private final RoomLikeRepository roomLikeRepository;
 
     @Transactional
     public ResponseEntity<?> createRoom(Principal principal, List<MultipartFile> roomFiles, String makeUpRoom) {
@@ -154,6 +158,28 @@ public class RoomService {
             return InterestType.ETC;
         }
     }
+
+    public ResponseEntity<Void> likeThisRoom(Long roomId, Principal principal) {
+        if(principal == null) throw new InvalidAccessTokenException();
+        Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
+        Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
+        if(!roomLikeRepository.existsByMemberIdAndRoomId(member.getId(), roomId)){
+            RoomLike roomLike = RoomLike.builder()
+                    .room(room).member(member).build();
+            roomLikeRepository.save(roomLike);
+        }else{
+            throw new AlreadyLikeException();
+        }
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Void> unlikeThisRoom(Long roomId, Principal principal) {
+        if(principal == null) throw new InvalidAccessTokenException();
+        Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
+        Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
+        RoomLike roomLike = roomLikeRepository.findByRoomIdAndMemberId(roomId, member.getId()).orElseThrow(NoExistLikeException::new);
+        roomLikeRepository.delete(roomLike);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }
-
-

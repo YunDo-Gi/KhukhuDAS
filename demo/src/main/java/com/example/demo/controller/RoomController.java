@@ -44,4 +44,17 @@ public class RoomController {
         return roomService.getRoom(roomId, principal);
     }
 
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/{roomId}/like")
+    public ResponseEntity<Void> likeThisRoom(@PathVariable("roomId") Long roomId, Principal principal){
+        return roomService.likeThisRoom(roomId, principal);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/{roomId}/unlike")
+    public ResponseEntity<Void> unlikeThisRoom(@PathVariable("roomId") Long roomId, Principal principal){
+        return roomService.unlikeThisRoom(roomId, principal);
+    }
+
 }
