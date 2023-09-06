@@ -145,4 +145,18 @@ public class AuthenticationService {
             throw new InvalidAccessTokenException();
         }
     }
+
+    public AuthenticationResponse validateJwt(HttpServletRequest httpServletRequest) throws ServletException, IOException {
+        String accessToken = jwtService.extractAccessToken(httpServletRequest).orElseThrow(InvalidAccessTokenException::new);
+        jwtService.validateToken(accessToken);
+        String email = jwtService.extractUserEmail(accessToken);
+        Member member = memberRepository.findByEmail(email).orElseThrow(NotFoundMemberException::new);
+
+        return AuthenticationResponse.builder()
+                .memberId(member.getId())
+                .nickname(member.getNickname())
+                .profileImgURL(member.getProfileImgURL())
+                .build();
+
+    }
 }

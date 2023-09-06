@@ -48,6 +48,11 @@ public class AuthenticationController {
     }
 
 
+    @GetMapping("/validate-jwt")
+    public ResponseEntity<AuthenticationResponse> validateJwt(HttpServletRequest httpServletRequest) throws ServletException, IOException {
+        return ResponseEntity.ok(authenticationService.validateJwt(httpServletRequest));
+    }
+
 
 
 
