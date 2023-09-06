@@ -29,13 +29,19 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 200MB
-
-
-
+  web:
+    resources:
+      static-locations: classpath:/static/, classpath:/public/
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
 server:
   compression:
     enabled: true
-    mime-types: text/html,text/plain,text/css,application/javascript,application/json, application/zip, application/octet-stream
+    mime-types: text/html,text/plain,text/css,application/javascript,application/json, application/zip, application/octet-stream, image/jpeg, image/png
+
 
 
 jwt :
