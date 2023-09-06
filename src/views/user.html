@@ -90,7 +90,7 @@
   <label for="InputName">Name</label>
 </div>
       <!-- Email Address 입력부 -->
-      <span class="d-flex justify-content-between w-100 mb-3 form-floating">
+      <span class="d-flex justify-content-between w-100 form-floating">
         <input
           type="text"
           class="form-control"
@@ -104,18 +104,7 @@
         <label for="InputEmail">Email address</label>
       </span>
 
-      <!-- Password 입력부 -->
-      <div class="w-100 form-floating">
-        <input
-          type="password"
-          class="form-control password-input"
-          style="height: 3rem"
-          id="InputPassword"
-          placeholder="비밀번호"
-          disabled
-        />
-        <label for="InputPassword">Password</label>
-      </div>
+      
     </div>
 
 
@@ -132,25 +121,15 @@
       >
         <!-- 나이 입력부 -->
         <span class="form-floating" style="width: 48%" >
-          <select class="form-select" id="InputAge" disabled>
-            <option selected disabled value="" style="height: 3rem">
-              나이
-            </option>
-          </select>
-        <label for="InputAge">Age</label>
+            <input selected disabled id="InputAge" class="form-control" style="height: 3rem">
+            </input>
+          <label for="InputAge">Age</label>
         </span>
 
         <!-- 직업 입력부 -->
-        <span class="form-floating" style="width: 48%">
-          <select class="form-select" id="InputJob" disabled>
-            <option selected disabled value="">직업</option>
-            <option value="student">학생</option>
-            <option value="teacher">교사</option>
-            <option value="soldier">군인</option>
-            <option value="salaryman">회사원</option>
-            <option value="self-employment">자영업</option>
-            <option value="none">해당사항없음</option>
-          </select>
+        <span class="form-floating"  style="width: 48%">
+          <input class="form-control" id="InputJob" disabled>
+          </input>
           <label for="InputJob">Job</label>
         </span>
       </div>
