@@ -29,17 +29,22 @@ form.addEventListener("submit", async (e) => {
 
       const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
       const { value, done } = await reader.read();
-      let userInfo = value.substring(1, value.length - 1).split(",");
-      let userId = userInfo[0].replace('"memberId":', "");
-      let nickname = userInfo[1].replace('"nickname":', "");
-      nickname = nickname.substring(1, nickname.length - 1);
-      let profileImgUrl = userInfo[2].substring(29, userInfo[2].length - 1);
-      profileImgUrl = profileImgUrl.replace("\\", "");
+
+      let userInfo = JSON.parse(value);
+      let userId = userInfo.memberId;
+      let nickname = userInfo.nickname;
+      try {
+        let profileImgUrl = userInfo.profileImgURL;
+        profileImgUrl = profileImgUrl.replace("/profileImg\\", "");
+        localStorage.setItem("profileImgUrl", profileImgUrl);
+      } catch (e) {
+        profileImgUrl = "http://localhost:3000/public/default-avatar.jpg";
+        localStorage.setItem("profileImgUrl", profileImgUrl);
+      }
 
       localStorage.setItem("userId", userId);
       localStorage.setItem("principal", principal);
       localStorage.setItem("nickname", nickname);
-      localStorage.setItem("profileImgUrl", profileImgUrl);
 
       alert("로그인에 성공했습니다.");
 
