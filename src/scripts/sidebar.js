@@ -75,10 +75,14 @@ const sidebarChangeContent = async (token) => {
     a.classList.add("menu_item");
 
     avatar.src = "http://localhost:3000/public/default-avatar.jpg";
-    if (localStorage.getItem("profileImgUrl") != "l") {
+    if (
+      localStorage.getItem("profileImgUrl") !=
+      "http://localhost:3000/public/default-avatar.jpg"
+    ) {
       avatar.src =
         "http://localhost:8080/api/profileImg/" +
         localStorage.getItem("profileImgUrl");
+      console.log(localStorage.getItem("profileImgUrl"));
     }
     avatar.alt = "Avatar";
     avatar.classList.add("w-25");
@@ -101,7 +105,6 @@ const sidebarChangeContent = async (token) => {
   }
 };
 
-
 const hamburger = document.querySelector(".hamburger-menu");
 
 hamburger.addEventListener("click", sidebarChangeContent(token));
@@ -115,25 +118,24 @@ lg.addEventListener("click", async (e) => {
   fetch(url, {
     method: "GET",
     headers: {
-      "Authorization": "Bearer " + localStorage.getItem("jwt"),
+      Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
-  }).then(res => {
-    let status = res.status;
-
-    if(status == 200){
-      alert("로그아웃 되었습니다.")
-      localStorage.removeItem("userId");
-      localStorage.removeItem("nickname");
-      localStorage.removeItem("profileImgUrl");
-      localStorage.removeItem("jwt");
-      location.replace("./index.html");
-    }
-    else {
-      alert("[Temporal Error]\n로그아웃 요청이 실패했습니다.")
-    }
-  }).catch(e=>{
-    alert(e)
   })
+    .then((res) => {
+      let status = res.status;
 
-  
+      if (status == 200) {
+        alert("로그아웃 되었습니다.");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("profileImgUrl");
+        localStorage.removeItem("jwt");
+        location.replace("./index.html");
+      } else {
+        alert("[Temporal Error]\n로그아웃 요청이 실패했습니다.");
+      }
+    })
+    .catch((e) => {
+      alert(e);
+    });
 });
