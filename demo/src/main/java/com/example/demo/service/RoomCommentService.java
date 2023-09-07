@@ -14,10 +14,13 @@ import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.util.HashMap;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,7 +35,7 @@ public class RoomCommentService {
     private final CommentRepository commentRepository;
 
 
-    public void createComment(Long roomId, RoomCommentRequest roomCommentRequest, Principal principal) {
+    public ResponseEntity<?> createComment(Long roomId, RoomCommentRequest roomCommentRequest, Principal principal) {
         if(principal == null) throw new InvalidAccessTokenException();
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
         Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
@@ -42,8 +45,11 @@ public class RoomCommentService {
                 .member(member)
                 .Content(roomCommentRequest.getContent()).build();
 
-        commentRepository.save(comment);
+        Long CommentId = commentRepository.save(comment).getId();
 
+        HashMap<String, Long> response = new HashMap<>();
+        response.put("저장된 CommentId : ", CommentId);
+        return new ResponseEntity<HashMap>(response, HttpStatus.CREATED);
     }
 
     @Transactional

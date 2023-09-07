@@ -25,8 +25,7 @@ public class RoomCommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/room/{roomId}/comment")
     public ResponseEntity<?> createComment(Principal principal, @PathVariable(name = "roomId")Long roomId, @RequestBody RoomCommentRequest roomCommentRequest){
-        roomCommentService.createComment(roomId, roomCommentRequest, principal);
-        return ResponseEntity.ok().build();
+        return roomCommentService.createComment(roomId, roomCommentRequest, principal);
     }
 
     @PreAuthorize("isAuthenticated()")
