@@ -3,6 +3,7 @@ import GSAP from 'gsap'
 
 import EventEmitter from './Utils/EventEmitter.js'
 import Experience from './Experience.js'
+import convert from './Utils/convertDivsToSpans.js'
 
 export default class Preloader extends EventEmitter
 {
@@ -30,6 +31,7 @@ export default class Preloader extends EventEmitter
         console.log(this.roomChildren)
         // this.cubes = filterObjectsByString(this.roomChildren, 'cube')
         // console.log(this.cubes)
+        convert(document.querySelector('.intro-text'))
     }
 
     firstIntro()
@@ -37,6 +39,13 @@ export default class Preloader extends EventEmitter
         // 클릭 시 바로 실행되지 않게 하기 위함
         return new Promise((resolve) => {
             this.timeline = new GSAP.timeline()
+
+            this.timeline.to(".preloader", {
+                opacity: 0,
+                onComplete: () => {
+                    document.querySelector('.preloader').classList.add('hidden')
+                }
+            })
 
             this.timeline.to(this.world.cube.getCube().scale, {
                 duration: 1,
@@ -48,6 +57,13 @@ export default class Preloader extends EventEmitter
                 duration: 1,
                 z: 4,
                 ease: 'power1.out',
+            })
+
+            this.timeline.to(".intro-text .animate", {
+                duration: 1,
+                yPercent: -100,
+                stagger: 0.07,
+                ease: 'back.out(1.2)',
                 onComplete: resolve
             })
         })
@@ -60,7 +76,12 @@ export default class Preloader extends EventEmitter
         return new Promise((resolve) => {
             this.secondTimeline = new GSAP.timeline()
 
-            this.secondTimeline.to(this.world.cube.getCube().position, {
+            this.secondTimeline.to(".intro-text .animate", {
+                duration: 1,
+                yPercent: 100,
+                stagger: 0.05,
+                ease: 'back.in(1.7)',
+            }).to(this.world.cube.getCube().position, {
                 duration: 1,
                 z: 0,
                 ease: 'power1.out'
@@ -71,7 +92,7 @@ export default class Preloader extends EventEmitter
                 y: 4,
                 z: 4
             }, "same").to(this.world.cube.getCube().position, {
-                y: 3.5
+                x: 0
             }, "same").to(this.world.cube.getCube().scale, {
                 x: 0,
                 y: 0,
