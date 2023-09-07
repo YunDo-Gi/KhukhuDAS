@@ -15,6 +15,7 @@
 
   <body
     class="d-flex flex-column align-items-center h-100 align-items-center justify-content-center"
+    style="background-color: #f5eed0"
   >
     <!-- 헤더 입력부 -->
     <div
@@ -25,6 +26,7 @@
     </div>
 
     <!-- navbar -->
+
     <div class="hamburger-menu">
       <input id="menu__toggle" type="checkbox" />
       <label class="menu__btn" for="menu__toggle">
@@ -36,75 +38,81 @@
         <li><a class="menu__item" href="./about.html">About</a></li>
       </ul>
     </div>
-
-    <form
-      class="position-absolute start-25 d-flex flex-column justify-content-center align-items-center register-form"
-      novalidate
-      action="#"
-      style="width: 30%; height: 50%"
+    <div
+      class="shadow position-absolute start-25 register-form rounded-5"
+      style="width: 40%; height: 55%"
     >
-      <div class="w-100 m-xxl-5">
-        <!-- Email Address 입력부 -->
-        <span class="d-flex justify-content-between w-100 mb-3 form-floating">
-          <input
-            type="text"
-            class="form-control"
-            style="width: 70%; height: 3rem"
-            id="InputEmail"
-            aria-describedby="emailHelp"
-            required
-            placeholder="이메일"
-          />
-          <label for="InputEmail">Email address</label>
-          <input
-            class="form-control"
-            value="@khu.ac.kr"
-            aria-label="readonly input example"
-            style="
-              width: 28%;
-              text-align-last: center;
-              padding: 0;
-              font-size: large;
-              color: #35383a;
-            "
-            disabled
-          />
-        </span>
+      <form
+        class="w-100 h-100 d-flex flex-column justify-content-center align-items-center register-form rounded-5"
+        novalidate
+        action="#"
+        style="border: 3px solid white; background-color: transparent"
+        class="shadow"
+      >
+        <h1 class="fw-bold" style="color: #848383">LOGIN</h1>
+        <div class="m-xxl-5 w-75">
+          <!-- Email Address 입력부 -->
+          <span class="d-flex justify-content-between w-100 mb-3 form-floating">
+            <input
+              type="text"
+              class="form-control"
+              style="width: 70%; height: 3rem"
+              id="InputEmail"
+              aria-describedby="emailHelp"
+              required
+              placeholder="이메일"
+            />
+            <label for="InputEmail">Email address</label>
+            <input
+              class="form-control"
+              value="@khu.ac.kr"
+              aria-label="readonly input example"
+              style="
+                width: 28%;
+                text-align-last: center;
+                padding: 0;
+                font-size: large;
+                color: #35383a;
+              "
+              disabled
+            />
+          </span>
 
-        <!-- Password 입력부 -->
-        <div class="w-100 mb-3 form-floating">
-          <input
-            type="password"
-            class="form-control"
-            id="InputPassword"
-            required
-            minlength="6"
-            maxlength="14"
-            placeholder="비밀번호"
-            style="height: 3rem"
-          />
-          <label for="InputPassword">Password</label>
-          <div id="passwordHelpBlock" class="form-text">
-            비밀번호는 6~14자 사이로 작성해주세요.
+          <!-- Password 입력부 -->
+          <div class="w-100 mb-3 form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="InputPassword"
+              required
+              minlength="6"
+              maxlength="14"
+              placeholder="비밀번호"
+              style="height: 3rem"
+            />
+            <label for="InputPassword">Password</label>
+            <div id="passwordHelpBlock" class="form-text">
+              비밀번호는 6~14자 사이로 작성해주세요.
+            </div>
           </div>
         </div>
-      </div>
 
-      <div
-        class="form-check d-flex flex-column w-100 p-0 justify-content-between"
-      >
-        <div class="d-flex w-100 justify-content-between mt-3">
-          <a
-            href="./register.html"
-            class="link-underline-light text-decoration-none d-flex flex-column align-items-center justify-content-center"
-            >계정 만들기</a
-          >
-          <button type="submit" class="btn btn-primary form-check">
-            Submit
-          </button>
+        <div
+          class="form-check d-flex flex-column p-0 justify-content-between w-75"
+        >
+          <div class="d-flex w-100 justify-content-between mt-3">
+            <a
+              href="./register.html"
+              class="link-underline-light text-decoration-none d-flex flex-column align-items-center justify-content-center"
+              >계정 만들기</a
+            >
+            <button type="submit" class="btn btn-primary form-check">
+              Submit
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
