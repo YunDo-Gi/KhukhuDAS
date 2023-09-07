@@ -74,10 +74,11 @@ const sidebarChangeContent = async (token) => {
     a.classList.add("userInfo");
     a.classList.add("menu_item");
 
-    avatar.src = "http://localhost:3000/public/default-avatar.jpg";
+    // 아바타를 public 폴더에서 바로 가져오게 수정
+    avatar.src = "../../public/default-avatar.jpg";
     if (
       localStorage.getItem("profileImgUrl") !=
-      "http://localhost:3000/public/default-avatar.jpg"
+      "../../public/default-avatar.jpg"
     ) {
       avatar.src =
         "http://localhost:8080/api/profileImg/" +
