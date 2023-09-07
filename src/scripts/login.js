@@ -38,7 +38,7 @@ form.addEventListener("submit", async (e) => {
         profileImgUrl = profileImgUrl.replace("/profileImg\\", "");
         localStorage.setItem("profileImgUrl", profileImgUrl);
       } catch (e) {
-        profileImgUrl = "http://localhost:3000/public/default-avatar.jpg";
+        profileImgUrl = "../../public/default-avatar.jpg";
         localStorage.setItem("profileImgUrl", profileImgUrl);
       }
 
