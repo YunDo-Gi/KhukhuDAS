@@ -15,6 +15,30 @@ body
     height: 100%;
 }
 
+.arrow-svg-wrapper
+{
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: bounce 1s ease-in alternate infinite;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0px) rotateY(0deg);
+    }
+
+    100% {
+        transform: translateY(8px) rotateY(180deg);
+    }
+}
+
+.icon
+{
+    fill: aqua;
+}
+
 .experience
 {
     position: fixed;

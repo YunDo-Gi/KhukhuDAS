@@ -24,6 +24,7 @@ export default class World extends EventEmitter
             // Setup
             // this.environment = new Environment()
             this.readingRoom = new ReadingRoom()
+            this.paintingRoom = new Painting()
             this.camera = this.experience.camera
             // console.log(this.painting.model)
             this.controls = new Controls()

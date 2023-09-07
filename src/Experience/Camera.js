@@ -47,13 +47,6 @@ export default class Camera
             -10,
             10)
 
-        // this.orthographicCamera = new THREE.OrthographicCamera(
-        //     -this.sizes.width / 2, 
-        //     this.sizes.width / 2, 
-        //     this.sizes.height / 2, 
-        //     -this.sizes.height / 2, 
-        //     -100, 
-        //     100)
         this.scene.add(this.orthographicCamera)
 
         this.orthographicCamera.position.y = 5.65;

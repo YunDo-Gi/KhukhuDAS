@@ -27,8 +27,9 @@ export default class Preloader extends EventEmitter
     setSources()
     {
         this.room = this.world.readingRoom.getModel()
+        this.paintingRoom = this.world.paintingRoom.getModel()
+        console.log(this.paintingRoom)
         this.roomChildren = this.world.readingRoom.getRoomChildren()
-        console.log(this.roomChildren)
         // this.cubes = filterObjectsByString(this.roomChildren, 'cube')
         // console.log(this.cubes)
         convert(document.querySelector('.intro-text'))
@@ -97,7 +98,6 @@ export default class Preloader extends EventEmitter
                 x: 0,
                 y: 0,
                 z: 0,
-                onComplete: resolve
             })
         })
     }
