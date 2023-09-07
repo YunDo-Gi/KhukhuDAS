@@ -26,21 +26,7 @@
       방 생성 페이지
     </div>
 
-    <!-- navbar -->
-    <div class="hamburger-menu">
-        <input id="menu__toggle" type="checkbox" />
-        <label class="menu__btn" for="menu__toggle">
-          <span></span>
-        </label>
     
-        <ul class="menu__box">
-          <li><a class="menu__item" href="./index.html">Home</a></li>
-          <li><a class="menu__item" href="./createRoom.html">Create Room</a></li>
-          <li><a class="menu__item" href="./about.html">About</a></li>
-          <li><a class="menu__item logout" href="#" data-bs-toggle="modal" data-bs-target="#logout-modal">Logout</a></li>
-        </ul>
-      </div>
-    </div>
     
 
     <form
@@ -181,6 +167,22 @@
       </div>
     </form>
 
+    <!-- navbar -->
+    <div class="hamburger-menu">
+      <input id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle">
+        <span></span>
+      </label>
+  
+      <ul class="menu__box">
+        <li><a class="menu__item" href="./index.html">Home</a></li>
+        <li><a class="menu__item" href="./createRoom.html">Create Room</a></li>
+        <li><a class="menu__item" href="./about.html">About</a></li>
+        <li><a class="menu__item logout" href="#" data-bs-toggle="modal" data-bs-target="#logout-modal">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+
     <!-- logout 모달 창 -->
     <div
       class="modal fade"
@@ -228,7 +230,7 @@
     </script>
 
     <script src="../scripts/sidebar.js"></script>
-    <script src="../scripts/carousel.js"></script>
+    <script src="../scripts/createRoom.js"></script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

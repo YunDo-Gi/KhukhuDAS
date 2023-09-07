@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-/* html,
+html,
 body
 {
     position: fixed;
@@ -13,8 +13,31 @@ body
     left: 0;
     width: 100%;
     height: 100%;
-    background: ivory;
-} */
+}
+
+.arrow-svg-wrapper
+{
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: bounce 1s ease-in alternate infinite;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0px) rotateY(0deg);
+    }
+
+    100% {
+        transform: translateY(8px) rotateY(180deg);
+    }
+}
+
+.icon
+{
+    fill: aqua;
+}
 
 .experience
 {
@@ -85,4 +108,87 @@ body
 
 .is-active {
 
+}
+
+.hidden {
+    display: none;
+}
+
+/* Preloader */
+.preloader
+{
+    position: fixed;
+    background-color: beige;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    opacity: 1;
+}
+
+.preloader-wrapper
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.loading
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle
+{
+    width: 10px;
+    height: 10px;
+    margin: 6px;
+    border-radius: 50%;
+    background-color: pink;
+    animation: load 1s ease-in-out infinite;
+}
+
+.circle:nth-child(2)
+{
+    animation-delay: 0.1s;
+}
+
+.circle:nth-child(3)
+{
+    animation-delay: 0.2s;
+}
+
+@keyframes load {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Intro */
+.animate
+{
+    display: inline-block;
+    transform: translateY(100%);
+}
+
+.intro-text
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    color: azure;
+    font-size: 1.3rem;
 }

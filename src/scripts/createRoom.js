@@ -63,6 +63,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
+    console.log(localStorage.getItem("jwt"))
     const res = await fetch(url, {
       method: "POST",
       body: body,

@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.RoomCommentRequest;
-import com.example.demo.dto.RoomCommentResponse;
 import com.example.demo.service.RoomCommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,19 +19,29 @@ public class RoomCommentController {
     private final RoomCommentService roomCommentService;
 
 
-
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/room/{roomId}/comment")
     public ResponseEntity<?> createComment(Principal principal, @PathVariable(name = "roomId")Long roomId, @RequestBody RoomCommentRequest roomCommentRequest){
-        roomCommentService.createComment(roomId, roomCommentRequest, principal);
-        return ResponseEntity.ok().build();
+        return roomCommentService.createComment(roomId, roomCommentRequest, principal);
     }
 
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/room/{roomId}/comment/{commentId}")
     public ResponseEntity<?> updateComment(Principal principal, @PathVariable(name = "roomId")Long roomId, @PathVariable(name = "commentId")Long commentId, @RequestBody RoomCommentRequest roomCommentRequest){
-        roomCommentService.updateComment(roomId, commentId, roomCommentRequest, principal);
-        return ResponseEntity.ok().build();
+        return roomCommentService.updateComment(roomId, commentId, roomCommentRequest, principal);
+    }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/room/{roomId}/comment/{commentId}/recomment")
+    public ResponseEntity<?> createRecomment(Principal principal, @PathVariable("roomId") Long roomId, @PathVariable("commentId") Long commentId, @RequestBody RoomCommentRequest roomCommentRequest){
+        return roomCommentService.createRecomment(principal, roomId, commentId, roomCommentRequest);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/room/{roomId}/comment/{commentId}/recomment/{recommentId}")
+    public ResponseEntity<?> updateRecomment(Principal principal, @PathVariable("roomId") Long roomId, @PathVariable("commentId") Long commentId, @PathVariable("recommentId") Long recommentId , @RequestBody RoomCommentRequest roomCommentRequest){
+        return roomCommentService.updateRecomment(principal, roomId, commentId, recommentId, roomCommentRequest);
     }
 
 }

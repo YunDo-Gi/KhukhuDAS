@@ -101,6 +101,7 @@ const requestHandler = () => {
 
   body.append("updateRequest", data);
 
+
   const req = fetch(url, {
     method: "PUT",
     body: body,
@@ -110,13 +111,16 @@ const requestHandler = () => {
   }).then(async (res) => {
     if (res.status == 200) {
       alert("정보가 변경되었습니다.");
-      if (profile.files[0] != null)
-        localStorage.setItem("profileImgUrl", profile.files[0]);
+
+      if (profile.files[0] != null) localStorage.setItem("profileImgUrl", profile.files[0]);
+
       getUserInfo();
+
+      location.replace("./user.html");
     } else {
       alert("사용자 정보를 변경할 수 없습니다.");
     }
-  });
+  }).catch(e => console.log(e));
 };
 
 changeUser.addEventListener("click", infoChangeHandler);

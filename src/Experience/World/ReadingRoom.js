@@ -27,8 +27,8 @@ export default class ReadingRoom
         //     console.log(child)
         // }
         this.model.scale.set(0.4, 0.4, 0.4)
-        this.model.position.set(0, 0, 0)
-        // this.model.rotation.y = -Math.PI * 0.25
+        this.model.position.set(-2, -2, -1.8)
+        this.model.rotation.y = -Math.PI * 0.25
 
         this.model.traverse((child) =>
         {

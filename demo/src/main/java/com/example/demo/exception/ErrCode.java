@@ -24,7 +24,10 @@ public enum ErrCode {
     NO_EXIST_LIKE("KKDAS008", "좋아요 이력이 없습니다.", HttpStatus.BAD_REQUEST.value()),
     ALREADY_LIKE("DDKAS009", "이미 좋아요 이력이 있습니다.", HttpStatus.BAD_REQUEST.value()),
     NO_SUCH_COMMENT("KKDAS010","해당 댓글이 없습니다." , HttpStatus.BAD_REQUEST.value() ),
-    NO_PERMISSION_COMMENT("KKDAS011", "해당 댓글을 접근할 권리가 없습니다.", HttpStatus.FORBIDDEN.value());
+
+    NO_PERMISSION_COMMENT("KKDAS011", "해당 댓글을 접근할 권리가 없습니다.", HttpStatus.FORBIDDEN.value()),
+    NO_SUCH_RECOMMENT("KKDAS012", "해당 대댓글이 없습니다.", HttpStatus.BAD_REQUEST.value()),
+    NO_PERMISSION_RECOMMENT("KKDAS013", "해당 대댓글을 접근할 권리가 없습니다.", HttpStatus.FORBIDDEN.value());
 
 
     private final String code;
