@@ -13,7 +13,7 @@
     <link href="../css/sidebar.css" rel="stylesheet" />
   </head>
 
-  <body class="d-flex w-100 h-100 flex-column">
+  <body class="d-flex w-100 h-100 flex-column" style="background-color: bisque">
     <!-- 헤더 입력부 -->
     <div
       class="fs-3 mb-5 text-bg-primary d-flex justify-content-center w-100 align-items-center"
@@ -36,12 +36,14 @@
     </div>
 
     <form
-      class="w-100 d-flex flex-column align-items-center register-form mt-5"
+      class="register-form d-flex flex-column align-items-center position-absolute top-50 start-50 translate-middle rounded-5 shadow-lg"
+      style="width: 40%; border: 3px solid white"
     >
+      <h1 class="mt-5 fw-bold" style="color: #848383">REGISTER</h1>
       <!-- 상위 폼 작성부 -->
       <div
         class="basic-info-container container-sm d-flex flex-column align-items-center"
-        style="width: 30%"
+        style="width: 70%"
       >
         <!-- Email Address 입력부 -->
         <span class="d-flex justify-content-between w-100 mb-3 form-floating">
@@ -88,12 +90,12 @@
       </div>
 
       <!-- 구분선 -->
-      <div class="border mt-3 mb-3" style="width: 29%"></div>
+      <div class="border mt-3 mb-3" style="width: 70%"></div>
 
       <!-- 하위 폼 작성부 -->
       <div
-        class="basic-info-container container-sm d-flex flex-column align-items-center"
-        style="width: 30%; height: 16rem"
+        class="basic-info-container container-sm d-flex flex-column align-items-center mb-5"
+        style="height: 100%; width: 70%"
       >
         <!-- 이름 입력부 -->
         <div class="w-100 mb-3 form-floating">
