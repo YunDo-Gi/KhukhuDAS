@@ -12,16 +12,12 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -36,14 +32,14 @@ public class MediaService {
 
     private final MediaObjectRepository mediaObjectRepository;
 
-    private final String MAIN_DIR_NAME = System.getProperty("user.dir") +  "/demo/src/main/resources";
+    private final String MAIN_DIR_NAME = System.getProperty("user.dir") + File.separator + "demo" + File.separator + "src" + File.separator + "main" + File.separator + "resources";
 
-    private final String SUB_DIR_NAME = "/static";
+    private final String SUB_DIR_NAME = File.separator + "static";
 
     public String uploadProfileImg(MultipartFile media) throws Exception {
         log.info(MAIN_DIR_NAME);
         try {
-            File folder = new File(MAIN_DIR_NAME + SUB_DIR_NAME + "/profileImg");
+            File folder = new File(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "profileImg");
 
             if (!folder.exists()) {
                 folder.mkdirs();
@@ -58,7 +54,7 @@ public class MediaService {
             } else {
                 throw new Exception();
             }
-            String mediaURL = "/profileImg" + File.separator + generateFileName;
+            String mediaURL = File.separator + "profileImg" + File.separator + generateFileName;
             String destinationPath = MAIN_DIR_NAME +  SUB_DIR_NAME + mediaURL;
             File destination = new File(destinationPath);
             media.transferTo(destination);
@@ -75,7 +71,7 @@ public class MediaService {
         log.info(MAIN_DIR_NAME);
         try {
             List<String> fileNameList = new ArrayList<>();
-            File folder = new File(MAIN_DIR_NAME + SUB_DIR_NAME + "/room");
+            File folder = new File(MAIN_DIR_NAME + SUB_DIR_NAME + File.separator + "room");
 
             if (!folder.exists()) {
                 folder.mkdirs();
@@ -90,7 +86,7 @@ public class MediaService {
                     generateFileName = UUID.randomUUID().toString() + "." + extension;
                 }
 
-                String fileURL = "/room" + File.separator + generateFileName;
+                String fileURL =  File.separator + "room" + File.separator + generateFileName;
                 String destinationPath = MAIN_DIR_NAME + SUB_DIR_NAME + fileURL;
                 File destination = new File(destinationPath);
                 media.transferTo(destination);
@@ -125,7 +121,7 @@ public class MediaService {
 
     public void deleteFile(List<String> fileNames) {
         for (String fileName : fileNames) {
-            File savedFile = new File(MAIN_DIR_NAME + SUB_DIR_NAME + "/room/" + fileName);
+            File savedFile = new File(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "room" + File.separator + fileName);
             log.info("savedFile url : " + savedFile);
             if (savedFile.exists()) {
                 if (savedFile.delete()) {
@@ -140,7 +136,7 @@ public class MediaService {
     }
 
     public ResponseEntity<?> responseProfileImg(String imgURL) throws IOException {
-        InputStream imageStream = new FileInputStream(MAIN_DIR_NAME + SUB_DIR_NAME + "/profileImg/" + imgURL);
+        InputStream imageStream = new FileInputStream(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "profileImg" + File.separator + imgURL);
         byte[] imageByteArray = IOUtils.toByteArray(imageStream);
         imageStream.close();
         return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
