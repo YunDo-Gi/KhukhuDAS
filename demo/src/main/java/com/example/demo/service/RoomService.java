@@ -123,7 +123,7 @@ public class RoomService {
             Member member = memberRepository.findByEmail(principal.getName()).orElse(null);
             isMyRoom = member == room.getMember();
         }
-        List<String> fileURL = mediaService.findAllByRoomObject(roomId).stream().map(mediaObject -> mediaObject.getMediaObjectPath()).collect(Collectors.toList());
+        List<String> fileURL = mediaService.findAllByRoomObject(roomId).stream().map(mediaObject -> mediaService.getPathURL(mediaObject.getMediaObjectPath())).collect(Collectors.toList());
 
         room.increaseViewCount(); //조회수 증가
         RoomResponse roomResponse = RoomResponse.builder()
@@ -136,6 +136,7 @@ public class RoomService {
                 .createdDateTime(room.getCreatedAt())
                 .modifiedDate(room.getLastModifiedAt())
                 .viewCount(room.getView())
+                .likeCount(room.getRoomLikes().size())
                 .fileURLs(fileURL).build();
 
         return new ResponseEntity<RoomResponse>(roomResponse, HttpStatus.OK);

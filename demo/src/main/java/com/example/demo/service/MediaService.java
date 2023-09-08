@@ -12,17 +12,14 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -36,14 +33,14 @@ public class MediaService {
 
     private final MediaObjectRepository mediaObjectRepository;
 
-    private final String MAIN_DIR_NAME = System.getProperty("user.dir") +  "/demo/src/main/resources";
+    private final String MAIN_DIR_NAME = System.getProperty("user.dir") + File.separator + "demo" + File.separator + "src" + File.separator + "main" + File.separator + "resources";
 
-    private final String SUB_DIR_NAME = "/static";
+    private final String SUB_DIR_NAME = File.separator + "static";
 
     public String uploadProfileImg(MultipartFile media) throws Exception {
         log.info(MAIN_DIR_NAME);
         try {
-            File folder = new File(MAIN_DIR_NAME + SUB_DIR_NAME + "/profileImg");
+            File folder = new File(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "profileImg");
 
             if (!folder.exists()) {
                 folder.mkdirs();
@@ -58,7 +55,7 @@ public class MediaService {
             } else {
                 throw new Exception();
             }
-            String mediaURL = "/profileImg" + File.separator + generateFileName;
+            String mediaURL = File.separator + "profileImg" + File.separator + generateFileName;
             String destinationPath = MAIN_DIR_NAME +  SUB_DIR_NAME + mediaURL;
             File destination = new File(destinationPath);
             media.transferTo(destination);
@@ -75,7 +72,7 @@ public class MediaService {
         log.info(MAIN_DIR_NAME);
         try {
             List<String> fileNameList = new ArrayList<>();
-            File folder = new File(MAIN_DIR_NAME + SUB_DIR_NAME + "/room");
+            File folder = new File(MAIN_DIR_NAME + SUB_DIR_NAME + File.separator + "room");
 
             if (!folder.exists()) {
                 folder.mkdirs();
@@ -86,11 +83,11 @@ public class MediaService {
                 String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
                 String generateFileName = null;
                 MediaType mediaType = findMediaType(extension); //파일 확장자를 고려함.
-                if (mediaType.equals(MediaType.RAW)) {
+                if (mediaType.equals(MediaType.IMAGE)) {
                     generateFileName = UUID.randomUUID().toString() + "." + extension;
                 }
 
-                String fileURL = "/room" + File.separator + generateFileName;
+                String fileURL =  File.separator + "room" + File.separator + generateFileName;
                 String destinationPath = MAIN_DIR_NAME + SUB_DIR_NAME + fileURL;
                 File destination = new File(destinationPath);
                 media.transferTo(destination);
@@ -125,7 +122,8 @@ public class MediaService {
 
     public void deleteFile(List<String> fileNames) {
         for (String fileName : fileNames) {
-            File savedFile = new File(MAIN_DIR_NAME + SUB_DIR_NAME + "/room/" + fileName);
+            fileName = getPathURL(fileName);
+            File savedFile = new File(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "room" + File.separator + fileName);
             log.info("savedFile url : " + savedFile);
             if (savedFile.exists()) {
                 if (savedFile.delete()) {
@@ -140,7 +138,7 @@ public class MediaService {
     }
 
     public ResponseEntity<?> responseProfileImg(String imgURL) throws IOException {
-        InputStream imageStream = new FileInputStream(MAIN_DIR_NAME + SUB_DIR_NAME + "/profileImg/" + imgURL);
+        InputStream imageStream = new FileInputStream(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "profileImg" + File.separator + imgURL);
         byte[] imageByteArray = IOUtils.toByteArray(imageStream);
         imageStream.close();
         return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
@@ -162,6 +160,7 @@ public class MediaService {
 
 
 
+    @Deprecated //사용안됨
     public void responseMediaFile(Long roomId, HttpServletResponse httpServletResponse) throws IOException {
         List<String> fileNames = mediaObjectRepository.findAllByRoomId(roomId).stream().map(MediaObject::getMediaObjectPath).collect(Collectors.toList());
         HttpHeaders header = new HttpHeaders();
@@ -195,8 +194,31 @@ public class MediaService {
         mediaObjectRepository.deleteAll(originalFile);
     }
 
+    public ResponseEntity<?> responseRoomImg(String imagename) throws IOException {
+        InputStream imageStream = new FileInputStream(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "profileImg" + File.separator + imagename);
+        byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+        imageStream.close();
+        return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
+    }
+
     enum MediaType{
         IMAGE, RAW;
     }
+
+
+    public String getPathURL(String fileUrl){
+        List<String> url = Arrays.stream(fileUrl.split("/")).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        log.info(url.toString());
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String s : url){
+            stringBuilder.append(File.separator);
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
+
+    }
+
+
+
 
 }

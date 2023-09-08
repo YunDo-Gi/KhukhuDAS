@@ -155,7 +155,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .memberId(member.getId())
                 .nickname(member.getNickname())
-                .profileImgURL(member.getProfileImgURL())
+                .profileImgURL(mediaService.getPathURL(member.getProfileImgURL()))
                 .build();
 
     }
