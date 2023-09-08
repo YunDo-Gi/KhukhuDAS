@@ -1,5 +1,6 @@
 #menu__toggle {
   opacity: 0;
+  transform: rotate(45deg);
 }
 #menu__toggle:checked + .menu__btn > span {
   transform: rotate(45deg);
@@ -13,12 +14,13 @@
   transform: rotate(90deg);
 }
 #menu__toggle:checked ~ .menu__box {
-  top: 5% !important;
+  opacity: 80%;
+  top: 7% !important;
 }
 .menu__btn {
   position: fixed;
   top: 20px;
-  left: 20px;
+  right: 20px;
   width: 26px;
   height: 26px;
   cursor: pointer;
@@ -45,8 +47,9 @@
 .menu__box {
   display: block;
   position: fixed;
-  top: -100%;
-  left: 20px;
+  opacity: 0%;
+  top: 0%;
+  right: 20px;
   width: 230px;
   height: 50%;
   margin: 0;
@@ -55,7 +58,7 @@
   list-style: none;
   background-color: hsl(0, 0%, 100%);
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
-  transition-duration: 0.4s;
+  transition-duration: 0.5s, 2.5s;
 }
 .menu__item {
   display: block;

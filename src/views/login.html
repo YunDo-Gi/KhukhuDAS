@@ -11,6 +11,10 @@
       crossorigin="anonymous"
     />
     <link href="../css/sidebar.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/b062febd1b.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body
@@ -22,7 +26,7 @@
     <div class="hamburger-menu">
       <input id="menu__toggle" type="checkbox" />
       <label class="menu__btn" for="menu__toggle">
-        <span></span>
+        <i class="fa-solid fa-chevron-down"></i>
       </label>
 
       <ul class="menu__box">
@@ -38,11 +42,11 @@
         class="w-100 h-100 d-flex flex-column justify-content-center align-items-center register-form rounded-5"
         novalidate
         action="#"
-        style="border: 3px solid white; background-color: transparent"
+        style="border: 1px solid white; background-color: transparent"
         class="shadow"
       >
-        <h1 class="fw-bold" style="color: #848383">LOGIN</h1>
-        <div class="m-xxl-5 w-75">
+        <h2 class="fw-bold" style="color: #848383">LOGIN</h2>
+        <div class="m-xxl-3 w-75">
           <!-- Email Address 입력부 -->
           <span class="d-flex justify-content-between w-100 mb-3 form-floating">
             <input
@@ -65,6 +69,7 @@
                 padding: 0;
                 font-size: large;
                 color: #35383a;
+                background-color: #fef4ec;
               "
               disabled
             />
@@ -95,10 +100,15 @@
           <div class="d-flex w-100 justify-content-between mt-3">
             <a
               href="./register.html"
+              style="color: #848383"
               class="link-underline-light text-decoration-none d-flex flex-column align-items-center justify-content-center"
               >계정 만들기</a
             >
-            <button type="submit" class="btn btn-primary form-check">
+            <button
+              type="submit"
+              class="btn form-check"
+              style="background-color: transparent"
+            >
               Submit
             </button>
           </div>

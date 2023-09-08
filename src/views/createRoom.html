@@ -10,13 +10,13 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
-    <link
-      href="../css/sidebar.css"
-      rel="stylesheet"
-    />
+    <link href="../css/sidebar.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/b062febd1b.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
-  
   <body class="d-flex w-100 h-100 flex-column">
     <!-- 헤더 입력부 -->
     <div
@@ -25,9 +25,6 @@
     >
       방 생성 페이지
     </div>
-
-    
-    
 
     <form
       class="w-100 d-flex flex-column align-items-center register-form mt-5"
@@ -50,54 +47,66 @@
           <label for="InputTitle">Title</label>
         </span>
 
-      
-      <!-- 이미지 보여주는 부분 -->
-      <div id="carouselCaption" class="carousel slide w-100 position-relative">
-        <div class="carousel-indicators">
+        <!-- 이미지 보여주는 부분 -->
+        <div
+          id="carouselCaption"
+          class="carousel slide w-100 position-relative"
+        >
+          <div class="carousel-indicators">
             <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            aria-label="Slide 1"
-          ></button>
-        </div>
-        <div class="carousel-inner w-100">
-            <img
-            src="../../public/default-avatar.jpg"
-            class="d-block w-100"
-            alt="..."
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h5 style="color: black; font-weight: 900;">예시 이미지</h5>
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
           </div>
+          <div class="carousel-inner w-100">
+            <img
+              src="../../public/default-avatar.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5 style="color: black; font-weight: 900">예시 이미지</h5>
+            </div>
+          </div>
+
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselCaption"
+            data-bs-slide="prev"
+            style="
+              height: fit-content;
+              width: fit-content;
+              top: 50%;
+              background-color: #0d6efd;
+            "
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselCaption"
+            data-bs-slide="next"
+            style="
+              height: fit-content;
+              width: fit-content;
+              top: 50%;
+              background-color: #0d6efd;
+            "
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
 
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselCaption"
-          data-bs-slide="prev"
-          style="height: fit-content; width: fit-content; top:50%; background-color: #0D6EFD;"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselCaption"
-          data-bs-slide="next"
-          style="height: fit-content; width: fit-content; top:50%; background-color: #0D6EFD;"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-      
         <!-- 구분선 -->
-      <div class="border mt-3 mb-3" style="width: 100%"></div>
+        <div class="border mt-3 mb-3" style="width: 100%"></div>
 
         <!-- comment 입력부 -->
         <div class="w-100 form-floating">
@@ -112,16 +121,13 @@
         </div>
       </div>
 
-      
       <div
         class="basic-info-container container-sm d-flex flex-column align-items-center"
         style="width: 30%; height: 16rem"
       >
-
         <div
           class="w-100 mb-3 d-flex align-items-center justify-content-between"
         >
-
           <!-- 취미 입력부 -->
           <span class="mt-4 w-100">
             <select class="form-select" id="InputInterest" required>
@@ -146,9 +152,7 @@
                 multiple
               />
             </div>
-            
           </div>
-          
         </div>
 
         <div class="d-flex w-100 justify-content-between mt-3">
@@ -171,30 +175,33 @@
     <div class="hamburger-menu">
       <input id="menu__toggle" type="checkbox" />
       <label class="menu__btn" for="menu__toggle">
-        <span></span>
+        <i class="fa-solid fa-chevron-down"></i>
       </label>
-  
+
       <ul class="menu__box">
         <li><a class="menu__item" href="./index.html">Home</a></li>
-        <li><a class="menu__item" href="./createRoom.html">Create Room</a></li>
+        <li>
+          <a class="menu__item" href="./createRoom.html">Create Room</a>
+        </li>
         <li><a class="menu__item" href="./about.html">About</a></li>
-        <li><a class="menu__item logout" href="#" data-bs-toggle="modal" data-bs-target="#logout-modal">Logout</a></li>
+        <li>
+          <a
+            class="menu__item logout"
+            href="#"
+            data-bs-toggle="modal"
+            data-bs-target="#logout-modal"
+            >Logout</a
+          >
+        </li>
       </ul>
     </div>
-  </div>
 
     <!-- logout 모달 창 -->
-    <div
-      class="modal fade"
-      id="logout-modal"
-      tabindex="-1"
-    >
+    <div class="modal fade" id="logout-modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="logout-modal">
-              Logout
-            </h1>
+            <h1 class="modal-title fs-5" id="logout-modal">Logout</h1>
             <button
               type="button"
               class="btn-close"
@@ -203,9 +210,7 @@
             ></button>
           </div>
 
-          <div class="modal-body">
-            로그아웃 하시겠습니까?
-          </div>
+          <div class="modal-body">로그아웃 하시겠습니까?</div>
 
           <div class="modal-footer pagination">
             <button
@@ -215,9 +220,7 @@
             >
               Close
             </button>
-            <a class="page-link logout-btn btn">
-              Logout
-            </a>
+            <a class="page-link logout-btn btn"> Logout </a>
           </div>
         </div>
       </div>
