@@ -35,7 +35,8 @@ form.addEventListener("submit", async (e) => {
       let nickname = userInfo.nickname;
       try {
         let profileImgUrl = userInfo.profileImgURL;
-        profileImgUrl = profileImgUrl.replace("/profileImg\\", "");
+        profileImgUrl = profileImgUrl.replace("\\profileImg\\", "");
+        profileImgUrl = profileImgUrl.replace("/profileImg/", "");
         localStorage.setItem("profileImgUrl", profileImgUrl);
       } catch (e) {
         profileImgUrl = "../../public/default-avatar.jpg";

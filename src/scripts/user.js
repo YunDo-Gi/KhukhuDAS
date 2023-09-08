@@ -31,11 +31,12 @@ const getUserInfo = () => {
     email.value = p.email;
     job.value = p.job;
     phoneNumber.value = p.phoneNumber;
-    preview.src = "http://localhost:3000/public/default-avatar.jpg";
+    preview.src = "../../public/default-avatar.jpg";
+
     if (p.profileImgURL != null)
       preview.src =
         "http://localhost:8080/api/profileImg/" +
-        p.profileImgURL.replace("/profileImg\\", "");
+        p.profileImgURL.replace("\\\\profileImg\\", "");
 
     realname.value = p.realName;
     console.log(p);
@@ -112,7 +113,10 @@ const requestHandler = () => {
     if (res.status == 200) {
       alert("정보가 변경되었습니다.");
 
-      if (profile.files[0] != null) localStorage.setItem("profileImgUrl", profile.files[0]);
+      if (profile.files[0] != null) {
+        localStorage.setItem("profileImgUrl", profile.files[0]);
+       
+      }
 
       getUserInfo();
 

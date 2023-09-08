@@ -76,6 +76,7 @@ const sidebarChangeContent = async (token) => {
 
     // 아바타를 public 폴더에서 바로 가져오게 수정
     avatar.src = "../../public/default-avatar.jpg";
+    avatar.style.paddingLeft="12px";
     if (
       localStorage.getItem("profileImgUrl") !=
       "../../public/default-avatar.jpg"

@@ -32,6 +32,11 @@
 
       <ul class="menu__box">
         <li><a class="menu__item" href="./index.html">Home</a></li>
+        <li>
+          <a class="menu__item create" href="./createRoom.html" >Create Room</a>
+        </li>
+        <li><a class="menu__item" href="./about.html">About</a></li>
+        <li>
           <a
             class="menu__item logout"
             href="#"
@@ -41,7 +46,7 @@
           >
         </li>
       </ul>
-    </div>  
+    </div> 
 
     <form
       class="register-form d-flex flex-column align-items-center position-absolute top-50 start-50 translate-middle rounded-5 shadow-lg"
@@ -114,6 +119,7 @@
             id="InputName"
             placeholder="사용자 이름"
             minlength="2"
+            maxlength="5"
             required
           />
           <label for="InputName">Name</label>
@@ -127,6 +133,7 @@
             style="height: 3rem"
             id="InputNick"
             placeholder="닉네임"
+            maxlength="9"
             required
           />
           <label for="InputNick">Account Name</label>

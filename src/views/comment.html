@@ -11,26 +11,35 @@
       crossorigin="anonymous"
     />
     <link href="../css/sidebar.css" rel="stylesheet" />
-    <script
-      src="https://kit.fontawesome.com/b062febd1b.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
 
   <body>
-    <nav aria-label="Page navigation example">
-      <!--  -->
-      <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item">
-          <a class="page-link" href="?page=1">1</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
-        <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
-    </nav>
-    <button class="get-room-test">test</button>
+    <div
+      class="fs-3 mb-5 text-bg-primary d-flex justify-content-center w-100 align-items-center"
+      style="top: 10%; height: 10%"
+    >
+      댓글창
+    </div>
+
+    <div class="border rounded-1 w-50" style="position:relative; left:25%">
+      <!-- 나중에 이 부분을 서버에서 받아온 데이터를 토대로 추가해야함. -->
+      <!-- <div class="comment-box d-flex align-items-center user-info border-bottom mb-3 ">
+        <img alt="img" src="../../public/default-avatar.jpg" style="width:2.5rem; height: 2.5rem; border-radius: 24px;">
+        <div class="" >
+          <div class="user-name">name</div>
+          <div class="user-comment">commentcommentcommentcommentcommentcomment</div>
+          <a class="leave-comment" href="#">댓글달기</a>
+        </div>
+      </div> -->
+      
+      <!-- 댓글 입력하는 부분 -->
+      <div class="input-box d-flex align-items-center justify-content-between">
+        <img alt="user-img" src="../../public/default-avatar.jpg" style="width:2.5rem; height: 2.5rem; border-radius: 24px;">
+        <input type="text" class="w-75" placeholder="Leave a comment" id="comment-input">
+        <button class="border-0 btn btn-secondary" id="comment-btn">작성</button>
+      </div>
+    </div>
+    
     <!-- navbar -->
     <div class="hamburger-menu">
       <input id="menu__toggle" type="checkbox" />
@@ -122,6 +131,5 @@
     crossorigin="anonymous"
   ></script>
   <script src="../scripts/sidebar.js"></script>
-  <script src="../scripts/room.js"></script>
   <script src="../scripts/comment.js"></script>
 </html>
