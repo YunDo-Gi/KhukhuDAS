@@ -25,7 +25,12 @@ public class MediaController {
     public ResponseEntity<?> userSearch(@PathVariable("imagename") String imagename) throws IOException {
         return mediaService.responseProfileImg(imagename);
     }
+    @GetMapping(value = "/room/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<?> roomSearch(@PathVariable("imagename") String imagename) throws IOException {
+        return mediaService.responseRoomImg(imagename);
+    }
 
+    @Deprecated //사용 안함
     @GetMapping(value = "/room-object/{roomId}")
     public void roomObject(@PathVariable(value = "roomId") Long roomId, HttpServletResponse httpServletResponse) throws IOException {
         mediaService.responseMediaFile(roomId, httpServletResponse);

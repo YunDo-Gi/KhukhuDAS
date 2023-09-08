@@ -194,6 +194,13 @@ public class MediaService {
         mediaObjectRepository.deleteAll(originalFile);
     }
 
+    public ResponseEntity<?> responseRoomImg(String imagename) throws IOException {
+        InputStream imageStream = new FileInputStream(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "profileImg" + File.separator + imagename);
+        byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+        imageStream.close();
+        return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
+    }
+
     enum MediaType{
         IMAGE, RAW;
     }
