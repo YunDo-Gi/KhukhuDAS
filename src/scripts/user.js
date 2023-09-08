@@ -39,7 +39,6 @@ const getUserInfo = () => {
         p.profileImgURL.replace("\\\\profileImg\\", "");
 
     realname.value = p.realName;
-    console.log(p);
   });
 
   // preview.src = "http://localhost:3000/public/default-avatar.jpg";
@@ -85,7 +84,7 @@ const infoChangeHandler = () => {
 const requestHandler = () => {
   const url = "http://localhost:8080/api/auth/profile";
   let body = new FormData();
-  let data = JSON.stringify({
+  let data = {
     email: email.value,
     job: job.value,
     realName: realname.value,
@@ -93,14 +92,17 @@ const requestHandler = () => {
     nickname: nick.value,
     phoneNumber: phoneNumber.value,
     isChangedProfileImg: false,
-  });
+  };
 
-  if (profile.files[0] != null) {
+
+  if (profile.files[0] != undefined) {
     data.isChangedProfileImg = true;
     body.append("profileImg", profile.files[0]);
+    console.log(data)
   }
   
-  body.append("updateRequest", data);
+
+  body.append("updateRequest",JSON.stringify(data) );
   
   
   const req = fetch(url, {
