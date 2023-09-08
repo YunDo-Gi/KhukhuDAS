@@ -42,7 +42,7 @@ public class UserService {
                 .phoneNumber(member.getPhoneNumber())
                 .nickname(member.getNickname())
                 .email(member.getEmail())
-                .profileImgURL(member.getProfileImgURL())
+                .profileImgURL(mediaService.getPathURL(member.getProfileImgURL()))
                 .createdDateTime(member.getCreatedAt())
                 .job(member.getJob())
                 .build();
@@ -100,7 +100,7 @@ public class UserService {
                 .phoneNumber(member.getPhoneNumber())
                 .nickname(member.getNickname())
                 .email(member.getEmail())
-                .profileImgURL(member.getProfileImgURL())
+                .profileImgURL(mediaService.getPathURL(member.getProfileImgURL()))
                 .createdDateTime(member.getCreatedAt())
                 .job(member.getJob())
                 .build();

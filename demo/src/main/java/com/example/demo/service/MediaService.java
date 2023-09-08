@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -82,7 +83,7 @@ public class MediaService {
                 String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
                 String generateFileName = null;
                 MediaType mediaType = findMediaType(extension); //파일 확장자를 고려함.
-                if (mediaType.equals(MediaType.RAW)) {
+                if (mediaType.equals(MediaType.IMAGE)) {
                     generateFileName = UUID.randomUUID().toString() + "." + extension;
                 }
 
@@ -121,6 +122,7 @@ public class MediaService {
 
     public void deleteFile(List<String> fileNames) {
         for (String fileName : fileNames) {
+            fileName = getPathURL(fileName);
             File savedFile = new File(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "room" + File.separator + fileName);
             log.info("savedFile url : " + savedFile);
             if (savedFile.exists()) {
@@ -158,6 +160,7 @@ public class MediaService {
 
 
 
+    @Deprecated //사용안됨
     public void responseMediaFile(Long roomId, HttpServletResponse httpServletResponse) throws IOException {
         List<String> fileNames = mediaObjectRepository.findAllByRoomId(roomId).stream().map(MediaObject::getMediaObjectPath).collect(Collectors.toList());
         HttpHeaders header = new HttpHeaders();
@@ -194,5 +197,21 @@ public class MediaService {
     enum MediaType{
         IMAGE, RAW;
     }
+
+
+    public String getPathURL(String fileUrl){
+        List<String> url = Arrays.stream(fileUrl.split("/")).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        log.info(url.toString());
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String s : url){
+            stringBuilder.append(File.separator);
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
+
+    }
+
+
+
 
 }
