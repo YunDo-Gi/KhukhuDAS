@@ -40,7 +40,6 @@ const handleFiles = async () => {
     // 요소 추가
     indicator.append(button);
     inner.appendChild(item);
-    console.log(inner);
   }
 };
 
@@ -61,6 +60,7 @@ form.addEventListener("submit", async (e) => {
   for (let i = 0; i < files.files.length; i++) {
     body.append("roomFile", files.files[i]);
   }
+
 
   try {
     console.log(localStorage.getItem("jwt"))

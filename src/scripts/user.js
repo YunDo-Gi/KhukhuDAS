@@ -99,10 +99,10 @@ const requestHandler = () => {
     data.isChangedProfileImg = true;
     body.append("profileImg", profile.files[0]);
   }
-
+  
   body.append("updateRequest", data);
-
-
+  
+  
   const req = fetch(url, {
     method: "PUT",
     body: body,
@@ -110,12 +110,15 @@ const requestHandler = () => {
       Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   }).then(async (res) => {
+    const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+    const { value, done } = await reader.read();
+    let ret = JSON.parse(value).url.replace("\\profileImg\\", "")
     if (res.status == 200) {
       alert("정보가 변경되었습니다.");
 
       if (profile.files[0] != null) {
-        localStorage.setItem("profileImgUrl", profile.files[0]);
-       
+        await localStorage.setItem("profileImgUrl", ret); // 서버에서 파일 URL 받아오게 수정
+        console.log(localStorage.getItem("profileImgUrl"))
       }
 
       getUserInfo();

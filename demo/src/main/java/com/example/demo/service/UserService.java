@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -78,9 +79,9 @@ public class UserService {
             else if (currentProfileImgUrl != null && profileImg != null) {
                 List<String> url = new ArrayList<>();
                 url.add(currentProfileImgUrl);
-                mediaService.deleteFile(url);
                 toSetProfileImgURL = mediaService.uploadProfileImg(profileImg);
-
+                mediaService.deleteFile(url);
+                log.info(toSetProfileImgURL);
             }
 
         } else {
@@ -88,7 +89,10 @@ public class UserService {
 
         }
         member.setProfileImgURL(toSetProfileImgURL);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+
+        HashMap<String, String> response = new HashMap<>();
+        response.put("url", member.getProfileImgURL());
+        return new ResponseEntity<HashMap>(response, HttpStatus.OK);
     }
 
     public ResponseEntity<?> getUserProfile(Long userId) {

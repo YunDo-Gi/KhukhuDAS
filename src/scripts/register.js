@@ -51,7 +51,10 @@ form.addEventListener("submit", (e) => {
       phoneNumber: phoneNumber.value,
     })
   );
-  if (profile.files[0] != null) body.append("profileImg", profile.files[0]);
+  if (profile.files[0] != null) {
+    body.append("profileImg", profile.files[0]);
+    console.log(profile.files[0])
+  }
   const res = fetch("http://localhost:8080/api/auth/sign-up", {
     method: "POST",
     body: body,
