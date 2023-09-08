@@ -136,6 +136,7 @@ public class RoomService {
                 .createdDateTime(room.getCreatedAt())
                 .modifiedDate(room.getLastModifiedAt())
                 .viewCount(room.getView())
+                .likeCount(room.getRoomLikes().size())
                 .fileURLs(fileURL).build();
 
         return new ResponseEntity<RoomResponse>(roomResponse, HttpStatus.OK);

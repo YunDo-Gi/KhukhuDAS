@@ -28,6 +28,8 @@ public class RoomResponse {
 
     private Integer viewCount;
 
+    private Integer likeCount;
+
     private Boolean isMyRoom;
 
     private List<String> fileURLs;
