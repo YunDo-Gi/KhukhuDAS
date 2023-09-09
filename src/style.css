@@ -15,9 +15,42 @@ body
     height: 100%;
 }
 
+header
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Landing Page */
+.login-wrapper
+{
+    position: fixed;
+    width: 40%;
+    height: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+}
+
 .arrow-svg-wrapper
 {
-    position: absolute;
+    position: fixed;
     top: 90%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -36,7 +69,7 @@ body
 
 .icon
 {
-    fill: aqua;
+    fill: grey;
 }
 
 .experience

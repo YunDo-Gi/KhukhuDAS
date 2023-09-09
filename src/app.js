@@ -11,7 +11,7 @@ THREE.ColorManagement.enabled = false
  * Base
  */
 // Debug
-const gui = new dat.GUI()
+// const gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.landingCanvas')
@@ -41,39 +41,57 @@ img.src = backimg;
 /**
  * Fonts
  */
-const fontLoader = new FontLoader()
+// const fontLoader = new FontLoader()
 const material = new THREE.MeshBasicMaterial()
 
-fontLoader.load(
-    '/fonts/helvetiker_regular.typeface.json',
-    (font) =>
-    {
-        const textGeometry = new TextGeometry(
-            'Cool Logo',
-            {
-                font: font,
-                size: 0.2,
-                height: 0.2,
-                curveSegments: 6,
-                bevelEnabled: true,
-                bevelThickness: 0.03,
-                bevelSize: 0.02,
-                bevelOffset: 0,
-                bevelSegments: 5
-            }
-        )
-        textGeometry.center()
+// fontLoader.load(
+//     '/fonts/helvetiker_regular.typeface.json',
+//     (font) =>
+//     {
+//         const textGeometry = new TextGeometry(
+//             'Cool Logo',
+//             {
+//                 font: font,
+//                 size: 0.2,
+//                 height: 0.2,
+//                 curveSegments: 6,
+//                 bevelEnabled: true,
+//                 bevelThickness: 0.03,
+//                 bevelSize: 0.02,
+//                 bevelOffset: 0,
+//                 bevelSegments: 5
+//             }
+//         )
+//         textGeometry.center()
 
-        const text = new THREE.Mesh(textGeometry, material)
-        scene.add(text)
+//         const text = new THREE.Mesh(textGeometry, material)
+//         scene.add(text)
 
-        text.position.y = 3.5
-    }
-)
+//         text.position.y = 3.5
+//     }
+// )
 
 const geometry = new THREE.SphereGeometry( 0.3, 20, 20 );
-const sphere = new THREE.Mesh( geometry, material );
-scene.add( sphere );
+const sphere1 = new THREE.Mesh( geometry, material );
+const sphere2 = new THREE.Mesh( geometry, material );
+const sphere3 = new THREE.Mesh( geometry, material );
+const sphere4 = new THREE.Mesh( geometry, material );
+const sphere5 = new THREE.Mesh( geometry, material );
+const sphere6 = new THREE.Mesh( geometry, material );
+
+sphere2.position.x = 0.5;
+sphere3.position.x = 1;
+sphere4.position.x = 0.7;
+sphere5.position.x = -1;
+sphere6.position.x = -0.5;
+
+sphere2.position.z = -0.5;
+sphere3.position.z = -1;
+sphere4.position.z = -1.5;
+sphere5.position.z = -2;
+
+
+scene.add( sphere1, sphere2, sphere3, sphere4, sphere5, sphere6 );
 
 
 
@@ -115,6 +133,17 @@ camera.position.y = 3
 camera.position.z = 2
 scene.add(camera)
 
+const orthographicCamera = new THREE.OrthographicCamera(
+    (-sizes.width / sizes.height * 5) / 2,
+    (sizes.width / sizes.height * 5) / 2,
+    5 / 2,
+    -5 / 2,
+    -10,
+    10)
+
+orthographicCamera.position.y = 4;
+scene.add(orthographicCamera)
+
 // Controls
 // const controls = new OrbitControls(camera, canvas)
 // controls.enableDamping = true
@@ -140,7 +169,12 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Animation
-    gsap.to(sphere.position, {duration: 0.1, y: Math.abs( Math.sin( elapsedTime ) ) * 3 + 0.3, ease: "power2.inOut"})
+    gsap.to(sphere1.position, {duration: 0.1, y: Math.abs( Math.sin( elapsedTime ) ) * 3 + 0.3, ease: "ease.inOut"})
+    gsap.to(sphere2.position, {duration: 0.1, y: Math.abs( Math.sin( elapsedTime + Math.PI / 5) ) * 3.2 + 0.3, ease: "power2.inOut"})
+    gsap.to(sphere3.position, {duration: 0.1, y: Math.abs( Math.sin( elapsedTime + Math.PI / 6 ) ) * 3 + 0.3, ease: "power2.inOut"})
+    gsap.to(sphere4.position, {duration: 0.1, y: Math.abs( Math.sin( elapsedTime + Math.PI / 3) ) * 3 + 0.3, ease: "power2.inOut"})
+    gsap.to(sphere5.position, {duration: 0.1, y: Math.abs( Math.sin( elapsedTime + Math.PI / 2) ) * 3.6 + 0.3, ease: "power2.inOut"})
+    gsap.to(sphere6.position, {duration: 0.1, y: Math.abs( Math.sin( elapsedTime + Math.PI / 7) ) * 3.7 + 0.3, ease: "power2.inOut"})
 
     // Render
     renderer.render(scene, camera)
