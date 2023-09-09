@@ -55,9 +55,6 @@ public class SecurityConfig {
                         req -> req
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers(request -> CorsUtils.isPreFlightRequest(request)).permitAll()
-                                .requestMatchers("/swagger-resources/**").permitAll()
-                                .requestMatchers("/swagger-ui/**").permitAll()
-                                .requestMatchers("/v3/api-docs/**").permitAll()
                                 .anyRequest().permitAll()
                         // 나머지 경로는 전부 승인 받아야함
                 )
