@@ -8,6 +8,17 @@ import { gsap } from 'gsap'
 THREE.ColorManagement.enabled = false
 
 /**
+ * Frames
+ */
+
+const loginWrapper = document.querySelector('.login-wrapper')
+const btnPopup = document.querySelector('.btn-popup')
+
+btnPopup.addEventListener('click', () => {
+    loginWrapper.classList.toggle('active-popup')  
+})
+
+/**
  * Base
  */
 // Debug
