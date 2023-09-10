@@ -1,8 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.controller.converter.ObjectToDtoUtil;
-import com.example.demo.dto.RoomRequest;
-import com.example.demo.dto.RoomResponse;
+import com.example.demo.dto.*;
 import com.example.demo.exception.auth.InternalServerException;
 import com.example.demo.exception.auth.InvalidAccessTokenException;
 import com.example.demo.exception.auth.NotFoundMemberException;
@@ -24,9 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -118,14 +115,49 @@ public class RoomService {
 
         Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
 
-        Boolean isMyRoom = false;
-        if(principal != null){
-            Member member = memberRepository.findByEmail(principal.getName()).orElse(null);
-            isMyRoom = member == room.getMember();
+        boolean isMyRoom = false;
+        boolean isLike = false;
+        Long currentUserId = null;
+
+        if (principal != null) {
+            Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
+            currentUserId = member.getId();
+            isMyRoom = member.getId().equals(room.getMember().getId());
+            isLike = roomLikeRepository.existsByMemberIdAndRoomId(member.getId(), roomId);
         }
         List<String> fileURL = mediaService.findAllByRoomObject(roomId).stream().map(mediaObject -> mediaService.getPathURL(mediaObject.getMediaObjectPath())).collect(Collectors.toList());
 
+        final Long finalCurrentUserId = currentUserId;
+        List<RoomCommentResponse> roomCommentResponses = room.getComments().stream().filter(comment -> comment.getParent() == null).map(comment -> {
+            return RoomCommentResponse.builder()
+                    .commentId(comment.getId())
+                    .content(comment.getContent())
+                    .recommentCount(comment.getChildren().size())
+                    .user(AuthenticationResponse.builder()
+                            .memberId(comment.getMember().getId())
+                            .nickname(comment.getMember().getNickname())
+                            .profileImgURL(comment.getMember().getProfileImgURL())
+                            .build())
+                    .isMyComment(comment.getMember().getId().equals(finalCurrentUserId))
+                    .createdDate(comment.getLastModifiedAt())
+                    .recomments(comment.getChildren().stream().map(recomment -> {
+                        return RoomRecommentResponse.builder()
+                                .recommentId(recomment.getId())
+                                .content(recomment.getContent())
+                                .user(AuthenticationResponse.builder()
+                                        .memberId(recomment.getMember().getId())
+                                        .nickname(recomment.getMember().getNickname())
+                                        .profileImgURL(recomment.getMember().getProfileImgURL())
+                                        .build())
+                                .createdDate(recomment.getLastModifiedAt())
+                                .isMyComment(recomment.getMember().getId().equals(finalCurrentUserId))
+                                .build();
+                    }).collect(Collectors.toList()))
+                    .build();
+        }).toList();
         room.increaseViewCount(); //조회수 증가
+
+
         RoomResponse roomResponse = RoomResponse.builder()
                 .id(room.getId())
                 .isMyRoom(isMyRoom)
@@ -136,6 +168,8 @@ public class RoomService {
                 .createdDateTime(room.getCreatedAt())
                 .modifiedDate(room.getLastModifiedAt())
                 .viewCount(room.getView())
+                .isLike(isLike)
+                .roomCommentResponses(roomCommentResponses)
                 .likeCount(room.getRoomLikes().size())
                 .fileURLs(fileURL).build();
 
@@ -161,21 +195,21 @@ public class RoomService {
     }
 
     public ResponseEntity<Void> likeThisRoom(Long roomId, Principal principal) {
-        if(principal == null) throw new InvalidAccessTokenException();
+        if (principal == null) throw new InvalidAccessTokenException();
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
         Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
-        if(!roomLikeRepository.existsByMemberIdAndRoomId(member.getId(), roomId)){
+        if (!roomLikeRepository.existsByMemberIdAndRoomId(member.getId(), roomId)) {
             RoomLike roomLike = RoomLike.builder()
                     .room(room).member(member).build();
             roomLikeRepository.save(roomLike);
-        }else{
+        } else {
             throw new AlreadyLikeException();
         }
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     public ResponseEntity<Void> unlikeThisRoom(Long roomId, Principal principal) {
-        if(principal == null) throw new InvalidAccessTokenException();
+        if (principal == null) throw new InvalidAccessTokenException();
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
         Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
         RoomLike roomLike = roomLikeRepository.findByRoomIdAndMemberId(roomId, member.getId()).orElseThrow(NoExistLikeException::new);

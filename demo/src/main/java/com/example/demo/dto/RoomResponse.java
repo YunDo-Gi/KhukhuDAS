@@ -32,6 +32,10 @@ public class RoomResponse {
 
     private Boolean isMyRoom;
 
+    private Boolean isLike;
+
     private List<String> fileURLs;
+
+    private List<RoomCommentResponse> roomCommentResponses;
 
 }
