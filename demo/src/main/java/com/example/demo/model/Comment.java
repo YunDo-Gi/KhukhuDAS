@@ -26,7 +26,7 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name = "parent_id")
     private Comment parent; //부모 댓글
 
-    @OneToMany(mappedBy = "parent", orphanRemoval = true) //고아 객체 설정 부모의 외래키가 null이 될 시 자동 삭제.
+    @OneToMany(mappedBy = "parent", orphanRemoval = true, fetch = FetchType.LAZY) //고아 객체 설정 부모의 외래키가 null이 될 시 자동 삭제.
     private List<Comment> children = new ArrayList<>(); //하위 댓글 리스트
 
     @ManyToOne(fetch = FetchType.LAZY)
