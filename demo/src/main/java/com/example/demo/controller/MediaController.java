@@ -25,7 +25,7 @@ public class MediaController {
     public ResponseEntity<?> userSearch(@PathVariable("imagename") String imagename) throws IOException {
         return mediaService.responseProfileImg(imagename);
     }
-    @GetMapping(value = "/room/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/roomImg/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<?> roomSearch(@PathVariable("imagename") String imagename) throws IOException {
         return mediaService.responseRoomImg(imagename);
     }
