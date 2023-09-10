@@ -195,7 +195,7 @@ public class MediaService {
     }
 
     public ResponseEntity<?> responseRoomImg(String imagename) throws IOException {
-        InputStream imageStream = new FileInputStream(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "profileImg" + File.separator + imagename);
+        InputStream imageStream = new FileInputStream(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "room" + File.separator + imagename);
         byte[] imageByteArray = IOUtils.toByteArray(imageStream);
         imageStream.close();
         return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
