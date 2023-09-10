@@ -4,6 +4,7 @@ import * as dat from 'lil-gui'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 import { gsap } from 'gsap'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 THREE.ColorManagement.enabled = false
 
@@ -11,12 +12,7 @@ THREE.ColorManagement.enabled = false
  * Frames
  */
 
-const loginWrapper = document.querySelector('.login-wrapper')
-const btnPopup = document.querySelector('.btn-popup')
 
-btnPopup.addEventListener('click', () => {
-    loginWrapper.classList.toggle('active-popup')  
-})
 
 /**
  * Base
@@ -36,14 +32,6 @@ scene.add(axisHelper)
 
 const gridHelper = new THREE.GridHelper(20, 20)
 scene.add(gridHelper)
-
-const backimg = 'background/main.png';
-const img = new Image();
-img.onload = function () {
-	scene.background = new THREE.TextureLoader().load(backimg);
-	setBackground(scene, img.width, img.height);
-};
-img.src = backimg;
 
 /**
  * Textures
@@ -81,6 +69,16 @@ const material = new THREE.MeshBasicMaterial()
 //         text.position.y = 3.5
 //     }
 // )
+
+const modelLoader = new GLTFLoader()
+const model = null
+modelLoader.load("/models/Object/book.gltf", (gltf) => {
+    console.log(gltf.scene)
+    scene.add(gltf.scene)
+    gltf.scene.scale.set(0.002, 0.002, 0.002)
+    gltf.scene.position.set(0, 3.5, 0)
+    gltf.scene.rotation.x = Math.PI * 0.25
+})
 
 const geometry = new THREE.SphereGeometry( 0.3, 20, 20 );
 const sphere1 = new THREE.Mesh( geometry, material );
@@ -196,37 +194,3 @@ const tick = () =>
 
 tick()
 
-// Funcitons
-function setBackground(scene, backgroundImageWidth, backgroundImageHeight) {
-	const windowSize = function(withScrollBar) {
-		let wid = 0;
-		let hei = 0;
-		if (typeof window.innerWidth != "undefined") {
-			wid = window.innerWidth;
-			hei = window.innerHeight;
-		}
-		else {
-			if (document.documentElement.clientWidth == 0) {
-				wid = document.body.clientWidth;
-				hei = document.body.clientHeight;
-			}
-			else {
-				wid = document.documentElement.clientWidth;
-				hei = document.documentElement.clientHeight;
-			}
-		}
-		return { width: wid - (withScrollBar ? (wid - document.body.offsetWidth + 1) : 0), height: hei };
-	};
-
-	if (scene.background) {
-
-		var size = windowSize(true);
-		var factor = (backgroundImageWidth / backgroundImageHeight) / (size.width / size.height);
-
-		scene.background.offset.x = factor > 1 ? (1 - 1 / factor) / 2 : 0;
-		scene.background.offset.y = factor > 1 ? 0 : (1 - factor) / 2;
-
-		scene.background.repeat.x = factor > 1 ? 1 / factor : 1;
-		scene.background.repeat.y = factor > 1 ? 1 : factor;
-	}
-}

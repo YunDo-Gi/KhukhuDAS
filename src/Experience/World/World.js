@@ -4,9 +4,9 @@ import Experience from '../Experience.js'
 import EventEmitter from '../Utils/EventEmitter.js'
 import Controls from './Controls.js'
 
-import Cube from './Cube.js'
 import Painting from './Painting.js'
 import ReadingRoom from './ReadingRoom.js'
+import Objects from './Objects.js'
 
 export default class World extends EventEmitter
 {
@@ -25,11 +25,11 @@ export default class World extends EventEmitter
             // this.environment = new Environment()
             this.readingRoom = new ReadingRoom()
             this.paintingRoom = new Painting()
+            this.objects = new Objects()
             this.camera = this.experience.camera
             // console.log(this.painting.model)
             this.controls = new Controls()
 
-            this.cube = new Cube()
             
             // this.camera.setPosition(this.painting.model.getObjectByName('frame'))
             // this.camera.setTarget(this.painting.model)
@@ -47,24 +47,6 @@ export default class World extends EventEmitter
 
             this.trigger('worldReady')
         })
-        
-        // Test mesh
-
-        // const testMesh = new THREE.Mesh(
-        //     new THREE.BoxGeometry(1, 1, 1),
-        //     new THREE.MeshBasicMaterial({ wireframe: false, color: 'green'})
-        // )
-        // this.testMesh = testMesh
-        // this.testMesh.position.x = 
-        // this.scene.add(testMesh)
-
-        // const testMesh2 = new THREE.Mesh(
-        //     new THREE.BoxGeometry(1, 1, 1),
-        //     new THREE.MeshBasicMaterial({ wireframe: false, color: 'green'})
-        // )
-        // this.testMesh2 = testMesh2
-        // testMesh2.position.x = 2
-        // this.scene.add(testMesh2)
     }
 
     setSunLight()

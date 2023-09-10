@@ -28,7 +28,6 @@ export default class Controls
         this.crossVector = new THREE.Vector3(0 ,0 ,0)
 
         this.setPath()
-        this.setButtons()
     }
 
     setPath()
@@ -54,35 +53,35 @@ export default class Controls
         this.scene.add(curveObject);
     }
 
-    setButtons()
-    {
-        document.getElementsByClassName("is-next")[0].addEventListener("click", () => {
-            console.log("next-clicked")
-            this.lerp.target += 0.1
-            // if(this.lerp.target > 1)
-            // {
-            //     this.lerp.target = 0
-            // }
-            // this.progress += 0.1
-        })
+    // setButtons()
+    // {
+    //     document.getElementsByClassName("is-next")[0].addEventListener("click", () => {
+    //         console.log("next-clicked")
+    //         this.lerp.target += 0.1
+    //         // if(this.lerp.target > 1)
+    //         // {
+    //         //     this.lerp.target = 0
+    //         // }
+    //         // this.progress += 0.1
+    //     })
         
-        document.getElementsByClassName("inner")[0].addEventListener("click", () => {
-            console.log("mid-clicked")
-        })
+    //     document.getElementsByClassName("inner")[0].addEventListener("click", () => {
+    //         console.log("mid-clicked")
+    //     })
         
-        document.getElementsByClassName("is-previous")[0].addEventListener("click", () => {
-            console.log("previous-clicked")
-            this.lerp.target -= 0.1
-            if(this.lerp.target < 0)
-            {
-                this.lerp.target = 1
-            }
-            // if(this.progress < 0)
-            // {
-            //     this.progress = 1
-            // }
-        })
-    }
+    //     document.getElementsByClassName("is-previous")[0].addEventListener("click", () => {
+    //         console.log("previous-clicked")
+    //         this.lerp.target -= 0.1
+    //         if(this.lerp.target < 0)
+    //         {
+    //             this.lerp.target = 1
+    //         }
+    //         // if(this.progress < 0)
+    //         // {
+    //         //     this.progress = 1
+    //         // }
+    //     })
+    // }
 
     update()
     {

@@ -12,6 +12,7 @@ export default [
     //         'textures/environmentMap/nz.jpg'
     //     ]
     // },
+    // Rooms
     {
         name: 'PaintingRoomModel',
         type: 'gltfModel',
@@ -56,5 +57,42 @@ export default [
         name: 'ReadingRoomModel',
         type: 'gltfModel',
         path: 'models/Room/room_reading.gltf'
-    }
+    },
+
+    // Objects
+    {
+        name: 'bookObject',
+        type: 'gltfModel',
+        path: 'models/Object/book.gltf'
+    },
+    {
+        name: 'cameraObject',
+        type: 'gltfModel',
+        path: 'models/Object/camera.gltf'
+    },
+    {
+        name: 'eizelObject',
+        type: 'gltfModel',
+        path: 'models/Object/eizel.gltf'
+    },
+    {
+        name: 'gameObject',
+        type: 'gltfModel',
+        path: 'models/Object/game.gltf'
+    },
+    {
+        name: 'lampObject',
+        type: 'gltfModel',
+        path: 'models/Object/lamp.gltf'
+    },
+    {
+        name: 'paintObject',
+        type: 'gltfModel',
+        path: 'models/Object/paint.gltf'
+    },
+    {
+        name: 'soccerObject',
+        type: 'gltfModel',
+        path: 'models/Object/soccer.gltf'
+    },
 ]
