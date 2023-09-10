@@ -48,14 +48,14 @@ public class Member extends BaseTimeEntity implements UserDetails{
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "member") //양방향
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //양방향
     private List<Room> rooms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member") //양방향
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //양방향
     private List<RoomLike> roomLikes = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Comment> diaryComments = new ArrayList<>();
 
 
