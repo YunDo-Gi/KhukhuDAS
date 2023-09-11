@@ -24,7 +24,7 @@ export default class Controls
         this.lookAtPosition = new THREE.Vector3(0 ,0 ,0)
 
         this.directionalVector = new THREE.Vector3(0 ,0 ,0)
-        this.staticVector = new THREE.Vector3(0 ,1 ,0)
+        this.staticVector = new THREE.Vector3(0 ,-1 ,0)
         this.crossVector = new THREE.Vector3(0 ,0 ,0)
 
         this.setPath()
@@ -33,16 +33,11 @@ export default class Controls
     setPath()
     {
         this.curve = new THREE.CatmullRomCurve3( [
-            new THREE.Vector3( -10, 0, 0 ),
-            new THREE.Vector3( 0, 0, -10 ),
-            new THREE.Vector3( 10, 0, 0 ),
-            new THREE.Vector3( 0, 0, 10 )
+            new THREE.Vector3( -5, 0, 0 ),
+            new THREE.Vector3( 0, 0, -5 ),
+            new THREE.Vector3( 5, 0, 0 ),
+            new THREE.Vector3( 0, 0, 5 )
         ], true );
-
-        // this.curve = new THREE.LineCurve3( [
-        //     new THREE.Vector3( -10, 0, 0 ),
-        //     new THREE.Vector3( 0, 0, -10 ),
-        // ], true );
         
         const points = this.curve.getPoints( 50 );
         const geometry = new THREE.BufferGeometry().setFromPoints( points );

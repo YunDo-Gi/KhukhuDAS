@@ -10,8 +10,10 @@ import sources from './sources.js'
 import Raycast from './Raycast.js'
 import Preloader from './Preloader.js'
 import Controls from './World/Controls.js'
+import Objects from './World/Objects.js'
 
 let instance = null
+const clock = new THREE.Clock()
 
 export default class Experience
 {
@@ -42,6 +44,10 @@ export default class Experience
         // this.raycast = new Raycast()
         this.preloader = new Preloader()
         this.controls = new Controls()
+        this.resources.on('ready', () =>
+        {
+            this.objects = new Objects()
+        })
 
         // helpers
         const axisHelper = new THREE.AxesHelper(10)
@@ -68,7 +74,7 @@ export default class Experience
         this.camera.resize()
         this.renderer.resize()
     }
-
+    
     update()
     {
         this.camera.update()
@@ -76,6 +82,10 @@ export default class Experience
         if(this.controls)
         {
             this.controls.update()
+        }
+        if (this.objects)
+        {
+            this.objects.update()
         }
     }
 }

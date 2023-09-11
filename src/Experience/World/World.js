@@ -62,9 +62,6 @@ export default class World extends EventEmitter
 
     update()
     {
-        if (this.controls)
-        {
-            this.controls.update()
-        }
+
     }
 }
