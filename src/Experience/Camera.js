@@ -49,13 +49,17 @@ export default class Camera
 
         this.scene.add(this.orthographicCamera)
 
-        this.orthographicCamera.position.y = 5.65;
-        this.orthographicCamera.position.z = 10;
-        this.orthographicCamera.rotation.x = -Math.PI / 6;
+        // this.orthographicCamera.position.y = 5.65;
+        // this.orthographicCamera.position.z = 10;
+        // this.orthographicCamera.rotation.x = -Math.PI / 6;
 
-        console.log(this.orthographicCamera)
         this.helper = new THREE.CameraHelper(this.orthographicCamera)
         this.scene.add(this.helper)
+    }
+
+    setScrollCamera()
+    {
+
     }
 
     setControls()
@@ -63,11 +67,11 @@ export default class Camera
         this.controls = new OrbitControls(this.instance, this.canvas)
         // this.controls.target.set(2, 2, 0)
         // 수평 방향 회전 제한
-        this.controls.minAzimuthAngle = Math.PI * 0.5
-        this.controls.maxAzimuthAngle = Math.PI 
+        // this.controls.minAzimuthAngle = Math.PI * 0.5
+        // this.controls.maxAzimuthAngle = Math.PI 
         // 수직 방향 회전 제한
-        this.controls.minPolarAngle = Math.PI * 0.25
-        this.controls.maxPolarAngle = Math.PI * 0.5
+        // this.controls.minPolarAngle = Math.PI * 0.25
+        // this.controls.maxPolarAngle = Math.PI * 0.5
         // 이동 제한
         this.controls.enablePan = false
         // var minPan = new THREE.Vector3( - 0.2, - 0.2, - 0.2 );
@@ -76,7 +80,7 @@ export default class Camera
 
         this.controls.rotateSpeed = 0.5
 
-        this.controls.enableZoom = true
+        this.controls.enableZoom = false
         this.controls.enableDamping = true
     }
 

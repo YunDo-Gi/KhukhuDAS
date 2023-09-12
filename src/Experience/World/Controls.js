@@ -3,6 +3,13 @@ import GSAP from 'gsap'
 
 import Experience from '../Experience.js'
 
+const btnChangePosition = document.querySelector('.btn-change-position')
+let flag = false
+btnChangePosition.addEventListener('click', () => {
+    flag = !flag
+})
+
+
 export default class Controls 
 {
     constructor()
@@ -24,10 +31,11 @@ export default class Controls
         this.lookAtPosition = new THREE.Vector3(0 ,0 ,0)
 
         this.directionalVector = new THREE.Vector3(0 ,0 ,0)
-        this.staticVector = new THREE.Vector3(0 ,-1 ,0)
+        this.staticVector = new THREE.Vector3(0 ,1 ,0)
         this.crossVector = new THREE.Vector3(0 ,0 ,0)
 
-        this.setPath()
+        // this.setPath()
+        this.setScroll()
     }
 
     setPath()
@@ -48,56 +56,63 @@ export default class Controls
         this.scene.add(curveObject);
     }
 
-    // setButtons()
-    // {
-    //     document.getElementsByClassName("is-next")[0].addEventListener("click", () => {
-    //         console.log("next-clicked")
-    //         this.lerp.target += 0.1
-    //         // if(this.lerp.target > 1)
-    //         // {
-    //         //     this.lerp.target = 0
-    //         // }
-    //         // this.progress += 0.1
-    //     })
-        
-    //     document.getElementsByClassName("inner")[0].addEventListener("click", () => {
-    //         console.log("mid-clicked")
-    //     })
-        
-    //     document.getElementsByClassName("is-previous")[0].addEventListener("click", () => {
-    //         console.log("previous-clicked")
-    //         this.lerp.target -= 0.1
-    //         if(this.lerp.target < 0)
-    //         {
-    //             this.lerp.target = 1
-    //         }
-    //         // if(this.progress < 0)
-    //         // {
-    //         //     this.progress = 1
-    //         // }
-    //     })
-    // }
+    setScroll()
+    {
+        this.line = new THREE.LineCurve3(
+            new THREE.Vector3(1, 0, 0),
+            new THREE.Vector3(1, 10, 0)
+        )
+
+        const points = this.line.getPoints( 50 );
+        const geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+        const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+
+        const lineObject = new THREE.Line( geometry, material );
+        this.scene.add(lineObject);
+
+
+        window.addEventListener('wheel', (event) =>
+        {
+            console.log(event)
+            if(event.deltaY > 0) {
+                this.lerp.target += 0.01
+            } else {
+                this.lerp.target -= 0.01
+            }
+        })
+    }
 
     update()
     {
-        this.lerp.current = GSAP.utils.interpolate(
-            this.lerp.current, 
-            this.lerp.target, 
-            this.lerp.ease
-        )
-        // this.lerp.target = GSAP.utils.clamp(0, 1, this.lerp.target)
-        // this.lerp.current = GSAP.utils.clamp(0, 1, this.lerp.current)
+        if(flag) {
+            this.lerp.current = GSAP.utils.interpolate(
+                this.lerp.current, 
+                this.lerp.target, 
+                this.lerp.ease
+            )
 
-        this.curve.getPointAt( this.lerp.current % 1, this.position );
-        this.camera.orthographicCamera.position.copy(this.position)
+            const limit = 0.5
+            this.lerp.target = GSAP.utils.clamp(0, limit, this.lerp.target)
+            this.lerp.current = GSAP.utils.clamp(0, limit, this.lerp.current)
+
+            this.line.getPointAt(this.lerp.current % 1, this.position)
+            this.camera.orthographicCamera.position.copy(this.position)
+        }
+
+
+        
+
+        // this.curve.getPointAt( this.lerp.current % 1, this.position );
+        // this.camera.orthographicCamera.position.copy(this.position)
 
         // this.curve.getPointAt( this.lerp.current + 0.01, this.lookAtPosition );
         // this.camera.orthographicCamera.lookAt(this.lookAtPosition)
 
-        this.directionalVector.subVectors(
-            this.curve.getPointAt((this.lerp.current % 1) + 0.000001),
-             this.position).normalize()
-        this.crossVector.crossVectors(this.directionalVector, this.staticVector)
-        this.camera.orthographicCamera.lookAt(this.crossVector)
+        // this.directionalVector.subVectors(
+        //     this.curve.getPointAt((this.lerp.current % 1) + 0.000001),
+        //      this.position).normalize()
+        // this.crossVector.crossVectors(this.directionalVector, this.staticVector)
+        // this.camera.orthographicCamera.lookAt(this.crossVector)
     }
 }
