@@ -61,13 +61,14 @@ export default class Controls
             GSAP.to(this.camera.orthographicCamera.rotation, {
                 duration: 2,
                 y: -Math.PI,
-                ease: 'power2.inOut'
-            })
-            aptWrapper.classList.add('hidden')
-            flag = false
-
-            roomWrapper.classList.remove('hidden')
+                ease: 'power2.inOut',
+                onComplete: () => {
+                    aptWrapper.classList.add('hidden');
+                    flag = false;
+                    roomWrapper.classList.remove('hidden');
+                  }
             // this.objects.move = false
+            })
         })
     }
 

@@ -53,16 +53,18 @@ export default class World extends EventEmitter
                     x: 0,
                     y: 0,
                     z: 0,
-                    ease: "power2.inOut"
-                })
-                current_page += 1
-                pages[current_page - 1].classList.toggle('selected')
-                gsap.to(this.rooms[current_page - 1].getModel().scale, {
-                    duration: 1,
-                    x: 0.2,
-                    y: 0.2,
-                    z: 0.2,
-                    ease: "power2.inOut"
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        current_page += 1
+                        pages[current_page - 1].classList.toggle('selected')
+                        gsap.to(this.rooms[current_page - 1].getModel().scale, {
+                            duration: 1,
+                            x: 0.2,
+                            y: 0.2,
+                            z: 0.2,
+                            ease: "power2.inOut"
+                        })
+                    }
                 })
             }
         })
@@ -77,16 +79,18 @@ export default class World extends EventEmitter
                     x: 0,
                     y: 0,
                     z: 0,
-                    ease: "power2.inOut"
-                })
-                current_page -= 1
-                pages[current_page - 1].classList.toggle('selected')
-                gsap.to(this.rooms[current_page - 1].getModel().scale, {
-                    duration: 1,
-                    x: 0.2,
-                    y: 0.2,
-                    z: 0.2,
-                    ease: "power2.inOut"
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        current_page -= 1
+                        pages[current_page - 1].classList.toggle('selected')
+                        gsap.to(this.rooms[current_page - 1].getModel().scale, {
+                            duration: 1,
+                            x: 0.2,
+                            y: 0.2,
+                            z: 0.2,
+                            ease: "power2.inOut"
+                        })
+                    }
                 })
             }
         })
