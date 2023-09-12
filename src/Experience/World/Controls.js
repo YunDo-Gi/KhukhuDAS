@@ -4,7 +4,12 @@ import GSAP from 'gsap'
 import Experience from '../Experience.js'
 
 const btnChangePosition = document.querySelector('.btn-change-position')
+const btnToRoom = document.querySelector('.btn-to-room')
+const aptWrapper = document.querySelector('.apt-wrapper')
+const roomWrapper = document.querySelector('.room-wrapper')
+
 let flag = false
+
 btnChangePosition.addEventListener('click', () => {
     flag = !flag
 })
@@ -17,6 +22,7 @@ export default class Controls
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.camera = this.experience.camera
+        this.objects = this.experience.objects
 
         this.progress = 0
         this.dummyVector = new THREE.Vector3(0 ,0 ,0)
@@ -36,6 +42,33 @@ export default class Controls
 
         // this.setPath()
         this.setScroll()
+
+        btnChangePosition.addEventListener('click', () => {
+            this.onWheel()
+            aptWrapper.classList.remove('hidden')
+            roomWrapper.classList.add('hidden')
+            // this.objects.move = false
+        })
+
+        btnToRoom.addEventListener('click', () => {
+            GSAP.to(this.camera.orthographicCamera.position, {
+                duration: 2,
+                x: this.dummyVector.x,
+                y: this.dummyVector.y,
+                z: this.dummyVector.z,
+                ease: "power2.inOut"
+            })
+            GSAP.to(this.camera.orthographicCamera.rotation, {
+                duration: 2,
+                y: -Math.PI,
+                ease: 'power2.inOut'
+            })
+            aptWrapper.classList.add('hidden')
+            flag = false
+
+            roomWrapper.classList.remove('hidden')
+            // this.objects.move = false
+        })
     }
 
     setPath()
@@ -59,8 +92,8 @@ export default class Controls
     setScroll()
     {
         this.line = new THREE.LineCurve3(
-            new THREE.Vector3(1, 0, 0),
-            new THREE.Vector3(1, 10, 0)
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 10, 0)
         )
 
         const points = this.line.getPoints( 50 );
@@ -70,7 +103,15 @@ export default class Controls
 
         const lineObject = new THREE.Line( geometry, material );
         this.scene.add(lineObject);
+    }
 
+    onWheel()
+    {
+        GSAP.to(this.camera.orthographicCamera.rotation, {
+            duration: 2,
+            y: -Math.PI * 0.5,
+            ease: 'power2.inOut'
+        })
 
         window.addEventListener('wheel', (event) =>
         {

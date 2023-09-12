@@ -23,8 +23,9 @@ export default class Painting
         console.log(this.model.children[0].name)
 
         this.model.scale.set(0.2, 0.2, 0.2)
-        this.model.position.set(25, 0, 0)
-        this.model.rotation.y = Math.PI * 0.75
+        this.model.position.set(0, -1, 8)
+        this.model.rotation.y = Math.PI * 0.25
+        this.model.rotation.x = -Math.PI * 0.1
 
 
         // this.model.traverse((child) =>

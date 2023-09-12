@@ -44,14 +44,14 @@ export default class Camera
             (this.sizes.aspectRatio * this.sizes.frustumSize) / 2,
             this.sizes.frustumSize / 2,
             -this.sizes.frustumSize / 2,
-            -10,
+            0,
             10)
 
         this.scene.add(this.orthographicCamera)
 
         // this.orthographicCamera.position.y = 5.65;
         // this.orthographicCamera.position.z = 10;
-        // this.orthographicCamera.rotation.x = -Math.PI / 6;
+        // this.orthographicCamera.rotation.y = 0;
 
         this.helper = new THREE.CameraHelper(this.orthographicCamera)
         this.scene.add(this.helper)

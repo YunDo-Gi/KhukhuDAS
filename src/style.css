@@ -21,11 +21,19 @@ header
     top: 0;
     left: 0;
     width: 100%;
+    height: 10%;
     padding: 10px 20px;
     background-color: rgba(255, 255, 255, 0);
     z-index: 10;
     display: flex;
     justify-content: space-between;
+}
+
+button
+{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 /* Landing Page */
@@ -55,6 +63,43 @@ header
     transform: scale(1);
 }
 
+.arrow-wrapper-right
+{
+    position: fixed;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    fill:rgba(255, 255, 255, 1);
+}
+
+.arrow-wrapper-left
+{
+    position: fixed;
+    top: 50%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    fill:rgba(255, 255, 255, 1); 
+}
+
+.room-page-wrapper
+{
+    position: fixed;
+    top: 88%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    fill:rgba(255, 255, 255, 1);
+}
+
+.room-page-wrapper>svg
+{
+    margin: 10px;
+}
+
+.room-page-wrapper>svg.selected
+{
+    transform: scale(1.5);
+}
+
 .arrow-svg-wrapper
 {
     position: fixed;
@@ -66,11 +111,11 @@ header
 
 @keyframes bounce {
     0% {
-        transform: translateY(0px) rotateY(0deg);
+        transform: translateY(0px);
     }
 
     100% {
-        transform: translateY(8px) rotateY(180deg);
+        transform: translateY(8px);
     }
 }
 
@@ -97,6 +142,20 @@ header
     left: 0;
     outline: none;
 }
+
+/* Main Page */
+.apt-wrapper
+{
+    position: fixed;
+    width: 100%;
+    height: 90%;
+    top: 10%;
+    left: 0;
+    background-color: transparent;
+    /* backdrop-filter: blur(5px); */
+    z-index: 5;
+}
+
 
 /* 반응형으로 추후 수정 */
 .button 
@@ -144,10 +203,6 @@ header
     border-right: 1px solid #cccccc;
     padding: 15px 32px;
     background-color: aliceblue;
-}
-
-.is-active {
-
 }
 
 .hidden {

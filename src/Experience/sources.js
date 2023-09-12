@@ -39,7 +39,7 @@ export default [
         path: 'models/Room/room_painting_2.gltf'
     },
     {
-        name: 'RoomPhotoModel2',
+        name: 'PhotoRoomModel',
         type: 'gltfModel',
         path: 'models/Room/room_photo.gltf'
     },
