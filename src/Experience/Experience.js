@@ -7,7 +7,6 @@ import Renderer from './Renderer.js'
 import World from './World/World.js'
 import Resources from './Utils/Resources.js'
 import sources from './sources.js'
-import Raycast from './Raycast.js'
 import Preloader from './Preloader.js'
 import Controls from './World/Controls.js'
 import Objects from './World/Objects.js'
@@ -33,7 +32,6 @@ export default class Experience
         this.canvas = canvas
 
         // Setup
-        // 적용되는 순서가 중요하다.
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new THREE.Scene()
@@ -41,7 +39,6 @@ export default class Experience
         this.world = new World()
         this.camera = new Camera()
         this.renderer = new Renderer()
-        // this.raycast = new Raycast()
         this.preloader = new Preloader()
         this.controls = new Controls()
         this.resources.on('ready', () =>
