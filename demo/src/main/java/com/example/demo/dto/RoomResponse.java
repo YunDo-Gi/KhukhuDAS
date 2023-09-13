@@ -24,7 +24,7 @@ public class RoomResponse {
 
     private LocalDateTime createdDateTime;
 
-    private LocalDateTime modifiedDate;
+    private LocalDateTime modifiedDateTime;
 
     private Integer viewCount;
 

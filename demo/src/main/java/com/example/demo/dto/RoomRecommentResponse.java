@@ -14,6 +14,6 @@ public class RoomRecommentResponse {
     private Long recommentId;
     private String content;
     private AuthenticationResponse user;
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDateTime;
     private Boolean isMyComment;
 }

@@ -18,5 +18,5 @@ public class RoomCommentResponse {
     private List<RoomRecommentResponse> recomments;
     private AuthenticationResponse user;
     private Boolean isMyComment;
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDateTime;
 }

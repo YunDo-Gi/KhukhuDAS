@@ -14,7 +14,6 @@ import com.example.demo.repository.CommentRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.RoomLikeRepository;
 import com.example.demo.repository.RoomRepository;
-import com.sun.jdi.IntegerType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -143,7 +142,7 @@ public class RoomService {
                             .profileImgURL(comment.getMember().getProfileImgURL())
                             .build())
                     .isMyComment(comment.getMember().getId().equals(finalCurrentUserId))
-                    .createdDate(comment.getLastModifiedAt())
+                    .createdDateTime(comment.getLastModifiedAt())
                     .recomments(comment.getChildren().stream().map(recomment -> {
                         return RoomRecommentResponse.builder()
                                 .recommentId(recomment.getId())
@@ -153,7 +152,7 @@ public class RoomService {
                                         .nickname(recomment.getMember().getNickname())
                                         .profileImgURL(recomment.getMember().getProfileImgURL())
                                         .build())
-                                .createdDate(recomment.getLastModifiedAt())
+                                .createdDateTime(recomment.getLastModifiedAt())
                                 .isMyComment(recomment.getMember().getId().equals(finalCurrentUserId))
                                 .build();
                     }).collect(Collectors.toList()))
@@ -174,7 +173,7 @@ public class RoomService {
                         .profileImgURL(room.getMember().getProfileImgURL())
                         .build())
                 .createdDateTime(room.getCreatedAt())
-                .modifiedDate(room.getLastModifiedAt())
+                .modifiedDateTime(room.getLastModifiedAt())
                 .viewCount(room.getView())
                 .isLike(isLike)
                 .roomCommentResponses(roomCommentResponses)
@@ -249,7 +248,7 @@ public class RoomService {
                             .build())
                     .commentCount(commentRepository.countByRoomId(room.getId()))
                     .createdDateTime(room.getCreatedAt())
-                    .modifiedDate(room.getLastModifiedAt())
+                    .modifiedDateTime(room.getLastModifiedAt())
                     .viewCount(room.getView())
                     .likeCount(room.getRoomLikes().size())
                     .fileURLs(room.getObjects().stream().map(url -> url.getMediaObjectPath()).collect(Collectors.toList()))
