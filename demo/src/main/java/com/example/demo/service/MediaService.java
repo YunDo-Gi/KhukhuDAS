@@ -120,10 +120,13 @@ public class MediaService {
     }
 
 
-    public void deleteFile(List<String> fileNames) {
+
+
+    public void deleteFile(List<String> fileNames, String directoryType) {
+
         for (String fileName : fileNames) {
             fileName = getPathURL(fileName);
-            File savedFile = new File(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + "room" + File.separator + fileName);
+            File savedFile = new File(MAIN_DIR_NAME + SUB_DIR_NAME +  File.separator + directoryType + File.separator + fileName);
             log.info("savedFile url : " + savedFile);
             if (savedFile.exists()) {
                 if (savedFile.delete()) {
@@ -190,7 +193,7 @@ public class MediaService {
 
     public void removePreFile(List<MediaObject> originalFile) {
         List<String> fileUrl = originalFile.stream().map(file -> file.getMediaObjectPath()).collect(Collectors.toList());
-        deleteFile(fileUrl);
+        deleteFile(fileUrl, "room");
         mediaObjectRepository.deleteAll(originalFile);
     }
 

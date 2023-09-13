@@ -69,7 +69,7 @@ public class UserService {
             if (currentProfileImgUrl != null && profileImg == null) {
                 List<String> url = new ArrayList<>();
                 url.add(currentProfileImgUrl);
-                mediaService.deleteFile(url);
+                mediaService.deleteFile(url, "profileImg");
             }
 
             else if (currentProfileImgUrl == null && profileImg != null) {
@@ -80,7 +80,7 @@ public class UserService {
                 List<String> url = new ArrayList<>();
                 url.add(currentProfileImgUrl);
                 toSetProfileImgURL = mediaService.uploadProfileImg(profileImg);
-                mediaService.deleteFile(url);
+                mediaService.deleteFile(url, "profileImg");
                 log.info(toSetProfileImgURL);
             }
 
