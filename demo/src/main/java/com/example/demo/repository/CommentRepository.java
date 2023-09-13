@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     Optional<Comment> findByIdAndRoomId(Long commentId, Long roomId);
+
+    Integer countByRoomId(Long roomId);
 }

@@ -16,14 +16,14 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/room")
+@RequestMapping("/api")
 public class RoomController {
 
     private final RoomService roomService;
 
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping(value ="", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value ="/room", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> createRoom(@RequestPart(value = "roomFile", required= true) List<MultipartFile> roomFile,
                                        @RequestPart(value = "makeUpRoom", required = true) String makeUpRoom,
                                         Principal principal) throws IOException {
@@ -31,7 +31,7 @@ public class RoomController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PutMapping(value = "/{roomId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PutMapping(value = "/room/{roomId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> updateDiary(@PathVariable(name = "roomId") Long roomId,
                                          @RequestPart(value = "modifyRoom", required = true) String modifyRoom,
                                          @RequestPart(value = "roomFile", required= true) List<MultipartFile> roomFile,
@@ -39,22 +39,27 @@ public class RoomController {
         return roomService.modifyRoom(roomId, principal, roomFile, modifyRoom);
     }
 
-    @GetMapping("/{roomId}")
+    @GetMapping("/room/{roomId}")
     public ResponseEntity<?> getRoom(@PathVariable(name = "roomId") Long roomId, Principal principal){
         return roomService.getRoom(roomId, principal);
     }
 
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/{roomId}/like")
+    @GetMapping("/room/{roomId}/like")
     public ResponseEntity<Void> likeThisRoom(@PathVariable("roomId") Long roomId, Principal principal){
         return roomService.likeThisRoom(roomId, principal);
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/{roomId}/unlike")
+    @GetMapping("/room/{roomId}/unlike")
     public ResponseEntity<Void> unlikeThisRoom(@PathVariable("roomId") Long roomId, Principal principal){
         return roomService.unlikeThisRoom(roomId, principal);
+    }
+
+    @GetMapping("/rooms")
+    public ResponseEntity<?> getRooms( @RequestParam(value = "interest-type", required = false) String interestType, @RequestParam(value = "sort") String sort){
+        return roomService.getRooms(interestType, sort);
     }
 
 }

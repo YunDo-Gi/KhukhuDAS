@@ -10,12 +10,14 @@ import com.example.demo.exception.room.NoExistLikeException;
 import com.example.demo.exception.room.NoPermissionRoomException;
 import com.example.demo.exception.room.NoSuchRoomException;
 import com.example.demo.model.*;
+import com.example.demo.repository.CommentRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.RoomLikeRepository;
 import com.example.demo.repository.RoomRepository;
-import com.example.demo.service.MediaService;
+import com.sun.jdi.IntegerType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,8 @@ public class RoomService {
     private final MediaService mediaService;
 
     private final RoomRepository roomRepository;
+
+    private final CommentRepository commentRepository;
 
     private final MemberRepository memberRepository;
 
@@ -164,7 +168,11 @@ public class RoomService {
                 .title(room.getTitle())
                 .content(room.getContent())
                 .interestType(room.getInterestType().getInterest())
-                .writer(room.getMember().getNickname())
+                .writer(AuthenticationResponse.builder()
+                        .memberId(room.getMember().getId())
+                        .nickname(room.getMember().getNickname())
+                        .profileImgURL(room.getMember().getProfileImgURL())
+                        .build())
                 .createdDateTime(room.getCreatedAt())
                 .modifiedDate(room.getLastModifiedAt())
                 .viewCount(room.getView())
@@ -194,6 +202,7 @@ public class RoomService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Void> likeThisRoom(Long roomId, Principal principal) {
         if (principal == null) throw new InvalidAccessTokenException();
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
@@ -202,19 +211,64 @@ public class RoomService {
             RoomLike roomLike = RoomLike.builder()
                     .room(room).member(member).build();
             roomLikeRepository.save(roomLike);
+            //room.increaseLikeCount();
+
         } else {
             throw new AlreadyLikeException();
         }
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
+    @Transactional
     public ResponseEntity<Void> unlikeThisRoom(Long roomId, Principal principal) {
         if (principal == null) throw new InvalidAccessTokenException();
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
         Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
         RoomLike roomLike = roomLikeRepository.findByRoomIdAndMemberId(roomId, member.getId()).orElseThrow(NoExistLikeException::new);
         roomLikeRepository.delete(roomLike);
+        //room.decreaseLikeCount();
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
+
+    public ResponseEntity<?> getRooms(String interestType, String sort) {
+
+        List<Room> rooms = interestType == null ? roomRepository.findAll(getSortType(sort)) : roomRepository.findAllByInterestType(getInterestType(interestType), getSortType(sort));
+
+        List<RoomsResponse> roomsResponses = rooms.stream().map(room -> {
+            return RoomsResponse.builder()
+                    .id(room.getId())
+                    .title(room.getTitle())
+                    .content(room.getContent())
+                    .interestType(room.getInterestType().getInterest())
+                    .writer(AuthenticationResponse.builder()
+                            .memberId(room.getMember().getId())
+                            .nickname(room.getMember().getNickname())
+                            .profileImgURL(room.getMember().getProfileImgURL())
+                            .build())
+                    .commentCount(commentRepository.countByRoomId(room.getId()))
+                    .createdDateTime(room.getCreatedAt())
+                    .modifiedDate(room.getLastModifiedAt())
+                    .viewCount(room.getView())
+                    .likeCount(room.getRoomLikes().size())
+                    .fileURLs(room.getObjects().stream().map(url -> url.getMediaObjectPath()).collect(Collectors.toList()))
+                    .build();
+        }).toList();
+        return new ResponseEntity<List<RoomsResponse>>(roomsResponses,HttpStatus.OK );
+    }
+
+
+    private Sort getSortType(String sort){
+        if(SortType.VIEW.getSortType().equals(sort)){
+            return Sort.by(Sort.Order.desc("view"));
+        }
+        else if(SortType.LIKE.getSortType().equals(sort)){
+            return Sort.by(Sort.Order.desc("roomLikes"));
+        }
+        else{
+            return Sort.by(Sort.Order.desc("lastModifiedAt"));
+        }
+    }
+
 }

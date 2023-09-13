@@ -5,13 +5,12 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
-@Builder
 @Setter
-public class RoomResponse {
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class RoomsResponse {
     private Long id;
 
     private String title;
@@ -22,6 +21,8 @@ public class RoomResponse {
 
     private AuthenticationResponse writer;
 
+    private Integer commentCount;
+
     private LocalDateTime createdDateTime;
 
     private LocalDateTime modifiedDate;
@@ -30,12 +31,6 @@ public class RoomResponse {
 
     private Integer likeCount;
 
-    private Boolean isMyRoom;
-
-    private Boolean isLike;
-
     private List<String> fileURLs;
-
-    private List<RoomCommentResponse> roomCommentResponses;
 
 }

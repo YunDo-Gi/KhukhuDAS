@@ -38,6 +38,7 @@ public class RoomCommentService {
     private final CommentRepository commentRepository;
 
 
+    @Transactional
     public ResponseEntity<?> createComment(Long roomId, RoomCommentRequest roomCommentRequest, Principal principal) {
         if(principal == null) throw new InvalidAccessTokenException();
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
@@ -68,6 +69,7 @@ public class RoomCommentService {
         return ResponseEntity.ok(response);
     }
 
+    @Transactional
     public ResponseEntity<?> createRecomment(Principal principal, Long roomId, Long commentId, RoomCommentRequest roomCommentRequest) {
         if(principal == null) throw new InvalidAccessTokenException();
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);

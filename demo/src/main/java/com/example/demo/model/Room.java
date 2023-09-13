@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder
 public class Room extends BaseTimeEntity {
 
@@ -31,19 +32,29 @@ public class Room extends BaseTimeEntity {
     @Builder.Default
     private int view = 0;
 
+//    @Builder.Default
+//    private int likeCount = 0;
+//
+//    @Builder.Default
+//    private int commentCount = 0;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @ToString.Exclude
     private Member member;
 
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<MediaObject> objects = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<RoomLike> roomLikes = new ArrayList<>();
 
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Comment> comments = new ArrayList<>();
 
 
