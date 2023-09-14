@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>createRoom</title>
+    <title>updateRoom</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -59,7 +59,7 @@
           </div>
           <div class="carousel-inner w-100">
             <img
-              src="/public/default-avatar.jpg"
+              src="../../public/default-avatar.jpg"
               class="d-block w-100"
               alt="..."
             />
@@ -144,6 +144,7 @@
                 class="form-control profile-img position-relative"
                 type="file"
                 id="InputProfile"
+                accept=".jpg, .png"
                 multiple
               />
             </div>
@@ -228,7 +229,7 @@
     </script>
 
     <script src="../scripts/sidebar.js"></script>
-    <script src="../scripts/createRoom.js"></script>
+    <script src="../scripts/updateRoom.js"></script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

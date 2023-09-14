@@ -11,13 +11,14 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   let principal = id.value + "@khu.ac.kr";
   let credential = password.value;
+  const url = "http://localhost:8080/login";
 
   let body = JSON.stringify({
     principal: principal,
     credential: credential,
   });
 
-  fetch("http://localhost:8080/login", {
+  fetch(url, {
     method: "POST",
     body: body,
     headers: {
