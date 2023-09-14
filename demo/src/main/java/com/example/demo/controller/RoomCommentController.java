@@ -44,4 +44,16 @@ public class RoomCommentController {
         return roomCommentService.updateRecomment(principal, roomId, commentId, recommentId, roomCommentRequest);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/room/{roomId}/comment/{commentId}/recomment/{recommentId}")
+    public ResponseEntity<?> removeRecomment(Principal principal, @PathVariable("roomId") Long roomId, @PathVariable("commentId") Long commentId, @PathVariable("recommentId") Long recommentId){
+        return roomCommentService.removeRecomment(principal, roomId, commentId, recommentId);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/room/{roomId}/comment/{commentId}")
+    public ResponseEntity<?> removeComment(Principal principal, @PathVariable("roomId") Long roomId, @PathVariable("commentId") Long commentId){
+        return roomCommentService.removeComment(principal, roomId, commentId);
+    }
+
 }

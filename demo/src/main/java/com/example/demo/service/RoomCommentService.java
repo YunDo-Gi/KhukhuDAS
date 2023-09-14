@@ -104,4 +104,39 @@ public class RoomCommentService {
             throw new NoSuchRoomRecommentException();
         }
     }
+
+    @Transactional
+    public ResponseEntity<?> removeRecomment(Principal principal, Long roomId, Long commentId, Long recommentId) {
+        if(principal == null) throw new InvalidAccessTokenException();
+        memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
+        roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
+        Optional<Comment> recomment = commentRepository.findByIdAndRoomId(commentId, roomId).orElseThrow(NoSuchRoomCommentException::new).getChildren().stream().filter(child -> child.getId().equals(recommentId)).findFirst();
+        if(recomment.isPresent()){
+            if(!recomment.get().getMember().getEmail().equals(principal.getName())) throw new NotPermissionRoomRecommentException();
+            commentRepository.delete(recomment.get());
+            HashMap<String, Long> response = new HashMap<>();
+            response.put("삭제된 RecommentId : ", recommentId);
+            return new ResponseEntity<HashMap>(response, HttpStatus.OK);
+        }else{
+            throw new NoSuchRoomRecommentException();
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<?> removeComment(Principal principal, Long roomId, Long commentId) {
+        if (principal == null) throw new InvalidAccessTokenException();
+        memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
+        roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
+        Comment comment = commentRepository.findByIdAndRoomId(commentId, roomId).orElseThrow(NoSuchRoomCommentException::new);
+        if (!comment.getMember().getEmail().equals(principal.getName()))
+            throw new NotPermissionRoomRecommentException();
+        for(Comment cmt : comment.getChildren()){
+            commentRepository.delete(cmt);
+        }
+        commentRepository.delete(comment);
+        HashMap<String, Long> response = new HashMap<>();
+        response.put("삭제된 CommentId : ", commentId);
+        return new ResponseEntity<HashMap>(response, HttpStatus.OK);
+
+    }
 }
