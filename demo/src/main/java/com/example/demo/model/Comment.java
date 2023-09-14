@@ -26,7 +26,7 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name = "parent_id")
     private Comment parent; //부모 댓글
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Comment> children = new ArrayList<>(); //하위 댓글 리스트
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.html.Option;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -270,4 +271,44 @@ public class RoomService {
         }
     }
 
+    @Transactional
+    public ResponseEntity<?> removeRoom(Principal principal, Long roomId) {
+        Member member = new Member();
+        if (principal != null) {
+            member = memberRepository.findByEmail(principal.getName()).orElseThrow(InvalidAccessTokenException::new);
+        }
+
+        Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
+
+        if (!room.getMember().getEmail().equals(member.getEmail())) {
+            throw new NoPermissionRoomException();
+        }
+        try {
+            //삭제해야할 것. 디렉토리에 존재하는 파일들과 Object 파일들, 좋아요 누른 이력들 삭제, 댓글 및 대댓글 삭제
+            //기존에 저장되어 있는 엔티티 가져오기
+            List<MediaObject> originalFile = room.getObjects();
+            //삭제 기존 파일 삭제.
+            mediaService.removePreFile(originalFile);
+
+            List<RoomLike> roomLikes = room.getRoomLikes();
+            if(!roomLikes.isEmpty()){
+                roomLikeRepository.deleteAll(roomLikes);
+            }
+
+            List<Comment> comments = room.getComments();
+
+            if(!comments.isEmpty()){
+                commentRepository.deleteAll(comments);
+            }
+
+            roomRepository.delete(room);
+
+        } catch (Exception exception) {
+            throw new InternalServerException(exception);
+        }
+        HashMap<String, Long> response = new HashMap<>();
+        response.put("삭제된 RoomID : ", roomId);
+        return new ResponseEntity<HashMap>(response, HttpStatus.OK);
+
+    }
 }

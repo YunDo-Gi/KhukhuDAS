@@ -62,4 +62,10 @@ public class RoomController {
         return roomService.getRooms(interestType, sort);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/room/{roomId}")
+    public ResponseEntity<?> removeRoom(Principal principal, @PathVariable("roomId") Long roomId){
+        return roomService.removeRoom(principal, roomId);
+    }
+
 }
