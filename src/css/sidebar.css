@@ -16,6 +16,7 @@
 #menu__toggle:checked ~ .menu__box {
   opacity: 80%;
   top: 7% !important;
+  pointer-events: auto;
 }
 .menu__btn {
   position: fixed;
@@ -59,6 +60,7 @@
   background-color: hsl(0, 0%, 100%);
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
   transition-duration: 0.5s, 2.5s;
+  pointer-events: none;
 }
 .menu__item {
   display: block;
@@ -70,6 +72,7 @@
   text-decoration: none;
   transition-duration: 0.25s;
 }
+
 .menu__item:hover {
   background-color: #cfd8dc;
 }
