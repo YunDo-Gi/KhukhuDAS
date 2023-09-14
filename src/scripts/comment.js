@@ -1,8 +1,8 @@
 const input = document.querySelector("#comment-input")
 const btn = document.querySelector("#comment-btn")
+const test = document.querySelector(".test")
 
-// 나중에 방 만들면 사용 예정
-// const roomId = localStorage.getItem("roomId")
+const roomId = localStorage.getItem("roomId")
 
 console.log(localStorage.getItem("jwt"))
 
@@ -49,6 +49,21 @@ const updateComment = async (roomId, commentId) => {
   }
 }
 
+const deleteComment = async (roomId, commentId) => {
+  let url = `http://localhost:8080/api/room/${roomId}/comment/${commentId}`;
+  try {
+    let res = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+        "Content-Type": "application/json"
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 const createRecomment = async (roomId, commentId) => {
   let url = `http://localhost:8080/api/room/${roomId}/comment/${commentId}/recomment`;
   try {
@@ -85,7 +100,21 @@ const updateRecomment = async (roomId, commentId, recommentId) => {
   }
 }
 
-// test
-btn.addEventListener("click", (roomId)=>{
-  createRecomment(1,1);
-})
+
+const deleteReComment = async (roomId, commentId, recommentId) => {
+  let url = `http://localhost:8080/api/room/${roomId}/comment/${commentId}/recomment/${recommentId}`;
+  try {
+    let res = await fetch(url, {
+      method: "DELETE",
+      body:JSON.stringify({
+        content : input.value
+      }),
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+        "Content-Type": "application/json"
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
