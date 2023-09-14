@@ -55,10 +55,9 @@
   class="basic-info-container container-sm d-flex flex-column align-items-center"
   style="width: 30%"
   >
-  
 <!-- 프로필 출력되는 곳 -->
       <img 
-      id="previewImg"
+      id="profileImg"
       class="mb-3"
       style="
         width: 100%;
@@ -163,11 +162,12 @@
               class="form-control profile-img position-relative"
               type="file"
               id="InputProfile"
+              accept=".jpg, .png"
             />
           </div>
           
         </div>
-        <div id="profileHelpBlock" class="form-text mb-1" accept="image/*">
+        <div id="profileHelpBlock" class="form-text mb-1" >
           프로필 이미지로 사용할 이미지를 선택해주세요.
         </div>
       </div>
