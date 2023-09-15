@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.AuthenticationResponse;
 import com.example.demo.dto.RoomCommentRequest;
+import com.example.demo.dto.RoomCommentResponse;
+import com.example.demo.dto.RoomRecommentResponse;
 import com.example.demo.exception.RoomComment.NoSuchRoomCommentException;
 import com.example.demo.exception.RoomComment.NoSuchRoomRecommentException;
 import com.example.demo.exception.RoomComment.NotPermissionRoomCommentException;
@@ -23,7 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -140,4 +145,43 @@ public class RoomCommentService {
 
     }
 
+    public ResponseEntity<?> getCommments(Long roomId, Principal principal) {
+        Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
+
+        Long currentUserId = null;
+        if(principal != null) {
+            Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(InvalidAccessTokenException::new);
+            currentUserId = member.getId();
+        }
+        final Long finalCurrentUserId = currentUserId;
+        List<RoomCommentResponse> roomCommentResponses = room.getComments().stream().filter(comment -> comment.getParent() == null).map(comment -> {
+            return RoomCommentResponse.builder()
+                    .commentId(comment.getId())
+                    .content(comment.getContent())
+                    .recommentCount(comment.getChildren().size())
+                    .user(AuthenticationResponse.builder()
+                            .memberId(comment.getMember().getId())
+                            .nickname(comment.getMember().getNickname())
+                            .profileImgURL(comment.getMember().getProfileImgURL())
+                            .build())
+                    .isMyComment(comment.getMember().getId().equals(finalCurrentUserId))
+                    .createdDateTime(comment.getLastModifiedAt())
+                    .recomments(comment.getChildren().stream().map(recomment -> {
+                        return RoomRecommentResponse.builder()
+                                .recommentId(recomment.getId())
+                                .content(recomment.getContent())
+                                .user(AuthenticationResponse.builder()
+                                        .memberId(recomment.getMember().getId())
+                                        .nickname(recomment.getMember().getNickname())
+                                        .profileImgURL(recomment.getMember().getProfileImgURL())
+                                        .build())
+                                .createdDateTime(recomment.getLastModifiedAt())
+                                .isMyComment(recomment.getMember().getId().equals(finalCurrentUserId))
+                                .build();
+                    }).collect(Collectors.toList()))
+                    .build();
+        }).toList();
+
+        return new ResponseEntity<>(roomCommentResponses, HttpStatus.OK);
+    }
 }

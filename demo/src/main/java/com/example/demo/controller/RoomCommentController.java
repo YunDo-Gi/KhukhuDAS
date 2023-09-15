@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -52,8 +53,11 @@ public class RoomCommentController {
 
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/room/{roomId}/comment/{commentId}")
-    public ResponseEntity<?> removeComment(Principal principal, @PathVariable("roomId") Long roomId, @PathVariable("commentId") Long commentId){
-        return roomCommentService.removeComment(principal, roomId, commentId);
+    public ResponseEntity<?> removeComment(Principal principal, @PathVariable("roomId") Long roomId, @PathVariable("commentId") Long commentId)/
+
+    @GetMapping("/room/{roomId}/comment")
+    public ResponseEntity<?> getComments(@PathVariable("roomId") Long roomId, Principal principal){
+        return roomCommentService.getCommments(roomId, principal);
     }
 
 }
