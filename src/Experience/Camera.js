@@ -80,7 +80,7 @@ export default class Camera
 
         this.controls.rotateSpeed = 0.5
 
-        this.controls.enableZoom = false
+        this.controls.enableZoom = true
         this.controls.enableDamping = true
     }
 

@@ -15,6 +15,17 @@ body
     height: 100%;
 }
 
+iframe
+{
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 header
 {
     position: fixed;
@@ -58,7 +69,7 @@ button
     transition: transform 0.5s ease-in-out;
 }
 
-.login-wrapper.active-popup
+.active-popup
 {
     transform: scale(1);
 }
@@ -156,6 +167,21 @@ button
     z-index: 5;
 }
 
+/* Room Page */
+.iframe-wrapper
+{
+    position: fixed;
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+    padding: 20px;
+    z-index: 5;
+    transform: scale(1);
+    transition: transform 0.5s ease-in-out;
+}
 
 /* 반응형으로 추후 수정 */
 .button 

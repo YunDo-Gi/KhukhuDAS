@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js'
+import gsap from 'gsap'
 
 import Experience from './Experience.js'
 
@@ -13,16 +15,10 @@ export default class Renderer
         this.camera = this.experience.camera
 
         this.setInstance()
+        this.setRendererCSS()
 
-        const renderer = this;
         const backImg = 'background/main.png';
-        const img = new Image();
-        img.onload = function () {
-            console.log(backImg);
-	        renderer.scene.background = new THREE.TextureLoader().load(backImg);
-	        renderer.setBackground(this.scene, img.width, img.height);
-        };
-        img.src = backImg;
+        this.renderBackground(backImg);
     }
 
     setInstance()
@@ -37,6 +33,13 @@ export default class Renderer
         this.instance.shadowMap.type = THREE.PCFSoftShadowMap
         this.instance.setSize(this.sizes.width, this.sizes.height)
         this.instance.setPixelRatio(this.sizes.pixelRatio)
+    }
+
+    setRendererCSS()
+    {
+        this.rendererCSS = new CSS3DRenderer();
+		this.rendererCSS.setSize(this.sizes.width, this.sizes.height);
+		this.canvas.appendChild(this.rendererCSS.domElement);
     }
 
     setBackground(scene, backgroundImageWidth, backgroundImageHeight) {
@@ -71,6 +74,17 @@ export default class Renderer
             this.scene.background.repeat.x = factor > 1 ? 1 / factor : 1;
             this.scene.background.repeat.y = factor > 1 ? 1 : factor;
         }
+    }
+
+    renderBackground(backImg)
+    {
+        const renderer = this;
+        const img = new Image();
+        img.onload = function () {
+	        renderer.scene.background = new THREE.TextureLoader().load(backImg);
+	        renderer.setBackground(this.scene, img.width, img.height);
+        };
+        img.src = backImg;
     }
 
     resize()
