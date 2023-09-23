@@ -53,7 +53,9 @@ public class RoomCommentController {
 
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/room/{roomId}/comment/{commentId}")
-    public ResponseEntity<?> removeComment(Principal principal, @PathVariable("roomId") Long roomId, @PathVariable("commentId") Long commentId)/
+    public ResponseEntity<?> removeComment(Principal principal, @PathVariable("roomId") Long roomId, @PathVariable("commentId") Long commentId){
+        return roomCommentService.removeComment(principal, roomId, commentId);
+    }
 
     @GetMapping("/room/{roomId}/comment")
     public ResponseEntity<?> getComments(@PathVariable("roomId") Long roomId, Principal principal){
