@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import Experience from '../Experience.js'
 import Room from './Room.js'
 
-export default class SoccerRoom extends Room
+export default class BasicRoom extends Room
 {
     constructor() 
     {
@@ -14,8 +14,8 @@ export default class SoccerRoom extends Room
         this.resources = this.experience.resources
 
         // Setup
-        this.resource = this.resources.items.SoccerRoomModel
-        this.background = 'background/soccer_bg.png';
+        this.resource = this.resources.items.BasicRoomModel
+        this.background = 'background/basic_bg.png';
         this.framePosition = null
 
         this.centerPosition = new THREE.Vector3(0.47, 0.26, 9)
@@ -30,20 +30,11 @@ export default class SoccerRoom extends Room
     {
         this.model = this.resource.scene
 
+
         this.model.scale.set(0, 0, 0)
         this.model.rotation.y = Math.PI * 0.25
         this.model.rotation.x = -Math.PI * 0.1
 
         this.scene.add(this.model)
-    }
-
-    getModel()
-    {
-        return this.model
-    }
-    
-    setBackground()
-    {
-        this.renderer.renderBackground(this.background)
     }
 }
