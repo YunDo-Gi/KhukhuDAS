@@ -30,5 +30,18 @@ export default class Room
         return this.scale
     }
 
+    setBackground()
+    {
+        this.renderer.renderBackground(this.background)
+    }
 
+    getFramePosition()
+    {
+        return this.framePosition
+    }
+
+    getFrameRotation()
+    {
+        return this.frameRotation
+    }
 }

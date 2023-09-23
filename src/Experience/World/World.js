@@ -13,6 +13,8 @@ import SoccerRoom from "./SoccerRoom.js";
 import Objects from "./Objects.js";
 import Apt from "./Apt.js";
 
+const btnRoomZoom = document.querySelector(".btn-room-zoom");
+
 export default class World extends EventEmitter {
   constructor() {
     super();
@@ -40,7 +42,9 @@ export default class World extends EventEmitter {
       let current_page = 2;
 
       // Handle page navigation
-      this.rooms[current_page - 1].getModel().scale.copy(this.rooms[current_page - 1].getScale());
+      this.rooms[current_page - 1]
+        .getModel()
+        .scale.copy(this.rooms[current_page - 1].getScale());
       this.rooms[current_page - 1]
         .getModel()
         .position.copy(this.rooms[current_page - 1].getCenterPosition());
@@ -53,7 +57,7 @@ export default class World extends EventEmitter {
             pages[current_page - 1].classList.toggle("selected");
             gsap.to(this.rooms[current_page - 1].getModel().position, {
               duration: 1,
-              x: 8,
+              x: this.rooms[current_page - 1].getRightPosition().x,
               ease: "power2.inOut",
               onComplete: () => {
                 this.rooms[current_page - 1].getModel().scale.set(0, 0, 0);
@@ -61,11 +65,15 @@ export default class World extends EventEmitter {
             });
             pages[current_page].classList.toggle("selected");
             this.rooms[current_page].setBackground();
-            this.rooms[current_page].getModel().scale.copy(this.rooms[current_page].getScale());
-            this.rooms[current_page].getModel().position.copy(this.rooms[current_page].getLeftPostion());
+            this.rooms[current_page]
+              .getModel()
+              .scale.copy(this.rooms[current_page].getScale());
+            this.rooms[current_page]
+              .getModel()
+              .position.copy(this.rooms[current_page].getLeftPostion());
             gsap.to(this.rooms[current_page].getModel().position, {
               duration: 1,
-              x: 0,
+              x: this.rooms[current_page].getCenterPosition().x,
               ease: "power2.inOut",
               onComplete: () => {
                 current_page += 1;
@@ -82,7 +90,7 @@ export default class World extends EventEmitter {
             pages[current_page - 1].classList.toggle("selected");
             gsap.to(this.rooms[current_page - 1].getModel().position, {
               duration: 1,
-              x: -8,
+              x: this.rooms[current_page - 1].getLeftPostion().x,
               ease: "power2.inOut",
               onComplete: () => {
                 this.rooms[current_page - 1].getModel().scale.set(0, 0, 0);
@@ -90,11 +98,15 @@ export default class World extends EventEmitter {
             });
             pages[current_page - 2].classList.toggle("selected");
             this.rooms[current_page - 2].setBackground();
-            this.rooms[current_page - 2].getModel().scale.copy(this.rooms[current_page - 2].getScale());
-            this.rooms[current_page - 2].getModel().position.copy(this.rooms[current_page - 2].getRightPosition());
+            this.rooms[current_page - 2]
+              .getModel()
+              .scale.copy(this.rooms[current_page - 2].getScale());
+            this.rooms[current_page - 2]
+              .getModel()
+              .position.copy(this.rooms[current_page - 2].getRightPosition());
             gsap.to(this.rooms[current_page - 2].getModel().position, {
               duration: 1,
-              x: 0,
+              x: this.rooms[current_page - 2].getCenterPosition().x,
               ease: "power2.inOut",
               onComplete: () => {
                 current_page -= 1;
@@ -103,11 +115,35 @@ export default class World extends EventEmitter {
           }
         });
 
+      // Handle zoom
+    //   btnRoomZoom.addEventListener("click", () => {
+    //     gsap.to(
+    //       this.rooms[current_page - 1].getModel().position,
+    //       {
+    //         duration: 1,
+    //         x: this.rooms[current_page - 1].getFramePosition().x,
+    //         y: this.rooms[current_page - 1].getFramePosition().y,
+    //         z: this.rooms[current_page - 1].getFramePosition().z,
+    //         ease: "power2.inOut",
+    //       },
+    //       "same"
+    //     );
+    //     gsap.to(
+    //       this.rooms[current_page - 1].getModel().rotation,
+    //       {
+    //         duration: 1,
+    //         x: this.rooms[current_page - 1].getFrameRotation().x,
+    //         y: this.rooms[current_page - 1].getFrameRotation().y,
+    //         z: this.rooms[current_page - 1].getFrameRotation().z,
+    //         ease: "power2.inOut",
+    //       },
+    //       "same"
+    //     );
+    //   });
+
       this.trigger("worldReady");
     });
   }
-
-  setRooms() {}
 
   update() {}
 }

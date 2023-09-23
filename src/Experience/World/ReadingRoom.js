@@ -18,9 +18,10 @@ export default class ReadingRoom extends Room
         this.resource = this.resources.items.ReadingRoomModel
         this.background = 'background/read_bg.png';
         this.roomChildren = {}
-        this.framePosition = null
+        this.framePosition = new THREE.Vector3(0, 0, 0)
+        this.frameRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
 
-        this.centerPosition = new THREE.Vector3(0.8, -0.8, 8)
+        this.centerPosition = new THREE.Vector3(-0.8, -0.8, 8)
         this.rightPosition = new THREE.Vector3(8.8, -0.8, 8)
         this.leftPosition = new THREE.Vector3(-8.8, -0.8, 8)
         this.scale = new THREE.Vector3(0.2, 0.2, 0.2)
@@ -59,15 +60,5 @@ export default class ReadingRoom extends Room
 
         // Add the iframe object to the scene
         this.scene.add(this.iframeObject)
-    }
-
-    // getModel()
-    // {
-    //     return this.model
-    // }
-
-    setBackground()
-    {
-        this.renderer.renderBackground(this.background)
     }
 }

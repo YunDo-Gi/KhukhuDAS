@@ -5,7 +5,6 @@ import Experience from '../Experience.js'
 
 const btnChangePosition = document.querySelector('.btn-change-position')
 const btnToRoom = document.querySelector('.btn-to-room')
-const btnRoomZoom = document.querySelector('.btn-room-zoom')
 const aptWrapper = document.querySelector('.apt-wrapper')
 const roomWrapper = document.querySelector('.room-wrapper')
 
@@ -23,6 +22,7 @@ export default class Controls
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.camera = this.experience.camera
+        this.world = this.experience.world
         this.objects = this.experience.objects
 
         this.progress = 0
@@ -70,25 +70,6 @@ export default class Controls
                   }
             // this.objects.move = false
             })
-        })
-
-        btnRoomZoom.addEventListener('click', () => {
-            
-            // GSAP.to(this.camera.orthographicCamera.position, {
-            //     duration: 2,
-            //     x: -1,
-            //     y: 0,
-            //     z: 7,
-            //     ease: "power2.inOut"
-            // })
-            // GSAP.to(this.camera.orthographicCamera.rotation, {
-            //     duration: 2,
-            //     y: -Math.PI * 0.75,
-            //     ease: 'power2.inOut',
-            //     onComplete: () => {
-            //         roomWrapper.classList.add('hidden');
-            //       }
-            // })
         })
     }
 

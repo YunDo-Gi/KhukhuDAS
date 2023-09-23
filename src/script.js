@@ -17,5 +17,5 @@ btnPopup.addEventListener('click', () => {
 })
 
 btnRoomZoom.addEventListener('click', () => {
-    iframeWrapper.classList.toggle('active-popup')  
+    // iframeWrapper.classList.toggle('active-popup')  
 })

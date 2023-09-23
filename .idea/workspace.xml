@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="6f8c9fab-8742-4657-a718-eeca6e5318d4" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/controller/RoomCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/controller/RoomCommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/exception/ErrCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/exception/ErrCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/service/RoomCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/service/RoomCommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Experience/World/Controls.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Experience/World/Controls.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Experience/World/PaintingRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Experience/World/PaintingRoom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Experience/World/PhotoRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Experience/World/PhotoRoom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Experience/World/ReadingRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Experience/World/ReadingRoom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Experience/World/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Experience/World/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Experience/World/World.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Experience/World/World.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,10 +75,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "모듈",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propCompiler",
     "spring.configuration.checksum": "9de0862494cc3aa211be7c76dc6b547b",
     "vue.rearranger.settings.migration": "true"
   },
@@ -100,7 +104,7 @@
       <method v="2" />
     </configuration>
     <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="demo.main" />
+      <module name="KhukhuDAS" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
       <extension name="coverage">
         <pattern>
@@ -115,8 +119,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.DemoApplication" />
-        <item itemvalue="JavaScript 디버그.index.html (1)" />
-        <item itemvalue="JavaScript 디버그.index.html" />
       </list>
     </recent_temporary>
   </component>
@@ -146,6 +148,8 @@
       <workItem from="1693885769050" duration="9360000" />
       <workItem from="1693981735903" duration="3232000" />
       <workItem from="1693985164233" duration="15079000" />
+      <workItem from="1695031523006" duration="313000" />
+      <workItem from="1695033916253" duration="80000" />
     </task>
     <servers />
   </component>
@@ -182,5 +186,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
