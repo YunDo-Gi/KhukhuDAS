@@ -6,8 +6,11 @@ import com.example.demo.dto.MyProfileResponse;
 import com.example.demo.dto.UserProfileResponse;
 import com.example.demo.exception.auth.InvalidAccessTokenException;
 import com.example.demo.exception.auth.NotFoundMemberException;
-import com.example.demo.model.Member;
+import com.example.demo.model.*;
+import com.example.demo.repository.CommentRepository;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.RoomLikeRepository;
+import com.example.demo.repository.RoomRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +35,15 @@ public class UserService {
 
     private final MediaService mediaService;
 
+    private final RoomRepository roomRepository;
+
+    private final RoomLikeRepository roomLikeRepository;
+
+    private final CommentRepository commentRepository;
+
     //자신의 프로필일 경우
     public ResponseEntity<?> getMyProfile(Principal principal) {
-        if(principal == null) throw new InvalidAccessTokenException();
+        if (principal == null) throw new InvalidAccessTokenException();
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
         MyProfileResponse myProfileResponse = MyProfileResponse.builder()
                 .age(member.getAge())
@@ -54,13 +63,13 @@ public class UserService {
 
     @Transactional
     public ResponseEntity<?> modify(Principal principal, String updateRequest, MultipartFile profileImg, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        if(principal == null){
+        if (principal == null) {
             throw new InvalidAccessTokenException();
         }
 
         Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
 
-        ModifyProfileRequest modifyProfileRequest = ( ModifyProfileRequest) new ObjectToDtoUtil().jsonStrToObj(updateRequest, ModifyProfileRequest.class);
+        ModifyProfileRequest modifyProfileRequest = (ModifyProfileRequest) new ObjectToDtoUtil().jsonStrToObj(updateRequest, ModifyProfileRequest.class);
         String toSetProfileImgURL = null;
         String currentProfileImgUrl = member.getProfileImgURL();
 
@@ -70,13 +79,9 @@ public class UserService {
                 List<String> url = new ArrayList<>();
                 url.add(currentProfileImgUrl);
                 mediaService.deleteFile(url, "profileImg");
-            }
-
-            else if (currentProfileImgUrl == null && profileImg != null) {
+            } else if (currentProfileImgUrl == null && profileImg != null) {
                 toSetProfileImgURL = mediaService.uploadProfileImg(profileImg);
-            }
-
-            else if (currentProfileImgUrl != null && profileImg != null) {
+            } else if (currentProfileImgUrl != null && profileImg != null) {
                 List<String> url = new ArrayList<>();
                 url.add(currentProfileImgUrl);
                 toSetProfileImgURL = mediaService.uploadProfileImg(profileImg);
@@ -109,5 +114,50 @@ public class UserService {
                 .job(member.getJob())
                 .build();
         return new ResponseEntity<UserProfileResponse>(userProfileResponse, HttpStatus.OK);
+    }
+
+    @Transactional
+    public ResponseEntity<HashMap> deleteUser(Principal principal) {
+        Member member = new Member();
+        if (principal != null) {
+            member = memberRepository.findByEmail(principal.getName()).orElseThrow(InvalidAccessTokenException::new);
+        }
+
+
+        List<Room> rooms = roomRepository.findAllByMemberId(member.getId());
+        for (Room room : rooms) {
+
+            List<MediaObject> originalFile = room.getObjects();
+
+            mediaService.removePreFile(originalFile);
+
+            List<RoomLike> roomLikes = room.getRoomLikes();
+            if (!roomLikes.isEmpty()) {
+                roomLikeRepository.deleteAll(roomLikes);
+            }
+
+            List<Comment> comments = room.getComments();
+
+            if (!comments.isEmpty()) {
+                commentRepository.deleteAll(comments);
+            }
+
+            roomRepository.delete(room);
+        }
+
+        List<Comment> comments = commentRepository.findAllByMemberId(member.getId());
+        commentRepository.deleteAll(comments);
+
+
+        List<RoomLike> roomLikes = roomLikeRepository.findAllByMemberId(member.getId());
+        roomLikeRepository.deleteAll(roomLikes);
+        long userId = member.getId();
+        memberRepository.delete(member);
+
+        HashMap<String, Long> response = new HashMap<>();
+        response.put("삭제된 userId", userId);
+        return new ResponseEntity<HashMap>(response, HttpStatus.OK);
+
+
     }
 }

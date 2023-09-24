@@ -13,4 +13,7 @@ public interface RoomLikeRepository extends JpaRepository<RoomLike, Long > {
     Optional<RoomLike> findByRoomIdAndMemberId(Long roomId, Long userId);
 
     Optional<List<RoomLike>> findAllByRoomId(Long roomId);
+
+
+    List<RoomLike> findAllByMemberId(Long memberId);
 }

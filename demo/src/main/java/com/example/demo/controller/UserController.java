@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
@@ -48,6 +49,13 @@ public class UserController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> getUserProfile(@PathVariable("userId") Long userId){
         return userService.getUserProfile(userId);
+    }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/user/withdraw")
+    public ResponseEntity<HashMap> deleteUser(Principal principal){
+        return userService.deleteUser(principal);
     }
 
 

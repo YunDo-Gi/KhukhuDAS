@@ -18,4 +18,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     List<Room> findAll(Sort sort);
 
+
+    List<Room> findAllByMemberId(Long userId);
+
 }
