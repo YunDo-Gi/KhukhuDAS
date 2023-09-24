@@ -27,7 +27,6 @@ export default class Preloader extends EventEmitter
     {
         this.room = this.world.readingRoom.getModel()
         this.paintingRoom = this.world.paintingRoom.getModel()
-        console.log(this.paintingRoom)
         this.roomChildren = this.world.readingRoom.getRoomChildren()
         // this.cubes = filterObjectsByString(this.roomChildren, 'cube')
         // console.log(this.cubes)

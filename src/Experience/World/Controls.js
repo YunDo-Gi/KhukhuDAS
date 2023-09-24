@@ -22,6 +22,7 @@ export default class Controls
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.camera = this.experience.camera
+        this.world = this.experience.world
         this.objects = this.experience.objects
 
         this.progress = 0

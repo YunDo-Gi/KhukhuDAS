@@ -19,24 +19,9 @@ export default [
         path: 'models/Room/room_painting.gltf'
     },
     {
-        name: 'basicRoomModel',
+        name: 'BasicRoomModel',
         type: 'gltfModel',
         path: 'models/Room/room_basic.gltf'
-    },
-    {
-        name: 'RoomModel2',
-        type: 'gltfModel',
-        path: 'models/Room/room2.gltf'
-    },
-    {
-        name: 'RoomBasicModel2',
-        type: 'gltfModel',
-        path: 'models/Room/room_basic_2.gltf'
-    },
-    {
-        name: 'RoomPaintingModel2',
-        type: 'gltfModel',
-        path: 'models/Room/room_painting_2.gltf'
     },
     {
         name: 'PhotoRoomModel',

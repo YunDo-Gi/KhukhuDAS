@@ -12,7 +12,6 @@ import Controls from './World/Controls.js'
 import Objects from './World/Objects.js'
 
 let instance = null
-const clock = new THREE.Clock()
 
 export default class Experience
 {
