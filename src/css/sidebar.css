@@ -76,3 +76,8 @@
 .menu__item:hover {
   background-color: #cfd8dc;
 }
+
+body {
+  font-family: "Instagram Sans", sans-serif;
+  font-family: "Instagram Sans Headline", sans-serif;
+}

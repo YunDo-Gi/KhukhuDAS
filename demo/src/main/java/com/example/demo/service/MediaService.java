@@ -210,18 +210,18 @@ public class MediaService {
 
 
     public String getPathURL(String fileUrl){
-        List<String> url = Arrays.stream(fileUrl.split("/")).filter(s -> !s.isEmpty()).collect(Collectors.toList());
-        log.info(url.toString());
-        StringBuilder stringBuilder = new StringBuilder();
-        for(String s : url){
-            stringBuilder.append(File.separator);
-            stringBuilder.append(s);
+        try{
+            List<String> url = Arrays.stream(fileUrl.split("/")).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+            log.info(url.toString());
+            StringBuilder stringBuilder = new StringBuilder();
+            for(String s : url){
+                stringBuilder.append(File.separator);
+                stringBuilder.append(s);
+            }
+            return stringBuilder.toString();
         }
-        return stringBuilder.toString();
-
+        catch(Exception e) {
+            return null;
+        }
     }
-
-
-
-
 }

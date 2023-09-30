@@ -5,41 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>sidebar</title>
     <link
+      href="https://fonts.cdnfonts.com/css/instagram-sans-2"
+      rel="stylesheet"
+    />
+
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    <script
+      src="https://kit.fontawesome.com/b062febd1b.js"
+      crossorigin="anonymous"
+    ></script>
     <link href="../css/sidebar.css" rel="stylesheet" />
   </head>
 
   <body>
-    <div
-      class="fs-3 mb-5 text-bg-primary d-flex justify-content-center w-100 align-items-center"
-      style="top: 10%; height: 10%"
-    >
-      댓글창
-    </div>
+    <div class="border rounded-1 w-100">
+      <ul
+        class="comment-box d-flex flex-column align-items-center user-info border-bottom mb-3"
+        style="height: 650px; overflow: auto"
+      >
+        <!-- 댓글창 -->
+      </ul>
 
-    <div class="border rounded-1 w-50" style="position:relative; left:25%">
-      <!-- 나중에 이 부분을 서버에서 받아온 데이터를 토대로 추가해야함. -->
-      <!-- <div class="comment-box d-flex align-items-center user-info border-bottom mb-3 ">
-        <img alt="img" src="../../public/default-avatar.jpg" style="width:2.5rem; height: 2.5rem; border-radius: 24px;">
-        <div class="" >
-          <div class="user-name">name</div>
-          <div class="user-comment">commentcommentcommentcommentcommentcomment</div>
-          <a class="leave-comment" href="#">댓글달기</a>
-        </div>
-      </div> -->
-      
       <!-- 댓글 입력하는 부분 -->
-      <div class="input-box d-flex align-items-center justify-content-between">
-        <img alt="user-img" src="../../public/default-avatar.jpg" style="width:2.5rem; height: 2.5rem; border-radius: 24px;">
-        <input type="text" class="w-75" placeholder="Leave a comment" id="comment-input">
-        <button class="border-0 btn btn-secondary" id="comment-btn">작성</button>
+      <i class="fa-regular fa-heart fa-lg like-button" style="margin: 10px"></i>
+      <div style="margin: 10px" class="like-counter"></div>
+      <div
+        class="input-box d-flex align-items-center justify-content-between"
+        style="margin-bottom: 10px"
+      >
+        <input
+          type="text"
+          placeholder="댓글 달기..."
+          id="comment-input"
+          style="
+            border: none;
+            width: 100%;
+            outline: none;
+            margin-left: 10px;
+            font-size: 13px;
+          "
+        />
+        <button
+          class="border-0"
+          id="comment-btn"
+          style="
+            background-color: transparent;
+            color: rgb(71, 197, 255);
+            padding: 0;
+            width: 2.5rem;
+            margin-right: 10px;
+            font-size: 13px;
+            font-weight: 900;
+          "
+        >
+          게시
+        </button>
       </div>
     </div>
-    
+
     <!-- navbar -->
     <div class="hamburger-menu">
       <input id="menu__toggle" type="checkbox" />
@@ -50,7 +78,7 @@
       <ul class="menu__box">
         <li><a class="menu__item" href="./index.html">Home</a></li>
         <li>
-          <a class="menu__item create" href="./createRoom.html" >Create Room</a>
+          <a class="menu__item create" href="./createRoom.html">Create Room</a>
         </li>
         <li><a class="menu__item" href="./about.html">About</a></li>
         <li>

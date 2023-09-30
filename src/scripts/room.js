@@ -1,9 +1,83 @@
 const room = document.querySelector(".get-room-test");
-console.log(localStorage.getItem("jwt"))
+const indicator = document.querySelector(".carousel-indicators");
+const inner = document.querySelector(".carousel-inner");
+console.log(localStorage.getItem("jwt"));
 
-const getRoom = async (roomId) => { // 방 입장
+// 현재 입장한 방의 정보
+var fileURLs = null;
+var writer = null;
+
+const setData = (data) => {
+  fileURLs = data.fileURLs;
+  writer = data.writer;
+
+  localStorage.setItem("title", data.title);
+  localStorage.setItem("content", data.content);
+  localStorage.setItem("interestType", data.interestType);
+  localStorage.setItem("isLike", data.isLike);
+  localStorage.setItem("isMyRoom", data.isMyRoom);
+  localStorage.setItem("likeCount", data.likeCount);
+  localStorage.setItem("viewCount", data.viewCount);
+  localStorage.setItem("writer", data.writer);
+};
+
+// 이미지 URL을 받아와서 보여주는 함수
+const createCarousel = async (chuncks) => {
+  // 초기화
+  indicator.innerHTML = "";
+  inner.innerHTML = "";
+
+  for (let i = 0; i < chuncks.length; i++) {
+    // 요소 생성
+    let button = document.createElement("button");
+    if (i == 0) button.classList.add("active");
+    button.setAttribute("type", "button");
+    button.setAttribute("data-bs-target", "#carouselCaption");
+    button.setAttribute("data-bs-slide-to", i);
+
+    let item = document.createElement("div");
+    if (i == 0) item.classList.add("active");
+    item.classList.add("carousel-item");
+
+    let img = document.createElement("img");
+    img.classList.add("previewImg" + i);
+    img.classList.add("d-block");
+    img.classList.add("w-100");
+    img.src = chuncks[i].url;
+    item.appendChild(img);
+
+    // 요소 추가
+    indicator.append(button);
+    inner.appendChild(item);
+  }
+};
+
+// file 형식으로 carousel에 child 추가
+const getMedia = async (fileURLs) => {
+  try {
+    chuncks = [];
+    for (i = 0; i < fileURLs.length; i++) {
+      let readableStream = await fetch(
+        "http://localhost:8080/api" +
+          fileURLs[i].replace("\\\\room\\", "/roomImg/")
+      );
+      chuncks.push(readableStream);
+    }
+
+    createCarousel(chuncks);
+  } catch (error) {
+    alert(error);
+    return null;
+  }
+};
+
+// 방 입장 시 동작
+// 사용자 정보를 받아옴
+// 받아온 정보를 통해서 방에서 표시할 이미지를 표현해줌
+const getRoom = async (roomId) => {
+  // 방 입장
   let url = `http://localhost:8080/api/room/${roomId}`;
-  localStorage.setItem("roomId", roomId) // id 저장, 방 수정 시 활용
+  localStorage.setItem("roomId", roomId); // id 저장, 방 수정 시 활용
 
   try {
     let res = await fetch(url, {
@@ -15,26 +89,34 @@ const getRoom = async (roomId) => { // 방 입장
 
     const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
     const { value } = await reader.read();
-    console.log(JSON.parse(value));
+
+    setData(JSON.parse(value));
+    getMedia(fileURLs);
   } catch (e) {
     console.log(e);
   }
 };
 
-const getRooms = async (interestType, sort) => { // 메인 페이지에 보여줄 거임
+getRoom(1); //
+
+const getRooms = async (interestType, sort) => {
+  // 메인 페이지에 보여줄 거임
   // interest가 null인 경우 구분 안함
   // sort는 3가지 종류로 구성
   // 1. LIKE
   // 2. VIEW
   // 3. CHRONOLOGICAL
-  const url = (interestType == null) ? `http://localhost:8080/api/rooms?sort=${sort}` : `http://localhost:8080/api/rooms?interest-type=${interestType}&sort=${sort}`;
-  
-  let res = await fetch(url, );
+  const url =
+    interestType == null
+      ? `http://localhost:8080/api/rooms?sort=${sort}`
+      : `http://localhost:8080/api/rooms?interest-type=${interestType}&sort=${sort}`;
+
+  let res = await fetch(url);
   const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
   const { value } = await reader.read();
-  
+
   console.log(JSON.parse(value));
-}
+};
 
 const likeThisRoom = async (roomId) => {
   let url = `http://localhost:8080/api/room/${roomId}/like`;
@@ -45,9 +127,9 @@ const likeThisRoom = async (roomId) => {
       Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
-  
-  console.log(res.status)
-}
+
+  console.log(res.status);
+};
 
 const unlikeThisRoom = async (roomId) => {
   let url = `http://localhost:8080/api/room/${roomId}/unlike`;
@@ -58,12 +140,13 @@ const unlikeThisRoom = async (roomId) => {
       Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
-  console.log(res.status)
-}
+  console.log(res.status);
+};
 
-const deleteRoom = async (roomId) => { // 방 입장
+const deleteRoom = async (roomId) => {
+  // 방 입장
   let url = `http://localhost:8080/api/room/${roomId}`;
-  localStorage.setItem("roomId", roomId) // id 저장, 방 수정 시 활용
+  localStorage.setItem("roomId", roomId); // id 저장, 방 수정 시 활용
 
   try {
     let res = await fetch(url, {
@@ -80,9 +163,3 @@ const deleteRoom = async (roomId) => { // 방 입장
     console.log(e);
   }
 };
-
-room.addEventListener("click", async () => {
-  // getRoom(1);
-  await unlikeThisRoom(1);
-  await likeThisRoom(1);
-});

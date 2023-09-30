@@ -28,7 +28,9 @@ const handleFiles = () => {
 };
 
 const getUserInfo = () => {
-  const url = "http://localhost:8080/api/auth/profile";
+  const url =
+    "http://localhost:8080/api/user/" + localStorage.getItem("userId");
+
   const req = fetch(url, {
     method: "GET",
     headers: {
@@ -45,9 +47,12 @@ const getUserInfo = () => {
     email.value = p.email;
     job.value = p.job;
     phoneNumber.value = p.phoneNumber;
-    imgBuffer  = "../../public/default-avatar.jpg"
-    if (p.profileImgURL != null) imgBuffer = "http://localhost:8080/api/profileImg/" + p.profileImgURL.replace("\\\\profileImg\\", "");
-  
+    imgBuffer = "../public/default-avatar.jpg";
+    if (p.profileImgURL != null)
+      imgBuffer =
+        "http://localhost:8080/api/profileImg/" +
+        p.profileImgURL.replace("\\\\profileImg\\", "");
+
     profileImg.src = imgBuffer;
     realname.value = p.realName;
   });
@@ -63,7 +68,7 @@ const infoChangeHandler = () => {
     button.style.display = "none";
     profileContainer.style.display = "none";
     flag = false;
-    profile.value = null
+    profile.value = null;
     getUserInfo();
   } else {
     changeUser.innerHTML = "수정 취소";
@@ -86,42 +91,41 @@ const requestHandler = () => {
     isChangedProfileImg: false,
   };
 
-
   if (profile.files[0] != undefined) {
     data.isChangedProfileImg = true;
     body.append("profileImg", profile.files[0]);
-    console.log(data)
+    console.log(data);
   }
-  
 
-  body.append("updateRequest",JSON.stringify(data) );
-  
-  
+  body.append("updateRequest", JSON.stringify(data));
+
   const req = fetch(url, {
     method: "PUT",
     body: body,
     headers: {
       Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
-  }).then(async (res) => {
-    const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
-    const { value, done } = await reader.read();
-    let ret = JSON.parse(value).url.replace("\\profileImg\\", "")
-    if (res.status == 200) {
-      alert("정보가 변경되었습니다.");
+  })
+    .then(async (res) => {
+      const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+      const { value, done } = await reader.read();
+      let ret = JSON.parse(value).url.replace("\\profileImg\\", "");
+      if (res.status == 200) {
+        alert("정보가 변경되었습니다.");
 
-      if (profile.files[0] != null) {
-        await localStorage.setItem("profileImgUrl", ret); // 서버에서 파일 URL 받아오게 수정
-        console.log(localStorage.getItem("profileImgUrl"))
+        if (profile.files[0] != null) {
+          await localStorage.setItem("profileImgUrl", ret); // 서버에서 파일 URL 받아오게 수정
+          console.log(localStorage.getItem("profileImgUrl"));
+        }
+
+        getUserInfo();
+
+        location.replace("./user.html");
+      } else {
+        alert("사용자 정보를 변경할 수 없습니다.");
       }
-
-      getUserInfo();
-
-      location.replace("./user.html");
-    } else {
-      alert("사용자 정보를 변경할 수 없습니다.");
-    }
-  }).catch(e => console.log(e));
+    })
+    .catch((e) => console.log(e));
 };
 
 changeUser.addEventListener("click", infoChangeHandler);
