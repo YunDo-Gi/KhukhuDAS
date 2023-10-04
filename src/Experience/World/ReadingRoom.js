@@ -21,13 +21,13 @@ export default class ReadingRoom extends Room
         this.framePosition = new THREE.Vector3(0, 0, 0)
         this.frameRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
 
-        this.centerPosition = new THREE.Vector3(-0.8, -0.8, 8)
-        this.rightPosition = new THREE.Vector3(8.8, -0.8, 8)
-        this.leftPosition = new THREE.Vector3(-8.8, -0.8, 8)
+        this.centerPosition = new THREE.Vector3(0, -1, 8)
+        this.rightPosition = new THREE.Vector3(8, -1, 8)
+        this.leftPosition = new THREE.Vector3(-8, -1, 8)
         this.scale = new THREE.Vector3(0.2, 0.2, 0.2)
 
         this.setModel()
-        // this.setIframe()
+        this.getFrame()
     }
 
     setModel()
@@ -60,5 +60,17 @@ export default class ReadingRoom extends Room
 
         // Add the iframe object to the scene
         this.scene.add(this.iframeObject)
+    }
+
+    getFrame()
+    {
+        this.frames = this.model.children.filter((child) =>
+        {
+            if(child.name.includes('pp2') || child.name.includes('pp3'))
+            {
+                return true
+            }
+            return false
+        })
     }
 }

@@ -16,7 +16,7 @@ export default [
     {
         name: 'PaintingRoomModel',
         type: 'gltfModel',
-        path: 'models/Room/room_painting.gltf'
+        path: 'models/Room/room_painting_with_frame.gltf'
     },
     {
         name: 'BasicRoomModel',
@@ -26,7 +26,7 @@ export default [
     {
         name: 'PhotoRoomModel',
         type: 'gltfModel',
-        path: 'models/Room/room_photo.gltf'
+        path: 'models/Room/room_photo_with_frame.gltf'
     },
     {
         name: 'SoccerRoomModel',
@@ -41,7 +41,12 @@ export default [
     {
         name: 'ReadingRoomModel',
         type: 'gltfModel',
-        path: 'models/Room/room_reading.gltf'
+        path: 'models/Room/room_reading_with_frame.gltf'
+    },
+    {
+        name: 'AptModel',
+        type: 'gltfModel',
+        path: 'models/Room/frame.gltf'
     },
 
     // Objects

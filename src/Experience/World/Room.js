@@ -1,8 +1,15 @@
+import Experience from '../Experience.js'
+
 export default class Room
 {
     constructor()
     {
+        this.experience = new Experience()
+        this.renderer = this.experience.renderer
+        this.scene = this.experience.scene
+        this.resources = this.experience.resources
 
+        this.frames = {}
     }
 
     getModel()

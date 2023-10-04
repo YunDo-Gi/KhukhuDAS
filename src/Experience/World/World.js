@@ -27,10 +27,10 @@ export default class World extends EventEmitter {
     // Wait for resources
     this.resources.on("ready", () => {
       // Setup
-      this.readingRoom = new ReadingRoom();
-      this.paintingRoom = new PaintingRoom();
-      this.photoRoom = new PhotoRoom();
-      this.soccerRoom = new SoccerRoom();
+      // this.readingRoom = new ReadingRoom();
+      // this.paintingRoom = new PaintingRoom();
+      // this.photoRoom = new PhotoRoom();
+      // this.soccerRoom = new SoccerRoom();
       this.objects = new Objects();
       this.apt = new Apt();
       this.camera = this.experience.camera;
@@ -91,8 +91,8 @@ export default class World extends EventEmitter {
           "viewCount": 0,
           "likeCount": 2,
           "fileURLs": [
-              "/room/3c4ed563-14b9-4ccd-a8ab-a1e363bc7a99.JPG",
-              "/room/d866285c-1edc-4f7f-ad18-0e629c94763f.jpg"
+            "background/basic_bg.png",
+            "background/game_bg.png"
           ]
       },
       {
@@ -111,8 +111,8 @@ export default class World extends EventEmitter {
           "viewCount": 0,
           "likeCount": 1,
           "fileURLs": [
-              "/room/4f42109d-1911-4e16-b2ef-14641813bf5b.JPG",
-              "/room/e661e149-b87c-47a3-9c79-123ec7f95445.jpg"
+            "background/basic_bg.png",
+            "background/game_bg.png"
           ]
       },
       {
@@ -131,38 +131,26 @@ export default class World extends EventEmitter {
         "viewCount": 0,
         "likeCount": 1,
         "fileURLs": [
-            "/room/4f42109d-1911-4e16-b2ef-14641813bf5b.JPG",
-            "/room/e661e149-b87c-47a3-9c79-123ec7f95445.jpg"
+          "background/basic_bg.png",
+          "background/game_bg.png"
         ]
     }
     ]
-
-    // for(const room of dummyJSON)
-    // {
-    //   switch (room.interestType) {
-    //     case "READING":
-    //       this.testRooms[`room` + room.id] = new ReadingRoom()
-    //       break;
-    //     case "PAINTING":
-    //       this.testRooms[`room` + room.id] = new PaintingRoom()
-    //       break;
-    //     case "PHOTO":
-    //       this.testRooms[`room` + room.id] = new PhotoRoom()
-    //       break;
-    //   }
-    // }
 
     for(let i = 0; i < dummyJSON.length; i++)
     {
       switch (dummyJSON[i].interestType) {
         case "READING":
           this.rooms[i] = new ReadingRoom()
+          this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
           break;
         case "PAINTING":
           this.rooms[i] = new PaintingRoom()
+          this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
           break;
         case "PHOTO":
           this.rooms[i] = new PhotoRoom()
+          this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
           break;
       }
     }
@@ -250,6 +238,14 @@ export default class World extends EventEmitter {
         });
       }
     });
+  }
+
+  setFrames(frame, data)
+  {
+    for(let j = 0; j < Math.min(data.length, frame.length); j++)
+    {
+      frame[j].material = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(data[j]) })
+    }
   }
 
   update() {}

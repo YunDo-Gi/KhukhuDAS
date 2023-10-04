@@ -35,7 +35,8 @@ export default class Objects
     {
         for (const obj in this.objects)
         {
-            this.objects[obj].scale.set(0.004, 0.004, 0.004)
+            if(this.objects[obj] == this.objects[2]) this.objects[obj].scale.set(0.2, 0.2, 0.2)
+            else this.objects[obj].scale.set(0.004, 0.004, 0.004)
             this.objects[obj].position.set(Math.random() * (this.sizes.aspectRatio * this.sizes.frustumSize) - (this.sizes.aspectRatio * this.sizes.frustumSize) / 2, 0, -9)
             this.objects[obj].rotation.x = Math.PI * Math.random()
             this.objects[obj].rotation.y = Math.PI * 0.25

@@ -10,25 +10,19 @@ export default class Objects
     {
 
         this.experience = new Experience()
-        this.sizes = this.experience.sizes
-        this.time = this.experience.time
+        this.renderer = this.experience.renderer
         this.scene = this.experience.scene
         this.resources = this.experience.resources
 
+        this.resource = this.resources.items.AptModel
+
         // Setup
-        this.cube = new THREE.Mesh(new THREE.BoxGeometry(1, 5, 1), new THREE.MeshBasicMaterial({color: 0xff0000}))
-        this.scene.add(this.cube)
+        this.model = this.resource.scene
+        console.log(this.model)
+        this.model.position.set(1, 5, 1)
+        this.model.scale.set(100, 100, 100)
 
-        this.cube.position.set(5, 0, 0)
-        
-
-
-        this.setObjects()
-    }
-
-    setObjects()
-    {
-
+        this.scene.add(this.model)
     }
 
     update()
