@@ -9,7 +9,6 @@ export default class PaintingRoom extends Room
     {
         super();
         
-
         // Setup
         this.resource = this.resources.items.PaintingRoomModel
         this.background = 'background/paint_bg.png';
@@ -19,8 +18,8 @@ export default class PaintingRoom extends Room
         this.leftPosition = new THREE.Vector3(-8, -0.5, 8)
         this.scale = new THREE.Vector3(0.2, 0.2, 0.2)
 
-        this.framePosition = new THREE.Vector3(0, 0, 0)
-        this.frameRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
+        this.iframePosition = new THREE.Vector3(0, 0, 0)
+        this.iframeRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
 
         this.setModel()
         this.getFrame()
@@ -54,6 +53,7 @@ export default class PaintingRoom extends Room
         {
             if(child.name.includes('oo3') || child.name.includes('oo4') || child.name.includes('oo5'))
             {
+                if(child.name.includes('oo5')) this.iframePosition.copy(child.position)
                 return true
             }
             return false

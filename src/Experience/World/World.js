@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import gsap from "gsap";
 import { CSS3DObject } from "three/examples/jsm/renderers/CSS3DRenderer.js";
+import * as dat from 'lil-gui'
 
 import Experience from "../Experience.js";
 import EventEmitter from "../Utils/EventEmitter.js";
@@ -42,31 +43,14 @@ export default class World extends EventEmitter {
       // Set rooms
       this.setRooms();
 
-      // Handle zoom
-    //   btnRoomZoom.addEventListener("click", () => {
-    //     gsap.to(
-    //       this.rooms[current_page - 1].getModel().position,
-    //       {
-    //         duration: 1,
-    //         x: this.rooms[current_page - 1].getFramePosition().x,
-    //         y: this.rooms[current_page - 1].getFramePosition().y,
-    //         z: this.rooms[current_page - 1].getFramePosition().z,
-    //         ease: "power2.inOut",
-    //       },
-    //       "same"
-    //     );
-    //     gsap.to(
-    //       this.rooms[current_page - 1].getModel().rotation,
-    //       {
-    //         duration: 1,
-    //         x: this.rooms[current_page - 1].getFrameRotation().x,
-    //         y: this.rooms[current_page - 1].getFrameRotation().y,
-    //         z: this.rooms[current_page - 1].getFrameRotation().z,
-    //         ease: "power2.inOut",
-    //       },
-    //       "same"
-    //     );
-    //   });
+      // Set GUI
+      const gui = new dat.GUI()
+      gui.add(this.rooms[1].getModel().position, 'x')
+      gui.add(this.rooms[1].getModel().position, 'y')
+      gui.add(this.rooms[1].getModel().position, 'z')
+      gui.add(this.rooms[1].getModel().rotation, 'x')
+      gui.add(this.rooms[1].getModel().rotation, 'y')
+      gui.add(this.rooms[1].getModel().rotation, 'z')
 
       this.trigger("worldReady");
     });
@@ -112,7 +96,8 @@ export default class World extends EventEmitter {
           "likeCount": 1,
           "fileURLs": [
             "background/basic_bg.png",
-            "background/game_bg.png"
+            "background/game_bg.png", 
+            "background/read_bg.png"
           ]
       },
       {
@@ -238,6 +223,31 @@ export default class World extends EventEmitter {
         });
       }
     });
+    
+
+    btnRoomZoom.addEventListener("click", () => {
+      gsap.to(
+        this.rooms[current_page - 1].getModel().position,
+        {
+          duration: 1,
+          x: this.rooms[current_page - 1].getCenterPosition().x - this.rooms[current_page - 1].getIframePosition().x,
+          y: this.rooms[current_page - 1].getCenterPosition().y - this.rooms[current_page - 1].getIframePosition().y,
+          z: this.rooms[current_page - 1].getCenterPosition().z - this.rooms[current_page - 1].getIframePosition().z,
+          ease: "power2.inOut",
+        },
+        "same");
+      gsap.to(
+        this.rooms[current_page - 1].getModel().rotation,
+        {
+          duration: 1,
+          x: this.rooms[current_page - 1].getIframeRotation().x,
+          y: this.rooms[current_page - 1].getIframeRotation().y,
+          z: this.rooms[current_page - 1].getIframeRotation().z,
+          ease: "power2.inOut",
+        },
+        "same"
+      );
+    });
   }
 
   setFrames(frame, data)
@@ -247,6 +257,16 @@ export default class World extends EventEmitter {
       frame[j].material = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(data[j]) })
     }
   }
+
+  // setZoom(room) {
+  //   gsap.to(room, {
+  //     x: room.position.x - room.getFramePosition().x,
+  //     y: room.position.y - room.getFramePosition().y,
+  //     z: room.position.z - room.getFramePosition().z,
+  //     duration: 1,
+  //     ease: "power2.inOut",
+  //   });
+  // }
 
   update() {}
 }

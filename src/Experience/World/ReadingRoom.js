@@ -18,8 +18,8 @@ export default class ReadingRoom extends Room
         this.resource = this.resources.items.ReadingRoomModel
         this.background = 'background/read_bg.png';
         this.roomChildren = {}
-        this.framePosition = new THREE.Vector3(0, 0, 0)
-        this.frameRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
+        this.iframePosition = new THREE.Vector3(0, 0, 0)
+        this.iframeRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
 
         this.centerPosition = new THREE.Vector3(0, -1, 8)
         this.rightPosition = new THREE.Vector3(8, -1, 8)
@@ -68,6 +68,7 @@ export default class ReadingRoom extends Room
         {
             if(child.name.includes('pp2') || child.name.includes('pp3'))
             {
+                if(child.name.includes('pp3')) this.iframePosition.copy(child.position)
                 return true
             }
             return false

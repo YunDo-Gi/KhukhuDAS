@@ -42,13 +42,13 @@ export default class Room
         this.renderer.renderBackground(this.background)
     }
 
-    getFramePosition()
+    getIframePosition()
     {
-        return this.framePosition
+        return this.iframePosition
     }
 
-    getFrameRotation()
+    getIframeRotation()
     {
-        return this.frameRotation
+        return this.iframeRotation
     }
 }

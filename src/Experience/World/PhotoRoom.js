@@ -21,8 +21,8 @@ export default class PhotoRoom extends Room
         this.rightPosition = new THREE.Vector3(8, -0.9, 8)
         this.leftPosition = new THREE.Vector3(-8, -0.9, 8)
         this.scale = new THREE.Vector3(0.2, 0.2, 0.2)
-        this.framePosition = new THREE.Vector3(0, 0, 0)
-        this.frameRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
+        this.iframePosition = new THREE.Vector3(0, 0, 0)
+        this.iframeRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
 
         this.setModel()
         this.getFrame()
@@ -46,6 +46,7 @@ export default class PhotoRoom extends Room
         {
             if(child.name.includes('ii') || child.name.includes('ii1') || child.name.includes('ii2') || child.name.includes('ii3'))
             {
+                if(child.name.includes('ii')) this.iframePosition.copy(child.position)
                 return true
             }
             return false

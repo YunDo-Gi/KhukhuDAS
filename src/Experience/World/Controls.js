@@ -142,8 +142,6 @@ export default class Controls
             this.line.getPointAt(this.lerp.current % 1, this.position)
             this.camera.orthographicCamera.position.copy(this.position)
         }
-
-
         
 
         // this.curve.getPointAt( this.lerp.current % 1, this.position );
