@@ -25,6 +25,7 @@ export default class ReadingRoom extends Room
         this.rightPosition = new THREE.Vector3(8, -1, 8)
         this.leftPosition = new THREE.Vector3(-8, -1, 8)
         this.scale = new THREE.Vector3(0.2, 0.2, 0.2)
+        this.aptScale = new THREE.Vector3(0.3, 0.3, 0.3)
 
         this.setModel()
         this.getFrame()

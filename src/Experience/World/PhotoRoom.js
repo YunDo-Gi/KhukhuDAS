@@ -21,6 +21,8 @@ export default class PhotoRoom extends Room
         this.rightPosition = new THREE.Vector3(8, -0.9, 8)
         this.leftPosition = new THREE.Vector3(-8, -0.9, 8)
         this.scale = new THREE.Vector3(0.2, 0.2, 0.2)
+        this.aptScale = new THREE.Vector3(0.3, 0.3, 0.3)
+
         this.iframePosition = new THREE.Vector3(0, 0, 0)
         this.iframeRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
 

@@ -42,15 +42,19 @@ export default class World extends EventEmitter {
       
       // Set rooms
       this.setRooms();
+      this.fillApt();
 
       // Set GUI
       const gui = new dat.GUI()
-      gui.add(this.rooms[1].getModel().position, 'x')
-      gui.add(this.rooms[1].getModel().position, 'y')
-      gui.add(this.rooms[1].getModel().position, 'z')
-      gui.add(this.rooms[1].getModel().rotation, 'x')
-      gui.add(this.rooms[1].getModel().rotation, 'y')
-      gui.add(this.rooms[1].getModel().rotation, 'z')
+      // gui.add(this.rooms[1].getModel().position, 'x')
+      // gui.add(this.rooms[1].getModel().position, 'y')
+      // gui.add(this.rooms[1].getModel().position, 'z')
+      // gui.add(this.rooms[1].getModel().rotation, 'x')
+      // gui.add(this.rooms[1].getModel().rotation, 'y')
+      // gui.add(this.rooms[1].getModel().rotation, 'z')
+      gui.add(this.apts[0].getModel().position, 'x')
+      gui.add(this.apts[0].getModel().position, 'y')
+      gui.add(this.apts[0].getModel().position, 'z')
 
       this.trigger("worldReady");
     });
@@ -256,6 +260,19 @@ export default class World extends EventEmitter {
     {
       frame[j].material = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(data[j]) })
     }
+  }
+
+  fillApt() {
+    this.apts = [...this.rooms]
+    // for(let room of this.apts)
+    // {
+    //   let ran = Math.floor(Math.random() * this.apts.length);
+    //   if(this.apt.getAptPositions()[ran].filled === false) continue;
+    //   apt.getModel().position.set(this.apt.getAptPositions()[0].position.x, this.apt.getAptPositions()[0].position.y, this.apt.getAptPositions()[0].position.z)
+    // }
+    this.apts[0].getModel().position.set(this.apt.getAptPositions()[0].position.x, this.apt.getAptPositions()[0].position.y, this.apt.getAptPositions()[0].position.z)
+    this.apts[0].getModel().rotation.set(0, Math.PI * 0.5, 0)
+    this.apts[0].getModel().scale.copy(this.apts[0].getAptScale())
   }
 
   // setZoom(room) {

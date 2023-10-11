@@ -37,6 +37,11 @@ export default class Room
         return this.scale
     }
 
+    getAptScale()
+    {
+        return this.aptScale
+    }
+
     setBackground()
     {
         this.renderer.renderBackground(this.background)

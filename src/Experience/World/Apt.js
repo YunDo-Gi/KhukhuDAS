@@ -19,10 +19,35 @@ export default class Objects
         // Setup
         this.model = this.resource.scene
         console.log(this.model)
-        this.model.position.set(1, 5, 1)
-        this.model.scale.set(100, 100, 100)
+        this.model.position.set(7, -16.5, 0)
+        this.model.scale.set(0.003, 0.003, 0.003)
+        this.model.rotation.set(0, Math.PI * 0.5, 0)
 
+        // 현빈님 모델 기준
+        this.aptPositions = [
+            { 
+                position: new THREE.Vector3(7, 4.2, -3.3),
+                filled: false
+            }, 
+            {
+                position: new THREE.Vector3(7, 4.2, 0),
+                filled: false
+            },
+            {
+                position: new THREE.Vector3(7, 4.2, 3.3),
+                filled: false
+            }
+        ]
+
+        // new THREE.Vector3(7, 4.2, 0), new THREE.Vector3(7, 4.2, -3.3),
+        //     new THREE.Vector3(7, 1, -3.3),new THREE.Vector3(7, 1, 0), new THREE.Vector3(7, 1, 3.3),
+        //     new THREE.Vector3(7, -2.3, -3.3), new THREE.Vector3(7, -2.3, 0), new THREE.Vector3(7, -2.3, 3.3)
         this.scene.add(this.model)
+    }
+
+    getAptPositions()
+    {
+        return this.aptPositions
     }
 
     update()

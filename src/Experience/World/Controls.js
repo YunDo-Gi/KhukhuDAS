@@ -95,7 +95,7 @@ export default class Controls
     {
         this.line = new THREE.LineCurve3(
             new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(0, 10, 0)
+            new THREE.Vector3(0, 12, 0)
         )
 
         const points = this.line.getPoints( 50 );
