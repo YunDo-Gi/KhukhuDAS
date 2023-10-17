@@ -32,7 +32,7 @@ export default class PhotoRoom extends Room
 
     setModel()
     {
-        this.model = this.resource.scene
+        this.model = this.resource.scene.clone()
 
 
         this.model.scale.set(0, 0, 0)

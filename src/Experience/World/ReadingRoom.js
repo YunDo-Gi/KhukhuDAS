@@ -33,19 +33,13 @@ export default class ReadingRoom extends Room
 
     setModel()
     {
-        this.model = this.resource.scene
+        this.model = this.resource.scene.clone()
 
         this.model.scale.set(0, 0, 0)
         this.model.rotation.y = Math.PI * 0.25
         this.model.rotation.x = -Math.PI * 0.1
 
         this.scene.add(this.model)
-
-        this.modelApt = this.resource.scene.clone()
-
-        this.modelApt.scale.set(0, 0, 0)
-        this.model.rotation.y = Math.PI * 0.25
-        this.model.rotation.x = -Math.PI * 0.1
     }
 
     setIframe()

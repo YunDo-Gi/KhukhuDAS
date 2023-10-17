@@ -16,12 +16,7 @@ export default class Room
     {
         return this.model
     }
-
-    getModelApt()
-    {
-        return this.modelApt
-    }
-
+    
     getLeftPostion()
     {
         return this.leftPosition

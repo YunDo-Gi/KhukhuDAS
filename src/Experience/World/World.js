@@ -9,7 +9,6 @@ import Controls from "./Controls.js";
 
 import PaintingRoom from "./PaintingRoom.js";
 import ReadingRoom from "./ReadingRoom.js";
-import ReadingRoomApt from "./ReadingRoomApt.js";
 import PhotoRoom from "./PhotoRoom.js";
 import SoccerRoom from "./SoccerRoom.js";
 import BasicRoom from "./BasicRoom.js";
@@ -46,19 +45,13 @@ export default class World extends EventEmitter {
       
       // Set rooms
       this.setRooms();
-      this.fillApt();
+      // this.fillApt();
 
       // Set GUI
       const gui = new dat.GUI()
-      gui.add(this.rooms[0].getModel().scale, 'x')
-      gui.add(this.rooms[0].getModel().scale, 'y')
-      gui.add(this.rooms[0].getModel().scale, 'z')
-      // gui.add(this.rooms[1].getModel().rotation, 'x')
-      // gui.add(this.rooms[1].getModel().rotation, 'y')
-      // gui.add(this.rooms[1].getModel().rotation, 'z')
-      // gui.add(this.apts[0].getModel().position, 'x')
-      // gui.add(this.apts[0].getModel().position, 'y')
-      // gui.add(this.apts[0].getModel().position, 'z')
+      gui.add(this.apts[3].getModel().position, 'x')
+      gui.add(this.apts[3].getModel().position, 'y')
+      gui.add(this.apts[3].getModel().position, 'z')
 
       this.trigger("worldReady");
     });
@@ -109,6 +102,48 @@ export default class World extends EventEmitter {
           ]
       },
       {
+        "id": 1,
+        "title": "내방",
+        "content": "이쁘지?",
+        "interestType": "PAINTING",
+        "writer": {
+            "memberId": 1,
+            "nickname": "마팅",
+            "profileImgURL": null
+        },
+        "commentCount": 0,
+        "createdDateTime": "2023-09-13T17:04:51.669563",
+        "modifiedDateTime": "2023-09-13T17:04:51.668273",
+        "viewCount": 0,
+        "likeCount": 1,
+        "fileURLs": [
+          "background/basic_bg.png",
+          "background/game_bg.png", 
+          "background/read_bg.png"
+        ]
+      },
+      {
+        "id": 1,
+        "title": "내방",
+        "content": "이쁘지?",
+        "interestType": "READING",
+        "writer": {
+            "memberId": 1,
+            "nickname": "마팅",
+            "profileImgURL": null
+        },
+        "commentCount": 0,
+        "createdDateTime": "2023-09-13T17:04:51.669563",
+        "modifiedDateTime": "2023-09-13T17:04:51.668273",
+        "viewCount": 0,
+        "likeCount": 1,
+        "fileURLs": [
+          "background/basic_bg.png",
+          "background/game_bg.png", 
+          "background/read_bg.png"
+        ]
+      },
+      {
         "id": 3,
         "title": "내방",
         "content": "이쁘지?",
@@ -130,25 +165,34 @@ export default class World extends EventEmitter {
     }
     ]
 
+    let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     for(let i = 0; i < dummyJSON.length; i++)
     {
       let room = null
+      let randNum = Math.floor(Math.random() * arr.length)
+      let index = arr.slice(randNum, randNum + 1)
+      arr.splice(randNum, 1)
       switch (dummyJSON[i].interestType) {
         case "READING":
           this.rooms[i] = new ReadingRoom()
-          this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
-          this.apts[i] = new ReadingRoomApt()
-          this.setFrames(this.apts[i].frames, dummyJSON[i].fileURLs)
+          this.apts[i] = new ReadingRoom()
+          this.apts[i].getModel().position.set(this.apt.getAptPositionsReading(index).x, this.apt.getAptPositionsReading(index).y, this.apt.getAptPositionsReading(index).z)
           break;
         case "PAINTING":
           this.rooms[i] = new PaintingRoom()
-          this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
+          this.apts[i] = new PaintingRoom()
+          this.apts[i].getModel().position.set(this.apt.getAptPositionsPainting(index).x, this.apt.getAptPositionsPainting(index).y, this.apt.getAptPositionsPainting(index).z)
           break;
         case "PHOTO":
           this.rooms[i] = new PhotoRoom()
-          this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
+          this.apts[i] = new PhotoRoom()
+          this.apts[i].getModel().position.set(this.apt.getAptPositionsPhoto(index).x, this.apt.getAptPositionsPhoto(index).y, this.apt.getAptPositionsPhoto(index).z)
           break;
       }
+      this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
+      this.setFrames(this.apts[i].frames, dummyJSON[i].fileURLs)
+      this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0)
+      this.apts[i].getModel().scale.copy(this.apts[i].getAptScale())
       this.addRoomIcon(i)
     }
   }
@@ -275,16 +319,9 @@ export default class World extends EventEmitter {
   }
 
   fillApt(scale) {
-    // this.apts = [...this.rooms]
-    // for(let room of this.apts)
-    // {
-    //   let ran = Math.floor(Math.random() * this.apts.length);
-    //   if(this.apt.getAptPositions()[ran].filled === false) continue;
-    //   apt.getModel().position.set(this.apt.getAptPositions()[0].position.x, this.apt.getAptPositions()[0].position.y, this.apt.getAptPositions()[0].position.z)
-    // }
-    this.apts[0].getModel().position.set(this.apt.getAptPositions(0).x, this.apt.getAptPositions(0).y, this.apt.getAptPositions(0).z)
-    this.apts[0].getModel().rotation.set(0, Math.PI * 0.5, 0)
-    this.apts[0].getModel().scale.copy(this.apts[0].getAptScale())
+    this.apts[i].getModel().position.set(this.apt.getAptPositions(i).x, this.apt.getAptPositions(i).y, this.apt.getAptPositions(i).z)
+    this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0)
+    this.apts[i].getModel().scale.copy(this.apts[i].getAptScale())
   }
 
   addRoomIcon(turn)

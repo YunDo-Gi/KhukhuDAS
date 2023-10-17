@@ -23,19 +23,40 @@ export default class Objects
         this.model.rotation.set(0, Math.PI * 0.5, 0)
 
         // 현빈님 모델 기준
-        this.aptPositions = [
+        this.aptPositionsReading = [
             new THREE.Vector3(7, 4.2, -3.3), new THREE.Vector3(7, 4.2, 0), new THREE.Vector3(7, 4.2, 3.3),
             new THREE.Vector3(7, 1, -3.3), new THREE.Vector3(7, 1, 0), new THREE.Vector3(7, 1, 3.3),
             new THREE.Vector3(7, -2.3, -3.3), new THREE.Vector3(7, -2.3, 0), new THREE.Vector3(7, -2.3, 3.3)
         ]
 
-        
+        this.aptPositionsPainting = [
+            new THREE.Vector3(8.5, 4.2, -1.7), new THREE.Vector3(8.5, 4.2, 1.6), new THREE.Vector3(8.5, 4.2, 4.9),
+            new THREE.Vector3(8.5, 1, -1.7), new THREE.Vector3(8.5, 1, 1.6), new THREE.Vector3(8.5, 1, 4.9),
+            new THREE.Vector3(8.5, -2.3, -1.7), new THREE.Vector3(7, -2.3, 0), new THREE.Vector3(8.5, -2.3, 4.9)
+        ]
+
+        this.aptPositionsPhoto = [
+            new THREE.Vector3(6.9, 4.2, -3.3), new THREE.Vector3(6.9, 4.2, 0), new THREE.Vector3(6.9, 4.2, 3.3),
+            new THREE.Vector3(6.9, 1, -3.3), new THREE.Vector3(6.9, 1, 0), new THREE.Vector3(6.9, 1, 3.3),
+            new THREE.Vector3(6.9, -2.3, -3.3), new THREE.Vector3(6.9, -2.3, 0), new THREE.Vector3(6.9, -2.3, 3.3)
+        ]
+
         this.scene.add(this.model)
     }
 
-    getAptPositions(i)
+    getAptPositionsReading(i)
     {
-        return this.aptPositions[i]
+        return this.aptPositionsReading[i]
+    }
+
+    getAptPositionsPainting(i)
+    {
+        return this.aptPositionsPainting[i]
+    }
+
+    getAptPositionsPhoto(i)
+    {
+        return this.aptPositionsPhoto[i]
     }
 
     update()

@@ -28,7 +28,7 @@ export default class PaintingRoom extends Room
 
     setModel()
     {
-        this.model = this.resource.scene
+        this.model = this.resource.scene.clone()
 
         this.model.scale.set(0, 0, 0)
         this.model.rotation.y = Math.PI * 0.25
