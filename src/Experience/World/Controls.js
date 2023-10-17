@@ -3,12 +3,17 @@ import GSAP from 'gsap'
 
 import Experience from '../Experience.js'
 
+
 const btnChangePosition = document.querySelector('.btn-change-position')
 const btnToRoom = document.querySelector('.btn-to-room')
 const aptWrapper = document.querySelector('.apt-wrapper')
 const roomWrapper = document.querySelector('.room-wrapper')
+const btnRoomZoom = document.querySelector('.btn-room-zoom')
+const loginWrapper = document.querySelector('.login-wrapper')
+const btnSubmit = document.querySelector('.btn-submit')
 
 let flag = false
+let returnable = false
 
 btnChangePosition.addEventListener('click', () => {
     flag = !flag
@@ -24,6 +29,8 @@ export default class Controls
         this.camera = this.experience.camera
         this.world = this.experience.world
         this.objects = this.experience.objects
+        this.renderer = this.experience.renderer;
+
 
         this.progress = 0
         this.dummyVector = new THREE.Vector3(0 ,0 ,0)
@@ -44,11 +51,34 @@ export default class Controls
         // this.setPath()
         this.setScroll()
 
-        btnChangePosition.addEventListener('click', () => {
+        document.querySelector('.btn-submit').addEventListener('click', () => {
+            loginWrapper.classList.remove('active-popup')
+            flag = true
             this.onWheel()
             aptWrapper.classList.remove('hidden')
             roomWrapper.classList.add('hidden')
+        })
+
+        btnChangePosition.addEventListener('click', () => {
+            if(returnable) {
+                GSAP.to(this.camera.orthographicCamera.position, {
+                    duration: 2,
+                    x: this.position.x,
+                    y: this.position.y,
+                    z: this.position.z,
+                    ease: "power2.inOut"
+                })
+                returnable = false
+            }
+            GSAP.to(this.camera.orthographicCamera.rotation, {
+                duration: 2,
+                y: -Math.PI * 0.5,
+                ease: 'power2.inOut'
+            })
             // this.objects.move = false
+            this.renderer.setBG()
+            aptWrapper.classList.remove('hidden')
+            roomWrapper.classList.add('hidden')
         })
 
         btnToRoom.addEventListener('click', () => {
@@ -66,11 +96,26 @@ export default class Controls
                 onComplete: () => {
                     aptWrapper.classList.add('hidden');
                     flag = false;
+                    returnable = true;
                     roomWrapper.classList.remove('hidden');
                   }
             // this.objects.move = false
             })
+            this.renderer.setBG()
         })
+
+        btnRoomZoom.addEventListener('click', () => {
+            const camera = this.camera.orthographicCamera
+            GSAP.to(camera, {
+                duration: 2,
+                zoom: 3,
+                ease: "power2.inOut",
+                onUpdate: function () {
+                    camera.updateProjectionMatrix();
+                }
+            })
+        })
+
     }
 
     setPath()

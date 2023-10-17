@@ -9,6 +9,7 @@ import Controls from "./Controls.js";
 
 import PaintingRoom from "./PaintingRoom.js";
 import ReadingRoom from "./ReadingRoom.js";
+import ReadingRoomApt from "./ReadingRoomApt.js";
 import PhotoRoom from "./PhotoRoom.js";
 import SoccerRoom from "./SoccerRoom.js";
 import BasicRoom from "./BasicRoom.js";
@@ -16,6 +17,7 @@ import Objects from "./Objects.js";
 import Apt from "./Apt.js";
 
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
+const btnToRoom = document.querySelector(".btn-to-room");
 
 export default class World extends EventEmitter {
   constructor() {
@@ -24,6 +26,7 @@ export default class World extends EventEmitter {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
+    this.renderer = this.experience.renderer;
 
     // Wait for resources
     this.resources.on("ready", () => {
@@ -36,6 +39,7 @@ export default class World extends EventEmitter {
       this.apt = new Apt();
       this.camera = this.experience.camera;
       this.controls = new Controls();
+      this.apts = [];
 
       // Pagenation
       this.rooms = [];
@@ -46,15 +50,15 @@ export default class World extends EventEmitter {
 
       // Set GUI
       const gui = new dat.GUI()
-      // gui.add(this.rooms[1].getModel().position, 'x')
-      // gui.add(this.rooms[1].getModel().position, 'y')
-      // gui.add(this.rooms[1].getModel().position, 'z')
+      gui.add(this.rooms[0].getModel().scale, 'x')
+      gui.add(this.rooms[0].getModel().scale, 'y')
+      gui.add(this.rooms[0].getModel().scale, 'z')
       // gui.add(this.rooms[1].getModel().rotation, 'x')
       // gui.add(this.rooms[1].getModel().rotation, 'y')
       // gui.add(this.rooms[1].getModel().rotation, 'z')
-      gui.add(this.apts[0].getModel().position, 'x')
-      gui.add(this.apts[0].getModel().position, 'y')
-      gui.add(this.apts[0].getModel().position, 'z')
+      // gui.add(this.apts[0].getModel().position, 'x')
+      // gui.add(this.apts[0].getModel().position, 'y')
+      // gui.add(this.apts[0].getModel().position, 'z')
 
       this.trigger("worldReady");
     });
@@ -128,10 +132,13 @@ export default class World extends EventEmitter {
 
     for(let i = 0; i < dummyJSON.length; i++)
     {
+      let room = null
       switch (dummyJSON[i].interestType) {
         case "READING":
           this.rooms[i] = new ReadingRoom()
           this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
+          this.apts[i] = new ReadingRoomApt()
+          this.setFrames(this.apts[i].frames, dummyJSON[i].fileURLs)
           break;
         case "PAINTING":
           this.rooms[i] = new PaintingRoom()
@@ -142,17 +149,23 @@ export default class World extends EventEmitter {
           this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
           break;
       }
+      this.addRoomIcon(i)
     }
   }
 
   setRooms()
   {
     this.getRooms()
+    console.log(this.rooms)
 
     let page_size = this.rooms.length;
-    let current_page = 2;
+    let current_page = 1;
 
-    const pages = document.querySelectorAll(".room-page-wrapper>svg");
+    const pages = document.querySelectorAll(".room-page-wrapper>span>svg");
+
+    btnToRoom.addEventListener("click", () => {
+      this.rooms[current_page - 1].setBackground();
+    })
 
     // Handle page navigation
     this.rooms[current_page - 1]
@@ -227,31 +240,30 @@ export default class World extends EventEmitter {
         });
       }
     });
-    
 
-    btnRoomZoom.addEventListener("click", () => {
-      gsap.to(
-        this.rooms[current_page - 1].getModel().position,
-        {
-          duration: 1,
-          x: this.rooms[current_page - 1].getCenterPosition().x - this.rooms[current_page - 1].getIframePosition().x,
-          y: this.rooms[current_page - 1].getCenterPosition().y - this.rooms[current_page - 1].getIframePosition().y,
-          z: this.rooms[current_page - 1].getCenterPosition().z - this.rooms[current_page - 1].getIframePosition().z,
-          ease: "power2.inOut",
-        },
-        "same");
-      gsap.to(
-        this.rooms[current_page - 1].getModel().rotation,
-        {
-          duration: 1,
-          x: this.rooms[current_page - 1].getIframeRotation().x,
-          y: this.rooms[current_page - 1].getIframeRotation().y,
-          z: this.rooms[current_page - 1].getIframeRotation().z,
-          ease: "power2.inOut",
-        },
-        "same"
-      );
-    });
+    // btnRoomZoom.addEventListener("click", () => {
+    //   gsap.to(
+    //     this.rooms[current_page - 1].getModel().position,
+    //     {
+    //       duration: 1,
+    //       x: this.rooms[current_page - 1].getCenterPosition().x - this.rooms[current_page - 1].getIframePosition().x,
+    //       y: this.rooms[current_page - 1].getCenterPosition().y - this.rooms[current_page - 1].getIframePosition().y,
+    //       z: this.rooms[current_page - 1].getCenterPosition().z - this.rooms[current_page - 1].getIframePosition().z,
+    //       ease: "power2.inOut",
+    //     },
+    //     "same");
+    //   gsap.to(
+    //     this.rooms[current_page - 1].getModel().rotation,
+    //     {
+    //       duration: 1,
+    //       x: this.rooms[current_page - 1].getIframeRotation().x,
+    //       y: this.rooms[current_page - 1].getIframeRotation().y,
+    //       z: this.rooms[current_page - 1].getIframeRotation().z,
+    //       ease: "power2.inOut",
+    //     },
+    //     "same"
+    //   );
+    // });
   }
 
   setFrames(frame, data)
@@ -262,17 +274,25 @@ export default class World extends EventEmitter {
     }
   }
 
-  fillApt() {
-    this.apts = [...this.rooms]
+  fillApt(scale) {
+    // this.apts = [...this.rooms]
     // for(let room of this.apts)
     // {
     //   let ran = Math.floor(Math.random() * this.apts.length);
     //   if(this.apt.getAptPositions()[ran].filled === false) continue;
     //   apt.getModel().position.set(this.apt.getAptPositions()[0].position.x, this.apt.getAptPositions()[0].position.y, this.apt.getAptPositions()[0].position.z)
     // }
-    this.apts[0].getModel().position.set(this.apt.getAptPositions()[0].position.x, this.apt.getAptPositions()[0].position.y, this.apt.getAptPositions()[0].position.z)
+    this.apts[0].getModel().position.set(this.apt.getAptPositions(0).x, this.apt.getAptPositions(0).y, this.apt.getAptPositions(0).z)
     this.apts[0].getModel().rotation.set(0, Math.PI * 0.5, 0)
     this.apts[0].getModel().scale.copy(this.apts[0].getAptScale())
+  }
+
+  addRoomIcon(turn)
+  {
+    let newDiv = document.createElement('span')
+    newDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40"><path d="M446.667-163.666V-461L186.666-611.334V-314l260.001 150.334Zm66.666 0L773.334-314v-298L513.333-461.108v297.442ZM480-518l256.334-149L480-815.334 222.999-667 480-518ZM153.333-256q-15.833-9.284-24.583-24.475-8.75-15.192-8.75-33.191v-332.668q0-17.999 8.75-33.191 8.75-15.191 24.583-24.475l293.334-169q15.885-9 33.442-9 17.558 0 33.224 9l293.334 169q15.833 9.284 24.583 24.475 8.75 15.192 8.75 33.191v332.668q0 17.999-8.75 33.191-8.75 15.191-24.583 24.475L513.333-87q-15.885 9-33.442 9-17.558 0-33.224-9L153.333-256ZM480-480Z"/></svg>`
+    if(turn === 0) newDiv.innerHTML = `<svg class = "selected" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40"><path d="M446.667-163.666V-461L186.666-611.334V-314l260.001 150.334Zm66.666 0L773.334-314v-298L513.333-461.108v297.442ZM480-518l256.334-149L480-815.334 222.999-667 480-518ZM153.333-256q-15.833-9.284-24.583-24.475-8.75-15.192-8.75-33.191v-332.668q0-17.999 8.75-33.191 8.75-15.191 24.583-24.475l293.334-169q15.885-9 33.442-9 17.558 0 33.224 9l293.334 169q15.833 9.284 24.583 24.475 8.75 15.192 8.75 33.191v332.668q0 17.999-8.75 33.191-8.75 15.191-24.583 24.475L513.333-87q-15.885 9-33.442 9-17.558 0-33.224-9L153.333-256ZM480-480Z"/></svg>`
+    document.querySelector('.room-page-wrapper').appendChild(newDiv)
   }
 
   // setZoom(room) {
@@ -284,6 +304,8 @@ export default class World extends EventEmitter {
   //     ease: "power2.inOut",
   //   });
   // }
+
+
 
   update() {}
 }

@@ -4,7 +4,7 @@ import { CSS3DObject, CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRe
 import Experience from '../Experience.js'
 import Room from './Room.js'
 
-export default class ReadingRoom extends Room
+export default class ReadingRoomApt extends Room
 {
     constructor() 
     {
@@ -15,7 +15,7 @@ export default class ReadingRoom extends Room
         this.resources = this.experience.resources
 
         // Setup
-        this.resource = this.resources.items.ReadingRoomModel
+        this.resource = this.resources.items.ReadingRoomModelApt
         this.background = 'background/read_bg.png';
         this.roomChildren = {}
         this.iframePosition = new THREE.Vector3(0, 0, 0)
@@ -33,19 +33,13 @@ export default class ReadingRoom extends Room
 
     setModel()
     {
-        this.model = this.resource.scene
-
-        this.model.scale.set(0, 0, 0)
+        this.model = this.resource.scene.clone()
+        
+        this.model.scale.set(1, 1, 1)
         this.model.rotation.y = Math.PI * 0.25
         this.model.rotation.x = -Math.PI * 0.1
 
         this.scene.add(this.model)
-
-        this.modelApt = this.resource.scene.clone()
-
-        this.modelApt.scale.set(0, 0, 0)
-        this.model.rotation.y = Math.PI * 0.25
-        this.model.rotation.x = -Math.PI * 0.1
     }
 
     setIframe()

@@ -17,6 +17,7 @@ export default class Camera
         this.setInstance()
         this.setOrthographicCamera()
         this.setControls()
+
     }
 
     setInstance()
@@ -55,6 +56,12 @@ export default class Camera
 
         this.helper = new THREE.CameraHelper(this.orthographicCamera)
         this.scene.add(this.helper)
+    }
+
+    setOrthographicCameraZoom(e)
+    {
+        this.orthographicCamera.zoom = e
+        this.orthographicCamera.updateProjectionMatrix()
     }
 
     setScrollCamera()

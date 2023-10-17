@@ -17,8 +17,7 @@ export default class Renderer
         this.setInstance()
         this.setRendererCSS()
 
-        const backImg = 'background/main.png';
-        this.renderBackground(backImg);
+        this.setBG()
     }
 
     setInstance()
@@ -85,6 +84,12 @@ export default class Renderer
 	        renderer.setBackground(this.scene, img.width, img.height);
         };
         img.src = backImg;
+    }
+
+    setBG()
+    {
+        const backImg = 'background/main.png';
+        this.renderBackground(backImg);
     }
 
     resize()

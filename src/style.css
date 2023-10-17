@@ -106,7 +106,12 @@ button
     margin: 10px;
 }
 
-.room-page-wrapper>svg.selected
+.room-page-wrapper>span>svg
+{
+    margin: 10px;
+}
+
+.room-page-wrapper>span>svg.selected
 {
     transform: scale(1.5);
 }
