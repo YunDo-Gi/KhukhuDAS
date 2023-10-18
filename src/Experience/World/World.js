@@ -17,6 +17,7 @@ import Apt from "./Apt.js";
 
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
 const btnToRoom = document.querySelector(".btn-to-room");
+const btnRetunFromZoom = document.querySelector('.btn-return-from-zoom')
 
 export default class World extends EventEmitter {
   constructor() {
@@ -202,7 +203,6 @@ export default class World extends EventEmitter {
   setRooms()
   {
     this.getRooms()
-    console.log(this.rooms)
 
     let page_size = this.rooms.length;
     let current_page = 1;
@@ -287,29 +287,27 @@ export default class World extends EventEmitter {
       }
     });
 
-    // btnRoomZoom.addEventListener("click", () => {
-    //   gsap.to(
-    //     this.rooms[current_page - 1].getModel().position,
-    //     {
-    //       duration: 1,
-    //       x: this.rooms[current_page - 1].getCenterPosition().x - this.rooms[current_page - 1].getIframePosition().x,
-    //       y: this.rooms[current_page - 1].getCenterPosition().y - this.rooms[current_page - 1].getIframePosition().y,
-    //       z: this.rooms[current_page - 1].getCenterPosition().z - this.rooms[current_page - 1].getIframePosition().z,
-    //       ease: "power2.inOut",
-    //     },
-    //     "same");
-    //   gsap.to(
-    //     this.rooms[current_page - 1].getModel().rotation,
-    //     {
-    //       duration: 1,
-    //       x: this.rooms[current_page - 1].getIframeRotation().x,
-    //       y: this.rooms[current_page - 1].getIframeRotation().y,
-    //       z: this.rooms[current_page - 1].getIframeRotation().z,
-    //       ease: "power2.inOut",
-    //     },
-    //     "same"
-    //   );
-    // });
+    // 방 확대 시 이동 및 회전
+    btnRoomZoom.addEventListener("click", () => {
+      gsap.to(
+        this.rooms[current_page - 1].getModel().rotation,
+        {
+          duration: 2,
+          y: 0,
+          ease: 'power2.inOut'   
+        })
+    });
+
+    btnRetunFromZoom.addEventListener("click", () => {
+      gsap.to(
+        this.rooms[current_page - 1].getModel().rotation,
+        {
+          duration: 2,
+          x: -Math.PI * 0.1,
+          y: Math.PI * 0.25,
+          ease: 'power2.inOut'   
+        })
+    });
   }
 
   setFrames(frame, data)
@@ -333,18 +331,6 @@ export default class World extends EventEmitter {
     if(turn === 0) newDiv.innerHTML = `<svg class = "selected" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40"><path d="M446.667-163.666V-461L186.666-611.334V-314l260.001 150.334Zm66.666 0L773.334-314v-298L513.333-461.108v297.442ZM480-518l256.334-149L480-815.334 222.999-667 480-518ZM153.333-256q-15.833-9.284-24.583-24.475-8.75-15.192-8.75-33.191v-332.668q0-17.999 8.75-33.191 8.75-15.191 24.583-24.475l293.334-169q15.885-9 33.442-9 17.558 0 33.224 9l293.334 169q15.833 9.284 24.583 24.475 8.75 15.192 8.75 33.191v332.668q0 17.999-8.75 33.191-8.75 15.191-24.583 24.475L513.333-87q-15.885 9-33.442 9-17.558 0-33.224-9L153.333-256ZM480-480Z"/></svg>`
     document.querySelector('.room-page-wrapper').appendChild(newDiv)
   }
-
-  // setZoom(room) {
-  //   gsap.to(room, {
-  //     x: room.position.x - room.getFramePosition().x,
-  //     y: room.position.y - room.getFramePosition().y,
-  //     z: room.position.z - room.getFramePosition().z,
-  //     duration: 1,
-  //     ease: "power2.inOut",
-  //   });
-  // }
-
-
 
   update() {}
 }

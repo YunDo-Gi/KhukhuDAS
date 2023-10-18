@@ -29,6 +29,7 @@ export default class ReadingRoom extends Room
 
         this.setModel()
         this.getFrame()
+        // this.setIframe()
     }
 
     setModel()
@@ -45,19 +46,19 @@ export default class ReadingRoom extends Room
     setIframe()
     {
         this.iframe = document.createElement('iframe')
-        this.iframe.src = 'test.html'
+        this.iframe.src = [ 'https://www.youtube.com/' ];
         this.iframe.width = '100%'
         this.iframe.height = '100%'
 
         // Set the position and rotation of the iframe
-        // const position = new THREE.Vector3(0, 1.5, 0)
-        // const rotation = new THREE.Euler(0, Math.PI, 0)
+        const position = new THREE.Vector3(0, 1.5, 0)
+        const rotation = new THREE.Euler(0, Math.PI, 0)
 
         // Create a new three.js object to hold the iframe
         this.iframeObject = new CSS3DObject(this.iframe)
         console.log(this.iframeObject)
-        // this.iframeObject.position.copy(position)
-        // this.iframeObject.rotation.copy(rotation)
+        this.iframeObject.position.copy(position)
+        this.iframeObject.rotation.copy(rotation)
 
         // Add the iframe object to the scene
         this.scene.add(this.iframeObject)
@@ -74,5 +75,10 @@ export default class ReadingRoom extends Room
             }
             return false
         })
+    }
+
+    getType()
+    {
+        return 'ReadingRoom'
     }
 }

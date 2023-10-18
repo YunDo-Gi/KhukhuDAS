@@ -54,4 +54,9 @@ export default class PhotoRoom extends Room
             return false
         })
     }
+
+    getType()
+    {
+        return 'PhotoRoom'
+    }
 }

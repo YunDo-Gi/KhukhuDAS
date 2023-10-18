@@ -6,11 +6,11 @@ import Experience from '../Experience.js'
 
 const btnChangePosition = document.querySelector('.btn-change-position')
 const btnToRoom = document.querySelector('.btn-to-room')
-const aptWrapper = document.querySelector('.apt-wrapper')
 const roomWrapper = document.querySelector('.room-wrapper')
 const btnRoomZoom = document.querySelector('.btn-room-zoom')
 const loginWrapper = document.querySelector('.login-wrapper')
 const btnSubmit = document.querySelector('.btn-submit')
+const btnRetunFromZoom = document.querySelector('.btn-return-from-zoom')
 
 let flag = false
 let returnable = false
@@ -55,7 +55,6 @@ export default class Controls
             loginWrapper.classList.remove('active-popup')
             flag = true
             this.onWheel()
-            aptWrapper.classList.remove('hidden')
             roomWrapper.classList.add('hidden')
         })
 
@@ -77,7 +76,7 @@ export default class Controls
             })
             // this.objects.move = false
             this.renderer.setBG()
-            aptWrapper.classList.remove('hidden')
+            btnToRoom.classList.remove('hidden')
             roomWrapper.classList.add('hidden')
         })
 
@@ -94,7 +93,7 @@ export default class Controls
                 y: -Math.PI,
                 ease: 'power2.inOut',
                 onComplete: () => {
-                    aptWrapper.classList.add('hidden');
+                    btnToRoom.classList.add('hidden');
                     flag = false;
                     returnable = true;
                     roomWrapper.classList.remove('hidden');
@@ -104,6 +103,7 @@ export default class Controls
             this.renderer.setBG()
         })
 
+        // 방 확대
         btnRoomZoom.addEventListener('click', () => {
             const camera = this.camera.orthographicCamera
             GSAP.to(camera, {
@@ -112,10 +112,27 @@ export default class Controls
                 ease: "power2.inOut",
                 onUpdate: function () {
                     camera.updateProjectionMatrix();
+                }, 
+                onComplete: () => {
+                    btnRetunFromZoom.classList.remove('hidden')
                 }
             })
         })
 
+        btnRetunFromZoom.addEventListener('click', () => {
+            const camera = this.camera.orthographicCamera
+            GSAP.to(camera, {
+                duration: 2,
+                zoom: 1,
+                ease: "power2.inOut",
+                onUpdate: function () {
+                    camera.updateProjectionMatrix();
+                }, 
+                onComplete: () => {
+                    btnRetunFromZoom.classList.add('hidden')
+                }
+            })
+        })
     }
 
     setPath()
@@ -157,16 +174,19 @@ export default class Controls
         GSAP.to(this.camera.orthographicCamera.rotation, {
             duration: 2,
             y: -Math.PI * 0.5,
-            ease: 'power2.inOut'
+            ease: 'power2.inOut',
+            onComplete: () => {
+                btnToRoom.classList.remove('hidden')
+            }
         })
 
         window.addEventListener('wheel', (event) =>
         {
             console.log(event)
             if(event.deltaY > 0) {
-                this.lerp.target += 0.01
-            } else {
                 this.lerp.target -= 0.01
+            } else {
+                this.lerp.target += 0.01
             }
         })
     }
@@ -187,18 +207,5 @@ export default class Controls
             this.line.getPointAt(this.lerp.current % 1, this.position)
             this.camera.orthographicCamera.position.copy(this.position)
         }
-        
-
-        // this.curve.getPointAt( this.lerp.current % 1, this.position );
-        // this.camera.orthographicCamera.position.copy(this.position)
-
-        // this.curve.getPointAt( this.lerp.current + 0.01, this.lookAtPosition );
-        // this.camera.orthographicCamera.lookAt(this.lookAtPosition)
-
-        // this.directionalVector.subVectors(
-        //     this.curve.getPointAt((this.lerp.current % 1) + 0.000001),
-        //      this.position).normalize()
-        // this.crossVector.crossVectors(this.directionalVector, this.staticVector)
-        // this.camera.orthographicCamera.lookAt(this.crossVector)
     }
 }

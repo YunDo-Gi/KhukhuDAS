@@ -59,4 +59,9 @@ export default class PaintingRoom extends Room
             return false
         })
     }
+
+    getType()
+    {
+        return 'PaintingRoom'
+    }
 }
