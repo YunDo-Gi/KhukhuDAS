@@ -198,6 +198,19 @@ button
     fill:rgba(255, 255, 255, 1);
 }
 
+.likes-wrapper
+{
+    position: fixed;
+    top: 17%;
+    left: 51.5%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+    z-index: 500;
+    color: whitesmoke;
+    font-size: 25px;
+    font-weight: 700;
+}
+
 /* 반응형으로 추후 수정 */
 .button 
 {

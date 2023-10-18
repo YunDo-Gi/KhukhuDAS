@@ -83,5 +83,9 @@ export default class Experience
         {
             this.objects.update()
         }
+        if (this.world)
+        {
+            this.world.update()
+        }
     }
 }

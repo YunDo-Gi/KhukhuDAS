@@ -11,6 +11,7 @@ const btnRoomZoom = document.querySelector('.btn-room-zoom')
 const loginWrapper = document.querySelector('.login-wrapper')
 const btnSubmit = document.querySelector('.btn-submit')
 const btnRetunFromZoom = document.querySelector('.btn-return-from-zoom')
+const likes = document.querySelector('.likes-wrapper')
 
 let flag = false
 let returnable = false
@@ -97,6 +98,7 @@ export default class Controls
                     flag = false;
                     returnable = true;
                     roomWrapper.classList.remove('hidden');
+                    likes.classList.remove('hidden')
                   }
             // this.objects.move = false
             })

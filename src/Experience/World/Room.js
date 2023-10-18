@@ -10,6 +10,7 @@ export default class Room
         this.resources = this.experience.resources
 
         this.frames = {}
+        this.likes = 0
     }
 
     getModel()
@@ -55,5 +56,15 @@ export default class Room
     getIframeRotation()
     {
         return this.iframeRotation
+    }
+
+    setLikes(n)
+    {
+        this.likes = n
+    }
+
+    getLikes()
+    {
+        return this.likes
     }
 }

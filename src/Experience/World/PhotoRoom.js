@@ -17,9 +17,9 @@ export default class PhotoRoom extends Room
         this.resource = this.resources.items.PhotoRoomModel
         this.background = 'background/photo_bg.png';
 
-        this.centerPosition = new THREE.Vector3(0, -0.9, 8)
-        this.rightPosition = new THREE.Vector3(8, -0.9, 8)
-        this.leftPosition = new THREE.Vector3(-8, -0.9, 8)
+        this.centerPosition = new THREE.Vector3(0, -1, 8)
+        this.rightPosition = new THREE.Vector3(8, -1, 8)
+        this.leftPosition = new THREE.Vector3(-8, -1, 8)
         this.scale = new THREE.Vector3(0.2, 0.2, 0.2)
         this.aptScale = new THREE.Vector3(0.3, 0.3, 0.3)
 

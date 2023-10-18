@@ -2,6 +2,8 @@ import * as THREE from "three";
 import gsap from "gsap";
 import { CSS3DObject } from "three/examples/jsm/renderers/CSS3DRenderer.js";
 import * as dat from 'lil-gui'
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 
 import Experience from "../Experience.js";
 import EventEmitter from "../Utils/EventEmitter.js";
@@ -18,6 +20,7 @@ import Apt from "./Apt.js";
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
 const btnToRoom = document.querySelector(".btn-to-room");
 const btnRetunFromZoom = document.querySelector('.btn-return-from-zoom')
+const likes = document.querySelector('.likes-wrapper')
 
 export default class World extends EventEmitter {
   constructor() {
@@ -27,6 +30,7 @@ export default class World extends EventEmitter {
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
     this.renderer = this.experience.renderer;
+    this.time = this.experience.time
 
     // Wait for resources
     this.resources.on("ready", () => {
@@ -48,11 +52,19 @@ export default class World extends EventEmitter {
       this.setRooms();
       // this.fillApt();
 
+      this.heart = null
+      this.setHeart()
+      // this.text = null
+      // this.setText()
+
       // Set GUI
-      const gui = new dat.GUI()
-      gui.add(this.apts[3].getModel().position, 'x')
-      gui.add(this.apts[3].getModel().position, 'y')
-      gui.add(this.apts[3].getModel().position, 'z')
+      // const gui = new dat.GUI()
+      // gui.add(this.apts[3].getModel().position, 'x')
+      // gui.add(this.apts[3].getModel().position, 'y')
+      // gui.add(this.apts[3].getModel().position, 'z')
+
+
+      
 
       this.trigger("worldReady");
     });
@@ -137,7 +149,7 @@ export default class World extends EventEmitter {
         "createdDateTime": "2023-09-13T17:04:51.669563",
         "modifiedDateTime": "2023-09-13T17:04:51.668273",
         "viewCount": 0,
-        "likeCount": 1,
+        "likeCount": 0,
         "fileURLs": [
           "background/basic_bg.png",
           "background/game_bg.png", 
@@ -192,6 +204,7 @@ export default class World extends EventEmitter {
           this.apts[i].getModel().position.set(this.apt.getAptPositionsPhoto(index).x, this.apt.getAptPositionsPhoto(index).y, this.apt.getAptPositionsPhoto(index).z)
           break;
       }
+      this.rooms[i].setLikes(dummyJSON[i].likeCount)
       this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
       this.setFrames(this.apts[i].frames, dummyJSON[i].fileURLs)
       this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0)
@@ -212,6 +225,8 @@ export default class World extends EventEmitter {
     btnToRoom.addEventListener("click", () => {
       this.rooms[current_page - 1].setBackground();
     })
+
+    likes.innerHTML = this.rooms[current_page - 1].getLikes()
 
     // Handle page navigation
     this.rooms[current_page - 1]
@@ -249,6 +264,7 @@ export default class World extends EventEmitter {
           ease: "power2.inOut",
           onComplete: () => {
             current_page += 1;
+            likes.innerHTML = this.rooms[current_page - 1].getLikes()
           },
         });
       }
@@ -282,6 +298,7 @@ export default class World extends EventEmitter {
           ease: "power2.inOut",
           onComplete: () => {
             current_page -= 1;
+            likes.innerHTML = this.rooms[current_page - 1].getLikes()
           },
         });
       }
@@ -296,6 +313,7 @@ export default class World extends EventEmitter {
           y: 0,
           ease: 'power2.inOut'   
         })
+      likes.classList.add('hidden')
     });
 
     btnRetunFromZoom.addEventListener("click", () => {
@@ -332,5 +350,101 @@ export default class World extends EventEmitter {
     document.querySelector('.room-page-wrapper').appendChild(newDiv)
   }
 
-  update() {}
+  setHeart()
+  {
+    const heartX = -25;
+    const heartY = -25;
+    const heartShape = new THREE.Shape();
+    heartShape.moveTo(25 + heartX, 25 + heartY);
+    heartShape.bezierCurveTo(25 + heartX, 25 + heartY, 20 + heartX, 0 + heartY, 0 + heartX, 0 + heartY);
+    heartShape.bezierCurveTo(-30 + heartX, 0 + heartY, -30 + heartX, 35 + heartY, -30 + heartX, 35 + heartY);
+    heartShape.bezierCurveTo(-30 + heartX, 55 + heartY, -10 + heartX, 77 + heartY, 25 + heartX, 95 + heartY);
+    heartShape.bezierCurveTo(60 + heartX, 77 + heartY, 80 + heartX, 55 + heartY, 80 + heartX, 35 + heartY);
+    heartShape.bezierCurveTo(80 + heartX, 35 + heartY, 80 + heartX, 0 + heartY, 50 + heartX, 0 + heartY);
+    heartShape.bezierCurveTo(35 + heartX, 0 + heartY, 25 + heartX, 25 + heartY, 25 + heartX, 25 + heartY);
+
+    const extrudeSettings = {
+      depth: 8,
+      bevelEnabled: true,
+      bevelSegments: 2,
+      steps: 2,
+      bevelSize: 1,
+      bevelThickness: 1,
+    };
+
+    const materialRed = new THREE.MeshBasicMaterial({
+      color: 0xf5626b,
+    });
+
+    const geometryHeart = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
+    this.heart = new THREE.Mesh(geometryHeart, materialRed);
+
+    this.heart.position.set(0.1, 1.7, 8)
+    this.heart.rotation.set(Math.PI, 0, 0)
+
+    this.heart.scale.set(0.002, 0.002, 0.002);
+
+    this.scene.add(this.heart);
+  }
+
+  setText()
+  {
+    const fontLoader = new FontLoader()
+
+    fontLoader.load(
+        '/fonts/helvetiker_regular.typeface.json',
+        (font) =>
+        {
+          const textGeometry = new TextGeometry(
+            'Hello Three.js',
+            {
+                font: font,
+                size: 0.5,
+                height: 0.2,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.03,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 5
+            }
+          )
+          textGeometry.computeBoundingBox()
+          textGeometry.center()
+
+          const textMaterial = new THREE.MeshBasicMaterial({color: 0x000000, wireframe: true})
+          this.text = new THREE.Mesh(textGeometry, textMaterial)
+
+          this.text.position.set(0, -1, 8)
+          this.text.rotation.set(0, Math.PI * 0.25, 0)
+
+          this.scene.add(this.text)
+
+          const gui = new dat.GUI()
+          gui.add(this.text.position, 'x')
+          gui.add(this.text.position, 'y')
+          gui.add(this.text.position, 'z')
+          gui.add(this.text.rotation, 'x')
+          gui.add(this.text.rotation, 'y')
+          gui.add(this.text.rotation, 'z')
+        }
+    )
+  }
+
+  update() 
+  {
+    if(this.heart)
+    {
+      gsap.to(this.heart.rotation, {
+        duration: 0.1,
+        y: this.heart.rotation.y + 0.04,
+        ease: 'power2.inOut'
+      }, "same")
+      gsap.to(this.heart.position, {
+        duration: 0.1,
+        y: Math.abs(Math.sin( this.time.elapsed / 1000)) * 0.05 + 1.7,
+        ease: "power2.inOut" 
+      }, "same")
+    }
+  }
 }
