@@ -12,6 +12,7 @@ const loginWrapper = document.querySelector('.login-wrapper')
 const btnSubmit = document.querySelector('.btn-submit')
 const btnRetunFromZoom = document.querySelector('.btn-return-from-zoom')
 const likes = document.querySelector('.likes-wrapper')
+const menu = document.querySelector('.select-menu')
 
 let flag = false
 let returnable = false
@@ -99,6 +100,7 @@ export default class Controls
                     returnable = true;
                     roomWrapper.classList.remove('hidden');
                     likes.classList.remove('hidden')
+                    menu.classList.remove('hidden')
                   }
             // this.objects.move = false
             })
@@ -107,6 +109,8 @@ export default class Controls
 
         // 방 확대
         btnRoomZoom.addEventListener('click', () => {
+            likes.classList.add('hidden')
+            menu.classList.add('hidden')
             const camera = this.camera.orthographicCamera
             GSAP.to(camera, {
                 duration: 2,

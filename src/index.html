@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How is my Room</title>
     <link rel="stylesheet" href="./style.css">
+
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
     <header>
@@ -72,6 +74,26 @@
     </div>
     <div class="likes-wrapper hidden">
         7
+    </div>
+    <div class="select-menu hidden">
+        <div class="select-btn">
+            <span class="sBtn-text">Select your option</span>
+            <i class="bx bx-chevron-down"></i>
+        </div>
+        <ul class="options">
+            <li class="option">
+                <i class='bx bx-meh-blank' style='color:#8a8ae6'  ></i>
+                <span class="option-text">VIEW</span>
+            </li>
+            <li class="option">
+                <i class='bx bx-heart-circle' style='color:#f5626b' ></i>
+                <span class="option-text">LIKE</span>
+            </li>
+            <li class="option">
+                <i class='bx bx-timer' style='color:#484747'  ></i>
+                <span class="option-text">CHRONOLOGICAL</span>
+            </li>
+        </ul>
     </div>
 
     <script type="module" src="./script.js"></script>

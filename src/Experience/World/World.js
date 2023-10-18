@@ -22,6 +22,234 @@ const btnToRoom = document.querySelector(".btn-to-room");
 const btnRetunFromZoom = document.querySelector('.btn-return-from-zoom')
 const likes = document.querySelector('.likes-wrapper')
 
+// drop down menu
+const optionMenu = document.querySelector(".select-menu")
+const selectBtn = optionMenu.querySelector(".select-btn")
+const options = optionMenu.querySelectorAll(".option")
+const sBtn_text = optionMenu.querySelector(".sBtn-text")
+
+selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"))
+
+let dummyJSON = [
+  {
+    "id": 2,
+    "title": "내방",
+    "content": "이쁘지?",
+    "interestType": "READING",
+    "writer": {
+        "memberId": 1,
+        "nickname": "마팅",
+        "profileImgURL": null
+    },
+    "commentCount": 0,
+    "createdDateTime": "2023-09-13T17:04:52.341923",
+    "modifiedDateTime": "2023-09-13T17:04:52.341866",
+    "viewCount": 0,
+    "likeCount": 2,
+    "fileURLs": [
+      "background/basic_bg.png",
+      "background/game_bg.png"
+    ]
+},
+{
+    "id": 1,
+    "title": "내방",
+    "content": "이쁘지?",
+    "interestType": "PAINTING",
+    "writer": {
+        "memberId": 1,
+        "nickname": "마팅",
+        "profileImgURL": null
+    },
+    "commentCount": 0,
+    "createdDateTime": "2023-09-13T17:04:51.669563",
+    "modifiedDateTime": "2023-09-13T17:04:51.668273",
+    "viewCount": 0,
+    "likeCount": 1,
+    "fileURLs": [
+      "background/basic_bg.png",
+      "background/game_bg.png", 
+      "background/read_bg.png"
+    ]
+},
+{
+  "id": 1,
+  "title": "내방",
+  "content": "이쁘지?",
+  "interestType": "PAINTING",
+  "writer": {
+      "memberId": 1,
+      "nickname": "마팅",
+      "profileImgURL": null
+  },
+  "commentCount": 0,
+  "createdDateTime": "2023-09-13T17:04:51.669563",
+  "modifiedDateTime": "2023-09-13T17:04:51.668273",
+  "viewCount": 0,
+  "likeCount": 1,
+  "fileURLs": [
+    "background/basic_bg.png",
+    "background/game_bg.png", 
+    "background/read_bg.png"
+  ]
+},
+{
+  "id": 1,
+  "title": "내방",
+  "content": "이쁘지?",
+  "interestType": "READING",
+  "writer": {
+      "memberId": 1,
+      "nickname": "마팅",
+      "profileImgURL": null
+  },
+  "commentCount": 0,
+  "createdDateTime": "2023-09-13T17:04:51.669563",
+  "modifiedDateTime": "2023-09-13T17:04:51.668273",
+  "viewCount": 0,
+  "likeCount": 0,
+  "fileURLs": [
+    "background/basic_bg.png",
+    "background/game_bg.png", 
+    "background/read_bg.png"
+  ]
+},
+{
+  "id": 3,
+  "title": "내방",
+  "content": "이쁘지?",
+  "interestType": "PHOTO",
+  "writer": {
+      "memberId": 1,
+      "nickname": "마팅",
+      "profileImgURL": null
+  },
+  "commentCount": 0,
+  "createdDateTime": "2023-09-13T17:04:51.669563",
+  "modifiedDateTime": "2023-09-13T17:04:51.668273",
+  "viewCount": 0,
+  "likeCount": 1,
+  "fileURLs": [
+    "background/basic_bg.png",
+    "background/game_bg.png",
+    "background/basic_bg.png",
+    "background/game_bg.png"
+  ]
+}
+]
+let dummyJSON2 = [
+  {
+    "id": 2,
+    "title": "내방",
+    "content": "이쁘지?",
+    "interestType": "READING",
+    "writer": {
+        "memberId": 1,
+        "nickname": "마팅",
+        "profileImgURL": null
+    },
+    "commentCount": 0,
+    "createdDateTime": "2023-09-13T17:04:52.341923",
+    "modifiedDateTime": "2023-09-13T17:04:52.341866",
+    "viewCount": 0,
+    "likeCount": 2,
+    "fileURLs": [
+      "background/basic_bg.png",
+      "background/game_bg.png"
+    ]
+},
+{
+    "id": 1,
+    "title": "내방",
+    "content": "이쁘지?",
+    "interestType": "PAINTING",
+    "writer": {
+        "memberId": 1,
+        "nickname": "마팅",
+        "profileImgURL": null
+    },
+    "commentCount": 0,
+    "createdDateTime": "2023-09-13T17:04:51.669563",
+    "modifiedDateTime": "2023-09-13T17:04:51.668273",
+    "viewCount": 0,
+    "likeCount": 1,
+    "fileURLs": [
+      "background/basic_bg.png",
+      "background/game_bg.png", 
+      "background/read_bg.png"
+    ]
+},
+{
+  "id": 1,
+  "title": "내방",
+  "content": "이쁘지?",
+  "interestType": "PAINTING",
+  "writer": {
+      "memberId": 1,
+      "nickname": "마팅",
+      "profileImgURL": null
+  },
+  "commentCount": 0,
+  "createdDateTime": "2023-09-13T17:04:51.669563",
+  "modifiedDateTime": "2023-09-13T17:04:51.668273",
+  "viewCount": 0,
+  "likeCount": 1,
+  "fileURLs": [
+    "background/basic_bg.png",
+    "background/game_bg.png", 
+    "background/read_bg.png"
+  ]
+},
+{
+  "id": 1,
+  "title": "내방",
+  "content": "이쁘지?",
+  "interestType": "READING",
+  "writer": {
+      "memberId": 1,
+      "nickname": "마팅",
+      "profileImgURL": null
+  },
+  "commentCount": 0,
+  "createdDateTime": "2023-09-13T17:04:51.669563",
+  "modifiedDateTime": "2023-09-13T17:04:51.668273",
+  "viewCount": 0,
+  "likeCount": 0,
+  "fileURLs": [
+    "background/basic_bg.png",
+    "background/game_bg.png", 
+    "background/read_bg.png"
+  ]
+},
+{
+  "id": 3,
+  "title": "내방",
+  "content": "이쁘지?",
+  "interestType": "PAINTING",
+  "writer": {
+      "memberId": 1,
+      "nickname": "마팅",
+      "profileImgURL": null
+  },
+  "commentCount": 0,
+  "createdDateTime": "2023-09-13T17:04:51.669563",
+  "modifiedDateTime": "2023-09-13T17:04:51.668273",
+  "viewCount": 0,
+  "likeCount": 1,
+  "fileURLs": [
+    "background/basic_bg.png",
+    "background/game_bg.png",
+    "background/basic_bg.png",
+    "background/game_bg.png"
+  ]
+}
+]
+
+let settingDone = false
+let current_page = 1;
+let pages = null
+
+
 export default class World extends EventEmitter {
   constructor() {
     super();
@@ -49,8 +277,10 @@ export default class World extends EventEmitter {
       this.rooms = [];
       
       // Set rooms
-      this.setRooms();
+      this.setRooms()
+      settingDone = true
       // this.fillApt();
+      
 
       this.heart = null
       this.setHeart()
@@ -63,164 +293,105 @@ export default class World extends EventEmitter {
       // gui.add(this.apts[3].getModel().position, 'y')
       // gui.add(this.apts[3].getModel().position, 'z')
 
+      options.forEach(option =>{
+        option.addEventListener("click", ()=>{
+            let selectedOption = option.querySelector(".option-text").innerText;
+            sBtn_text.innerText = selectedOption;
+            optionMenu.classList.remove("active");
 
+            let api = null
+
+            for(let room of this.rooms)
+            {
+              this.scene.remove(room.getModel())
+              document.querySelector('.room-page-wrapper').removeChild(document.querySelector('.room-page-wrapper').lastChild)
+            }
+
+            // API 호출
+            switch (selectedOption) {
+              case "VIEW":
+                
+                break;
+              case "LIKE":
+                
+                break;
+              case "CHRONOLOGICAL":
+                
+                break;
+            }
+            current_page = 1;
+            this.getRooms(dummyJSON2)
+            this.rooms[current_page - 1].getModel().scale.copy(this.rooms[current_page - 1].getScale());
+            this.rooms[current_page - 1].getModel().position.copy(this.rooms[current_page - 1].getCenterPosition())
+            this.rooms[current_page - 1].setBackground()
+            pages = document.querySelectorAll(".room-page-wrapper>span>svg")
+        });
+    });
       
 
       this.trigger("worldReady");
     });
   }
 
-  getRooms() {
-    // fetch API
-    let dummyJSON = [
-      {
-          "id": 2,
-          "title": "내방",
-          "content": "이쁘지?",
-          "interestType": "READING",
-          "writer": {
-              "memberId": 1,
-              "nickname": "마팅",
-              "profileImgURL": null
-          },
-          "commentCount": 0,
-          "createdDateTime": "2023-09-13T17:04:52.341923",
-          "modifiedDateTime": "2023-09-13T17:04:52.341866",
-          "viewCount": 0,
-          "likeCount": 2,
-          "fileURLs": [
-            "background/basic_bg.png",
-            "background/game_bg.png"
-          ]
-      },
-      {
-          "id": 1,
-          "title": "내방",
-          "content": "이쁘지?",
-          "interestType": "PAINTING",
-          "writer": {
-              "memberId": 1,
-              "nickname": "마팅",
-              "profileImgURL": null
-          },
-          "commentCount": 0,
-          "createdDateTime": "2023-09-13T17:04:51.669563",
-          "modifiedDateTime": "2023-09-13T17:04:51.668273",
-          "viewCount": 0,
-          "likeCount": 1,
-          "fileURLs": [
-            "background/basic_bg.png",
-            "background/game_bg.png", 
-            "background/read_bg.png"
-          ]
-      },
-      {
-        "id": 1,
-        "title": "내방",
-        "content": "이쁘지?",
-        "interestType": "PAINTING",
-        "writer": {
-            "memberId": 1,
-            "nickname": "마팅",
-            "profileImgURL": null
-        },
-        "commentCount": 0,
-        "createdDateTime": "2023-09-13T17:04:51.669563",
-        "modifiedDateTime": "2023-09-13T17:04:51.668273",
-        "viewCount": 0,
-        "likeCount": 1,
-        "fileURLs": [
-          "background/basic_bg.png",
-          "background/game_bg.png", 
-          "background/read_bg.png"
-        ]
-      },
-      {
-        "id": 1,
-        "title": "내방",
-        "content": "이쁘지?",
-        "interestType": "READING",
-        "writer": {
-            "memberId": 1,
-            "nickname": "마팅",
-            "profileImgURL": null
-        },
-        "commentCount": 0,
-        "createdDateTime": "2023-09-13T17:04:51.669563",
-        "modifiedDateTime": "2023-09-13T17:04:51.668273",
-        "viewCount": 0,
-        "likeCount": 0,
-        "fileURLs": [
-          "background/basic_bg.png",
-          "background/game_bg.png", 
-          "background/read_bg.png"
-        ]
-      },
-      {
-        "id": 3,
-        "title": "내방",
-        "content": "이쁘지?",
-        "interestType": "PHOTO",
-        "writer": {
-            "memberId": 1,
-            "nickname": "마팅",
-            "profileImgURL": null
-        },
-        "commentCount": 0,
-        "createdDateTime": "2023-09-13T17:04:51.669563",
-        "modifiedDateTime": "2023-09-13T17:04:51.668273",
-        "viewCount": 0,
-        "likeCount": 1,
-        "fileURLs": [
-          "background/basic_bg.png",
-          "background/game_bg.png",
-          "background/basic_bg.png",
-          "background/game_bg.png"
-        ]
+  getRooms(dummyJSON) {
+    for(let i = 0; i < dummyJSON.length; i++)
+    {
+      switch (dummyJSON[i].interestType) {
+        case "READING":
+          this.rooms[i] = new ReadingRoom()
+          break;
+        case "PAINTING":
+          this.rooms[i] = new PaintingRoom()
+          break;
+        case "PHOTO":
+          this.rooms[i] = new PhotoRoom()
+          break;
+      }
+      this.rooms[i].setLikes(dummyJSON[i].likeCount)
+      this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
+      this.addRoomIcon(i)
     }
-    ]
+  }
 
+  setApts(dummyJSON)
+  {
     let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     for(let i = 0; i < dummyJSON.length; i++)
     {
-      let room = null
       let randNum = Math.floor(Math.random() * arr.length)
       let index = arr.slice(randNum, randNum + 1)
       arr.splice(randNum, 1)
       switch (dummyJSON[i].interestType) {
         case "READING":
-          this.rooms[i] = new ReadingRoom()
           this.apts[i] = new ReadingRoom()
           this.apts[i].getModel().position.set(this.apt.getAptPositionsReading(index).x, this.apt.getAptPositionsReading(index).y, this.apt.getAptPositionsReading(index).z)
           break;
         case "PAINTING":
-          this.rooms[i] = new PaintingRoom()
           this.apts[i] = new PaintingRoom()
           this.apts[i].getModel().position.set(this.apt.getAptPositionsPainting(index).x, this.apt.getAptPositionsPainting(index).y, this.apt.getAptPositionsPainting(index).z)
           break;
         case "PHOTO":
-          this.rooms[i] = new PhotoRoom()
           this.apts[i] = new PhotoRoom()
           this.apts[i].getModel().position.set(this.apt.getAptPositionsPhoto(index).x, this.apt.getAptPositionsPhoto(index).y, this.apt.getAptPositionsPhoto(index).z)
           break;
       }
-      this.rooms[i].setLikes(dummyJSON[i].likeCount)
-      this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
       this.setFrames(this.apts[i].frames, dummyJSON[i].fileURLs)
       this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0)
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale())
-      this.addRoomIcon(i)
     }
   }
 
   setRooms()
   {
-    this.getRooms()
+    if(!settingDone)
+    {
+      this.getRooms(dummyJSON)
+      this.setApts(dummyJSON)
+    } 
 
     let page_size = this.rooms.length;
-    let current_page = 1;
 
-    const pages = document.querySelectorAll(".room-page-wrapper>span>svg");
+    pages = document.querySelectorAll(".room-page-wrapper>span>svg")
 
     btnToRoom.addEventListener("click", () => {
       this.rooms[current_page - 1].setBackground();
@@ -228,7 +399,9 @@ export default class World extends EventEmitter {
 
     likes.innerHTML = this.rooms[current_page - 1].getLikes()
 
+
     // Handle page navigation
+
     this.rooms[current_page - 1]
     .getModel()
     .scale.copy(this.rooms[current_page - 1].getScale());
