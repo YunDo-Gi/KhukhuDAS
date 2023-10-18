@@ -160,6 +160,8 @@ export default class World extends EventEmitter {
         "likeCount": 1,
         "fileURLs": [
           "background/basic_bg.png",
+          "background/game_bg.png",
+          "background/basic_bg.png",
           "background/game_bg.png"
         ]
     }

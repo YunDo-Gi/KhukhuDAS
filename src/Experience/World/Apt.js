@@ -32,7 +32,7 @@ export default class Objects
         this.aptPositionsPainting = [
             new THREE.Vector3(8.5, 4.2, -1.7), new THREE.Vector3(8.5, 4.2, 1.6), new THREE.Vector3(8.5, 4.2, 4.9),
             new THREE.Vector3(8.5, 1, -1.7), new THREE.Vector3(8.5, 1, 1.6), new THREE.Vector3(8.5, 1, 4.9),
-            new THREE.Vector3(8.5, -2.3, -1.7), new THREE.Vector3(7, -2.3, 0), new THREE.Vector3(8.5, -2.3, 4.9)
+            new THREE.Vector3(8.5, -2.3, -1.7), new THREE.Vector3(8.5, -2.3, 1.6), new THREE.Vector3(8.5, -2.3, 4.9)
         ]
 
         this.aptPositionsPhoto = [
