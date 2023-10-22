@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { CSS3DObject, CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js'
+import { CSS3DObject } from "three/examples/jsm/renderers/CSS3DRenderer.js";
 
 import Experience from '../Experience.js'
 import Room from './Room.js'
@@ -18,7 +18,8 @@ export default class ReadingRoom extends Room
         this.resource = this.resources.items.ReadingRoomModel
         this.background = 'background/read_bg.png';
         this.roomChildren = {}
-        this.iframePosition = new THREE.Vector3(0, 0, 0)
+
+        this.iframePosition = new THREE.Vector3(-0.31, -1.65, 8)
         this.iframeRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
 
         this.centerPosition = new THREE.Vector3(0, -1, 8)
@@ -45,23 +46,34 @@ export default class ReadingRoom extends Room
 
     setIframe()
     {
-        this.iframe = document.createElement('iframe')
-        this.iframe.src = [ 'https://www.youtube.com/' ];
-        this.iframe.width = '100%'
-        this.iframe.height = '100%'
+        let root = new THREE.Object3D()
+        this.scene.add(root)
 
-        // Set the position and rotation of the iframe
-        const position = new THREE.Vector3(0, 1.5, 0)
-        const rotation = new THREE.Euler(0, Math.PI, 0)
+        let test = this.makeIframeObject(2000, 2000)
+        test.position.z = 600
+        test.css3dObject.element.style.background = 'red'
 
-        // Create a new three.js object to hold the iframe
-        this.iframeObject = new CSS3DObject(this.iframe)
-        console.log(this.iframeObject)
-        this.iframeObject.position.copy(position)
-        this.iframeObject.rotation.copy(rotation)
+        root.add(test)
 
-        // Add the iframe object to the scene
-        this.scene.add(this.iframeObject)
+
+        // this.iframe = document.createElement('iframe')
+        // this.iframe.src = [ './views/login.html' ];
+        // this.iframe.width = '100%'
+        // this.iframe.height = '100%'
+
+        // // Set the position and rotation of the iframe
+        // const position = new THREE.Vector3(0, 1.5, 0)
+        // const rotation = new THREE.Euler(0, Math.PI, 0)
+
+        // // Create a new three.js object to hold the iframe
+        // this.iframeObject = new CSS3DObject(this.iframe)
+
+        // this.iframeObject.position.copy(position)
+        // this.iframeObject.rotation.copy(rotation)
+        // this.iframeObject.add(this.iframe)
+
+        // // Add the iframe object to the scene
+        // this.scene.add(this.iframeObject)
     }
 
     getFrame()

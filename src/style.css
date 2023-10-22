@@ -15,6 +15,24 @@ body
     height: 100%;
 }
 
+.css-wrapper
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.experience
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 iframe
 {
     position: absolute;
@@ -400,4 +418,16 @@ button
 
     color: azure;
     font-size: 1.3rem;
+}
+
+/* Iframe */
+.iframe-wrapper>iframe
+{
+    position: fixed;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 820px;
+    height: 810px;
+    border: none;
 }

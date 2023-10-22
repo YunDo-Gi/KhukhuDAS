@@ -11,6 +11,7 @@ import Preloader from './Preloader.js'
 import Controls from './World/Controls.js'
 import Objects from './World/Objects.js'
 
+
 let instance = null
 
 export default class Experience

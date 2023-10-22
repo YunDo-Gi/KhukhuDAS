@@ -38,7 +38,7 @@ export default class Renderer
     {
         this.rendererCSS = new CSS3DRenderer();
 		this.rendererCSS.setSize(this.sizes.width, this.sizes.height);
-		this.canvas.appendChild(this.rendererCSS.domElement);
+		document.querySelector('.css-wrapper').appendChild(this.rendererCSS.domElement);
     }
 
     setBackground(scene, backgroundImageWidth, backgroundImageHeight) {
@@ -95,6 +95,7 @@ export default class Renderer
     resize()
     {
         this.instance.setSize(this.sizes.width, this.sizes.height)
+        this.rendererCSS.setSize(this.sizes.width, this.sizes.height);
         this.instance.setPixelRatio(this.sizes.pixelRatio)
     }
 
@@ -102,6 +103,7 @@ export default class Renderer
     {
         this.instance.setViewport(0, 0, this.sizes.width, this.sizes.height)
         this.instance.render(this.scene, this.camera.orthographicCamera)
+        this.rendererCSS.render(this.scene, this.camera.orthographicCamera);
 
         // Second scene
         this.instance.setScissorTest(true)

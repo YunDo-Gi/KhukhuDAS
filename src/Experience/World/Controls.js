@@ -101,6 +101,7 @@ export default class Controls
                     roomWrapper.classList.remove('hidden');
                     likes.classList.remove('hidden')
                     menu.classList.remove('hidden')
+                    this.world.getHeart().scale.set(0.002, 0.002, 0.002)
                   }
             // this.objects.move = false
             })
@@ -114,7 +115,7 @@ export default class Controls
             const camera = this.camera.orthographicCamera
             GSAP.to(camera, {
                 duration: 2,
-                zoom: 3,
+                zoom: 8,
                 ease: "power2.inOut",
                 onUpdate: function () {
                     camera.updateProjectionMatrix();
@@ -123,6 +124,7 @@ export default class Controls
                     btnRetunFromZoom.classList.remove('hidden')
                 }
             })
+            roomWrapper.classList.add('hidden')
         })
 
         btnRetunFromZoom.addEventListener('click', () => {
@@ -135,9 +137,11 @@ export default class Controls
                     camera.updateProjectionMatrix();
                 }, 
                 onComplete: () => {
-                    btnRetunFromZoom.classList.add('hidden')
+                    menu.classList.remove('hidden')
+                    roomWrapper.classList.remove('hidden')
                 }
             })
+            btnRetunFromZoom.classList.add('hidden')
         })
     }
 

@@ -21,6 +21,9 @@ const btnRoomZoom = document.querySelector(".btn-room-zoom");
 const btnToRoom = document.querySelector(".btn-to-room");
 const btnRetunFromZoom = document.querySelector('.btn-return-from-zoom')
 const likes = document.querySelector('.likes-wrapper')
+const iframeWrapper = document.querySelector('.iframe-wrapper')
+const rightArrow = document.querySelector('.arrow-wrapper-right')
+const leftArrow = document.querySelector('.arrow-wrapper-left') 
 
 // drop down menu
 const optionMenu = document.querySelector(".select-menu")
@@ -275,15 +278,20 @@ export default class World extends EventEmitter {
 
       // Pagenation
       this.rooms = [];
+
+      this.heart = null
+      this.setHeart()
       
       // Set rooms
       this.setRooms()
       settingDone = true
       // this.fillApt();
+
+      // Set Iframe
+      // this.setIframe();
       
 
-      this.heart = null
-      this.setHeart()
+      
       // this.text = null
       // this.setText()
 
@@ -308,19 +316,23 @@ export default class World extends EventEmitter {
             }
 
             // API 호출
+            let data = null
             switch (selectedOption) {
               case "VIEW":
-                
+                console.log("view")
+                // data = api
                 break;
               case "LIKE":
-                
+                console.log("like")
+                // data = api
                 break;
               case "CHRONOLOGICAL":
-                
+                console.log("chrono")
+                // data = api
                 break;
             }
             current_page = 1;
-            this.getRooms(dummyJSON2)
+            this.getRooms(dummyJSON2) // data
             this.rooms[current_page - 1].getModel().scale.copy(this.rooms[current_page - 1].getScale());
             this.rooms[current_page - 1].getModel().position.copy(this.rooms[current_page - 1].getCenterPosition())
             this.rooms[current_page - 1].setBackground()
@@ -333,10 +345,10 @@ export default class World extends EventEmitter {
     });
   }
 
-  getRooms(dummyJSON) {
-    for(let i = 0; i < dummyJSON.length; i++)
+  getRooms(data) {
+    for(let i = 0; i < data.length; i++)
     {
-      switch (dummyJSON[i].interestType) {
+      switch (data[i].interestType) {
         case "READING":
           this.rooms[i] = new ReadingRoom()
           break;
@@ -347,21 +359,21 @@ export default class World extends EventEmitter {
           this.rooms[i] = new PhotoRoom()
           break;
       }
-      this.rooms[i].setLikes(dummyJSON[i].likeCount)
-      this.setFrames(this.rooms[i].frames, dummyJSON[i].fileURLs)
+      this.rooms[i].setLikes(data[i].likeCount)
+      this.setFrames(this.rooms[i].frames, data[i].fileURLs)
       this.addRoomIcon(i)
     }
   }
 
-  setApts(dummyJSON)
+  setApts(data) 
   {
     let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    for(let i = 0; i < dummyJSON.length; i++)
+    for(let i = 0; i < data.length; i++)
     {
       let randNum = Math.floor(Math.random() * arr.length)
       let index = arr.slice(randNum, randNum + 1)
       arr.splice(randNum, 1)
-      switch (dummyJSON[i].interestType) {
+      switch (data[i].interestType) {
         case "READING":
           this.apts[i] = new ReadingRoom()
           this.apts[i].getModel().position.set(this.apt.getAptPositionsReading(index).x, this.apt.getAptPositionsReading(index).y, this.apt.getAptPositionsReading(index).z)
@@ -375,7 +387,7 @@ export default class World extends EventEmitter {
           this.apts[i].getModel().position.set(this.apt.getAptPositionsPhoto(index).x, this.apt.getAptPositionsPhoto(index).y, this.apt.getAptPositionsPhoto(index).z)
           break;
       }
-      this.setFrames(this.apts[i].frames, dummyJSON[i].fileURLs)
+      this.setFrames(this.apts[i].frames, data[i].fileURLs)
       this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0)
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale())
     }
@@ -385,8 +397,8 @@ export default class World extends EventEmitter {
   {
     if(!settingDone)
     {
-      this.getRooms(dummyJSON)
-      this.setApts(dummyJSON)
+      this.getRooms(dummyJSON) // 디폴트로 받아오는 데이터
+      this.setApts(dummyJSON) // 디폴트로 받아오는 데이터
     } 
 
     let page_size = this.rooms.length;
@@ -409,8 +421,7 @@ export default class World extends EventEmitter {
     .getModel()
     .position.copy(this.rooms[current_page - 1].getCenterPosition());
 
-  document
-    .querySelector(".arrow-wrapper-right")
+  rightArrow
     .addEventListener("click", () => {
       console.log("right");
       if (current_page < page_size) {
@@ -443,8 +454,7 @@ export default class World extends EventEmitter {
       }
     });
 
-  document
-    .querySelector(".arrow-wrapper-left")
+  leftArrow
     .addEventListener("click", () => {
       console.log("left");
       if (current_page > 1) {
@@ -484,9 +494,21 @@ export default class World extends EventEmitter {
         {
           duration: 2,
           y: 0,
-          ease: 'power2.inOut'   
+          ease: 'power2.inOut',
+          onComplete: () => {
+            iframeWrapper.classList.remove('hidden')
+          }
         })
-      likes.classList.add('hidden')
+      gsap.to(
+        this.rooms[current_page - 1].getModel().position,
+        {
+          duration: 2,
+          x: -0.31,
+          y: -1.65,
+          ease: 'power2.inOut',
+        })
+        this.heart.scale.set(0, 0, 0)
+        likes.classList.add('hidden')
     });
 
     btnRetunFromZoom.addEventListener("click", () => {
@@ -498,7 +520,28 @@ export default class World extends EventEmitter {
           y: Math.PI * 0.25,
           ease: 'power2.inOut'   
         })
+      gsap.to(
+        this.rooms[current_page - 1].getModel().position,
+        {
+          duration: 2,
+          x: this.rooms[current_page - 1].getCenterPosition().x,
+          y: this.rooms[current_page - 1].getCenterPosition().y,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            likes.classList.remove('hidden')
+            this.heart.scale.set(0.002, 0.002, 0.002);
+          }
+        })
+      iframeWrapper.classList.add('hidden')
     });
+
+    // const gui = new dat.GUI()
+    // gui.add(this.rooms[current_page - 1].getModel().position, 'x')
+    // gui.add(this.rooms[current_page - 1].getModel().position, 'y')
+    // gui.add(this.rooms[current_page - 1].getModel().position, 'z')
+    // gui.add(this.rooms[current_page - 1].getModel().rotation, 'x')
+    // gui.add(this.rooms[current_page - 1].getModel().rotation, 'y')
+    // gui.add(this.rooms[current_page - 1].getModel().rotation, 'z')
   }
 
   setFrames(frame, data)
@@ -521,6 +564,28 @@ export default class World extends EventEmitter {
     newDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40"><path d="M446.667-163.666V-461L186.666-611.334V-314l260.001 150.334Zm66.666 0L773.334-314v-298L513.333-461.108v297.442ZM480-518l256.334-149L480-815.334 222.999-667 480-518ZM153.333-256q-15.833-9.284-24.583-24.475-8.75-15.192-8.75-33.191v-332.668q0-17.999 8.75-33.191 8.75-15.191 24.583-24.475l293.334-169q15.885-9 33.442-9 17.558 0 33.224 9l293.334 169q15.833 9.284 24.583 24.475 8.75 15.192 8.75 33.191v332.668q0 17.999-8.75 33.191-8.75 15.191-24.583 24.475L513.333-87q-15.885 9-33.442 9-17.558 0-33.224-9L153.333-256ZM480-480Z"/></svg>`
     if(turn === 0) newDiv.innerHTML = `<svg class = "selected" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40"><path d="M446.667-163.666V-461L186.666-611.334V-314l260.001 150.334Zm66.666 0L773.334-314v-298L513.333-461.108v297.442ZM480-518l256.334-149L480-815.334 222.999-667 480-518ZM153.333-256q-15.833-9.284-24.583-24.475-8.75-15.192-8.75-33.191v-332.668q0-17.999 8.75-33.191 8.75-15.191 24.583-24.475l293.334-169q15.885-9 33.442-9 17.558 0 33.224 9l293.334 169q15.833 9.284 24.583 24.475 8.75 15.192 8.75 33.191v332.668q0 17.999-8.75 33.191-8.75 15.191-24.583 24.475L513.333-87q-15.885 9-33.442 9-17.558 0-33.224-9L153.333-256ZM480-480Z"/></svg>`
     document.querySelector('.room-page-wrapper').appendChild(newDiv)
+  }
+
+  addIframe(src)
+  {
+    let newIframe = document.createElement('iframe')
+    newIframe.src = src
+    iframeWrapper.appendChild(newIframe)
+  }
+
+  setIframe()
+  {
+    let root = new THREE.Object3D()
+    root.position.set(0, 0, -8)
+    this.scene.add(root)
+
+    let test = this.makeIframeObject(1, 1)
+    test.rotation.set(0, Math.PI * 0.25, 0)
+    test.css3dObject.element.textContent = "I am an HTML <div> element mixed into the WebGL scene. This text is editable!"
+    test.css3dObject.element.style.opacity = "1"
+    test.css3dObject.element.style.background = "tomato"
+
+    root.add(test)
   }
 
   setHeart()
@@ -555,7 +620,7 @@ export default class World extends EventEmitter {
     this.heart.position.set(0.1, 1.7, 8)
     this.heart.rotation.set(Math.PI, 0, 0)
 
-    this.heart.scale.set(0.002, 0.002, 0.002);
+    this.heart.scale.set(0, 0, 0)
 
     this.scene.add(this.heart);
   }
@@ -604,6 +669,40 @@ export default class World extends EventEmitter {
     )
   }
 
+  makeIframeObject(width, height) {
+    const obj = new THREE.Object3D
+
+    // const element = document.createElement('iframe');
+    // this.iframe.src = [ './views/login.html' ];
+    
+    const element = document.createElement('div');
+    element.width = width + 'px'
+    element.height = height + 'px'
+
+    let css3dObject = new CSS3DObject( element );
+    obj.css3dObject = css3dObject
+    obj.add(css3dObject)
+
+    // make an invisible plane for the DOM element to chop
+    // clip a WebGL geometry with it.
+    var material = new THREE.MeshPhongMaterial({
+        opacity	: 0.15,
+        color	: new THREE.Color( 0xfafafa ),
+        blending: THREE.NoBlending,
+        // side	: THREE.DoubleSide,
+    });
+    var geometry = new THREE.BoxGeometry( width, height, 0.1 );
+    var mesh = new THREE.Mesh( geometry, material );
+    obj.add( mesh );
+
+    return obj
+  }
+
+  getHeart()
+  {
+    return this.heart
+  }
+
   update() 
   {
     if(this.heart)
@@ -621,3 +720,5 @@ export default class World extends EventEmitter {
     }
   }
 }
+
+

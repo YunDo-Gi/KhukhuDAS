@@ -80,7 +80,7 @@ export default class Camera
         // this.controls.minPolarAngle = Math.PI * 0.25
         // this.controls.maxPolarAngle = Math.PI * 0.5
         // 이동 제한
-        this.controls.enablePan = false
+        this.controls.enablePan = true
         // var minPan = new THREE.Vector3( - 0.2, - 0.2, - 0.2 );
         // var maxPan = new THREE.Vector3( 0.2, 0.2, 0.2 );
         // this.controls.target.clamp( minPan, maxPan );

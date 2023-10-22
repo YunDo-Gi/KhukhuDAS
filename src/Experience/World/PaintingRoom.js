@@ -13,9 +13,9 @@ export default class PaintingRoom extends Room
         this.resource = this.resources.items.PaintingRoomModel
         this.background = 'background/paint_bg.png';
 
-        this.centerPosition = new THREE.Vector3(0, -0.5, 9)
-        this.rightPosition = new THREE.Vector3(8, -0.5, 9)
-        this.leftPosition = new THREE.Vector3(-8, -0.5, 9)
+        this.centerPosition = new THREE.Vector3(0, -0.55, 9)
+        this.rightPosition = new THREE.Vector3(8, -0.55, 9)
+        this.leftPosition = new THREE.Vector3(-8, -0.55, 9)
         this.scale = new THREE.Vector3(0.2, 0.2, 0.2)
         this.aptScale = new THREE.Vector3(0.3, 0.3, 0.3)
 
