@@ -13,6 +13,8 @@ export default class PaintingRoom extends Room
         this.resource = this.resources.items.PaintingRoomModel
         this.background = 'background/paint_bg.png';
 
+        this.type = 'painting'
+
         this.centerPosition = new THREE.Vector3(0, -0.55, 9)
         this.rightPosition = new THREE.Vector3(8, -0.55, 9)
         this.leftPosition = new THREE.Vector3(-8, -0.55, 9)
@@ -21,6 +23,8 @@ export default class PaintingRoom extends Room
 
         this.iframePosition = new THREE.Vector3(0, 0, 0)
         this.iframeRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)
+
+        this.removedObjects = []
 
         this.setModel()
         this.getFrame()
@@ -60,8 +64,31 @@ export default class PaintingRoom extends Room
         })
     }
 
-    getType()
+    removeObjects()
     {
-        return 'PaintingRoom'
+        this.model.children.filter((child) =>
+        {
+            if(child.name.includes('brush2') || child.name.includes('brush3') || child.name.includes('Cylinder1') ||
+               child.name.includes('Cylinder') || child.name.includes('Cylinder5') || child.name.includes('Subdivision_Surface_1'))
+            {
+                this.removedObjects.push(child)
+                child.visible = false
+            }
+            if(child.name.includes('Cube'))
+            {
+                child.children[11].visible = false
+                child.children[12].visible = false
+                this.removedObjects.push(child.children[11], child.children[12])
+
+            }
+        })
+    }
+
+    addObjects()
+    {
+        this.removedObjects.forEach((child) =>
+        {
+            child.visible = true
+        })
     }
 }

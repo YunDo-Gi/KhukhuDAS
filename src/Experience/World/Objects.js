@@ -49,6 +49,7 @@ export default class Objects
             if(this.objects[obj] == this.objects[2]) this.objects[obj].scale.set(0.2, 0.2, 0.2)
             else this.objects[obj].scale.set(0.004, 0.004, 0.004)
             this.objects[obj].position.set(randNum * (this.sizes.aspectRatio * this.sizes.frustumSize) - (this.sizes.aspectRatio * this.sizes.frustumSize) / 2 - 0.5, 0, -8)
+            if(this.objects[obj] == this.objects[1]) this.objects[obj].position.z = -9
             this.scene.add(this.objects[obj])
             randNum += 0.145
         }

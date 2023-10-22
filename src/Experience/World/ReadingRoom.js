@@ -14,6 +14,8 @@ export default class ReadingRoom extends Room
         this.renderer = this.experience.renderer
         this.resources = this.experience.resources
 
+        this.type = 'reading'
+
         // Setup
         this.resource = this.resources.items.ReadingRoomModel
         this.background = 'background/read_bg.png';
@@ -87,10 +89,5 @@ export default class ReadingRoom extends Room
             }
             return false
         })
-    }
-
-    getType()
-    {
-        return 'ReadingRoom'
     }
 }

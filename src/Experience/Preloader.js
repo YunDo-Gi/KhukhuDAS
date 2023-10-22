@@ -22,9 +22,12 @@ export default class Preloader extends EventEmitter
 
         this.world.on('worldReady', () => {
             // this.setSources()
-            this.playIntro()
+            setTimeout(() => {
+                this.playIntro()
+            }, 1000);
         })
     }
+    
 
     setSources()
     {

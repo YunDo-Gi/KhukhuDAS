@@ -13,6 +13,8 @@ export default class PhotoRoom extends Room
         this.renderer = this.experience.renderer
         this.resources = this.experience.resources
 
+        this.type = 'photo'
+
         // Setup
         this.resource = this.resources.items.PhotoRoomModel
         this.background = 'background/photo_bg.png';
@@ -53,10 +55,5 @@ export default class PhotoRoom extends Room
             }
             return false
         })
-    }
-
-    getType()
-    {
-        return 'PhotoRoom'
     }
 }

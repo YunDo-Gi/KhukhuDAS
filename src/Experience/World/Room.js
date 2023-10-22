@@ -14,6 +14,7 @@ export default class Room
 
         this.frames = {}
         this.likes = 0
+        this.type = ''
     }
 
     getModel()
@@ -69,6 +70,11 @@ export default class Room
     getLikes()
     {
         return this.likes
+    }
+
+    getType()
+    {
+        return this.type
     }
 
     makeIframeObject(width, height) {

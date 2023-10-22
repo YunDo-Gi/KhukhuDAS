@@ -12,6 +12,7 @@ export default class Objects
         this.experience = new Experience()
         this.renderer = this.experience.renderer
         this.scene = this.experience.scene
+        this.sizes = this.experience.sizes
         this.resources = this.experience.resources
 
         this.resource = this.resources.items.AptModel
@@ -19,6 +20,8 @@ export default class Objects
         // Setup
         this.model = this.resource.scene
         this.model.position.set(7, -16.5, 0)
+        // const screenScale = this.sizes.width * 0.0000015
+        // this.model.scale.set(screenScale, screenScale, screenScale)
         this.model.scale.set(0.003, 0.003, 0.003)
         this.model.rotation.set(0, Math.PI * 0.5, 0)
 

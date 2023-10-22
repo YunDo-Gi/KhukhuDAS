@@ -112,18 +112,18 @@ export default class Controls
         btnRoomZoom.addEventListener('click', () => {
             likes.classList.add('hidden')
             menu.classList.add('hidden')
-            const camera = this.camera.orthographicCamera
-            GSAP.to(camera, {
-                duration: 2,
-                zoom: 8,
-                ease: "power2.inOut",
-                onUpdate: function () {
-                    camera.updateProjectionMatrix();
-                }, 
-                onComplete: () => {
-                    btnRetunFromZoom.classList.remove('hidden')
-                }
-            })
+            // const camera = this.camera.orthographicCamera
+            // GSAP.to(camera, {
+            //     duration: 2,
+            //     zoom: 8,
+            //     ease: "power2.inOut",
+            //     onUpdate: function () {
+            //         camera.updateProjectionMatrix();
+            //     }, 
+            //     onComplete: () => {
+            //         btnRetunFromZoom.classList.remove('hidden')
+            //     }
+            // })
             roomWrapper.classList.add('hidden')
         })
 
@@ -194,9 +194,9 @@ export default class Controls
         {
             console.log(event)
             if(event.deltaY > 0) {
-                this.lerp.target -= 0.01
+                this.lerp.target -= 0.02
             } else {
-                this.lerp.target += 0.01
+                this.lerp.target += 0.02
             }
         })
     }
