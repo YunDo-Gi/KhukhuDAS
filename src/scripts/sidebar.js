@@ -50,7 +50,7 @@ const sidebarChangeContent = async (token) => {
     login.setAttribute("data-bs-toggle", "modal");
     login.setAttribute("data-bs-target", "#login-modal");
     login.innerText = "Login";
-    login.href = "#";
+    login.href = "./views/login.html";
     node.appendChild(login);
     menu__box.prepend(node);
 
@@ -76,10 +76,9 @@ const sidebarChangeContent = async (token) => {
 
     // 아바타를 public 폴더에서 바로 가져오게 수정
     avatar.src = "../../public/default-avatar.jpg";
-    avatar.style.paddingLeft="12px";
+    avatar.style.paddingLeft = "12px";
     if (
-      localStorage.getItem("profileImgUrl") !=
-      "../../public/default-avatar.jpg"
+      localStorage.getItem("profileImgUrl") != "../../public/default-avatar.jpg"
     ) {
       avatar.src =
         "http://localhost:8080/api/profileImg/" +

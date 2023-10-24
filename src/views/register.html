@@ -19,9 +19,23 @@
 
   <body
     class="d-flex w-100 h-100 flex-column"
-    style="background-image: url('../../public/메인\,시작화면배경.png')"
+    style="background-image: url('../public/background/main.png')"
   >
     <!-- 헤더 입력부 -->
+
+    <!-- navbar -->
+
+    <div class="hamburger-menu">
+      <input id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle">
+        <i class="fa-solid fa-chevron-down"></i>
+      </label>
+
+      <ul class="menu__box">
+        <li><a class="menu__item" href="../index.html">Home</a></li>
+        <li><a class="menu__item" href="./about.html">About</a></li>
+      </ul>
+    </div>
 
     <!-- navbar -->
     <div class="hamburger-menu">
@@ -31,7 +45,7 @@
       </label>
 
       <ul class="menu__box">
-        <li><a class="menu__item" href="./index.html">Home</a></li>
+        <li><a class="menu__item" href="../index.html">Home</a></li>
         <li>
           <a class="menu__item create" href="./createRoom.html">Create Room</a>
         </li>

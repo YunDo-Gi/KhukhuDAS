@@ -1,102 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>How is my Room</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
 
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-</head>
-<body>
+    <link
+      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/b062febd1b.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="./scripts/sidebar.js"></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
     <header>
-        <div class="logo-wrapper">
-            <img src="./assets/logo.png" alt="logo">
+      <div class="logo-wrapper">
+        <img src="./assets/logo.png" alt="logo" />
+      </div>
+      <div class="btn-change-position">
+        <button>changePosition</button>
+      </div>
+      <div class="btn-room-zoom">
+        <button>roomZoom</button>
+      </div>
+      <div class="menu-wrapper">
+        <!-- navbar -->
+        <div class="hamburger-menu">
+          <input id="menu__toggle" type="checkbox" />
+          <label class="menu__btn" for="menu__toggle">
+            <i class="fa-solid fa-chevron-down"></i>
+          </label>
+
+          <ul class="menu__box">
+            <li><a class="menu__item" href="./index.html">Home</a></li>
+            <li>
+              <a class="menu__item create" href="./views/createRoom.html"
+                >Create Room</a
+              >
+            </li>
+            <li>
+              <a class="menu__item" href="./views/about.html">About</a>
+            </li>
+            <li>
+              <a
+                class="menu__item logout"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#logout-modal"
+                >Logout</a
+              >
+            </li>
+          </ul>
         </div>
-        <div class="btn-change-position">
-            <button>changePosition</button>
-        </div>
-        <div class="btn-room-zoom">
-            <button>roomZoom</button>
-        </div>
-        <div class="menu-wrapper">
-            <span>coming soon..</span>
-            <span></span>
-        </div>
+      </div>
     </header>
     <div class="css-wrapper"></div>
     <div class="experience">
-        <canvas class="webgl"></canvas>
+      <canvas class="webgl"></canvas>
     </div>
     <!--Preloader-->
     <div class="preloader">
-        <div class="preloader-wrapper">
-            <div class="loading">
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
-            </div>
+      <div class="preloader-wrapper">
+        <div class="loading">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
         </div>
+      </div>
     </div>
+    gui
     <div class="arrow-svg-wrapper">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24"
+        viewBox="0 -960 960 960"
+        width="24"
+      >
+        <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z" />
+      </svg>
     </div>
+
+    <!-- login 모달 창 -->
+    <div class="modal fade" id="login-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="login-modal">Login</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">로그인 하시겠습니까?</div>
+
+          <div class="modal-footer pagination">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <a a class="page-link btn" href="./login.html"> Login </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- logout 모달 창 -->
+    <div class="modal fade" id="logout-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="logout-modal">Logout</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">로그아웃 하시겠습니까?</div>
+
+          <div class="modal-footer pagination">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <a class="page-link logout-btn btn"> Logout </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--Window-->
     <div class="login-wrapper">
-        <h2>LOGIN</h2>
-        <div class="btn-submit">
-            <button>submit</button>
-        </div>
+      <h2>LOGIN</h2>
+      <div class="btn-submit">
+        <button>submit</button>
+      </div>
     </div>
     <div class="btn-to-room hidden">
-        <button></button>
+      <button></button>
     </div>
     <div class="room-wrapper hidden">
-        <div class="arrow-wrapper-right">
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="m304-82-56-57 343-343-343-343 56-57 400 400L304-82Z"/></svg>
-            </button>
-        </div>
-        <div class="arrow-wrapper-left">
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z"/></svg>
-            </button>
-        </div>
-        <div class="room-page-wrapper"></div>
+      <div class="arrow-wrapper-right">
+        <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48"
+            viewBox="0 -960 960 960"
+            width="48"
+          >
+            <path d="m304-82-56-57 343-343-343-343 56-57 400 400L304-82Z" />
+          </svg>
+        </button>
+      </div>
+      <div class="arrow-wrapper-left">
+        <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48"
+            viewBox="0 -960 960 960"
+            width="48"
+          >
+            <path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z" />
+          </svg>
+        </button>
+      </div>
+      <div class="room-page-wrapper"></div>
     </div>
     <!--Room-->
     <div class="btn-return-from-zoom hidden">
-        <button>
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-        </button>
+      <button>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 -960 960 960"
+          width="24"
+        >
+          <path
+            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+          />
+        </svg>
+      </button>
     </div>
     <div class="iframe-wrapper hidden">
-        <iframe src="background/game_bg.png" scrolling="no"></iframe>
+      <iframe src="background/game_bg.png" scrolling="no"></iframe>
     </div>
-    <div class="likes-wrapper hidden">
-        7
-    </div>
+    <div class="likes-wrapper hidden">7</div>
     <div class="select-menu hidden">
-        <div class="select-btn">
-            <span class="sBtn-text">Select your option</span>
-            <i class="bx bx-chevron-down"></i>
-        </div>
-        <ul class="options">
-            <li class="option">
-                <i class='bx bx-meh-blank' style='color:#8a8ae6'  ></i>
-                <span class="option-text">VIEW</span>
-            </li>
-            <li class="option">
-                <i class='bx bx-heart-circle' style='color:#f5626b' ></i>
-                <span class="option-text">LIKE</span>
-            </li>
-            <li class="option">
-                <i class='bx bx-timer' style='color:#484747'  ></i>
-                <span class="option-text">CHRONOLOGICAL</span>
-            </li>
-        </ul>
+      <div class="select-btn">
+        <span class="sBtn-text">Select your option</span>
+        <i class="bx bx-chevron-down"></i>
+      </div>
+      <ul class="options">
+        <li class="option">
+          <i class="bx bx-meh-blank" style="color: #8a8ae6"></i>
+          <span class="option-text">VIEW</span>
+        </li>
+        <li class="option">
+          <i class="bx bx-heart-circle" style="color: #f5626b"></i>
+          <span class="option-text">LIKE</span>
+        </li>
+        <li class="option">
+          <i class="bx bx-timer" style="color: #484747"></i>
+          <span class="option-text">CHRONOLOGICAL</span>
+        </li>
+      </ul>
     </div>
 
     <script type="module" src="./script.js"></script>
-</body>
+  </body>
 </html>

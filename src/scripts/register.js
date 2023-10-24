@@ -53,7 +53,7 @@ form.addEventListener("submit", (e) => {
   );
   if (profile.files[0] != null) {
     body.append("profileImg", profile.files[0]);
-    console.log(profile.files[0])
+    console.log(profile.files[0]);
   }
   const res = fetch("http://localhost:8080/api/auth/sign-up", {
     method: "POST",
@@ -68,9 +68,7 @@ form.addEventListener("submit", (e) => {
       }
     })
     .catch((e) => {
-      alert(
-        "[Temporal Error]\n회원 가입 요청이 정상적으로 이루어졌으나 승인 여부를 판단할 수 없습니다."
-      );
+      alert("[Temporal Error]");
     });
 });
 profile.addEventListener("change", handleFiles);
