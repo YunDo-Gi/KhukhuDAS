@@ -16,6 +16,7 @@ import SoccerRoom from "./SoccerRoom.js";
 import BasicRoom from "./BasicRoom.js";
 import Objects from "./Objects.js";
 import Apt from "./Apt.js";
+import * as room from "../../scripts/room.js";
 
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
 const btnToRoom = document.querySelector(".btn-to-room");
@@ -35,214 +36,7 @@ selectBtn.addEventListener("click", () =>
   optionMenu.classList.toggle("active")
 );
 
-let dummyJSON = [
-  {
-    id: 3,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "PHOTO",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:51.669563",
-    modifiedDateTime: "2023-09-13T17:04:51.668273",
-    viewCount: 0,
-    likeCount: 1,
-    fileURLs: [
-      "background/basic_bg.png",
-      "background/game_bg.png",
-      "background/basic_bg.png",
-      "background/game_bg.png",
-    ],
-  },
-  {
-    id: 2,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "READING",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:52.341923",
-    modifiedDateTime: "2023-09-13T17:04:52.341866",
-    viewCount: 0,
-    likeCount: 2,
-    fileURLs: ["background/basic_bg.png", "background/game_bg.png"],
-  },
-  {
-    id: 1,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "PAINTING",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:51.669563",
-    modifiedDateTime: "2023-09-13T17:04:51.668273",
-    viewCount: 0,
-    likeCount: 1,
-    fileURLs: [
-      "background/basic_bg.png",
-      "background/game_bg.png",
-      "background/read_bg.png",
-    ],
-  },
-  {
-    id: 1,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "PAINTING",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:51.669563",
-    modifiedDateTime: "2023-09-13T17:04:51.668273",
-    viewCount: 0,
-    likeCount: 1,
-    fileURLs: [
-      "background/basic_bg.png",
-      "background/game_bg.png",
-      "background/read_bg.png",
-    ],
-  },
-  {
-    id: 1,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "READING",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:51.669563",
-    modifiedDateTime: "2023-09-13T17:04:51.668273",
-    viewCount: 0,
-    likeCount: 0,
-    fileURLs: [
-      "background/basic_bg.png",
-      "background/game_bg.png",
-      "background/read_bg.png",
-    ],
-  },
-];
-let dummyJSON2 = [
-  {
-    id: 2,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "READING",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:52.341923",
-    modifiedDateTime: "2023-09-13T17:04:52.341866",
-    viewCount: 0,
-    likeCount: 2,
-    fileURLs: ["background/basic_bg.png", "background/game_bg.png"],
-  },
-  {
-    id: 1,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "PAINTING",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:51.669563",
-    modifiedDateTime: "2023-09-13T17:04:51.668273",
-    viewCount: 0,
-    likeCount: 1,
-    fileURLs: [
-      "background/basic_bg.png",
-      "background/game_bg.png",
-      "background/read_bg.png",
-    ],
-  },
-  {
-    id: 1,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "PAINTING",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:51.669563",
-    modifiedDateTime: "2023-09-13T17:04:51.668273",
-    viewCount: 0,
-    likeCount: 1,
-    fileURLs: [
-      "background/basic_bg.png",
-      "background/game_bg.png",
-      "background/read_bg.png",
-    ],
-  },
-  {
-    id: 1,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "READING",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:51.669563",
-    modifiedDateTime: "2023-09-13T17:04:51.668273",
-    viewCount: 0,
-    likeCount: 0,
-    fileURLs: [
-      "background/basic_bg.png",
-      "background/game_bg.png",
-      "background/read_bg.png",
-    ],
-  },
-  {
-    id: 3,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "PAINTING",
-    writer: {
-      memberId: 1,
-      nickname: "마팅",
-      profileImgURL: null,
-    },
-    commentCount: 0,
-    createdDateTime: "2023-09-13T17:04:51.669563",
-    modifiedDateTime: "2023-09-13T17:04:51.668273",
-    viewCount: 0,
-    likeCount: 1,
-    fileURLs: [
-      "background/basic_bg.png",
-      "background/game_bg.png",
-      "background/basic_bg.png",
-      "background/game_bg.png",
-    ],
-  },
-];
+let fetchData = room.getRooms(null, "CHRONOLOGICAL");
 
 let settingDone = false;
 let current_page = 1;
@@ -323,7 +117,7 @@ export default class World extends EventEmitter {
               break;
           }
           current_page = 1;
-          this.getRooms(dummyJSON2); // data
+          this.getRooms(fetchData); // data
           this.rooms[current_page - 1]
             .getModel()
             .scale.copy(this.rooms[current_page - 1].getScale());
@@ -353,6 +147,7 @@ export default class World extends EventEmitter {
           break;
       }
       this.rooms[i].setLikes(data[i].likeCount);
+      this.rooms[i].setId(data[i].id);
       this.setFrames(this.rooms[i].frames, data[i].fileURLs);
       this.addRoomIcon(i);
     }
@@ -396,16 +191,19 @@ export default class World extends EventEmitter {
             );
           break;
       }
+
       this.setFrames(this.apts[i].frames, data[i].fileURLs);
       this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0);
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale());
     }
   }
 
-  setRooms() {
+  async setRooms() {
     if (!settingDone) {
-      this.getRooms(dummyJSON); // 디폴트로 받아오는 데이터
-      this.setApts(dummyJSON); // 디폴트로 받아오는 데이터
+      await fetchData.then((res) => {
+        this.getRooms(res); // 디폴트로 받아오는 데이터
+        this.setApts(res); // 디폴트로 받아오는 데이터
+      });
     }
 
     let page_size = this.rooms.length;
@@ -493,12 +291,13 @@ export default class World extends EventEmitter {
 
     // 방 확대 시 이동 및 회전
     btnRoomZoom.addEventListener("click", () => {
-      const currentRoom = this.rooms[current_page - 1]
-      const camera = this.camera.getOrthographicCamera()
+      const currentRoom = this.rooms[current_page - 1];
+      const camera = this.camera.getOrthographicCamera();
+      room.getRoom(currentRoom.getId());
       this.addIframe(currentRoom);
       switch (currentRoom.getType()) {
         case "reading":
-          gsapPosition(currentRoom, -0.31, -1.64)
+          gsapPosition(currentRoom, -0.31, -1.64);
           gsapRotation(currentRoom, 0);
           gsapZoom(camera, 8);
           break;
@@ -510,14 +309,14 @@ export default class World extends EventEmitter {
             ease: "power2.inOut",
             onComplete: () => {
               console.log("painting");
-              currentRoom.removeObjects()
-            }
+              currentRoom.removeObjects();
+            },
           });
           gsapRotation(currentRoom, 0, 0.05);
           gsapZoom(camera, 5.6);
           break;
         case "photo":
-          gsapPosition(currentRoom, -0.262, -1.584)
+          gsapPosition(currentRoom, -0.262, -1.584);
           gsap.to(currentRoom.getModel().rotation, {
             duration: 2,
             x: 0,
@@ -533,13 +332,12 @@ export default class World extends EventEmitter {
         default:
           console.log("default");
       }
-      
+
       this.heart.scale.set(0, 0, 0);
       likes.classList.add("hidden");
     });
 
-    function gsapPosition(room, xValue, yValue)
-    {
+    function gsapPosition(room, xValue, yValue) {
       gsap.to(room.getModel().position, {
         duration: 2,
         x: xValue,
@@ -548,8 +346,7 @@ export default class World extends EventEmitter {
       });
     }
 
-    function gsapRotation(room, yValue, zValue = 0)
-    {
+    function gsapRotation(room, yValue, zValue = 0) {
       gsap.to(room.getModel().rotation, {
         duration: 2,
         y: yValue,
@@ -561,19 +358,18 @@ export default class World extends EventEmitter {
       });
     }
 
-    function gsapZoom(camera, value)
-    {
+    function gsapZoom(camera, value) {
       gsap.to(camera, {
         duration: 2,
         zoom: value,
         ease: "power2.inOut",
         onUpdate: function () {
-            camera.updateProjectionMatrix();
-        }, 
+          camera.updateProjectionMatrix();
+        },
         onComplete: () => {
-            btnRetunFromZoom.classList.remove('hidden')
-        }
-      })
+          btnRetunFromZoom.classList.remove("hidden");
+        },
+      });
     }
 
     btnRetunFromZoom.addEventListener("click", () => {
@@ -594,9 +390,8 @@ export default class World extends EventEmitter {
           this.heart.scale.set(0.002, 0.002, 0.002);
         },
       });
-      if(this.rooms[current_page - 1].getType() === "painting")
-      {
-        this.rooms[current_page - 1].addObjects()
+      if (this.rooms[current_page - 1].getType() === "painting") {
+        this.rooms[current_page - 1].addObjects();
       }
       iframeWrapper.classList.add("hidden");
     });
@@ -605,9 +400,9 @@ export default class World extends EventEmitter {
     gui.add(this.rooms[current_page - 1].getModel().position, "x");
     gui.add(this.rooms[current_page - 1].getModel().position, "y");
     gui.add(this.rooms[current_page - 1].getModel().position, "z");
-    gui.add(this.rooms[current_page - 1].getModel().rotation, 'x')
-    gui.add(this.rooms[current_page - 1].getModel().rotation, 'y')
-    gui.add(this.rooms[current_page - 1].getModel().rotation, 'z')
+    gui.add(this.rooms[current_page - 1].getModel().rotation, "x");
+    gui.add(this.rooms[current_page - 1].getModel().rotation, "y");
+    gui.add(this.rooms[current_page - 1].getModel().rotation, "z");
   }
 
   setFrames(frame, data) {
