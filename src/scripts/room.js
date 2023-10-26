@@ -55,18 +55,19 @@ const createCarousel = async (chuncks) => {
 // file 형식으로 carousel에 child 추가
 const getMedia = async (fileURLs) => {
   try {
-    chuncks = [];
-    for (i = 0; i < fileURLs.length; i++) {
+    var chuncks = new Array();
+
+    for (var i = 0; i < fileURLs.length; i++) {
       let readableStream = await fetch(
         "http://localhost:8080/api" +
           fileURLs[i].replace("\\\\room\\", "/roomImg/")
       );
-      chuncks.push(readableStream);
+      await chuncks.push(readableStream);
     }
 
     createCarousel(chuncks);
   } catch (error) {
-    alert(error);
+    console.log(error);
     return null;
   }
 };
@@ -97,8 +98,6 @@ const getRoom = async (roomId) => {
   }
 };
 
-getRoom(1); //
-
 const getRooms = async (interestType, sort) => {
   // 메인 페이지에 보여줄 거임
   // interest가 null인 경우 구분 안함
@@ -115,7 +114,7 @@ const getRooms = async (interestType, sort) => {
   const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
   const { value } = await reader.read();
 
-  console.log(JSON.parse(value));
+  return JSON.parse(value);
 };
 
 const likeThisRoom = async (roomId) => {
@@ -163,3 +162,5 @@ const deleteRoom = async (roomId) => {
     console.log(e);
   }
 };
+
+export { getRoom, getRooms, getMedia, setData };

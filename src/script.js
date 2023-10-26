@@ -14,7 +14,6 @@ btnRoomZoom.addEventListener("click", () => {
   // iframeWrapper.classList.toggle('active-popup')
 });
 
-// sidebar js
 const parseJwt = (token) => {
   var base64Url = token.split(".")[1];
   var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -105,7 +104,7 @@ const sidebarChangeContent = async (token) => {
     avatar.alt = "Avatar";
     avatar.classList.add("w-25");
     userName.innerText = localStorage.getItem("nickname");
-    userName.href = "./user.html";
+    userName.href = "./views/user.html";
     userName.style.textDecoration = "none";
 
     child.appendChild(avatar);
@@ -128,6 +127,7 @@ const hamburger = document.querySelector(".hamburger-menu");
 hamburger.addEventListener("click", sidebarChangeContent(token));
 
 const lg = document.querySelector(".logout-btn");
+
 lg.addEventListener("click", async (e) => {
   e.preventDefault();
 

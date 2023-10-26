@@ -50,7 +50,7 @@ const sidebarChangeContent = async (token) => {
     login.setAttribute("data-bs-toggle", "modal");
     login.setAttribute("data-bs-target", "#login-modal");
     login.innerText = "Login";
-    login.href = "./views/login.html";
+    login.href = "../views/login.html";
     node.appendChild(login);
     menu__box.prepend(node);
 
@@ -111,6 +111,7 @@ const hamburger = document.querySelector(".hamburger-menu");
 hamburger.addEventListener("click", sidebarChangeContent(token));
 
 const lg = document.querySelector(".logout-btn");
+
 lg.addEventListener("click", async (e) => {
   e.preventDefault();
 
@@ -131,7 +132,7 @@ lg.addEventListener("click", async (e) => {
         localStorage.removeItem("nickname");
         localStorage.removeItem("profileImgUrl");
         localStorage.removeItem("jwt");
-        location.replace("./index.html");
+        location.replace("../index.html");
       } else {
         alert("[Temporal Error]\n로그아웃 요청이 실패했습니다.");
       }

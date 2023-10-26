@@ -61,9 +61,8 @@ form.addEventListener("submit", async (e) => {
     body.append("roomFile", files.files[i]);
   }
 
-
   try {
-    console.log(localStorage.getItem("jwt"))
+    console.log(localStorage.getItem("jwt"));
     const res = await fetch(url, {
       method: "POST",
       body: body,
@@ -79,6 +78,7 @@ form.addEventListener("submit", async (e) => {
         "방이 생성되었습니다.\n방 번호 : " +
           value.substring(17, value.length - 1)
       );
+      location.href = "../index.html";
     } else alert("다시 한번 확인해 주시기 바랍니다.");
   } catch (e) {
     console.log("방을 생성할 수 없습니다.");
