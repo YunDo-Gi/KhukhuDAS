@@ -14,7 +14,7 @@
   transform: rotate(90deg);
 }
 #menu__toggle:checked ~ .menu__box {
-  opacity: 80%;
+  opacity: 100%;
   top: 7% !important;
   pointer-events: auto;
 }
