@@ -50,8 +50,7 @@ button {
   cursor: pointer;
 }
 
-.svg-wrapper
-{
+.svg-wrapper {
   margin: auto;
 }
 
@@ -203,7 +202,7 @@ button {
 .likes-wrapper {
   position: fixed;
   top: 25%;
-  left: 11.5%;
+  left: 15.5%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;
@@ -215,7 +214,7 @@ button {
 .comments-wrapper {
   position: fixed;
   top: 30%;
-  left: 11.5%;
+  left: 15.5%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;
@@ -227,7 +226,7 @@ button {
 .views-wrapper {
   position: fixed;
   top: 35%;
-  left: 11.5%;
+  left: 15.5%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;

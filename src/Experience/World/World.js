@@ -16,18 +16,20 @@ import SoccerRoom from "./SoccerRoom.js";
 import BasicRoom from "./BasicRoom.js";
 import Objects from "./Objects.js";
 import Apt from "./Apt.js";
+import { dummyJSON, dummyJSON2 } from "./dummyJson.js";
 import * as room from "../../scripts/room.js";
 
 const changePosition = document.querySelector(".change-position-btn");
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
 const btnToRoom = document.querySelector(".btn-to-room");
 const btnRetunFromZoom = document.querySelector(".btn-return-from-zoom");
+const likes = document.querySelector(".likes-wrapper");
 const views = document.querySelector(".views-wrapper");
 const comments = document.querySelector(".comments-wrapper");
-const likes = document.querySelector(".likes-wrapper");
 const iframeWrapper = document.querySelector(".iframe-wrapper");
 const rightArrow = document.querySelector(".arrow-wrapper-right");
 const leftArrow = document.querySelector(".arrow-wrapper-left");
+const svgWrapper = document.querySelector(".arrow-svg-wrapper");
 
 // drop down menu
 const optionMenu = document.querySelector(".select-menu");
@@ -45,7 +47,6 @@ changePosition.addEventListener("click", () => {
   comments.classList.add("hidden");
   likes.classList.add("hidden");
   optionMenu.classList.add("hidden");
-  title_logo.classList.add("hidden");
 });
 
 let fetchData = room.getRooms(null, "CHRONOLOGICAL");
@@ -218,10 +219,15 @@ export default class World extends EventEmitter {
 
   async setRooms() {
     if (!settingDone) {
-      await fetchData.then((res) => {
-        this.getRooms(res); // 디폴트로 받아오는 데이터
-        this.setApts(res); // 디폴트로 받아오는 데이터
-      });
+      await fetchData
+        .then((res) => {
+          this.getRooms(res); // 디폴트로 받아오는 데이터
+          this.setApts(res); // 디폴트로 받아오는 데이터
+        })
+        .catch((e) => {
+          this.getRooms(dummyJSON); // 디폴트로 받아오는 데이터
+          this.setApts(dummyJSON2); // 디폴트로 받아오는 데이터
+        });
     }
 
     let page_size = this.rooms.length;
@@ -232,10 +238,9 @@ export default class World extends EventEmitter {
       this.rooms[current_page - 1].setBackground();
     });
 
-    likes.innerHTML = this.rooms[current_page - 1].getLikes();
-    views.innerHTML = this.rooms[current_page - 1].getData().viewCount;
-    console.log(this.rooms[current_page - 1].getData());
-    comments.innerHTML = this.rooms[current_page - 1].getData().commentCount;
+    likes.innerText = this.rooms[current_page - 1].getLikes();
+    views.innerText = this.rooms[current_page - 1].getData().viewCount;
+    comments.innerText = this.rooms[current_page - 1].getData().commentCount;
 
     // Handle page navigation
 
