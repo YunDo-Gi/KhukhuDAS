@@ -31,7 +31,7 @@ const handleFiles = async () => {
     let img = document.createElement("img");
     img.classList.add("previewImg" + i);
     img.classList.add("d-block");
-    img.classList.add("w-100");
+    // img.classList.add("object-fit-fill");
     fileReader.onload = await function () {
       img.src = fileReader.result;
     };

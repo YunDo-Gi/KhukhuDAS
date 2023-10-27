@@ -75,7 +75,7 @@ button {
 
 .arrow-wrapper-right {
   position: fixed;
-  top: 50%;
+  top: 88%;
   left: 90%;
   transform: translate(-50%, -50%);
   fill: rgba(255, 255, 255, 1);
@@ -83,7 +83,7 @@ button {
 
 .arrow-wrapper-left {
   position: fixed;
-  top: 50%;
+  top: 88%;
   left: 10%;
   transform: translate(-50%, -50%);
   fill: rgba(255, 255, 255, 1);
@@ -151,7 +151,7 @@ button {
 /* Main Page */
 .btn-to-room > button {
   position: fixed;
-  width: 90%;
+  width: 100%;
   height: 90%;
   top: 10%;
   left: 0;
@@ -190,8 +190,32 @@ button {
 
 .likes-wrapper {
   position: fixed;
-  top: 17%;
-  left: 51.5%;
+  top: 25%;
+  left: 11.5%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  z-index: 500;
+  color: whitesmoke;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.comments-wrapper {
+  position: fixed;
+  top: 30%;
+  left: 11.5%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  z-index: 500;
+  color: whitesmoke;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.views-wrapper {
+  position: fixed;
+  top: 35%;
+  left: 11.5%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;
