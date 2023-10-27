@@ -47,6 +47,8 @@ export default class Controls {
     this.staticVector = new THREE.Vector3(0, 1, 0);
     this.crossVector = new THREE.Vector3(0, 0, 0);
 
+    this.setMain();
+
     // this.setPath()
     this.setScroll();
 
@@ -75,7 +77,10 @@ export default class Controls {
       });
       // this.objects.move = false
       this.renderer.setBG();
+      this.onWheel();
       btnToRoom.classList.remove("hidden");
+      likes.classList.add("hidden");
+      menu.classList.add("hidden");
       roomWrapper.classList.add("hidden");
     });
 
@@ -144,6 +149,34 @@ export default class Controls {
       });
       btnRetunFromZoom.classList.add("hidden");
     });
+  }
+
+  onScroll(e) {
+    if (e.deltaY > 0) {
+      window.removeEventListener("wheel", this.scrollOnceEvent);
+      document.querySelector(".arrow-svg-wrapper").classList.add("hidden");
+      GSAP.to(this.camera.orthographicCamera.position, {
+        duration: 2,
+        x: this.position.x,
+        y: this.position.y,
+        z: this.position.z,
+        ease: "power2.inOut",
+      });
+      GSAP.to(this.camera.orthographicCamera.rotation, {
+        duration: 2,
+        y: -Math.PI * 0.5,
+        ease: "power2.inOut",
+        onComplete: () => {
+          this.onWheel();
+        },
+      });
+    }
+  }
+
+  setMain() {
+    this.scrollOnceEvent = this.onScroll.bind(this);
+    window.addEventListener("wheel", this.scrollOnceEvent);
+    flag = true;
   }
 
   setPath() {

@@ -157,6 +157,12 @@ export default class World extends EventEmitter {
         case "PHOTO":
           this.rooms[i] = new PhotoRoom();
           break;
+        case "EXERCISE":
+          this.rooms[i] = new SoccerRoom();
+          break;
+        case "GAMING":
+          this.rooms[i] = new BasicRoom();
+          break;
       }
       this.rooms[i].setLikes(data[i].likeCount);
       this.rooms[i].setData(data[i]);

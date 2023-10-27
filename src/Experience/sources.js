@@ -46,7 +46,7 @@ export default [
     {
         name: 'AptModel',
         type: 'gltfModel',
-        path: 'models/Room/frame.gltf'
+        path: 'models/Room/frame2.gltf'
     },
 
     // Objects

@@ -60,13 +60,21 @@ export default class Objects
         // Animate objects
         if(this.move)
         {
-            gsap.to(this.objects[0].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000) * 2 - 2, ease: "power2.inOut"}, "same")
-            gsap.to(this.objects[1].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 1.2) * 2 - 2, ease: "power2.inOut"}, "same")
-            gsap.to(this.objects[2].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 3) * 2 - 2, ease: "power2.inOut"}, "same")
-            gsap.to(this.objects[3].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 1.1) * 2 - 2, ease: "power2.inOut"}, "same")
-            gsap.to(this.objects[4].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 1.5) * 2 - 2, ease: "power2.inOut"}, "same")
-            gsap.to(this.objects[5].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 5) * 2 - 2, ease: "power2.inOut"}, "same")
-            gsap.to(this.objects[6].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 2) * 2 - 2, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[0].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000) * 3 - 3, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[1].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 1.2) * 3 - 3, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[2].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 3) * 3 - 3, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[3].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 1.1) * 3 - 3, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[4].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 1.5) * 3 - 3, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[5].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 5) * 3 - 3, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[6].position, {duration: 0.1, y: Math.sin( this.time.elapsed / 1000 + Math.PI / 2) * 3 - 3, ease: "power2.inOut"}, "same")
+
+            gsap.to(this.objects[0].rotation, {duration: 0.1, y: this.time.elapsed / 1000, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[1].rotation, {duration: 0.1, y: this.time.elapsed / 1000, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[2].rotation, {duration: 0.1, y: this.time.elapsed / 1000, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[3].rotation, {duration: 0.1, y: this.time.elapsed / 1000, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[4].rotation, {duration: 0.1, y: this.time.elapsed / 1000, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[5].rotation, {duration: 0.1, y: this.time.elapsed / 1000, ease: "power2.inOut"}, "same")
+            gsap.to(this.objects[6].rotation, {duration: 0.1, y: this.time.elapsed / 1000, ease: "power2.inOut"}, "same")
         }   
     }
 }

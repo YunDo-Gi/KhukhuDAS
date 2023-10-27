@@ -4,9 +4,6 @@ import GSAP from 'gsap'
 import EventEmitter from './Utils/EventEmitter.js'
 import Experience from './Experience.js'
 
-const loginWrapper = document.querySelector('.login-wrapper')
-
-
 export default class Preloader extends EventEmitter
 {
     constructor()
@@ -19,12 +16,13 @@ export default class Preloader extends EventEmitter
         this.resources = this.experience.resources
         this.camera = this.experience.camera
         this.world = this.experience.world
+        this.controls = this.experience.controls
 
         this.world.on('worldReady', () => {
             // this.setSources()
             setTimeout(() => {
                 this.playIntro()
-            }, 1000);
+            }, 500);
         })
     }
     
@@ -73,12 +71,12 @@ export default class Preloader extends EventEmitter
     //     })
     // }
 
+
     onScroll(e)
     {
         if(e.deltaY > 0)
         {
             window.removeEventListener("wheel", this.scrollOnceEvent)
-            loginWrapper.classList.add('active-popup')
             document.querySelector('.arrow-svg-wrapper').classList.add('hidden')
         }
     }
@@ -86,8 +84,8 @@ export default class Preloader extends EventEmitter
     playIntro()
     {
         this.firstIntro()
-        this.scrollOnceEvent = this.onScroll.bind(this)
-        window.addEventListener("wheel", this.scrollOnceEvent)
+        // this.scrollOnceEvent = this.onScroll.bind(this)
+        // window.addEventListener("wheel", this.scrollOnceEvent)
         // const clickHandler = () => {
         //     this.playSecondIntro()
         //     window.removeEventListener('click', clickHandler)
