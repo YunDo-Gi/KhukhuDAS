@@ -7,8 +7,6 @@ const btnChangePosition = document.querySelector(".btn-change-position");
 const btnToRoom = document.querySelector(".btn-to-room");
 const roomWrapper = document.querySelector(".room-wrapper");
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
-const loginWrapper = document.querySelector(".login-wrapper");
-const btnSubmit = document.querySelector(".btn-submit");
 const btnRetunFromZoom = document.querySelector(".btn-return-from-zoom");
 const likes = document.querySelector(".likes-wrapper");
 const menu = document.querySelector(".select-menu");
@@ -45,6 +43,8 @@ export default class Controls {
     this.staticVector = new THREE.Vector3(0, 1, 0);
     this.crossVector = new THREE.Vector3(0, 0, 0);
 
+    this.setMain();
+
     // this.setPath()
     this.setScroll();
 
@@ -73,7 +73,10 @@ export default class Controls {
       });
       // this.objects.move = false
       this.renderer.setBG();
+      this.onWheel();
       btnToRoom.classList.remove("hidden");
+      likes.classList.add("hidden");
+      menu.classList.add("hidden");
       roomWrapper.classList.add("hidden");
     });
 
@@ -140,6 +143,34 @@ export default class Controls {
     });
   }
 
+  onScroll(e) {
+    if (e.deltaY > 0) {
+      window.removeEventListener("wheel", this.scrollOnceEvent);
+      document.querySelector(".arrow-svg-wrapper").classList.add("hidden");
+      GSAP.to(this.camera.orthographicCamera.position, {
+        duration: 2,
+        x: this.position.x,
+        y: this.position.y,
+        z: this.position.z,
+        ease: "power2.inOut",
+      });
+      GSAP.to(this.camera.orthographicCamera.rotation, {
+        duration: 2,
+        y: -Math.PI * 0.5,
+        ease: "power2.inOut",
+        onComplete: () => {
+          this.onWheel();
+        }
+      });
+    }
+  }
+
+  setMain() {
+    this.scrollOnceEvent = this.onScroll.bind(this)
+    window.addEventListener("wheel", this.scrollOnceEvent)
+    flag = true;
+  }
+
   setPath() {
     this.curve = new THREE.CatmullRomCurve3(
       [
@@ -161,10 +192,7 @@ export default class Controls {
   }
 
   setScroll() {
-    this.line = new THREE.LineCurve3(
-      new THREE.Vector3(0, 0, 0),
-      new THREE.Vector3(0, 12, 0)
-    );
+    this.line = new THREE.LineCurve3(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 12, 0));
 
     const points = this.line.getPoints(50);
     const geometry = new THREE.BufferGeometry().setFromPoints(points);

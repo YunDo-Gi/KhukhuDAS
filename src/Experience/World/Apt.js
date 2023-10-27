@@ -19,10 +19,10 @@ export default class Objects
 
         // Setup
         this.model = this.resource.scene
-        this.model.position.set(7, -16.5, 0)
+        this.model.position.set(7, -2.3, 0)
         // const screenScale = this.sizes.width * 0.0000015
         // this.model.scale.set(screenScale, screenScale, screenScale)
-        this.model.scale.set(0.003, 0.003, 0.003)
+        this.model.scale.set(0.0031, 0.0031, 0.0031)
         this.model.rotation.set(0, Math.PI * 0.5, 0)
 
         // 현빈님 모델 기준

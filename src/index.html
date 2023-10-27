@@ -6,15 +6,20 @@
     <title>How is my Room</title>
     <link rel="stylesheet" href="./style.css" />
 
-    <link
-      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
 
-    <script
-      src="https://kit.fontawesome.com/b062febd1b.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/b062febd1b.js" crossorigin="anonymous"></script>
+
+    <script>
+      (function(d) {
+        var config = {
+          kitId: 'ddo7uxw',
+          scriptTimeout: 3000,
+          async: true
+        },
+        h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+      })(document);
+    </script>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -45,9 +50,7 @@
           <ul class="menu__box">
             <li><a class="menu__item" href="./index.html">Home</a></li>
             <li>
-              <a class="menu__item create" href="./views/createRoom.html"
-                >Create Room</a
-              >
+              <a class="menu__item create" href="./views/createRoom.html">Create Room</a>
             </li>
             <li>
               <a class="menu__item" href="./views/about.html">About</a>
@@ -64,12 +67,7 @@
           </ul>
 
           <!-- login 모달 창 -->
-          <div
-            class="modal top fade"
-            id="login-modal"
-            tabindex="-1"
-            data-bs-backdrop="false"
-          >
+          <div class="modal top fade" id="login-modal" tabindex="-1" data-bs-backdrop="false">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -85,28 +83,17 @@
                 <div class="modal-body">로그인 하시겠습니까?</div>
 
                 <div class="modal-footer pagination">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                   </button>
-                  <a a class="page-link btn" href="./views/login.html">
-                    Login
-                  </a>
+                  <a a class="page-link btn" href="./views/login.html"> Login </a>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- logout 모달 창 -->
-          <div
-            class="modal top fade"
-            id="logout-modal"
-            tabindex="-1"
-            data-bs-backdrop="false"
-          >
+          <div class="modal top fade" id="logout-modal" tabindex="-1" data-bs-backdrop="false">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -122,11 +109,7 @@
                 <div class="modal-body">로그아웃 하시겠습니까?</div>
 
                 <div class="modal-footer pagination">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                   </button>
                   <a class="page-link logout-btn btn"> Logout </a>
@@ -152,7 +135,21 @@
         </div>
       </div>
     </div>
-    gui
+
+    <div class="arrow-svg-wrapper">
+      <div>scroll down</div>
+      <div class="svg-wrapper">
+        <svg
+          style="display: block"
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 -960 960 960"
+          width="24"
+        >
+          <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z" />
+        </svg>
+      </div>
+    </div>
 
     <!--Window-->
     <div class="btn-to-room hidden">
@@ -161,24 +158,14 @@
     <div class="room-wrapper hidden">
       <div class="arrow-wrapper-right">
         <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="48"
-            viewBox="0 -960 960 960"
-            width="48"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
             <path d="m304-82-56-57 343-343-343-343 56-57 400 400L304-82Z" />
           </svg>
         </button>
       </div>
       <div class="arrow-wrapper-left">
         <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="48"
-            viewBox="0 -960 960 960"
-            width="48"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
             <path d="M400-80 0-480l400-400 56 57-343 343 343 343-56 57Z" />
           </svg>
         </button>
@@ -188,12 +175,7 @@
     <!--Room-->
     <div class="btn-return-from-zoom hidden">
       <button>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="24"
-          viewBox="0 -960 960 960"
-          width="24"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
           <path
             d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
           />
@@ -213,11 +195,7 @@
           ></button>
         </div>
         <div class="carousel-inner w-100">
-          <img
-            src="/public/default-avatar.jpg"
-            class="d-block w-25"
-            alt="..."
-          />
+          <img src="/public/default-avatar.jpg" class="d-block w-25" alt="..." />
           <div class="carousel-caption d-none d-md-block">
             <h5 style="color: black; font-weight: 900">예시 이미지</h5>
           </div>
