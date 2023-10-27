@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "member")
+@Table(name = "user")
 public class Member extends BaseTimeEntity implements UserDetails{
 
     @Id
