@@ -27,6 +27,14 @@ const createCarousel = async (chuncks) => {
   indicator.innerHTML = "";
   inner.innerHTML = "";
 
+  const frame = document.querySelector(".iframe-wrapper");
+  const carousel_caption = document.querySelector("#carouselCaption");
+  const carousel_inner = document.querySelector(".carousel-inner");
+  carousel_caption.style.width = frame.style.width;
+  carousel_caption.style.height = frame.style.height;
+  carousel_inner.style.width = frame.style.width;
+  carousel_inner.style.height = frame.style.height;
+
   for (let i = 0; i < chuncks.length; i++) {
     // 요소 생성
     let button = document.createElement("button");
@@ -38,12 +46,17 @@ const createCarousel = async (chuncks) => {
     let item = document.createElement("div");
     if (i == 0) item.classList.add("active");
     item.classList.add("carousel-item");
+    item.style.width = frame.style.width;
+    item.style.height = frame.style.height;
 
     let img = document.createElement("img");
     img.classList.add("previewImg" + i);
     img.classList.add("d-block");
-    img.classList.add("w-100");
+    img.style.width = frame.style.width;
+    img.style.height = frame.style.height;
     img.src = chuncks[i].url;
+
+    console.log(img.style.height);
     item.appendChild(img);
 
     // 요소 추가

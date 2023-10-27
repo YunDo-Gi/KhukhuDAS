@@ -16,6 +16,7 @@ export default class Room {
     this.frames = {};
     this.likes = 0;
     this.id = null;
+    this.data = null;
     this.type = "";
   }
 
@@ -69,6 +70,12 @@ export default class Room {
 
   getId() {
     return this.id;
+  }
+  setData(data) {
+    this.data = data;
+  }
+  getData(data) {
+    return this.data;
   }
 
   getType() {

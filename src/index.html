@@ -26,10 +26,15 @@
   <body>
     <header>
       <div class="logo-wrapper">
-        <img src="./assets/logo.png" alt="logo" />
+        <img
+          src="./public/logo/로고2.png"
+          alt="logo"
+          class="position-absolute"
+          style="width: 100px; z-index: -1"
+        />
       </div>
       <div class="btn-change-position">
-        <button>changePosition</button>
+        <button class="change-position-btn">changePosition</button>
       </div>
       <div class="btn-room-zoom">
         <button>roomZoom</button>
@@ -152,11 +157,16 @@
         </div>
       </div>
     </div>
-    gui
+    <!-- gui -->
 
     <!--Window-->
+    <img
+      src="./public/logo/로고.png"
+      alt="logo"
+      class="position-absolute title"
+    />
     <div class="btn-to-room hidden">
-      <button></button>
+      <button style="z-index: 0"></button>
     </div>
     <div class="room-wrapper hidden">
       <div class="arrow-wrapper-right">
@@ -201,7 +211,7 @@
       </button>
     </div>
     <div class="iframe-wrapper hidden">
-      <div id="carouselCaption" class="carousel slide w-100 position-relative">
+      <div id="carouselCaption" class="carousel carousel-dark slide">
         <div class="carousel-indicators">
           <button
             type="button"
@@ -212,7 +222,7 @@
             aria-label="Slide 1"
           ></button>
         </div>
-        <div class="carousel-inner w-100">
+        <div class="carousel-inner">
           <img
             src="/public/default-avatar.jpg"
             class="d-block w-25"
@@ -223,25 +233,29 @@
           </div>
         </div>
 
-        <i
-          class="carousel-control-prev fa-solid fa-chevron-left"
+        <button
+          class="carousel-control-prev"
           data-bs-target="#carouselCaption"
           data-bs-slide="prev"
           style="height: fit-content; width: fit-content; top: 50%"
         >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
-        </i>
-        <i
-          class="carousel-control-next fa-solid fa-chevron-right"
+        </button>
+        <button
+          class="carousel-control-next"
           data-bs-target="#carouselCaption"
           data-bs-slide="next"
           style="height: fit-content; width: fit-content; top: 50%"
         >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
-        </i>
+        </button>
       </div>
     </div>
-    <div class="likes-wrapper hidden">7</div>
+    <div class="likes-wrapper hidden"></div>
+    <div class="comments-wrapper hidden"></div>
+    <div class="views-wrapper hidden"></div>
     <div class="select-menu hidden">
       <div class="select-btn">
         <span class="sBtn-text">Select your option</span>

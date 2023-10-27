@@ -9,6 +9,8 @@ const roomWrapper = document.querySelector(".room-wrapper");
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
 const loginWrapper = document.querySelector(".login-wrapper");
 const btnSubmit = document.querySelector(".btn-submit");
+const views = document.querySelector(".views-wrapper");
+const comments = document.querySelector(".comments-wrapper");
 const btnRetunFromZoom = document.querySelector(".btn-return-from-zoom");
 const likes = document.querySelector(".likes-wrapper");
 const menu = document.querySelector(".select-menu");
@@ -95,6 +97,8 @@ export default class Controls {
           returnable = true;
           roomWrapper.classList.remove("hidden");
           likes.classList.remove("hidden");
+          comments.classList.remove("hidden");
+          views.classList.remove("hidden");
           menu.classList.remove("hidden");
           this.world.getHeart().scale.set(0.002, 0.002, 0.002);
         },
@@ -106,6 +110,8 @@ export default class Controls {
     // 방 확대
     btnRoomZoom.addEventListener("click", () => {
       likes.classList.add("hidden");
+      views.classList.add("hidden");
+      comments.classList.add("hidden");
       menu.classList.add("hidden");
       // const camera = this.camera.orthographicCamera
       // GSAP.to(camera, {

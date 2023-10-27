@@ -18,9 +18,12 @@ import Objects from "./Objects.js";
 import Apt from "./Apt.js";
 import * as room from "../../scripts/room.js";
 
+const changePosition = document.querySelector(".change-position-btn");
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
 const btnToRoom = document.querySelector(".btn-to-room");
 const btnRetunFromZoom = document.querySelector(".btn-return-from-zoom");
+const views = document.querySelector(".views-wrapper");
+const comments = document.querySelector(".comments-wrapper");
 const likes = document.querySelector(".likes-wrapper");
 const iframeWrapper = document.querySelector(".iframe-wrapper");
 const rightArrow = document.querySelector(".arrow-wrapper-right");
@@ -31,10 +34,19 @@ const optionMenu = document.querySelector(".select-menu");
 const selectBtn = optionMenu.querySelector(".select-btn");
 const options = optionMenu.querySelectorAll(".option");
 const sBtn_text = optionMenu.querySelector(".sBtn-text");
+const title_logo = document.querySelector(".title");
 
 selectBtn.addEventListener("click", () =>
   optionMenu.classList.toggle("active")
 );
+
+changePosition.addEventListener("click", () => {
+  views.classList.add("hidden");
+  comments.classList.add("hidden");
+  likes.classList.add("hidden");
+  optionMenu.classList.add("hidden");
+  title_logo.classList.add("hidden");
+});
 
 let fetchData = room.getRooms(null, "CHRONOLOGICAL");
 
@@ -147,7 +159,7 @@ export default class World extends EventEmitter {
           break;
       }
       this.rooms[i].setLikes(data[i].likeCount);
-      this.rooms[i].setId(data[i].id);
+      this.rooms[i].setData(data[i]);
       this.setFrames(this.rooms[i].frames, data[i].fileURLs);
       this.addRoomIcon(i);
     }
@@ -215,6 +227,9 @@ export default class World extends EventEmitter {
     });
 
     likes.innerHTML = this.rooms[current_page - 1].getLikes();
+    views.innerHTML = this.rooms[current_page - 1].getData().viewCount;
+    console.log(this.rooms[current_page - 1].getData());
+    comments.innerHTML = this.rooms[current_page - 1].getData().commentCount;
 
     // Handle page navigation
 
@@ -291,49 +306,56 @@ export default class World extends EventEmitter {
 
     // 방 확대 시 이동 및 회전
     btnRoomZoom.addEventListener("click", () => {
-      const currentRoom = this.rooms[current_page - 1];
-      const camera = this.camera.getOrthographicCamera();
-      room.getRoom(currentRoom.getId());
-      this.addIframe(currentRoom);
-      switch (currentRoom.getType()) {
-        case "reading":
-          gsapPosition(currentRoom, -0.31, -1.64);
-          gsapRotation(currentRoom, 0);
-          gsapZoom(camera, 8);
-          break;
-        case "painting":
-          gsap.to(currentRoom.getModel().position, {
-            duration: 2,
-            x: -1.465,
-            y: -0.599,
-            ease: "power2.inOut",
-            onComplete: () => {
-              console.log("painting");
-              currentRoom.removeObjects();
-            },
-          });
-          gsapRotation(currentRoom, 0, 0.05);
-          gsapZoom(camera, 5.6);
-          break;
-        case "photo":
-          gsapPosition(currentRoom, -0.262, -1.584);
-          gsap.to(currentRoom.getModel().rotation, {
-            duration: 2,
-            x: 0,
-            y: Math.PI * 0.5,
-            z: 0.05,
-            ease: "power2.inOut",
-            onComplete: () => {
-              iframeWrapper.classList.remove("hidden");
-            },
-          });
-          gsapZoom(camera, 13);
-          break;
-        default:
-          console.log("default");
+      if (
+        btnToRoom.classList.contains("hidden") &&
+        title_logo.classList.contains("hidden")
+      ) {
+        const currentRoom = this.rooms[current_page - 1];
+        const camera = this.camera.getOrthographicCamera();
+        room.getRoom(currentRoom.getData().id);
+        this.addIframe(currentRoom);
+        switch (currentRoom.getType()) {
+          case "reading":
+            gsapPosition(currentRoom, -0.31, -1.64);
+            gsapRotation(currentRoom, 0);
+            gsapZoom(camera, 8);
+            break;
+          case "painting":
+            gsap.to(currentRoom.getModel().position, {
+              duration: 2,
+              x: -1.465,
+              y: -0.599,
+              ease: "power2.inOut",
+              onComplete: () => {
+                console.log("painting");
+                currentRoom.removeObjects();
+              },
+            });
+            gsapRotation(currentRoom, 0, 0.05);
+            gsapZoom(camera, 5.6);
+            break;
+          case "photo":
+            gsapPosition(currentRoom, -0.262, -1.584);
+            gsap.to(currentRoom.getModel().rotation, {
+              duration: 2,
+              x: 0,
+              y: Math.PI * 0.5,
+              z: 0.05,
+              ease: "power2.inOut",
+              onComplete: () => {
+                iframeWrapper.classList.remove("hidden");
+              },
+            });
+            gsapZoom(camera, 13);
+            break;
+          default:
+            console.log("default");
+        }
       }
 
       this.heart.scale.set(0, 0, 0);
+      views.classList.add("hidden");
+      comments.classList.add("hidden");
       likes.classList.add("hidden");
     });
 
@@ -386,6 +408,8 @@ export default class World extends EventEmitter {
         y: this.rooms[current_page - 1].getCenterPosition().y,
         ease: "power2.inOut",
         onComplete: () => {
+          views.classList.remove("hidden");
+          comments.classList.remove("hidden");
           likes.classList.remove("hidden");
           this.heart.scale.set(0.002, 0.002, 0.002);
         },
@@ -449,9 +473,9 @@ export default class World extends EventEmitter {
         break;
     }
 
-    // let newIframe = document.createElement('iframe')
     // newIframe.src = "../views/login.html"
     // iframeWrapper.appendChild(newIframe)
+    // let newIframe = document.createElement('iframe')
   }
 
   setIframe() {
@@ -592,9 +616,9 @@ export default class World extends EventEmitter {
   makeIframeObject(width, height) {
     const obj = new THREE.Object3D();
 
-    // const element = document.createElement('iframe');
     // this.iframe.src = [ './views/login.html' ];
 
+    // const element = document.createElement('iframe');
     const element = document.createElement("div");
     element.width = width + "px";
     element.height = height + "px";
