@@ -236,6 +236,7 @@ export default class World extends EventEmitter {
 
     btnToRoom.addEventListener("click", () => {
       this.rooms[current_page - 1].setBackground();
+      localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
     });
 
     likes.innerText = this.rooms[current_page - 1].getLikes();
@@ -278,6 +279,10 @@ export default class World extends EventEmitter {
           onComplete: () => {
             current_page += 1;
             likes.innerHTML = this.rooms[current_page - 1].getLikes();
+            localStorage.setItem(
+              "roomId",
+              this.rooms[current_page - 1].getData().id
+            );
           },
         });
       }
@@ -310,6 +315,10 @@ export default class World extends EventEmitter {
           onComplete: () => {
             current_page -= 1;
             likes.innerHTML = this.rooms[current_page - 1].getLikes();
+            localStorage.setItem(
+              "roomId",
+              this.rooms[current_page - 1].getData().id
+            );
           },
         });
       }

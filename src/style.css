@@ -202,7 +202,7 @@ button {
 .likes-wrapper {
   position: fixed;
   top: 25%;
-  left: 15.5%;
+  left: 30%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;
@@ -214,7 +214,7 @@ button {
 .comments-wrapper {
   position: fixed;
   top: 30%;
-  left: 15.5%;
+  left: 30%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;
@@ -226,7 +226,7 @@ button {
 .views-wrapper {
   position: fixed;
   top: 35%;
-  left: 15.5%;
+  left: 30%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;

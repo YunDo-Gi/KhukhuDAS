@@ -4,55 +4,43 @@ import * as dat from "lil-gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 import Experience from "./Experience/Experience.js";
+import {
+  createComment,
+  updateComment,
+  deleteComment,
+  createRecomment,
+  updateRecomment,
+  deleteReComment,
+  showComment,
+  getComment,
+  likeThisRoom,
+  unlikeThisRoom,
+} from "./scripts/comment.js";
+import { isTokenExpire } from "./scripts/sidebar.js";
 
 const experience = new Experience(document.querySelector("canvas.webgl"));
 
 const iframeWrapper = document.querySelector(".iframe-wrapper");
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
+const btnComment = document.querySelector(".comments-wrapper");
+const input = document.querySelector("#comment-input");
+const btn = document.querySelector("#comment-btn");
+const test = document.querySelector(".test");
+const box = document.querySelector(".comment-box");
+const userImg = document.querySelector(".comment-user-img");
+const likeBtn = document.querySelector(".like-button");
+const likeCnt = document.querySelector(".like-counter");
+const roomId = localStorage.getItem("roomId");
+let userName = null;
+let targetId = null;
 
 btnRoomZoom.addEventListener("click", () => {
   // iframeWrapper.classList.toggle('active-popup')
 });
 
-const parseJwt = (token) => {
-  var base64Url = token.split(".")[1];
-  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-  var jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split("")
-      .map(function (c) {
-        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-      })
-      .join("")
-  );
-
-  return JSON.parse(jsonPayload);
-};
-
-const isTokenExpire = (token) => {
-  var exp = null;
-
-  if (token != null) exp = parseJwt(token).exp;
-
-  if (token == null) {
-    return true;
-  } else if (new Date().getTime() < exp) {
-    alert("세션이 만료 되었습니다.");
-    return true;
-  }
-
-  return false;
-};
-
-const getProfileImg = async (url) => {
-  try {
-    const img = await fetch("http://localhost:8080/api/profileImg/" + url);
-    return img;
-  } catch (error) {
-    alert(error);
-    return null;
-  }
-};
+btnComment.addEventListener("click", () => {
+  getComment(localStorage.getItem("roomId"));
+});
 
 var token = localStorage.getItem("jwt");
 
@@ -156,4 +144,23 @@ lg.addEventListener("click", async (e) => {
     .catch((e) => {
       alert(e);
     });
+});
+
+btn.addEventListener("click", () => {
+  if (input.value[0] == "@" && targetId != null)
+    createRecomment(roomId, targetId, input.value.substring(userName.length));
+  else createComment(1);
+  // location.reload();
+});
+
+likeBtn.addEventListener("click", async () => {
+  if (localStorage.getItem("isLike")) {
+    await unlikeThisRoom(1);
+    likeBtn.style.color = "";
+  } else {
+    await likeThisRoom(1);
+    likeBtn.style.color = "#F33040";
+  }
+  likeBtn.classList.toggle("fa-regular");
+  likeBtn.classList.toggle("fa-solid");
 });
