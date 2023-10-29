@@ -36,7 +36,7 @@ const optionMenu = document.querySelector(".select-menu");
 const selectBtn = optionMenu.querySelector(".select-btn");
 const options = optionMenu.querySelectorAll(".option");
 const sBtn_text = optionMenu.querySelector(".sBtn-text");
-const title_logo = document.querySelector(".title");
+const title_logo = document.querySelector(".landing-wrapper");
 
 selectBtn.addEventListener("click", () =>
   optionMenu.classList.toggle("active")
