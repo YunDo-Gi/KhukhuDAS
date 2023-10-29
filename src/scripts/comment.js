@@ -422,4 +422,15 @@ likeBtn.addEventListener("click", async () => {
   likeBtn.classList.toggle("fa-solid");
 });
 
-getComment(1); // roomId로 변경
+export {
+  createComment,
+  updateComment,
+  deleteComment,
+  createRecomment,
+  updateRecomment,
+  deleteReComment,
+  showComment,
+  getComment,
+  likeThisRoom,
+  unlikeThisRoom,
+};

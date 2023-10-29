@@ -36,7 +36,7 @@ const optionMenu = document.querySelector(".select-menu");
 const selectBtn = optionMenu.querySelector(".select-btn");
 const options = optionMenu.querySelectorAll(".option");
 const sBtn_text = optionMenu.querySelector(".sBtn-text");
-const title_logo = document.querySelector(".title");
+const title_logo = document.querySelector(".landing-wrapper");
 
 selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));
 
@@ -232,6 +232,7 @@ export default class World extends EventEmitter {
 
     btnToRoom.addEventListener("click", () => {
       this.rooms[current_page - 1].setBackground();
+      localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
     });
 
     likes.innerText = this.rooms[current_page - 1].getLikes();
@@ -270,6 +271,10 @@ export default class World extends EventEmitter {
           onComplete: () => {
             current_page += 1;
             likes.innerHTML = this.rooms[current_page - 1].getLikes();
+            localStorage.setItem(
+              "roomId",
+              this.rooms[current_page - 1].getData().id
+            );
           },
         });
       }
@@ -300,6 +305,10 @@ export default class World extends EventEmitter {
           onComplete: () => {
             current_page -= 1;
             likes.innerHTML = this.rooms[current_page - 1].getLikes();
+            localStorage.setItem(
+              "roomId",
+              this.rooms[current_page - 1].getData().id
+            );
           },
         });
       }

@@ -108,36 +108,38 @@ const sidebarChangeContent = async (token) => {
 
 const hamburger = document.querySelector(".hamburger-menu");
 
-hamburger.addEventListener("click", sidebarChangeContent(token));
+// hamburger.addEventListener("click", sidebarChangeContent(token));
 
 const lg = document.querySelector(".logout-btn");
 
-lg.addEventListener("click", async (e) => {
-  e.preventDefault();
+// lg.addEventListener("click", async (e) => {
+//   e.preventDefault();
 
-  const url = "http://localhost:8080/api/auth/logout";
+//   const url = "http://localhost:8080/api/auth/logout";
 
-  fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("jwt"),
-    },
-  })
-    .then((res) => {
-      let status = res.status;
+//   fetch(url, {
+//     method: "GET",
+//     headers: {
+//       Authorization: "Bearer " + localStorage.getItem("jwt"),
+//     },
+//   })
+//     .then((res) => {
+//       let status = res.status;
 
-      if (status == 200) {
-        alert("로그아웃 되었습니다.");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("nickname");
-        localStorage.removeItem("profileImgUrl");
-        localStorage.removeItem("jwt");
-        location.replace("../index.html");
-      } else {
-        alert("[Temporal Error]\n로그아웃 요청이 실패했습니다.");
-      }
-    })
-    .catch((e) => {
-      alert(e);
-    });
-});
+//       if (status == 200) {
+//         alert("로그아웃 되었습니다.");
+//         localStorage.removeItem("userId");
+//         localStorage.removeItem("nickname");
+//         localStorage.removeItem("profileImgUrl");
+//         localStorage.removeItem("jwt");
+//         location.replace("../index.html");
+//       } else {
+//         alert("[Temporal Error]\n로그아웃 요청이 실패했습니다.");
+//       }
+//     })
+//     .catch((e) => {
+//       alert(e);
+//     });
+// });
+
+export { parseJwt, isTokenExpire };

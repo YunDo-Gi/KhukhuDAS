@@ -170,12 +170,60 @@
     <div class="likes-wrapper hidden">
       
     </div>
-    <div class="comments-wrapper hidden"></div>
-    <div class="views-wrapper hidden">
+    <div class="views-wrapper hidden"></div>
+
+    <div>
+      <a class="comments-wrapper hidden" data-bs-toggle="collapse" href="#comment-wrapper" role="button" aria-expanded="false" aria-controls="comment-wrapper"></a>
+      <div class="collapse collapse-horizontal" id="comment-wrapper" style="height:100vh;">
+        <div class="border rounded-1 card card-body" style="width: 25vw; height:100vh; z-index: 10;">
+          <!-- 댓글창 -->
+          <ul
+            class="comment-box d-flex flex-column user-info border-bottom mb-3"
+            style="height:90vh; overflow: auto"
+          >
+          </ul>
+
+          <!-- 댓글 입력하는 부분 -->
+          <i class="fa-regular fa-heart fa-lg like-button" style="margin: 10px"></i>
+          <div style="margin: 10px" class="like-counter"></div>
+          <div
+            class="input-box d-flex align-items-center justify-content-between"
+            style="margin-bottom: 10px"
+          >
+            <input
+              type="text"
+              placeholder="댓글 달기..."
+              id="comment-input"
+              style="
+                border: none;
+                width: 100%;
+                outline: none;
+                margin-left: 10px;
+                font-size: 13px;
+              "
+            />
+            <button
+              class="border-0"
+              id="comment-btn"
+              style="
+                background-color: transparent;
+                color: rgb(71, 197, 255);
+                padding: 0;
+                width: 2.5rem;
+                margin-right: 10px;
+                font-size: 13px;
+                font-weight: 900;
+              "
+            >
+              게시
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="btn-to-room hidden">
-      <button style="z-index: 0"></button>
+      <button style="z-index: 0" class="btn-to-room"></button>
     </div>
     <div class="room-wrapper hidden">
       <div class="arrow-wrapper-right">
@@ -194,6 +242,7 @@
       </div>
       <div class="room-page-wrapper"></div>
     </div>
+
     <!--Room-->
     <div class="btn-return-from-zoom hidden">
       <button>
