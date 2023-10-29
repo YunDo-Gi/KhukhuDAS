@@ -3,7 +3,7 @@ import GSAP from "gsap";
 
 import Experience from "../Experience.js";
 
-const btnChangePosition = document.querySelector(".btn-change-position");
+const btnHome = document.querySelector(".btn-home");
 const btnToRoom = document.querySelector(".btn-to-room");
 const roomWrapper = document.querySelector(".room-wrapper");
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
@@ -17,10 +17,6 @@ const menu = document.querySelector(".select-menu");
 
 let flag = false;
 let returnable = false;
-
-btnChangePosition.addEventListener("click", () => {
-  flag = !flag;
-});
 
 export default class Controls {
   constructor() {
@@ -51,38 +47,7 @@ export default class Controls {
 
     // this.setPath()
     this.setScroll();
-
-    // document.querySelector('.btn-submit').addEventListener('click', () => {
-    //     loginWrapper.classList.remove('active-popup')
-    //     flag = true
-    //     this.onWheel()
-    //     roomWrapper.classList.add('hidden')
-    // })
-
-    btnChangePosition.addEventListener("click", () => {
-      if (returnable) {
-        GSAP.to(this.camera.orthographicCamera.position, {
-          duration: 2,
-          x: this.position.x,
-          y: this.position.y,
-          z: this.position.z,
-          ease: "power2.inOut",
-        });
-        returnable = false;
-      }
-      GSAP.to(this.camera.orthographicCamera.rotation, {
-        duration: 2,
-        y: -Math.PI * 0.5,
-        ease: "power2.inOut",
-      });
-      // this.objects.move = false
-      this.renderer.setBG();
-      this.onWheel();
-      btnToRoom.classList.remove("hidden");
-      likes.classList.add("hidden");
-      menu.classList.add("hidden");
-      roomWrapper.classList.add("hidden");
-    });
+    
 
     btnToRoom.addEventListener("click", () => {
       GSAP.to(this.camera.orthographicCamera.position, {
@@ -155,13 +120,15 @@ export default class Controls {
     if (e.deltaY > 0) {
       window.removeEventListener("wheel", this.scrollOnceEvent);
       document.querySelector(".arrow-svg-wrapper").classList.add("hidden");
-      document.querySelector(".landing-wrapper").classList.add("hidden");
       GSAP.to( document.querySelector(".landing-wrapper"), {
         duration: 2,
         opacity: 0,
         ease: "power2.inOut", 
         onComplete: () => {
-          document.querySelector(".landing-wrapper").classList.add("hidden");
+          document.querySelector(".landing-wrapper").remove();
+          this.onWheel();
+          this.toApt();
+          btnToRoom.classList.remove("hidden");
         }
       });
       GSAP.to(this.camera.orthographicCamera.position, {
@@ -175,9 +142,6 @@ export default class Controls {
         duration: 2,
         y: -Math.PI * 0.5,
         ease: "power2.inOut",
-        onComplete: () => {
-          this.onWheel();
-        },
       });
     }
   }
@@ -224,22 +188,41 @@ export default class Controls {
   }
 
   onWheel() {
-    GSAP.to(this.camera.orthographicCamera.rotation, {
-      duration: 2,
-      y: -Math.PI * 0.5,
-      ease: "power2.inOut",
-      onComplete: () => {
-        btnToRoom.classList.remove("hidden");
-      },
-    });
+    flag = true;
 
     window.addEventListener("wheel", (event) => {
-      console.log(event);
       if (event.deltaY > 0) {
         this.lerp.target -= 0.02;
       } else {
         this.lerp.target += 0.02;
       }
+    });
+  }
+
+  toApt() {
+    btnHome.addEventListener("click", () => {
+      if (returnable) {
+        GSAP.to(this.camera.orthographicCamera.position, {
+          duration: 2,
+          x: this.position.x,
+          y: this.position.y,
+          z: this.position.z,
+          ease: "power2.inOut",
+        });
+        returnable = false;
+      }
+      GSAP.to(this.camera.orthographicCamera.rotation, {
+        duration: 2,
+        y: -Math.PI * 0.5,
+        ease: "power2.inOut",
+      });
+      // this.objects.move = false
+      this.renderer.setBG();
+      this.onWheel();
+      btnToRoom.classList.remove("hidden");
+      likes.classList.add("hidden");
+      menu.classList.add("hidden");
+      roomWrapper.classList.add("hidden");
     });
   }
 

@@ -19,7 +19,6 @@ export default class ReadingRoom extends Room
         // Setup
         this.resource = this.resources.items.ReadingRoomModel
         this.background = 'background/read_bg.png';
-        this.roomChildren = {}
 
         this.iframePosition = new THREE.Vector3(-0.31, -1.65, 8)
         this.iframeRotation = new THREE.Vector3(0, Math.PI * 0.5, 0)

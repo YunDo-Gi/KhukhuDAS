@@ -49,6 +49,8 @@ header {
   background-color: rgba(255, 255, 255, 0);
   z-index: 10;
   display: flex;
+  align-items: center;
+
   justify-content: space-between;
 }
 
@@ -60,6 +62,12 @@ button {
 
 .svg-wrapper {
   margin: auto;
+}
+
+.btn-home
+{
+  width: 100px;
+  height: auto;
 }
 
 /* Landing Page */

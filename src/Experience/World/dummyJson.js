@@ -3,7 +3,7 @@ let dummyJSON = [
     id: 3,
     title: "내방",
     content: "이쁘지?",
-    interestType: "PHOTO",
+    interestType: "EXERCISE",
     writer: {
       memberId: 1,
       nickname: "마팅",

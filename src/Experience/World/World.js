@@ -13,13 +13,13 @@ import PaintingRoom from "./PaintingRoom.js";
 import ReadingRoom from "./ReadingRoom.js";
 import PhotoRoom from "./PhotoRoom.js";
 import SoccerRoom from "./SoccerRoom.js";
-import BasicRoom from "./BasicRoom.js";
+import GamingRoom from "./GamingRoom.js";
 import Objects from "./Objects.js";
 import Apt from "./Apt.js";
 import { dummyJSON, dummyJSON2 } from "./dummyJson.js";
 import * as room from "../../scripts/room.js";
 
-const changePosition = document.querySelector(".change-position-btn");
+const btnHome = document.querySelector(".btn-home");
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
 const btnToRoom = document.querySelector(".btn-to-room");
 const btnRetunFromZoom = document.querySelector(".btn-return-from-zoom");
@@ -38,11 +38,9 @@ const options = optionMenu.querySelectorAll(".option");
 const sBtn_text = optionMenu.querySelector(".sBtn-text");
 const title_logo = document.querySelector(".title");
 
-selectBtn.addEventListener("click", () =>
-  optionMenu.classList.toggle("active")
-);
+selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));
 
-changePosition.addEventListener("click", () => {
+btnHome.addEventListener("click", () => {
   views.classList.add("hidden");
   comments.classList.add("hidden");
   likes.classList.add("hidden");
@@ -108,9 +106,7 @@ export default class World extends EventEmitter {
             this.scene.remove(room.getModel());
             document
               .querySelector(".room-page-wrapper")
-              .removeChild(
-                document.querySelector(".room-page-wrapper").lastChild
-              );
+              .removeChild(document.querySelector(".room-page-wrapper").lastChild);
           }
 
           // API 호출
@@ -162,12 +158,12 @@ export default class World extends EventEmitter {
           this.rooms[i] = new SoccerRoom();
           break;
         case "GAMING":
-          this.rooms[i] = new BasicRoom();
+          this.rooms[i] = new GamingRoom();
           break;
       }
       this.rooms[i].setLikes(data[i].likeCount);
       this.rooms[i].setData(data[i]);
-      this.setFrames(this.rooms[i].frames, data[i].fileURLs);
+      this.setFrames(this.rooms[i].getType(), this.rooms[i].frames, data[i].fileURLs);
       this.addRoomIcon(i);
     }
   }
@@ -211,7 +207,7 @@ export default class World extends EventEmitter {
           break;
       }
 
-      this.setFrames(this.apts[i].frames, data[i].fileURLs);
+      this.setFrames(this.apts[i].getType(), this.apts[i].frames, data[i].fileURLs);
       this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0);
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale());
     }
@@ -244,9 +240,7 @@ export default class World extends EventEmitter {
 
     // Handle page navigation
 
-    this.rooms[current_page - 1]
-      .getModel()
-      .scale.copy(this.rooms[current_page - 1].getScale());
+    this.rooms[current_page - 1].getModel().scale.copy(this.rooms[current_page - 1].getScale());
     this.rooms[current_page - 1]
       .getModel()
       .position.copy(this.rooms[current_page - 1].getCenterPosition());
@@ -265,9 +259,7 @@ export default class World extends EventEmitter {
         });
         pages[current_page].classList.toggle("selected");
         this.rooms[current_page].setBackground();
-        this.rooms[current_page]
-          .getModel()
-          .scale.copy(this.rooms[current_page].getScale());
+        this.rooms[current_page].getModel().scale.copy(this.rooms[current_page].getScale());
         this.rooms[current_page]
           .getModel()
           .position.copy(this.rooms[current_page].getLeftPostion());
@@ -297,9 +289,7 @@ export default class World extends EventEmitter {
         });
         pages[current_page - 2].classList.toggle("selected");
         this.rooms[current_page - 2].setBackground();
-        this.rooms[current_page - 2]
-          .getModel()
-          .scale.copy(this.rooms[current_page - 2].getScale());
+        this.rooms[current_page - 2].getModel().scale.copy(this.rooms[current_page - 2].getScale());
         this.rooms[current_page - 2]
           .getModel()
           .position.copy(this.rooms[current_page - 2].getRightPosition());
@@ -317,51 +307,90 @@ export default class World extends EventEmitter {
 
     // 방 확대 시 이동 및 회전
     btnRoomZoom.addEventListener("click", () => {
-      if (
-        btnToRoom.classList.contains("hidden") &&
-        title_logo.classList.contains("hidden")
-      ) {
-        const currentRoom = this.rooms[current_page - 1];
-        const camera = this.camera.getOrthographicCamera();
-        room.getRoom(currentRoom.getData().id);
-        this.addIframe(currentRoom);
-        switch (currentRoom.getType()) {
-          case "reading":
-            gsapPosition(currentRoom, -0.31, -1.64);
-            gsapRotation(currentRoom, 0);
-            gsapZoom(camera, 8);
-            break;
-          case "painting":
-            gsap.to(currentRoom.getModel().position, {
-              duration: 2,
-              x: -1.465,
-              y: -0.599,
-              ease: "power2.inOut",
-              onComplete: () => {
-                console.log("painting");
-                currentRoom.removeObjects();
-              },
-            });
-            gsapRotation(currentRoom, 0, 0.05);
-            gsapZoom(camera, 5.6);
-            break;
-          case "photo":
-            gsapPosition(currentRoom, -0.262, -1.584);
-            gsap.to(currentRoom.getModel().rotation, {
-              duration: 2,
-              x: 0,
-              y: Math.PI * 0.5,
-              z: 0.05,
-              ease: "power2.inOut",
-              onComplete: () => {
-                iframeWrapper.classList.remove("hidden");
-              },
-            });
-            gsapZoom(camera, 13);
-            break;
-          default:
-            console.log("default");
-        }
+      const currentRoom = this.rooms[current_page - 1];
+      const camera = this.camera.getOrthographicCamera();
+      room.getRoom(currentRoom.getData().id);
+      this.addIframe(currentRoom);
+      switch (currentRoom.getType()) {
+        case "reading":
+          gsapPosition(currentRoom, -0.31, -1.64);
+          gsapRotation(currentRoom, 0);
+          gsapZoom(camera, 8);
+          break;
+        case "painting":
+          gsap.to(currentRoom.getModel().position, {
+            duration: 2,
+            x: -1.465,
+            y: -0.599,
+            ease: "power2.inOut",
+            onComplete: () => {
+              console.log("painting");
+              currentRoom.removeObjects();
+            },
+          });
+          gsapRotation(currentRoom, 0, 0.05);
+          gsapZoom(camera, 5.6);
+          break;
+        case "photo":
+          gsapPosition(currentRoom, -0.262, -1.584);
+          gsap.to(currentRoom.getModel().rotation, {
+            duration: 2,
+            x: 0,
+            y: Math.PI * 0.5,
+            z: 0.05,
+            ease: "power2.inOut",
+            onComplete: () => {
+              iframeWrapper.classList.remove("hidden");
+            },
+          });
+          gsapZoom(camera, 13);
+          break;
+        case "exercise":
+          gsap.to(currentRoom.getModel().position, {
+            duration: 2,
+            x: -0.308,
+            y: -0.071,
+            ease: "power2.inOut",
+            onComplete: () => {
+              currentRoom.removeObjects();
+            },
+          });
+          gsap.to(currentRoom.getModel().rotation, {
+            duration: 2,
+            x: 0,
+            y: 0,
+            z: 0,
+            ease: "power2.inOut",
+            onComplete: () => {
+              iframeWrapper.classList.remove("hidden");
+            },
+          });
+          gsapZoom(camera, 4.1);
+          break;
+        case "gaming":
+          gsap.to(currentRoom.getModel().position, {
+            duration: 2,
+            x: 0.509,
+            y: -0.2015,
+            ease: "power2.inOut",
+            onComplete: () => {
+              currentRoom.removeObjects();
+            },
+          });
+          gsap.to(currentRoom.getModel().rotation, {
+            duration: 2,
+            x: 0,
+            y: 0,
+            z: 0,
+            ease: "power2.inOut",
+            onComplete: () => {
+              iframeWrapper.classList.remove("hidden");
+            },
+          });
+          gsapZoom(camera, 6);
+          break;
+        default:
+          console.log("default");
       }
 
       this.heart.scale.set(0, 0, 0);
@@ -425,13 +454,14 @@ export default class World extends EventEmitter {
           this.heart.scale.set(0.002, 0.002, 0.002);
         },
       });
-      if (this.rooms[current_page - 1].getType() === "painting") {
+      if (this.rooms[current_page - 1].getType() === "painting" || this.rooms[current_page - 1].getType() === "gaming" || this.rooms[current_page - 1].getType() === "exercise") {
         this.rooms[current_page - 1].addObjects();
       }
       iframeWrapper.classList.add("hidden");
     });
 
     const gui = new dat.GUI();
+    gui.add(this.rooms[current_page - 1].getModel().scale, "z");
     gui.add(this.rooms[current_page - 1].getModel().position, "x");
     gui.add(this.rooms[current_page - 1].getModel().position, "y");
     gui.add(this.rooms[current_page - 1].getModel().position, "z");
@@ -440,11 +470,17 @@ export default class World extends EventEmitter {
     gui.add(this.rooms[current_page - 1].getModel().rotation, "z");
   }
 
-  setFrames(frame, data) {
+  setFrames(type, frame, data) {
     for (let j = 0; j < Math.min(data.length, frame.length); j++) {
-      frame[j].material = new THREE.MeshBasicMaterial({
-        map: new THREE.TextureLoader().load(data[j]),
-      });
+      if (type === "exercise" || type === "gaming") {
+        frame[j].children[1].material = new THREE.MeshBasicMaterial({
+          map: new THREE.TextureLoader().load(data[j]),
+        });
+      } else {
+        frame[j].material = new THREE.MeshBasicMaterial({
+          map: new THREE.TextureLoader().load(data[j]),
+        });
+      }
     }
   }
 
@@ -482,6 +518,16 @@ export default class World extends EventEmitter {
         iframeWrapper.style.height = this.size.height * 0.795 + "px";
         iframeWrapper.style.width = this.size.height * 0.9 * 1.04 + "px";
         break;
+      case "exercise":
+        iframeWrapper.style.height = this.size.height * 0.795 + "px";
+        iframeWrapper.style.width = this.size.height * 0.795 * 0.71 + "px";
+        break;
+      case "gaming":
+        iframeWrapper.style.height = this.size.height * 0.805 + "px";
+        iframeWrapper.style.width = this.size.height * 0.86 + "px";
+        break;
+      default:
+        console.log("default");
     }
 
     // newIframe.src = "../views/login.html"
@@ -571,10 +617,7 @@ export default class World extends EventEmitter {
       color: 0xf5626b,
     });
 
-    const geometryHeart = new THREE.ExtrudeGeometry(
-      heartShape,
-      extrudeSettings
-    );
+    const geometryHeart = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
     this.heart = new THREE.Mesh(geometryHeart, materialRed);
 
     this.heart.position.set(0.1, 1.7, 8);
@@ -614,13 +657,13 @@ export default class World extends EventEmitter {
 
       this.scene.add(this.text);
 
-      const gui = new dat.GUI();
-      gui.add(this.text.position, "x");
-      gui.add(this.text.position, "y");
-      gui.add(this.text.position, "z");
-      gui.add(this.text.rotation, "x");
-      gui.add(this.text.rotation, "y");
-      gui.add(this.text.rotation, "z");
+      // const gui = new dat.GUI();
+      // gui.add(this.text.position, "x");
+      // gui.add(this.text.position, "y");
+      // gui.add(this.text.position, "z");
+      // gui.add(this.text.rotation, "x");
+      // gui.add(this.text.rotation, "y");
+      // gui.add(this.text.rotation, "z");
     });
   }
 
