@@ -14,7 +14,6 @@ const comments = document.querySelector(".comments-wrapper");
 const btnRetunFromZoom = document.querySelector(".btn-return-from-zoom");
 const likes = document.querySelector(".likes-wrapper");
 const menu = document.querySelector(".select-menu");
-const title_logo = document.querySelector(".title");
 
 let flag = false;
 let returnable = false;
@@ -156,7 +155,15 @@ export default class Controls {
     if (e.deltaY > 0) {
       window.removeEventListener("wheel", this.scrollOnceEvent);
       document.querySelector(".arrow-svg-wrapper").classList.add("hidden");
-      title_logo.classList.add("hidden");
+      document.querySelector(".landing-wrapper").classList.add("hidden");
+      GSAP.to( document.querySelector(".landing-wrapper"), {
+        duration: 2,
+        opacity: 0,
+        ease: "power2.inOut", 
+        onComplete: () => {
+          document.querySelector(".landing-wrapper").classList.add("hidden");
+        }
+      });
       GSAP.to(this.camera.orthographicCamera.position, {
         duration: 2,
         x: this.position.x,
