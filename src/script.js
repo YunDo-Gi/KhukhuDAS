@@ -145,22 +145,3 @@ lg.addEventListener("click", async (e) => {
       alert(e);
     });
 });
-
-btn.addEventListener("click", () => {
-  if (input.value[0] == "@" && targetId != null)
-    createRecomment(roomId, targetId, input.value.substring(userName.length));
-  else createComment(1);
-  // location.reload();
-});
-
-likeBtn.addEventListener("click", async () => {
-  if (localStorage.getItem("isLike")) {
-    await unlikeThisRoom(1);
-    likeBtn.style.color = "";
-  } else {
-    await likeThisRoom(1);
-    likeBtn.style.color = "#F33040";
-  }
-  likeBtn.classList.toggle("fa-regular");
-  likeBtn.classList.toggle("fa-solid");
-});
