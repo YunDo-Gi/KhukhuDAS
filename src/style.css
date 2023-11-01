@@ -3,10 +3,9 @@ font-weight: 500;
 font-style: normal; */
 
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 400;
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -51,8 +50,8 @@ header {
   z-index: 10;
   display: flex;
   align-items: center;
-
   justify-content: space-between;
+  font-family: 'Pretendard-Regular', sans-serif;
 }
 
 button {
@@ -208,6 +207,29 @@ button {
 .comment-box {
   padding: 0;
 }
+
+.btn-room-zoom
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 40%;
+  background-color: transparent;
+  z-index: 500;
+}
+
+.btn-room-zoom>button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  z-index: 500;
+}
+
 .btn-return-from-zoom {
   position: fixed;
   top: 10%;
@@ -227,6 +249,8 @@ button {
   color: whitesmoke;
   font-size: 25px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
 }
 
 .comments-wrapper {
@@ -239,6 +263,8 @@ button {
   color: whitesmoke;
   font-size: 25px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
 }
 
 .views-wrapper {
@@ -251,6 +277,8 @@ button {
   color: whitesmoke;
   font-size: 25px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
 }
 
 .select-menu {

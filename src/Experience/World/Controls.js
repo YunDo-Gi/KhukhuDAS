@@ -7,8 +7,6 @@ const btnHome = document.querySelector(".btn-home");
 const btnToRoom = document.querySelector(".btn-to-room");
 const roomWrapper = document.querySelector(".room-wrapper");
 const btnRoomZoom = document.querySelector(".btn-room-zoom");
-const loginWrapper = document.querySelector(".login-wrapper");
-const btnSubmit = document.querySelector(".btn-submit");
 const views = document.querySelector(".views-wrapper");
 const comments = document.querySelector(".comments-wrapper");
 const btnRetunFromZoom = document.querySelector(".btn-return-from-zoom");
@@ -70,7 +68,8 @@ export default class Controls {
           comments.classList.remove("hidden");
           views.classList.remove("hidden");
           menu.classList.remove("hidden");
-          this.world.getHeart().scale.set(0.002, 0.002, 0.002);
+          // this.world.getHeart().scale.set(0.002, 0.002, 0.002);
+          btnRoomZoom.classList.remove("hidden");
         },
         // this.objects.move = false
       });
@@ -83,6 +82,7 @@ export default class Controls {
       views.classList.add("hidden");
       comments.classList.add("hidden");
       menu.classList.add("hidden");
+      btnRoomZoom.classList.add("hidden");
       // const camera = this.camera.orthographicCamera
       // GSAP.to(camera, {
       //     duration: 2,
@@ -110,6 +110,7 @@ export default class Controls {
         onComplete: () => {
           menu.classList.remove("hidden");
           roomWrapper.classList.remove("hidden");
+          btnRoomZoom.classList.remove("hidden");
         },
       });
       btnRetunFromZoom.classList.add("hidden");
