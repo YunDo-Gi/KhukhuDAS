@@ -6,6 +6,7 @@ const userImg = document.querySelector(".comment-user-img");
 const likeBtn = document.querySelector(".like-button");
 const likeCnt = document.querySelector(".like-counter");
 const roomId = localStorage.getItem("roomId");
+const comment_wrapper = document.querySelector(".comments-wrapper");
 let userName = null;
 let targetId = null;
 
@@ -26,6 +27,8 @@ const createComment = async (roomId) => {
           "Content-Type": "application/json",
         },
       });
+
+      getComment(roomId);
     } catch (e) {
       console.log(e);
     }
@@ -62,7 +65,8 @@ const deleteComment = async (roomId, commentId) => {
         "Content-Type": "application/json",
       },
     });
-    location.reload();
+
+    getComment(roomId);
   } catch (e) {
     console.log(e);
   }
@@ -81,7 +85,7 @@ const createRecomment = async (roomId, commentId, comment) => {
         "Content-Type": "application/json",
       },
     });
-    location.reload();
+    getComment(roomId);
   } catch (e) {
     console.log(e);
   }
@@ -138,7 +142,6 @@ const showComment = async (roomId, json) => {
     node.style = "width: 100%; display:flex; font-size:14px; padding-top:24px";
 
     let info = json[i].user;
-    console.log(json[i]);
 
     let {
       user,
@@ -295,6 +298,7 @@ const showComment = async (roomId, json) => {
   function createChildren(info) {
     let content = document.createElement("span");
     content.style.display = "inline";
+
     let user = document.createElement("span");
     user.style = "display:inline-box; align-items:center; ";
     let img = document.createElement("img");
@@ -320,6 +324,7 @@ const showComment = async (roomId, json) => {
 
     let comment = document.createElement("span");
     comment.innerText = json[i].content;
+    comment.style.overflow = "auto";
 
     let time = document.createElement("span");
     let timeDiff = Date.now() - Date.parse(json[i].createdDateTime);
@@ -371,7 +376,8 @@ const getComment = async (roomId) => {
     }).then(async (res) => {
       const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
       const { value } = await reader.read();
-      showComment(roomId, JSON.parse(value));
+      await showComment(roomId, JSON.parse(value));
+      comment_wrapper.innerText = JSON.parse(value).length;
     });
   } catch (e) {
     console.log(e);
@@ -403,19 +409,26 @@ const unlikeThisRoom = async (roomId) => {
   console.log(res.status);
 };
 
-btn.addEventListener("click", () => {
+btn.addEventListener("click", async () => {
   if (input.value[0] == "@" && targetId != null)
-    createRecomment(roomId, targetId, input.value.substring(userName.length));
-  else createComment(1);
-  location.reload();
+    await createRecomment(
+      roomId,
+      targetId,
+      input.value.substring(userName.length)
+    );
+  else await createComment(roomId);
 });
 
+localStorage.setItem("isLike", false);
+
 likeBtn.addEventListener("click", async () => {
-  if (localStorage.getItem("isLike")) {
-    await unlikeThisRoom(1);
+  if (localStorage.getItem("isLike") == true) {
+    await unlikeThisRoom(roomId);
+    localStorage.setItem("isLike", false);
     likeBtn.style.color = "";
   } else {
-    await likeThisRoom(1);
+    await likeThisRoom(roomId);
+    localStorage.setItem("isLike", true);
     likeBtn.style.color = "#F33040";
   }
   likeBtn.classList.toggle("fa-regular");
