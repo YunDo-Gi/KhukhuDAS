@@ -1,7 +1,6 @@
 const room = document.querySelector(".get-room-test");
 const indicator = document.querySelector(".carousel-indicators");
 const inner = document.querySelector(".carousel-inner");
-console.log(localStorage.getItem("jwt"));
 
 // 현재 입장한 방의 정보
 var fileURLs = null;
@@ -91,7 +90,7 @@ const getMedia = async (fileURLs) => {
 const getRoom = async (roomId) => {
   // 방 입장
   let url = `http://localhost:8080/api/room/${roomId}`;
-  localStorage.setItem("roomId", roomId); // id 저장, 방 수정 시 활용
+  //localStorage.setItem("roomId", roomId); // id 저장, 방 수정 시 활용
 
   try {
     let res = await fetch(url, {
@@ -106,6 +105,7 @@ const getRoom = async (roomId) => {
 
     setData(JSON.parse(value));
     getMedia(fileURLs);
+    console.log(JSON.parse(value));
   } catch (e) {
     console.log(e);
   }

@@ -1,3 +1,5 @@
+import { getRoom } from "./room.js";
+
 const input = document.querySelector("#comment-input");
 const btn = document.querySelector("#comment-btn");
 const test = document.querySelector(".test");
@@ -5,7 +7,8 @@ const box = document.querySelector(".comment-box");
 const userImg = document.querySelector(".comment-user-img");
 const likeBtn = document.querySelector(".like-button");
 const likeCnt = document.querySelector(".like-counter");
-const roomId = localStorage.getItem("roomId");
+const like_wrapper = document.querySelector(".likes-wrapper");
+let roomId = localStorage.getItem("roomId");
 const comment_wrapper = document.querySelector(".comments-wrapper");
 let userName = null;
 let targetId = null;
@@ -105,7 +108,7 @@ const updateRecomment = async (roomId, commentId, recommentId) => {
       },
     });
 
-    getComment(1); // roomId로 변경
+    getComment(roomId); // roomId로 변경
   } catch (e) {
     console.log(e);
   }
@@ -125,7 +128,7 @@ const deleteReComment = async (roomId, commentId, recommentId) => {
       },
     });
 
-    getComment(1); // roomId로 변경
+    getComment(roomId); // roomId로 변경
   } catch (e) {
     console.log(e);
   }
@@ -363,7 +366,11 @@ const showComment = async (roomId, json) => {
 
 const getComment = async (roomId) => {
   // 초기화
+  await getRoom(roomId);
+
   box.textContent = "";
+  like_wrapper.innerText = localStorage.getItem("likeCount");
+
   likeCnt.innerText = "좋아요 " + localStorage.getItem("likeCount") + "개";
   let url = `http://localhost:8080/api/room/${roomId}/comment`;
   try {
@@ -393,8 +400,8 @@ const likeThisRoom = async (roomId) => {
       Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
-
-  console.log(res.status);
+  if (res.status == 400) return false;
+  return true;
 };
 
 const unlikeThisRoom = async (roomId) => {
@@ -406,7 +413,8 @@ const unlikeThisRoom = async (roomId) => {
       Authorization: "Bearer " + localStorage.getItem("jwt"),
     },
   });
-  console.log(res.status);
+  if (res.status == 400) return false;
+  return true;
 };
 
 btn.addEventListener("click", async () => {
@@ -419,20 +427,28 @@ btn.addEventListener("click", async () => {
   else await createComment(roomId);
 });
 
-localStorage.setItem("isLike", false);
+comment_wrapper.addEventListener("click", async () => {
+  if ((await localStorage.getItem("isLike")) == "true") {
+    likeBtn.classList.add("fa-solid");
+    likeBtn.style.color = "#F33040";
+  } else {
+    likeBtn.classList.remove("fa-solid");
+    likeBtn.style.color = "";
+  }
+});
 
 likeBtn.addEventListener("click", async () => {
-  if (localStorage.getItem("isLike") == true) {
-    await unlikeThisRoom(roomId);
-    localStorage.setItem("isLike", false);
+  if ((await localStorage.getItem("isLike")) == "true") {
+    await unlikeThisRoom(localStorage.getItem("roomId"));
     likeBtn.style.color = "";
+    likeBtn.classList.remove("fa-solid");
   } else {
-    await likeThisRoom(roomId);
-    localStorage.setItem("isLike", true);
+    await likeThisRoom(localStorage.getItem("roomId"));
     likeBtn.style.color = "#F33040";
+    likeBtn.classList.add("fa-regular");
+    likeBtn.classList.add("fa-solid");
   }
-  likeBtn.classList.toggle("fa-regular");
-  likeBtn.classList.toggle("fa-solid");
+  getComment(roomId);
 });
 
 export {
