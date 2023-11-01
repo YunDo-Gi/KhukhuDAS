@@ -80,8 +80,8 @@ export default class World extends EventEmitter {
       // Pagenation
       this.rooms = [];
 
-      this.heart = null;
-      this.setHeart();
+      // this.heart = null;
+      // this.setHeart();
 
       // Set rooms
       this.setRooms();
@@ -205,12 +205,39 @@ export default class World extends EventEmitter {
               this.apt.getAptPositionsPhoto(index).z
             );
           break;
+        case "EXERCISE":
+          this.apts[i] = new SoccerRoom();
+          this.apts[i]
+            .getModel()
+            .position.set(
+              this.apt.getAptPositionsExercise(index).x,
+              this.apt.getAptPositionsExercise(index).y,
+              this.apt.getAptPositionsExercise(index).z
+            );
+          break;
+        case "GAMING":
+          this.apts[i] = new GamingRoom();
+          this.apts[i]
+            .getModel()
+            .position.set(
+              this.apt.getAptPositionsGaming(index).x,
+              this.apt.getAptPositionsGaming(index).y,
+              this.apt.getAptPositionsGaming(index).z
+            );
+          break;
+        default:
+          console.log("default");
       }
 
       this.setFrames(this.apts[i].getType(), this.apts[i].frames, data[i].fileURLs);
       this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0);
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale());
     }
+
+    const gui = new dat.GUI();
+    gui.add(this.apts[0].getModel().position, "x");
+    gui.add(this.apts[0].getModel().position, "y");
+    gui.add(this.apts[0].getModel().position, "z");
   }
 
   async setRooms() {
@@ -235,10 +262,29 @@ export default class World extends EventEmitter {
       localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
     });
 
-    likes.innerText = this.rooms[current_page - 1].getLikes();
-    views.innerText = this.rooms[current_page - 1].getData().viewCount;
-    comments.innerText = this.rooms[current_page - 1].getData().commentCount;
+    // Set room contents
 
+    const containers = [likes, views, comments];
+    const icons = [
+      `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path style="fill: #f5626b" d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"/></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path style="fill: whitesmoke" d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path style="fill: whitesmoke" d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80Zm-80 400q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720L720-240H160Z"/></svg>`,
+    ];
+    let texts = [
+      this.rooms[current_page - 1].getLikes(),
+      this.rooms[current_page - 1].getData().commentCount,
+      this.rooms[current_page - 1].getData().viewCount,
+    ];
+    for (let i = 0; i < 3; i++) {
+      let iconContainer = document.createElement("div");
+      iconContainer.style.marginBottom = "5px";
+      iconContainer.style.marginRight = "10px";
+      let textContainer = document.createElement("div");
+      iconContainer.innerHTML = icons[i];
+      textContainer.innerHTML = `${texts[i]}`;
+      containers[i].appendChild(iconContainer);
+      containers[i].appendChild(textContainer);
+    }
     // Handle page navigation
 
     this.rooms[current_page - 1].getModel().scale.copy(this.rooms[current_page - 1].getScale());
@@ -270,11 +316,8 @@ export default class World extends EventEmitter {
           ease: "power2.inOut",
           onComplete: () => {
             current_page += 1;
-            likes.innerHTML = this.rooms[current_page - 1].getLikes();
-            localStorage.setItem(
-              "roomId",
-              this.rooms[current_page - 1].getData().id
-            );
+            likes.lastElementChild.innerHTML = this.rooms[current_page - 1].getLikes();
+            localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
           },
         });
       }
@@ -304,11 +347,8 @@ export default class World extends EventEmitter {
           ease: "power2.inOut",
           onComplete: () => {
             current_page -= 1;
-            likes.innerHTML = this.rooms[current_page - 1].getLikes();
-            localStorage.setItem(
-              "roomId",
-              this.rooms[current_page - 1].getData().id
-            );
+            likes.lastElementChild.innerHTML = this.rooms[current_page - 1].getLikes();
+            localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
           },
         });
       }
@@ -463,20 +503,24 @@ export default class World extends EventEmitter {
           this.heart.scale.set(0.002, 0.002, 0.002);
         },
       });
-      if (this.rooms[current_page - 1].getType() === "painting" || this.rooms[current_page - 1].getType() === "gaming" || this.rooms[current_page - 1].getType() === "exercise") {
+      if (
+        this.rooms[current_page - 1].getType() === "painting" ||
+        this.rooms[current_page - 1].getType() === "gaming" ||
+        this.rooms[current_page - 1].getType() === "exercise"
+      ) {
         this.rooms[current_page - 1].addObjects();
       }
       iframeWrapper.classList.add("hidden");
     });
 
-    const gui = new dat.GUI();
-    gui.add(this.rooms[current_page - 1].getModel().scale, "z");
-    gui.add(this.rooms[current_page - 1].getModel().position, "x");
-    gui.add(this.rooms[current_page - 1].getModel().position, "y");
-    gui.add(this.rooms[current_page - 1].getModel().position, "z");
-    gui.add(this.rooms[current_page - 1].getModel().rotation, "x");
-    gui.add(this.rooms[current_page - 1].getModel().rotation, "y");
-    gui.add(this.rooms[current_page - 1].getModel().rotation, "z");
+    // const gui = new dat.GUI();
+    // gui.add(this.rooms[current_page - 1].getModel().scale, "z");
+    // gui.add(this.rooms[current_page - 1].getModel().position, "x");
+    // gui.add(this.rooms[current_page - 1].getModel().position, "y");
+    // gui.add(this.rooms[current_page - 1].getModel().position, "z");
+    // gui.add(this.rooms[current_page - 1].getModel().rotation, "x");
+    // gui.add(this.rooms[current_page - 1].getModel().rotation, "y");
+    // gui.add(this.rooms[current_page - 1].getModel().rotation, "z");
   }
 
   setFrames(type, frame, data) {
