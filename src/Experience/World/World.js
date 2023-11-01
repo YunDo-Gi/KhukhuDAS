@@ -170,9 +170,9 @@ export default class World extends EventEmitter {
 
   setApts(data) {
     let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < 1; i++) { // data.length
       let randNum = Math.floor(Math.random() * arr.length);
-      let index = arr.slice(randNum, randNum + 1);
+      let index = 1; // arr.slice(randNum, randNum + 1);
       arr.splice(randNum, 1);
       switch (data[i].interestType) {
         case "READING":
