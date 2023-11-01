@@ -153,7 +153,7 @@ export default class World extends EventEmitter {
         case "READING":
           this.rooms[i] = new ReadingRoom();
           break;
-        case "PAINTING":
+        case "PICTURE":
           this.rooms[i] = new PaintingRoom();
           break;
         case "PHOTO":
@@ -195,7 +195,7 @@ export default class World extends EventEmitter {
               this.apt.getAptPositionsReading(index).z
             );
           break;
-        case "PAINTING":
+        case "PICTURE":
           this.apts[i] = new PaintingRoom();
           this.apts[i]
             .getModel()
@@ -258,10 +258,6 @@ export default class World extends EventEmitter {
         this.getRooms(res); // 디폴트로 받아오는 데이터
         this.setApts(res); // 디폴트로 받아오는 데이터
       });
-      // .catch((e) => {
-      //   this.getRooms(dummyJSON); // 디폴트로 받아오는 데이터
-      //   this.setApts(dummyJSON2); // 디폴트로 받아오는 데이터
-      // });
     }
 
     let page_size = this.rooms.length;

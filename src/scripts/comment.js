@@ -251,8 +251,6 @@ const showComment = async (roomId, json) => {
       recomment_recomment_btn.addEventListener("click", (json) => {
         input.value = "@" + recomment_info.user.nickname + " ";
       });
-      // recomment_recomment_btn.innerText = "답글 달기";
-      // recomment_recomment_btn.style.color = "#737373";
 
       let recomment_delete_btn = document.createElement("a");
       recomment_delete_btn.innerText = "삭제";
@@ -425,6 +423,8 @@ btn.addEventListener("click", async () => {
       input.value.substring(userName.length)
     );
   else await createComment(roomId);
+
+  input.value = "";
 });
 
 comment_wrapper.addEventListener("click", async () => {

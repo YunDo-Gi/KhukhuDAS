@@ -3,8 +3,9 @@ font-weight: 500;
 font-style: normal; */
 
 @font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
   font-weight: 700;
   font-style: normal;
 }
@@ -51,7 +52,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: 'Pretendard-Regular', sans-serif;
+  font-family: "Pretendard-Regular", sans-serif;
 }
 
 button {
@@ -208,19 +209,18 @@ button {
   padding: 0;
 }
 
-.btn-room-zoom
-{
+.btn-room-zoom {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40%;
+  width: 38%;
   height: 40%;
   background-color: transparent;
   z-index: 500;
 }
 
-.btn-room-zoom>button {
+.btn-room-zoom > button {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -242,7 +242,7 @@ button {
 .likes-wrapper {
   position: fixed;
   top: 25%;
-  left: 30%;
+  left: 28%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;
@@ -256,7 +256,7 @@ button {
 .comments-wrapper {
   position: fixed;
   top: 30%;
-  left: 30%;
+  left: 28%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;
@@ -270,7 +270,7 @@ button {
 .views-wrapper {
   position: fixed;
   top: 35%;
-  left: 30%;
+  left: 28%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   z-index: 500;
