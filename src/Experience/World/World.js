@@ -8,7 +8,8 @@ import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import Experience from "../Experience.js";
 import EventEmitter from "../Utils/EventEmitter.js";
 import Controls from "./Controls.js";
-
+import { getRoom, getMedia, setData } from "../../scripts/room.js";
+import { getComment } from "../../scripts/comment.js";
 import PaintingRoom from "./PaintingRoom.js";
 import ReadingRoom from "./ReadingRoom.js";
 import PhotoRoom from "./PhotoRoom.js";
@@ -38,7 +39,9 @@ const options = optionMenu.querySelectorAll(".option");
 const sBtn_text = optionMenu.querySelector(".sBtn-text");
 const title_logo = document.querySelector(".landing-wrapper");
 
-selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));
+selectBtn.addEventListener("click", () =>
+  optionMenu.classList.toggle("active")
+);
 
 btnHome.addEventListener("click", () => {
   views.classList.add("hidden");
@@ -106,7 +109,9 @@ export default class World extends EventEmitter {
             this.scene.remove(room.getModel());
             document
               .querySelector(".room-page-wrapper")
-              .removeChild(document.querySelector(".room-page-wrapper").lastChild);
+              .removeChild(
+                document.querySelector(".room-page-wrapper").lastChild
+              );
           }
 
           // API 호출
@@ -163,7 +168,11 @@ export default class World extends EventEmitter {
       }
       this.rooms[i].setLikes(data[i].likeCount);
       this.rooms[i].setData(data[i]);
-      this.setFrames(this.rooms[i].getType(), this.rooms[i].frames, data[i].fileURLs);
+      this.setFrames(
+        this.rooms[i].getType(),
+        this.rooms[i].frames,
+        data[i].fileURLs
+      );
       this.addRoomIcon(i);
     }
   }
@@ -205,9 +214,33 @@ export default class World extends EventEmitter {
               this.apt.getAptPositionsPhoto(index).z
             );
           break;
+        case "EXERCISE":
+          this.apts[i] = new SoccerRoom();
+          this.apts[i]
+            .getModel()
+            .position.set(
+              this.apt.getAptPositionsPhoto(index).x,
+              this.apt.getAptPositionsPhoto(index).y,
+              this.apt.getAptPositionsPhoto(index).z
+            );
+          break;
+        case "GAMING":
+          this.apts[i] = new GamingRoom();
+          this.apts[i]
+            .getModel()
+            .position.set(
+              this.apt.getAptPositionsPhoto(index).x,
+              this.apt.getAptPositionsPhoto(index).y,
+              this.apt.getAptPositionsPhoto(index).z
+            );
+          break;
       }
 
-      this.setFrames(this.apts[i].getType(), this.apts[i].frames, data[i].fileURLs);
+      this.setFrames(
+        this.apts[i].getType(),
+        this.apts[i].frames,
+        data[i].fileURLs
+      );
       this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0);
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale());
     }
@@ -215,15 +248,14 @@ export default class World extends EventEmitter {
 
   async setRooms() {
     if (!settingDone) {
-      await fetchData
-        .then((res) => {
-          this.getRooms(res); // 디폴트로 받아오는 데이터
-          this.setApts(res); // 디폴트로 받아오는 데이터
-        })
-        .catch((e) => {
-          this.getRooms(dummyJSON); // 디폴트로 받아오는 데이터
-          this.setApts(dummyJSON2); // 디폴트로 받아오는 데이터
-        });
+      await fetchData.then((res) => {
+        this.getRooms(res); // 디폴트로 받아오는 데이터
+        this.setApts(res); // 디폴트로 받아오는 데이터
+      });
+      // .catch((e) => {
+      //   this.getRooms(dummyJSON); // 디폴트로 받아오는 데이터
+      //   this.setApts(dummyJSON2); // 디폴트로 받아오는 데이터
+      // });
     }
 
     let page_size = this.rooms.length;
@@ -238,10 +270,13 @@ export default class World extends EventEmitter {
     likes.innerText = this.rooms[current_page - 1].getLikes();
     views.innerText = this.rooms[current_page - 1].getData().viewCount;
     comments.innerText = this.rooms[current_page - 1].getData().commentCount;
+    getRoom(this.rooms[current_page - 1].getData().id);
 
     // Handle page navigation
 
-    this.rooms[current_page - 1].getModel().scale.copy(this.rooms[current_page - 1].getScale());
+    this.rooms[current_page - 1]
+      .getModel()
+      .scale.copy(this.rooms[current_page - 1].getScale());
     this.rooms[current_page - 1]
       .getModel()
       .position.copy(this.rooms[current_page - 1].getCenterPosition());
@@ -260,7 +295,9 @@ export default class World extends EventEmitter {
         });
         pages[current_page].classList.toggle("selected");
         this.rooms[current_page].setBackground();
-        this.rooms[current_page].getModel().scale.copy(this.rooms[current_page].getScale());
+        this.rooms[current_page]
+          .getModel()
+          .scale.copy(this.rooms[current_page].getScale());
         this.rooms[current_page]
           .getModel()
           .position.copy(this.rooms[current_page].getLeftPostion());
@@ -268,13 +305,16 @@ export default class World extends EventEmitter {
           duration: 1,
           x: this.rooms[current_page].getCenterPosition().x,
           ease: "power2.inOut",
-          onComplete: () => {
+          onComplete: async () => {
             current_page += 1;
-            likes.innerHTML = this.rooms[current_page - 1].getLikes();
-            localStorage.setItem(
+            await getRoom(this.rooms[current_page - 1].getData().id);
+            await localStorage.setItem(
               "roomId",
               this.rooms[current_page - 1].getData().id
             );
+            likes.innerHTML = this.rooms[current_page - 1].getLikes();
+            views.innerHTML = localStorage.getItem("viewCount");
+            getComment(this.rooms[current_page - 1].getData().id);
           },
         });
       }
@@ -294,7 +334,9 @@ export default class World extends EventEmitter {
         });
         pages[current_page - 2].classList.toggle("selected");
         this.rooms[current_page - 2].setBackground();
-        this.rooms[current_page - 2].getModel().scale.copy(this.rooms[current_page - 2].getScale());
+        this.rooms[current_page - 2]
+          .getModel()
+          .scale.copy(this.rooms[current_page - 2].getScale());
         this.rooms[current_page - 2]
           .getModel()
           .position.copy(this.rooms[current_page - 2].getRightPosition());
@@ -302,13 +344,16 @@ export default class World extends EventEmitter {
           duration: 1,
           x: this.rooms[current_page - 2].getCenterPosition().x,
           ease: "power2.inOut",
-          onComplete: () => {
+          onComplete: async () => {
             current_page -= 1;
-            likes.innerHTML = this.rooms[current_page - 1].getLikes();
-            localStorage.setItem(
+            await getRoom(this.rooms[current_page - 1].getData().id);
+            await localStorage.setItem(
               "roomId",
               this.rooms[current_page - 1].getData().id
             );
+            likes.innerHTML = this.rooms[current_page - 1].getLikes();
+            views.innerHTML = localStorage.getItem("viewCount");
+            getComment(this.rooms[current_page - 1].getData().id);
           },
         });
       }
@@ -463,7 +508,11 @@ export default class World extends EventEmitter {
           this.heart.scale.set(0.002, 0.002, 0.002);
         },
       });
-      if (this.rooms[current_page - 1].getType() === "painting" || this.rooms[current_page - 1].getType() === "gaming" || this.rooms[current_page - 1].getType() === "exercise") {
+      if (
+        this.rooms[current_page - 1].getType() === "painting" ||
+        this.rooms[current_page - 1].getType() === "gaming" ||
+        this.rooms[current_page - 1].getType() === "exercise"
+      ) {
         this.rooms[current_page - 1].addObjects();
       }
       iframeWrapper.classList.add("hidden");
@@ -626,7 +675,10 @@ export default class World extends EventEmitter {
       color: 0xf5626b,
     });
 
-    const geometryHeart = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
+    const geometryHeart = new THREE.ExtrudeGeometry(
+      heartShape,
+      extrudeSettings
+    );
     this.heart = new THREE.Mesh(geometryHeart, materialRed);
 
     this.heart.position.set(0.1, 1.7, 8);
