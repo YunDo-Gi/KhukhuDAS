@@ -190,10 +190,9 @@ export default class World extends EventEmitter {
 
   setApts(data) {
     let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    for (let i = 0; i < 1; i++) {
-      // data.length
+    for (let i = 0; i < data.length; i++) {
       let randNum = Math.floor(Math.random() * arr.length);
-      let index = 1; // arr.slice(randNum, randNum + 1);
+      let index = arr.slice(randNum, randNum + 1);
       arr.splice(randNum, 1);
       switch (data[i].interestType) {
         case "READING":
@@ -231,9 +230,9 @@ export default class World extends EventEmitter {
           this.apts[i]
             .getModel()
             .position.set(
-              this.apt.getAptPositionsPhoto(index).x,
-              this.apt.getAptPositionsPhoto(index).y,
-              this.apt.getAptPositionsPhoto(index).z
+              this.apt.getAptPositionsExercise(index).x,
+              this.apt.getAptPositionsExercise(index).y,
+              this.apt.getAptPositionsExercise(index).z
             );
           break;
         case "GAMING":
@@ -241,9 +240,9 @@ export default class World extends EventEmitter {
           this.apts[i]
             .getModel()
             .position.set(
-              this.apt.getAptPositionsPhoto(index).x,
-              this.apt.getAptPositionsPhoto(index).y,
-              this.apt.getAptPositionsPhoto(index).z
+              this.apt.getAptPositionsGaming(index).x,
+              this.apt.getAptPositionsGaming(index).y,
+              this.apt.getAptPositionsGaming(index).z
             );
           break;
       }
@@ -253,7 +252,8 @@ export default class World extends EventEmitter {
         this.apts[i].frames,
         data[i].fileURLs
       );
-      this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0);
+      if(data[i].interestType === "PHOTO") this.apts[i].getModel().rotation.set(0, Math.PI, 0);
+      else this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0);
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale());
     }
 
@@ -261,6 +261,7 @@ export default class World extends EventEmitter {
     gui.add(this.apts[0].getModel().position, "x");
     gui.add(this.apts[0].getModel().position, "y");
     gui.add(this.apts[0].getModel().position, "z");
+    gui.add(this.apts[0].getModel().scale, "scale");
   }
 
   async setRooms() {

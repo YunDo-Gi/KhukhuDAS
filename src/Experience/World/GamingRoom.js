@@ -27,7 +27,7 @@ export default class GamingRoom extends Room
         this.rightPosition = new THREE.Vector3(8, 0.12, 8)
         this.leftPosition = new THREE.Vector3(-8, 0.12, 8)
         this.scale = new THREE.Vector3(0.00205, 0.00205, 0.00205)
-        this.aptScale = new THREE.Vector3(0.3, 0.3, 0.3)
+        this.aptScale = new THREE.Vector3(0.0031, 0.0031, 0.0031);
 
         this.removedObjects = []
 

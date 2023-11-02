@@ -24,7 +24,7 @@ export default class SoccerRoom extends Room {
     this.rightPosition = new THREE.Vector3(8.47, 0.26, 8);
     this.leftPosition = new THREE.Vector3(-7.53, 0.26, 8);
     this.scale = new THREE.Vector3(0.00205, 0.00205, 0.00205);
-    this.aptScale = new THREE.Vector3(0.3, 0.3, 0.3);
+    this.aptScale = new THREE.Vector3(0.0031, 0.0031, 0.0031);
     this.removedObjects = [];
 
     this.setModel();
@@ -32,7 +32,7 @@ export default class SoccerRoom extends Room {
   }
 
   setModel() {
-    this.model = this.resource.scene;
+    this.model = this.resource.scene.clone();
 
     this.model.scale.set(0, 0, 0);
     this.model.rotation.y = Math.PI * 0.25;

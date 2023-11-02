@@ -107,7 +107,7 @@ let dummyJSON2 = [
     id: 2,
     title: "내방",
     content: "이쁘지?",
-    interestType: "READING",
+    interestType: "GAMING",
     writer: {
       memberId: 1,
       nickname: "마팅",
@@ -124,7 +124,7 @@ let dummyJSON2 = [
     id: 1,
     title: "내방",
     content: "이쁘지?",
-    interestType: "PICTURE",
+    interestType: "EXERCISE",
     writer: {
       memberId: 1,
       nickname: "마팅",
@@ -187,7 +187,7 @@ let dummyJSON2 = [
     id: 3,
     title: "내방",
     content: "이쁘지?",
-    interestType: "PICTURE",
+    interestType: "PHOTO",
     writer: {
       memberId: 1,
       nickname: "마팅",
