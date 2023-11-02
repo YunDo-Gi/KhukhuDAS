@@ -115,7 +115,7 @@ public class RoomService {
     }
 
     @Transactional
-    public ResponseEntity<?> getRoom(Long roomId, Principal principal) {
+    public ResponseEntity<?> visitRoom(Long roomId, Principal principal) {
 
         Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
 
@@ -184,6 +184,74 @@ public class RoomService {
         return new ResponseEntity<RoomResponse>(roomResponse, HttpStatus.OK);
     }
 
+    @Transactional
+    public ResponseEntity<?> getRoom(Long roomId, Principal principal) {
+
+        Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
+
+        boolean isMyRoom = false;
+        boolean isLike = false;
+        Long currentUserId = null;
+
+        if (principal != null) {
+            Member member = memberRepository.findByEmail(principal.getName()).orElseThrow(NotFoundMemberException::new);
+            currentUserId = member.getId();
+            isMyRoom = member.getId().equals(room.getMember().getId());
+            isLike = roomLikeRepository.existsByMemberIdAndRoomId(member.getId(), roomId);
+        }
+        List<String> fileURL = mediaService.findAllByRoomObject(roomId).stream().map(mediaObject -> mediaService.getPathURL(mediaObject.getMediaObjectPath())).collect(Collectors.toList());
+
+        final Long finalCurrentUserId = currentUserId;
+        List<RoomCommentResponse> roomCommentResponses = room.getComments().stream().filter(comment -> comment.getParent() == null).map(comment -> {
+            return RoomCommentResponse.builder()
+                    .commentId(comment.getId())
+                    .content(comment.getContent())
+                    .recommentCount(comment.getChildren().size())
+                    .user(AuthenticationResponse.builder()
+                            .memberId(comment.getMember().getId())
+                            .nickname(comment.getMember().getNickname())
+                            .profileImgURL(comment.getMember().getProfileImgURL())
+                            .build())
+                    .isMyComment(comment.getMember().getId().equals(finalCurrentUserId))
+                    .createdDateTime(comment.getLastModifiedAt())
+                    .recomments(comment.getChildren().stream().map(recomment -> {
+                        return RoomRecommentResponse.builder()
+                                .recommentId(recomment.getId())
+                                .content(recomment.getContent())
+                                .user(AuthenticationResponse.builder()
+                                        .memberId(recomment.getMember().getId())
+                                        .nickname(recomment.getMember().getNickname())
+                                        .profileImgURL(recomment.getMember().getProfileImgURL())
+                                        .build())
+                                .createdDateTime(recomment.getLastModifiedAt())
+                                .isMyComment(recomment.getMember().getId().equals(finalCurrentUserId))
+                                .build();
+                    }).collect(Collectors.toList()))
+                    .build();
+        }).toList();
+
+
+        RoomResponse roomResponse = RoomResponse.builder()
+                .id(room.getId())
+                .isMyRoom(isMyRoom)
+                .title(room.getTitle())
+                .content(room.getContent())
+                .interestType(room.getInterestType().getInterest())
+                .writer(AuthenticationResponse.builder()
+                        .memberId(room.getMember().getId())
+                        .nickname(room.getMember().getNickname())
+                        .profileImgURL(room.getMember().getProfileImgURL())
+                        .build())
+                .createdDateTime(room.getCreatedAt())
+                .modifiedDateTime(room.getLastModifiedAt())
+                .viewCount(room.getView())
+                .isLike(isLike)
+                .roomCommentResponses(roomCommentResponses)
+                .likeCount(room.getRoomLikes().size())
+                .fileURLs(fileURL).build();
+
+        return new ResponseEntity<RoomResponse>(roomResponse, HttpStatus.OK);
+    }
 
     private InterestType getInterestType(String requestRoomType) {
         if (InterestType.EXCERCISE.getInterest().equalsIgnoreCase(requestRoomType)) {

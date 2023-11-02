@@ -38,11 +38,15 @@ public class RoomController {
         return roomService.modifyRoom(roomId, principal, roomFile, modifyRoom);
     }
 
+    @GetMapping("/visit/room/{roomId}")
+    public ResponseEntity<?> visitRoom(@PathVariable(name = "roomId") Long roomId, Principal principal){
+        return roomService.visitRoom(roomId, principal);
+    }
+
     @GetMapping("/room/{roomId}")
     public ResponseEntity<?> getRoom(@PathVariable(name = "roomId") Long roomId, Principal principal){
         return roomService.getRoom(roomId, principal);
     }
-
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/room/{roomId}/like")

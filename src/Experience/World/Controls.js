@@ -12,7 +12,13 @@ const comments = document.querySelector(".comments-wrapper");
 const btnRetunFromZoom = document.querySelector(".btn-return-from-zoom");
 const likes = document.querySelector(".likes-wrapper");
 const menu = document.querySelector(".select-menu");
-
+const heartIcon = document.querySelector(".box-heart");
+const commentIcon = document.querySelector(".box-comment");
+const viewIcon = document.querySelector(".box-view");
+const infoCard = document.querySelector(".list-group");
+const cardTitle = document.querySelector(".info-card-title");
+const cardComment = document.querySelector(".info-card-comment");
+const cardWriter = document.querySelector(".info-card-writer");
 let flag = false;
 let returnable = false;
 
@@ -45,7 +51,6 @@ export default class Controls {
 
     // this.setPath()
     this.setScroll();
-    
 
     btnToRoom.addEventListener("click", () => {
       GSAP.to(this.camera.orthographicCamera.position, {
@@ -64,9 +69,16 @@ export default class Controls {
           flag = false;
           returnable = true;
           roomWrapper.classList.remove("hidden");
-          likes.classList.remove("hidden");
-          comments.classList.remove("hidden");
           views.classList.remove("hidden");
+          comments.classList.remove("hidden");
+          likes.classList.remove("hidden");
+          cardTitle.classList.remove("hidden");
+          cardComment.classList.remove("hidden");
+          cardWriter.classList.remove("hidden");
+          heartIcon.classList.remove("hidden");
+          commentIcon.classList.remove("hidden");
+          viewIcon.classList.remove("hidden");
+
           menu.classList.remove("hidden");
           // this.world.getHeart().scale.set(0.002, 0.002, 0.002);
           btnRoomZoom.classList.remove("hidden");
@@ -83,6 +95,15 @@ export default class Controls {
       comments.classList.add("hidden");
       menu.classList.add("hidden");
       btnRoomZoom.classList.add("hidden");
+      views.classList.add("hidden");
+      comments.classList.add("hidden");
+      likes.classList.add("hidden");
+      cardTitle.classList.add("hidden");
+      cardComment.classList.add("hidden");
+      cardWriter.classList.add("hidden");
+      heartIcon.classList.add("hidden");
+      commentIcon.classList.add("hidden");
+      viewIcon.classList.add("hidden");
       // const camera = this.camera.orthographicCamera
       // GSAP.to(camera, {
       //     duration: 2,
@@ -111,6 +132,15 @@ export default class Controls {
           menu.classList.remove("hidden");
           roomWrapper.classList.remove("hidden");
           btnRoomZoom.classList.remove("hidden");
+          views.classList.remove("hidden");
+          comments.classList.remove("hidden");
+          likes.classList.remove("hidden");
+          cardTitle.classList.remove("hidden");
+          cardComment.classList.remove("hidden");
+          cardWriter.classList.remove("hidden");
+          heartIcon.classList.remove("hidden");
+          commentIcon.classList.remove("hidden");
+          viewIcon.classList.remove("hidden");
         },
       });
       btnRetunFromZoom.classList.add("hidden");
@@ -121,16 +151,16 @@ export default class Controls {
     if (e.deltaY > 0) {
       window.removeEventListener("wheel", this.scrollOnceEvent);
       document.querySelector(".arrow-svg-wrapper").classList.add("hidden");
-      GSAP.to( document.querySelector(".landing-wrapper"), {
+      GSAP.to(document.querySelector(".landing-wrapper"), {
         duration: 2,
         opacity: 0,
-        ease: "power2.inOut", 
+        ease: "power2.inOut",
         onComplete: () => {
           document.querySelector(".landing-wrapper").remove();
           this.onWheel();
           this.toApt();
           btnToRoom.classList.remove("hidden");
-        }
+        },
       });
       GSAP.to(this.camera.orthographicCamera.position, {
         duration: 2,

@@ -8,7 +8,7 @@ import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import Experience from "../Experience.js";
 import EventEmitter from "../Utils/EventEmitter.js";
 import Controls from "./Controls.js";
-import { getRoom, getMedia, setData } from "../../scripts/room.js";
+import { getRoom, visitRoom } from "../../scripts/room.js";
 import { getComment } from "../../scripts/comment.js";
 import PaintingRoom from "./PaintingRoom.js";
 import ReadingRoom from "./ReadingRoom.js";
@@ -36,13 +36,16 @@ const cardTitle = document.querySelector(".info-card-title");
 const cardComment = document.querySelector(".info-card-comment");
 const cardWriter = document.querySelector(".info-card-writer");
 const roomWrapper = document.querySelector(".room-wrapper");
+const heartIcon = document.querySelector(".box-heart");
+const commentIcon = document.querySelector(".box-comment");
+const viewIcon = document.querySelector(".box-view");
 
 // drop down menu
 const optionMenu = document.querySelector(".select-menu");
 const selectBtn = optionMenu.querySelector(".select-btn");
 const options = optionMenu.querySelectorAll(".option");
 const sBtn_text = optionMenu.querySelector(".sBtn-text");
-const title_logo = document.querySelector(".landing-wrapper");
+const title_logo = document.querySelectorAll(".landing-wrapper");
 
 selectBtn.addEventListener("click", () =>
   optionMenu.classList.toggle("active")
@@ -50,6 +53,9 @@ selectBtn.addEventListener("click", () =>
 
 btnHome.addEventListener("click", () => {
   views.classList.add("hidden");
+  heartIcon.classList.add("hidden");
+  commentIcon.classList.add("hidden");
+  viewIcon.classList.add("hidden");
   comments.classList.add("hidden");
   likes.classList.add("hidden");
   optionMenu.classList.add("hidden");
@@ -252,7 +258,8 @@ export default class World extends EventEmitter {
         this.apts[i].frames,
         data[i].fileURLs
       );
-      if(data[i].interestType === "PHOTO") this.apts[i].getModel().rotation.set(0, Math.PI, 0);
+      if (data[i].interestType === "PHOTO")
+        this.apts[i].getModel().rotation.set(0, Math.PI, 0);
       else this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0);
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale());
     }
@@ -266,13 +273,15 @@ export default class World extends EventEmitter {
 
   async setRooms() {
     if (!settingDone) {
-      await fetchData.then((res) => {
-        this.getRooms(res); // 디폴트로 받아오는 데이터
-        this.setApts(res); // 디폴트로 받아오는 데이터
-      }).catch((e) => {
-        this.getRooms(dummyJSON); // 디폴트로 받아오는 데이터
-        this.setApts(dummyJSON2); // 디폴트로 받아오는 데이터
-      });
+      await fetchData
+        .then((res) => {
+          this.getRooms(res); // 디폴트로 받아오는 데이터
+          this.setApts(res); // 디폴트로 받아오는 데이터
+        })
+        .catch((e) => {
+          this.getRooms(dummyJSON); // 디폴트로 받아오는 데이터
+          this.setApts(dummyJSON2); // 디폴트로 받아오는 데이터
+        });
     }
 
     let page_size = this.rooms.length;
@@ -281,7 +290,7 @@ export default class World extends EventEmitter {
 
     btnToRoom.addEventListener("click", async () => {
       this.rooms[current_page - 1].setBackground();
-      await getRoom(this.rooms[current_page - 1].getData().id);
+      await visitRoom(this.rooms[current_page - 1].getData().id);
       localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
 
       likes.innerText = this.rooms[current_page - 1].getLikes();
@@ -290,28 +299,9 @@ export default class World extends EventEmitter {
       cardComment.innerText = this.rooms[current_page - 1].getData().content;
       cardWriter.innerText =
         this.rooms[current_page - 1].getData().writer.nickname;
-      console.log(this.rooms[current_page - 1].getData());
       getComment(this.rooms[current_page - 1].getData().id);
-
-      infoCard.classList.remove("hidden");
-      cardTitle.classList.remove("hidden");
-      cardComment.classList.remove("hidden");
-      cardWriter.classList.remove("hidden");
     });
 
-    // Set room contents
-
-    const containers = [likes, views, comments];
-    let texts = [
-      this.rooms[current_page - 1].getLikes(),
-      this.rooms[current_page - 1].getData().commentCount,
-      this.rooms[current_page - 1].getData().viewCount,
-    ];
-    for (let i = 0; i < 3; i++) {
-      let textContainer = document.createElement("div");
-      textContainer.innerHTML = `${texts[i]}`;
-      containers[i].appendChild(textContainer);
-    }
     // Handle page navigation
 
     this.rooms[current_page - 1]
@@ -347,7 +337,7 @@ export default class World extends EventEmitter {
           ease: "power2.inOut",
           onComplete: async () => {
             current_page += 1;
-            await getRoom(this.rooms[current_page - 1].getData().id);
+            await visitRoom(this.rooms[current_page - 1].getData().id);
             await localStorage.setItem(
               "roomId",
               this.rooms[current_page - 1].getData().id
@@ -366,6 +356,9 @@ export default class World extends EventEmitter {
             cardTitle.classList.remove("hidden");
             cardComment.classList.remove("hidden");
             cardWriter.classList.remove("hidden");
+            heartIcon.classList.remove("hidden");
+            commentIcon.classList.remove("hidden");
+            viewIcon.classList.remove("hidden");
           },
         });
       }
@@ -397,7 +390,7 @@ export default class World extends EventEmitter {
           ease: "power2.inOut",
           onComplete: async () => {
             current_page -= 1;
-            await getRoom(this.rooms[current_page - 1].getData().id);
+            await visitRoom(this.rooms[current_page - 1].getData().id);
             await localStorage.setItem(
               "roomId",
               this.rooms[current_page - 1].getData().id
@@ -416,6 +409,9 @@ export default class World extends EventEmitter {
             cardTitle.classList.remove("hidden");
             cardComment.classList.remove("hidden");
             cardWriter.classList.remove("hidden");
+            heartIcon.classList.remove("hidden");
+            commentIcon.classList.remove("hidden");
+            viewIcon.classList.remove("hidden");
           },
         });
       }
@@ -509,13 +505,6 @@ export default class World extends EventEmitter {
       }
 
       this.heart.scale.set(0, 0, 0);
-      views.classList.add("hidden");
-      comments.classList.add("hidden");
-      infoCard.classList.add("hidden");
-      likes.classList.add("hidden");
-      cardTitle.classList.add("hidden");
-      cardComment.classList.add("hidden");
-      cardWriter.classList.add("hidden");
     });
 
     function gsapPosition(room, xValue, yValue) {
@@ -567,13 +556,6 @@ export default class World extends EventEmitter {
         y: this.rooms[current_page - 1].getCenterPosition().y,
         ease: "power2.inOut",
         onComplete: () => {
-          views.classList.remove("hidden");
-          comments.classList.remove("hidden");
-          likes.classList.remove("hidden");
-          infoCard.classList.remove("hidden");
-          cardTitle.classList.remove("hidden");
-          cardComment.classList.remove("hidden");
-          cardWriter.classList.remove("hidden");
           this.heart.scale.set(0.002, 0.002, 0.002);
         },
       });
