@@ -11,7 +11,7 @@ public enum InterestType {
     READING("READING"),
     PICTURE("PICTURE"),
     PHOTO("PHOTO"),
-    EXCERSICE("EXCERSICE"),
+    EXCERCISE("EXERCISE"),
     GAMING("GAMING"),
 
     ETC("ETC");

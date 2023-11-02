@@ -186,8 +186,8 @@ public class RoomService {
 
 
     private InterestType getInterestType(String requestRoomType) {
-        if (InterestType.EXCERSICE.getInterest().equalsIgnoreCase(requestRoomType)) {
-            return InterestType.EXCERSICE;
+        if (InterestType.EXCERCISE.getInterest().equalsIgnoreCase(requestRoomType)) {
+            return InterestType.EXCERCISE;
         } else if (InterestType.GAMING.getInterest().equalsIgnoreCase(requestRoomType)) {
             return InterestType.GAMING;
         } else if (InterestType.READING.getInterest().equalsIgnoreCase(requestRoomType)) {
