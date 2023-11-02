@@ -227,7 +227,7 @@ button {
   top: 0;
   left: 0;
   background-color: transparent;
-  z-index: 500;
+  z-index: 400;
 }
 
 .btn-return-from-zoom {
@@ -242,8 +242,8 @@ button {
 .likes-wrapper {
   position: fixed;
   top: 25%;
-  left: 28%;
-  transform: translate(-50%, -50%);
+  left: 50%;
+  transform: translate(-30vw, -50%);
   background-color: transparent;
   z-index: 500;
   color: whitesmoke;
@@ -256,8 +256,8 @@ button {
 .comments-wrapper {
   position: fixed;
   top: 30%;
-  left: 28%;
-  transform: translate(-50%, -50%);
+  left: 50%;
+  transform: translate(-30vw, -50%);
   background-color: transparent;
   z-index: 500;
   color: whitesmoke;
@@ -270,8 +270,8 @@ button {
 .views-wrapper {
   position: fixed;
   top: 35%;
-  left: 28%;
-  transform: translate(-50%, -50%);
+  left: 50%;
+  transform: translate(-30vw, -50%);
   background-color: transparent;
   z-index: 500;
   color: whitesmoke;
@@ -279,6 +279,12 @@ button {
   font-weight: 700;
   display: flex;
   align-items: center;
+}
+
+.icon-container
+{
+  margin-bottom: 5px;
+  margin-right: 10px;
 }
 
 .select-menu {

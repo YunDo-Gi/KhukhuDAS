@@ -43,7 +43,6 @@ export default class SoccerRoom extends Room {
 
   getFrame() {
     this.frames = this.model.children.filter((child) => {
-      console.log(child);
       if (child.name.includes("19")) {
         return true;
       }
