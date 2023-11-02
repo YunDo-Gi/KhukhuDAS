@@ -29,7 +29,6 @@ public class RoomController {
                                         Principal principal) throws IOException {
         return roomService.createRoom(principal, roomFile, makeUpRoom);
     }
-
     @PreAuthorize("isAuthenticated()")
     @PutMapping(value = "/room/{roomId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> updateDiary(@PathVariable(name = "roomId") Long roomId,

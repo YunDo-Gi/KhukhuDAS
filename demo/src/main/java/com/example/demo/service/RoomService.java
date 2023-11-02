@@ -114,6 +114,7 @@ public class RoomService {
         return new ResponseEntity<HashMap>(response, HttpStatus.OK);
     }
 
+    @Transactional
     public ResponseEntity<?> getRoom(Long roomId, Principal principal) {
 
         Room room = roomRepository.findById(roomId).orElseThrow(NoSuchRoomException::new);
