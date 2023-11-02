@@ -105,7 +105,7 @@ const getRoom = async (roomId) => {
 
     setData(JSON.parse(value));
     getMedia(fileURLs);
-    console.log(JSON.parse(value));
+    console.log(JSON.parse(value).viewCount);
   } catch (e) {
     console.log(e);
   }

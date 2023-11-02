@@ -1,5 +1,3 @@
-import { getRoom } from "./room.js";
-
 const input = document.querySelector("#comment-input");
 const btn = document.querySelector("#comment-btn");
 const test = document.querySelector(".test");
@@ -364,8 +362,6 @@ const showComment = async (roomId, json) => {
 
 const getComment = async (roomId) => {
   // 초기화
-  await getRoom(roomId);
-
   box.textContent = "";
   like_wrapper.innerText = localStorage.getItem("likeCount");
 

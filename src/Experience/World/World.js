@@ -31,6 +31,11 @@ const iframeWrapper = document.querySelector(".iframe-wrapper");
 const rightArrow = document.querySelector(".arrow-wrapper-right");
 const leftArrow = document.querySelector(".arrow-wrapper-left");
 const svgWrapper = document.querySelector(".arrow-svg-wrapper");
+const infoCard = document.querySelector(".info-card");
+const cardTitle = document.querySelector(".info-card-title");
+const cardComment = document.querySelector(".info-card-comment");
+const cardWriter = document.querySelector(".info-card-writer");
+const roomWrapper = document.querySelector(".room-wrapper");
 
 // drop down menu
 const optionMenu = document.querySelector(".select-menu");
@@ -48,6 +53,11 @@ btnHome.addEventListener("click", () => {
   comments.classList.add("hidden");
   likes.classList.add("hidden");
   optionMenu.classList.add("hidden");
+  infoCard.classList.add("hidden");
+  btnRoomZoom.classList.add("hidden");
+  cardTitle.classList.add("hidden");
+  cardComment.classList.add("hidden");
+  cardWriter.classList.add("hidden");
 });
 
 let fetchData = room.getRooms(null, "CHRONOLOGICAL");
@@ -264,9 +274,24 @@ export default class World extends EventEmitter {
 
     pages = document.querySelectorAll(".room-page-wrapper>span>svg");
 
-    btnToRoom.addEventListener("click", () => {
+    btnToRoom.addEventListener("click", async () => {
       this.rooms[current_page - 1].setBackground();
+      await getRoom(this.rooms[current_page - 1].getData().id);
       localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
+
+      likes.innerText = this.rooms[current_page - 1].getLikes();
+      views.innerText = localStorage.getItem("viewCount");
+      cardTitle.innerText = this.rooms[current_page - 1].getData().title;
+      cardComment.innerText = this.rooms[current_page - 1].getData().content;
+      cardWriter.innerText =
+        this.rooms[current_page - 1].getData().writer.nickname;
+      console.log(this.rooms[current_page - 1].getData());
+      getComment(this.rooms[current_page - 1].getData().id);
+
+      infoCard.classList.remove("hidden");
+      cardTitle.classList.remove("hidden");
+      cardComment.classList.remove("hidden");
+      cardWriter.classList.remove("hidden");
     });
 
     // Set room contents
@@ -332,9 +357,20 @@ export default class World extends EventEmitter {
               "roomId",
               this.rooms[current_page - 1].getData().id
             );
-            likes.innerHTML = this.rooms[current_page - 1].getLikes();
-            views.innerHTML = localStorage.getItem("viewCount");
+            likes.innerText = this.rooms[current_page - 1].getLikes();
+            views.innerText = localStorage.getItem("viewCount");
+            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
+            cardComment.innerText =
+              this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText =
+              this.rooms[current_page - 1].getData().writer.nickname;
+            console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
+
+            infoCard.classList.remove("hidden");
+            cardTitle.classList.remove("hidden");
+            cardComment.classList.remove("hidden");
+            cardWriter.classList.remove("hidden");
           },
         });
       }
@@ -371,9 +407,20 @@ export default class World extends EventEmitter {
               "roomId",
               this.rooms[current_page - 1].getData().id
             );
-            likes.innerHTML = this.rooms[current_page - 1].getLikes();
-            views.innerHTML = localStorage.getItem("viewCount");
+            likes.innerText = this.rooms[current_page - 1].getLikes();
+            views.innerText = localStorage.getItem("viewCount");
+            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
+            cardComment.innerText =
+              this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText =
+              this.rooms[current_page - 1].getData().writer.nickname;
+            console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
+
+            infoCard.classList.remove("hidden");
+            cardTitle.classList.remove("hidden");
+            cardComment.classList.remove("hidden");
+            cardWriter.classList.remove("hidden");
           },
         });
       }
@@ -383,7 +430,6 @@ export default class World extends EventEmitter {
     btnRoomZoom.addEventListener("click", () => {
       const currentRoom = this.rooms[current_page - 1];
       const camera = this.camera.getOrthographicCamera();
-      room.getRoom(currentRoom.getData().id);
       this.addIframe(currentRoom);
       switch (currentRoom.getType()) {
         case "reading":
@@ -470,7 +516,11 @@ export default class World extends EventEmitter {
       this.heart.scale.set(0, 0, 0);
       views.classList.add("hidden");
       comments.classList.add("hidden");
+      infoCard.classList.add("hidden");
       likes.classList.add("hidden");
+      cardTitle.classList.add("hidden");
+      cardComment.classList.add("hidden");
+      cardWriter.classList.add("hidden");
     });
 
     function gsapPosition(room, xValue, yValue) {
@@ -525,6 +575,10 @@ export default class World extends EventEmitter {
           views.classList.remove("hidden");
           comments.classList.remove("hidden");
           likes.classList.remove("hidden");
+          infoCard.classList.remove("hidden");
+          cardTitle.classList.remove("hidden");
+          cardComment.classList.remove("hidden");
+          cardWriter.classList.remove("hidden");
           this.heart.scale.set(0.002, 0.002, 0.002);
         },
       });
