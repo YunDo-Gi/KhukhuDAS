@@ -1,3 +1,5 @@
+import { getRoom } from "./room";
+
 const input = document.querySelector("#comment-input");
 const btn = document.querySelector("#comment-btn");
 const test = document.querySelector(".test");
@@ -431,6 +433,7 @@ comment_wrapper.addEventListener("click", async () => {
     likeBtn.classList.remove("fa-solid");
     likeBtn.style.color = "";
   }
+  getComment(roomId);
 });
 
 likeBtn.addEventListener("click", async () => {
@@ -444,6 +447,7 @@ likeBtn.addEventListener("click", async () => {
     likeBtn.classList.add("fa-regular");
     likeBtn.classList.add("fa-solid");
   }
+  await getRoom(roomId);
   getComment(roomId);
 });
 

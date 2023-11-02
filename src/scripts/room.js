@@ -87,9 +87,9 @@ const getMedia = async (fileURLs) => {
 // 방 입장 시 동작
 // 사용자 정보를 받아옴
 // 받아온 정보를 통해서 방에서 표시할 이미지를 표현해줌
-const getRoom = async (roomId) => {
+const visitRoom = async (roomId) => {
   // 방 입장
-  let url = `http://localhost:8080/api/room/${roomId}`;
+  let url = `http://localhost:8080/api/visit/room/${roomId}`;
   //localStorage.setItem("roomId", roomId); // id 저장, 방 수정 시 활용
 
   try {
@@ -106,6 +106,28 @@ const getRoom = async (roomId) => {
     setData(JSON.parse(value));
     getMedia(fileURLs);
     console.log(JSON.parse(value).viewCount);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const getRoom = async (roomId) => {
+  // 방 입장
+  let url = `http://localhost:8080/api/room/${roomId}`;
+  //localStorage.setItem("roomId", roomId); // id 저장, 방 수정 시 활용
+
+  try {
+    let res = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    });
+
+    const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+    const { value } = await reader.read();
+    setData(JSON.parse(value));
+    getMedia(fileURLs);
   } catch (e) {
     console.log(e);
   }
@@ -176,4 +198,4 @@ const deleteRoom = async (roomId) => {
   }
 };
 
-export { getRoom, getRooms, getMedia, setData };
+export { getRoom, getRooms, getMedia, setData, visitRoom };

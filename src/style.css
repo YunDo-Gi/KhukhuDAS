@@ -242,8 +242,8 @@ button {
 .likes-wrapper {
   position: fixed;
   top: 25%;
-  left: 50%;
-  transform: translate(-30vw, -50%);
+  right: 50%;
+  transform: translate(30vw, -50%);
   background-color: transparent;
   z-index: 500;
   color: whitesmoke;
@@ -251,13 +251,19 @@ button {
   font-weight: 700;
   display: flex;
   align-items: center;
+}
+
+.box-heart {
+  position: fixed;
+  z-index: 500;
+  top: 25%;
 }
 
 .comments-wrapper {
   position: fixed;
   top: 30%;
-  left: 50%;
-  transform: translate(-30vw, -50%);
+  right: 50%;
+  transform: translate(30vw, -50%);
   background-color: transparent;
   z-index: 500;
   color: whitesmoke;
@@ -265,13 +271,19 @@ button {
   font-weight: 700;
   display: flex;
   align-items: center;
+}
+
+.box-comment {
+  position: fixed;
+  z-index: 500;
+  top: 30%;
 }
 
 .views-wrapper {
   position: fixed;
   top: 35%;
-  left: 50%;
-  transform: translate(-30vw, -50%);
+  right: 50%;
+  transform: translate(30vw, -50%);
   background-color: transparent;
   z-index: 500;
   color: whitesmoke;
@@ -281,10 +293,15 @@ button {
   align-items: center;
 }
 
-.icon-container
-{
-  margin-bottom: 5px;
-  margin-right: 10px;
+.box-view {
+  position: fixed;
+  z-index: 500;
+  top: 35%;
+}
+
+.icon-container {
+  right: 50%;
+  transform: translate(27vw, -50%);
 }
 
 .select-menu {
