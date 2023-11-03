@@ -54,8 +54,8 @@ export default class Camera
         // this.orthographicCamera.position.z = 10;
         // this.orthographicCamera.rotation.y = 0;
 
-        this.helper = new THREE.CameraHelper(this.orthographicCamera)
-        this.scene.add(this.helper)
+        // this.helper = new THREE.CameraHelper(this.orthographicCamera)
+        // this.scene.add(this.helper)
     }
 
     setOrthographicCameraZoom(e)
@@ -124,9 +124,9 @@ export default class Camera
     {
         this.controls.update()
 
-        this.helper.matrixWorldNeedsUpdate = true
-        this.helper.update()
-        this.helper.position.copy(this.orthographicCamera.position)
-        this.helper.rotation.copy(this.orthographicCamera.rotation)
+        // this.helper.matrixWorldNeedsUpdate = true
+        // this.helper.update()
+        // this.helper.position.copy(this.orthographicCamera.position)
+        // this.helper.rotation.copy(this.orthographicCamera.rotation)
     }
 }

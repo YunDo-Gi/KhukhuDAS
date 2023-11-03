@@ -4,18 +4,7 @@ import * as dat from "lil-gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 import Experience from "./Experience/Experience.js";
-import {
-  createComment,
-  updateComment,
-  deleteComment,
-  createRecomment,
-  updateRecomment,
-  deleteReComment,
-  showComment,
-  getComment,
-  likeThisRoom,
-  unlikeThisRoom,
-} from "./scripts/comment.js";
+import { getComment } from "./scripts/comment.js";
 import { isTokenExpire } from "./scripts/sidebar.js";
 
 const experience = new Experience(document.querySelector("canvas.webgl"));

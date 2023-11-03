@@ -264,11 +264,11 @@ export default class World extends EventEmitter {
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale());
     }
 
-    const gui = new dat.GUI();
-    gui.add(this.apts[0].getModel().position, "x");
-    gui.add(this.apts[0].getModel().position, "y");
-    gui.add(this.apts[0].getModel().position, "z");
-    gui.add(this.apts[0].getModel().scale, "scale");
+    // const gui = new dat.GUI();
+    // gui.add(this.apts[0].getModel().position, "x");
+    // gui.add(this.apts[0].getModel().position, "y");
+    // gui.add(this.apts[0].getModel().position, "z");
+    // gui.add(this.apts[0].getModel().scale, "scale");
   }
 
   async setRooms() {

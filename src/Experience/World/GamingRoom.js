@@ -50,7 +50,6 @@ export default class GamingRoom extends Room
     {
         this.frames = this.model.children.filter((child) =>
         {
-            console.log(child)
             if(child.name === '8')
             {
                 return true
