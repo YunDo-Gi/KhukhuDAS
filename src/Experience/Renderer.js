@@ -106,24 +106,24 @@ export default class Renderer
         this.rendererCSS.render(this.scene, this.camera.orthographicCamera);
 
         // Second scene
-        this.instance.setScissorTest(true)
-        this.instance.setViewport(
-            this.sizes.width - this.sizes.width / 3,
-            this.sizes.height - this.sizes.height / 3,
-            this.sizes.width / 3,
-            this.sizes.height / 3
-        )
+        // this.instance.setScissorTest(true)
+        // this.instance.setViewport(
+        //     this.sizes.width - this.sizes.width / 3,
+        //     this.sizes.height - this.sizes.height / 3,
+        //     this.sizes.width / 3,
+        //     this.sizes.height / 3
+        // )
 
-        this.instance.setScissor(
-            this.sizes.width - this.sizes.width / 3,
-            this.sizes.height - this.sizes.height / 3,
-            this.sizes.width / 3,
-            this.sizes.height / 3
-        )
+        // this.instance.setScissor(
+        //     this.sizes.width - this.sizes.width / 3,
+        //     this.sizes.height - this.sizes.height / 3,
+        //     this.sizes.width / 3,
+        //     this.sizes.height / 3
+        // )
 
-        this.instance.render(this.scene, this.camera.instance)
+        // this.instance.render(this.scene, this.camera.instance)
 
-        this.instance.setScissorTest(false)
+        // this.instance.setScissorTest(false)
     }    
 }
 

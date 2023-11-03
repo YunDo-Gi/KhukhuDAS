@@ -46,11 +46,11 @@ export default class Experience
         })
 
         // helpers
-        const axisHelper = new THREE.AxesHelper(10)
-        this.scene.add(axisHelper)
+        // const axisHelper = new THREE.AxesHelper(10)
+        // this.scene.add(axisHelper)
 
-        const gridHelper = new THREE.GridHelper(20, 20)
-        this.scene.add(gridHelper)
+        // const gridHelper = new THREE.GridHelper(20, 20)
+        // this.scene.add(gridHelper)
 
         // Resize event
         this.sizes.on('resize', () =>
