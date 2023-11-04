@@ -48,7 +48,9 @@ const options = optionMenu.querySelectorAll(".option");
 const sBtn_text = optionMenu.querySelector(".sBtn-text");
 const title_logo = document.querySelectorAll(".landing-wrapper");
 
-selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));
+selectBtn.addEventListener("click", () =>
+  optionMenu.classList.toggle("active")
+);
 
 btnHome.addEventListener("click", () => {
   views.classList.add("hidden");
@@ -124,7 +126,9 @@ export default class World extends EventEmitter {
             this.scene.remove(room.getModel());
             document
               .querySelector(".room-page-wrapper")
-              .removeChild(document.querySelector(".room-page-wrapper").lastChild);
+              .removeChild(
+                document.querySelector(".room-page-wrapper").lastChild
+              );
           }
 
           // API 호출
@@ -182,7 +186,12 @@ export default class World extends EventEmitter {
       console.log(this.rooms[i]);
       this.rooms[i].setLikes(data[i].likeCount);
       this.rooms[i].setData(data[i]);
-      this.setFrames(this.rooms[i].getType(), this.rooms[i].frames, data[i].fileURLs);
+
+      this.setFrames(
+        this.rooms[i].getType(),
+        this.rooms[i].frames,
+        data[i].fileURLs
+      );
       this.addRoomIcon(i);
     }
   }
@@ -246,8 +255,13 @@ export default class World extends EventEmitter {
           break;
       }
 
-      this.setFrames(this.apts[i].getType(), this.apts[i].frames, data[i].fileURLs);
-      if (data[i].interestType === "PHOTO") this.apts[i].getModel().rotation.set(0, Math.PI, 0);
+      this.setFrames(
+        this.apts[i].getType(),
+        this.apts[i].frames,
+        data[i].fileURLs
+      );
+      if (data[i].interestType === "PHOTO")
+        this.apts[i].getModel().rotation.set(0, Math.PI, 0);
       else this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0);
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale());
     }
@@ -285,13 +299,16 @@ export default class World extends EventEmitter {
       views.innerText = localStorage.getItem("viewCount");
       cardTitle.innerText = this.rooms[current_page - 1].getData().title;
       cardComment.innerText = this.rooms[current_page - 1].getData().content;
-      cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
+      cardWriter.innerText =
+        this.rooms[current_page - 1].getData().writer.nickname;
       getComment(this.rooms[current_page - 1].getData().id);
     });
 
     // Handle page navigation
 
-    this.rooms[current_page - 1].getModel().scale.copy(this.rooms[current_page - 1].getScale());
+    this.rooms[current_page - 1]
+      .getModel()
+      .scale.copy(this.rooms[current_page - 1].getScale());
     this.rooms[current_page - 1]
       .getModel()
       .position.copy(this.rooms[current_page - 1].getCenterPosition());
@@ -310,7 +327,9 @@ export default class World extends EventEmitter {
         });
         pages[current_page].classList.toggle("selected");
         this.rooms[current_page].setBackground();
-        this.rooms[current_page].getModel().scale.copy(this.rooms[current_page].getScale());
+        this.rooms[current_page]
+          .getModel()
+          .scale.copy(this.rooms[current_page].getScale());
         this.rooms[current_page]
           .getModel()
           .position.copy(this.rooms[current_page].getLeftPostion());
@@ -324,9 +343,20 @@ export default class World extends EventEmitter {
             cardComment.innerText = this.rooms[current_page - 1].getData().content;
             cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
             await visitRoom(this.rooms[current_page - 1].getData().id);
-            await localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
+            await localStorage.setItem(
+              "roomId",
+              this.rooms[current_page - 1].getData().id
+            );
             likes.innerText = this.rooms[current_page - 1].getLikes();
             views.innerText = localStorage.getItem("viewCount");
+<<<<<<< Updated upstream
+=======
+            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
+            cardComment.innerText =
+              this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText =
+              this.rooms[current_page - 1].getData().writer.nickname;
+>>>>>>> Stashed changes
             console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
 
@@ -357,7 +387,9 @@ export default class World extends EventEmitter {
         });
         pages[current_page - 2].classList.toggle("selected");
         this.rooms[current_page - 2].setBackground();
-        this.rooms[current_page - 2].getModel().scale.copy(this.rooms[current_page - 2].getScale());
+        this.rooms[current_page - 2]
+          .getModel()
+          .scale.copy(this.rooms[current_page - 2].getScale());
         this.rooms[current_page - 2]
           .getModel()
           .position.copy(this.rooms[current_page - 2].getRightPosition());
@@ -371,9 +403,20 @@ export default class World extends EventEmitter {
             cardComment.innerText = this.rooms[current_page - 1].getData().content;
             cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
             await visitRoom(this.rooms[current_page - 1].getData().id);
-            await localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
+            await localStorage.setItem(
+              "roomId",
+              this.rooms[current_page - 1].getData().id
+            );
             likes.innerText = this.rooms[current_page - 1].getLikes();
             views.innerText = localStorage.getItem("viewCount");
+<<<<<<< Updated upstream
+=======
+            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
+            cardComment.innerText =
+              this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText =
+              this.rooms[current_page - 1].getData().writer.nickname;
+>>>>>>> Stashed changes
             console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
 
@@ -553,30 +596,34 @@ export default class World extends EventEmitter {
   }
 
   setFrames(type, frame, data) {
-    const textureLoader = new THREE.TextureLoader()
+    const textureLoader = new THREE.TextureLoader();
+
+    let dd = [
+      "https://images.pexels.com/photos/2081327/pexels-photo-2081327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "https://images.pexels.com/photos/261763/pexels-photo-261763.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    ];
     for (let j = 0; j < Math.min(data.length, frame.length); j++) {
-      const texture = textureLoader.load(data[j])
-      texture.wrapS = THREE.RepeatWrapping
-      texture.wrapT = THREE.RepeatWrapping
+      const texture = textureLoader.load(dd[j]);
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
       if (type === "exercise" || type === "gaming") {
         frame[j].children[1].material = new THREE.MeshBasicMaterial({
           map: texture,
         });
-      } 
-      else {
+      } else {
         frame[j].material = new THREE.MeshBasicMaterial({
           map: texture,
         });
       }
-      texture.colorSpace = THREE.SRGBColorSpace
-      if(type === "reading") {
-        if(j === 0) {
-          texture.repeat.set(1, 1)
-          texture.rotation = Math.PI * 0.5
-          texture.matrix.setUvTransform( 1, 0, 1, 1, 0, 0.5, 0.5 )
-        } else if(j === 1) {
-          texture.repeat.set(1.5, 1.5)
-          texture.rotation = -Math.PI * 0.5
+      texture.colorSpace = THREE.SRGBColorSpace;
+      if (type === "reading") {
+        if (j === 0) {
+          texture.repeat.set(1, 1);
+          texture.rotation = Math.PI * 0.5;
+          texture.matrix.setUvTransform(1, 0, 1, 1, 0, 0.5, 0.5);
+        } else if (j === 1) {
+          texture.repeat.set(1.5, 1.5);
+          texture.rotation = -Math.PI * 0.5;
         }
       } else if(type === "photo") {
         if(j === 0) {
@@ -654,14 +701,12 @@ export default class World extends EventEmitter {
 
     let test = this.makeIframeObject(1, 1);
     test.rotation.set(0.3, 3, 0.28);
-    test.css3dObject.element.textContent =
-      "Myroom";
+    test.css3dObject.element.textContent = "Myroom";
     test.css3dObject.element.style.fontSize = "0.1px";
     test.css3dObject.element.style.opacity = "1";
     test.css3dObject.element.style.setBackground = "red";
     test.css3dObject.element.style.fontFamily = "Arial";
     test.css3dObject.element.style.fontWeight = "bold";
-
 
     const gui = new dat.GUI();
     gui.add(test.position, "x");
@@ -700,7 +745,6 @@ export default class World extends EventEmitter {
 
     return obj;
   }
-
 
   setHeart() {
     const heartX = -25;
@@ -769,7 +813,10 @@ export default class World extends EventEmitter {
       color: 0xf5626b,
     });
 
-    const geometryHeart = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
+    const geometryHeart = new THREE.ExtrudeGeometry(
+      heartShape,
+      extrudeSettings
+    );
     this.heart = new THREE.Mesh(geometryHeart, materialRed);
 
     this.heart.position.set(0.1, 1.7, 8);
@@ -798,10 +845,12 @@ export default class World extends EventEmitter {
       // textGeometry.computeBoundingBox();
       // textGeometry.center();
 
-      const textureLoader = new THREE.TextureLoader()
-      const matcapTexture = textureLoader.load('/textures/1.png')
+      const textureLoader = new THREE.TextureLoader();
+      const matcapTexture = textureLoader.load("/textures/1.png");
 
-      const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
+      const textMaterial = new THREE.MeshMatcapMaterial({
+        matcap: matcapTexture,
+      });
       this.text = new THREE.Mesh(textGeometry, textMaterial);
 
       // right lying position
