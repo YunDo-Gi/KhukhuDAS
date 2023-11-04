@@ -15,7 +15,8 @@ const menu = document.querySelector(".select-menu");
 const heartIcon = document.querySelector(".box-heart");
 const commentIcon = document.querySelector(".box-comment");
 const viewIcon = document.querySelector(".box-view");
-const infoCard = document.querySelector(".list-group");
+const infoCard = document.querySelector(".info-card");
+const cardBody = document.querySelector(".info-card-body");
 const cardTitle = document.querySelector(".info-card-title");
 const cardComment = document.querySelector(".info-card-comment");
 const cardWriter = document.querySelector(".info-card-writer");
@@ -72,6 +73,7 @@ export default class Controls {
           views.classList.remove("hidden");
           comments.classList.remove("hidden");
           likes.classList.remove("hidden");
+          cardBody.classList.remove("hidden");
           cardTitle.classList.remove("hidden");
           cardComment.classList.remove("hidden");
           cardWriter.classList.remove("hidden");
@@ -98,6 +100,7 @@ export default class Controls {
       views.classList.add("hidden");
       comments.classList.add("hidden");
       likes.classList.add("hidden");
+      cardBody.classList.add("hidden");
       cardTitle.classList.add("hidden");
       cardComment.classList.add("hidden");
       cardWriter.classList.add("hidden");
@@ -135,6 +138,7 @@ export default class Controls {
           views.classList.remove("hidden");
           comments.classList.remove("hidden");
           likes.classList.remove("hidden");
+          cardBody.classList.remove("hidden");
           cardTitle.classList.remove("hidden");
           cardComment.classList.remove("hidden");
           cardWriter.classList.remove("hidden");
@@ -254,6 +258,8 @@ export default class Controls {
       likes.classList.add("hidden");
       menu.classList.add("hidden");
       roomWrapper.classList.add("hidden");
+      infoCard.classList.add("hidden");
+      cardBody.classList.add("hidden");
     });
   }
 

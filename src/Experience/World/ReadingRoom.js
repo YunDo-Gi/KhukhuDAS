@@ -50,8 +50,11 @@ export default class ReadingRoom extends Room
         let root = new THREE.Object3D()
         this.scene.add(root)
 
-        let test = this.makeIframeObject(2000, 2000)
-        test.position.z = 600
+        let test = this.makeIframeObject(0.1, 0.1)
+        test.position.x = 0
+        test.position.y = 0
+        test.position.z = 0
+        test.rotation.y = Math.PI * 0.5
         test.css3dObject.element.style.background = 'red'
 
         root.add(test)

@@ -90,6 +90,7 @@ export default class Room {
     const element = document.createElement("div");
     element.width = width + "px";
     element.height = height + "px";
+    element.innerText = "test";
 
     let css3dObject = new CSS3DObject(element);
     obj.css3dObject = css3dObject;
@@ -99,7 +100,7 @@ export default class Room {
     // clip a WebGL geometry with it.
     var material = new THREE.MeshPhongMaterial({
       opacity: 0.15,
-      color: new THREE.Color(0x111111),
+      color: new THREE.Color(0xffffff),
       blending: THREE.NoBlending,
       // side	: THREE.DoubleSide,
     });

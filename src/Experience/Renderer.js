@@ -24,19 +24,21 @@ export default class Renderer
     {
         this.instance = new THREE.WebGLRenderer({
             canvas: this.canvas,
-            antialias: true
+            antialias: true,
         })
         this.instance.useLegacyLights = false
-        this.instance.toneMappingExposure = 1.75
-        this.instance.shadowMap.enabled = true
-        this.instance.shadowMap.type = THREE.PCFSoftShadowMap
+        // this.instance.toneMappingExposure = 1.75
+        // this.instance.shadowMap.enabled = true
+        // this.instance.shadowMap.type = THREE.PCFSoftShadowMap
         this.instance.setSize(this.sizes.width, this.sizes.height)
         this.instance.setPixelRatio(this.sizes.pixelRatio)
     }
 
     setRendererCSS()
     {
-        this.rendererCSS = new CSS3DRenderer();
+        this.rendererCSS = new CSS3DRenderer({
+            alpha: true,
+        });
 		this.rendererCSS.setSize(this.sizes.width, this.sizes.height);
 		document.querySelector('.css-wrapper').appendChild(this.rendererCSS.domElement);
     }

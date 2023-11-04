@@ -2,12 +2,26 @@
 font-weight: 500;
 font-style: normal; */
 
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR&display=swap');
+
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 700;
-  font-style: normal;
+  font-family: 'kopub';
+  src: url('/fonts/KOPUBWORLD DOTUM MEDIUM.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'kopub-bold';
+  src: url('/fonts/KOPUBWORLD DOTUM BOLD.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'youtube';
+  src: url('/fonts/YOUTUBE-SANS-MEDIUM.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'scdream';
+  src: url('/fonts/SCDREAM6.OTF') format('opentype');
 }
 
 * {
@@ -21,7 +35,6 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  font-family: "Pretendard-Regular", sans-serif;
 }
 
 .css-wrapper {
@@ -68,6 +81,26 @@ button {
 .btn-home {
   width: 100px;
   height: auto;
+}
+
+.info-card{
+  position: absolute;
+  width: 18rem;
+  top: 25%;
+  left: 50%;
+  transform: translate(-40vw, 0);
+}
+
+.info-card-title{
+  font-family: 'scdream', sans-serif;
+}
+
+.info-card-writer{
+  font-family: 'kopub-bold', sans-serif;
+}
+
+.info-card-comment{
+  font-family: 'kopub', sans-serif;
 }
 
 /* Landing Page */
@@ -142,6 +175,7 @@ button {
   top: 90%;
   left: 46.3%;
   animation: bounce 1s ease-in alternate infinite;
+  font-family: "youtube", sans-serif;
 }
 
 @keyframes bounce {
@@ -249,6 +283,7 @@ button {
   color: whitesmoke;
   font-size: 25px;
   font-weight: 700;
+  font-family: "youtube", sans-serif;
   display: flex;
   align-items: center;
 }
@@ -267,6 +302,7 @@ button {
   background-color: transparent;
   z-index: 500;
   color: whitesmoke;
+  font-family: "youtube", sans-serif;
   font-size: 25px;
   font-weight: 700;
   display: flex;
@@ -287,6 +323,7 @@ button {
   background-color: transparent;
   z-index: 500;
   color: whitesmoke;
+  font-family: "youtube", sans-serif;
   font-size: 25px;
   font-weight: 700;
   display: flex;
@@ -469,8 +506,8 @@ button {
 .landing-wrapper {
   overflow: hidden;
   position: fixed;
-  width: 80vw;
-  height: 80vh;
+  width: 45vw;
+  height: 45vh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -563,7 +600,7 @@ button {
   display: block;
   padding: 12px 24px;
   color: #000000;
-  font-family: "Roboto", sans-serif;
+  font-family: "youtube", sans-serif;
   font-size: 14px;
   font-weight: 400;
   text-decoration: none;
@@ -578,3 +615,4 @@ body {
   font-family: "Instagram Sans", sans-serif;
   font-family: "Instagram Sans Headline", sans-serif;
 }
+

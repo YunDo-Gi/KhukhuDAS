@@ -32,6 +32,7 @@ const rightArrow = document.querySelector(".arrow-wrapper-right");
 const leftArrow = document.querySelector(".arrow-wrapper-left");
 const svgWrapper = document.querySelector(".arrow-svg-wrapper");
 const infoCard = document.querySelector(".info-card");
+const cardBody = document.querySelector(".info-card-body");
 const cardTitle = document.querySelector(".info-card-title");
 const cardComment = document.querySelector(".info-card-comment");
 const cardWriter = document.querySelector(".info-card-writer");
@@ -47,9 +48,7 @@ const options = optionMenu.querySelectorAll(".option");
 const sBtn_text = optionMenu.querySelector(".sBtn-text");
 const title_logo = document.querySelectorAll(".landing-wrapper");
 
-selectBtn.addEventListener("click", () =>
-  optionMenu.classList.toggle("active")
-);
+selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));
 
 btnHome.addEventListener("click", () => {
   views.classList.add("hidden");
@@ -111,7 +110,7 @@ export default class World extends EventEmitter {
       // this.setIframe();
 
       // this.text = null
-      // this.setText()
+      // this.setText("hello")
 
       options.forEach((option) => {
         option.addEventListener("click", () => {
@@ -125,9 +124,7 @@ export default class World extends EventEmitter {
             this.scene.remove(room.getModel());
             document
               .querySelector(".room-page-wrapper")
-              .removeChild(
-                document.querySelector(".room-page-wrapper").lastChild
-              );
+              .removeChild(document.querySelector(".room-page-wrapper").lastChild);
           }
 
           // API 호출
@@ -185,11 +182,7 @@ export default class World extends EventEmitter {
       console.log(this.rooms[i]);
       this.rooms[i].setLikes(data[i].likeCount);
       this.rooms[i].setData(data[i]);
-      this.setFrames(
-        this.rooms[i].getType(),
-        this.rooms[i].frames,
-        data[i].fileURLs
-      );
+      this.setFrames(this.rooms[i].getType(), this.rooms[i].frames, data[i].fileURLs);
       this.addRoomIcon(i);
     }
   }
@@ -253,13 +246,8 @@ export default class World extends EventEmitter {
           break;
       }
 
-      this.setFrames(
-        this.apts[i].getType(),
-        this.apts[i].frames,
-        data[i].fileURLs
-      );
-      if (data[i].interestType === "PHOTO")
-        this.apts[i].getModel().rotation.set(0, Math.PI, 0);
+      this.setFrames(this.apts[i].getType(), this.apts[i].frames, data[i].fileURLs);
+      if (data[i].interestType === "PHOTO") this.apts[i].getModel().rotation.set(0, Math.PI, 0);
       else this.apts[i].getModel().rotation.set(0, Math.PI * 0.5, 0);
       this.apts[i].getModel().scale.copy(this.apts[i].getAptScale());
     }
@@ -297,16 +285,13 @@ export default class World extends EventEmitter {
       views.innerText = localStorage.getItem("viewCount");
       cardTitle.innerText = this.rooms[current_page - 1].getData().title;
       cardComment.innerText = this.rooms[current_page - 1].getData().content;
-      cardWriter.innerText =
-        this.rooms[current_page - 1].getData().writer.nickname;
+      cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
       getComment(this.rooms[current_page - 1].getData().id);
     });
 
     // Handle page navigation
 
-    this.rooms[current_page - 1]
-      .getModel()
-      .scale.copy(this.rooms[current_page - 1].getScale());
+    this.rooms[current_page - 1].getModel().scale.copy(this.rooms[current_page - 1].getScale());
     this.rooms[current_page - 1]
       .getModel()
       .position.copy(this.rooms[current_page - 1].getCenterPosition());
@@ -325,9 +310,7 @@ export default class World extends EventEmitter {
         });
         pages[current_page].classList.toggle("selected");
         this.rooms[current_page].setBackground();
-        this.rooms[current_page]
-          .getModel()
-          .scale.copy(this.rooms[current_page].getScale());
+        this.rooms[current_page].getModel().scale.copy(this.rooms[current_page].getScale());
         this.rooms[current_page]
           .getModel()
           .position.copy(this.rooms[current_page].getLeftPostion());
@@ -338,21 +321,17 @@ export default class World extends EventEmitter {
           onComplete: async () => {
             current_page += 1;
             await visitRoom(this.rooms[current_page - 1].getData().id);
-            await localStorage.setItem(
-              "roomId",
-              this.rooms[current_page - 1].getData().id
-            );
+            await localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
             likes.innerText = this.rooms[current_page - 1].getLikes();
             views.innerText = localStorage.getItem("viewCount");
             cardTitle.innerText = this.rooms[current_page - 1].getData().title;
-            cardComment.innerText =
-              this.rooms[current_page - 1].getData().content;
-            cardWriter.innerText =
-              this.rooms[current_page - 1].getData().writer.nickname;
+            cardComment.innerText = this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
             console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
 
             infoCard.classList.remove("hidden");
+            cardBody.classList.remove("hidden");
             cardTitle.classList.remove("hidden");
             cardComment.classList.remove("hidden");
             cardWriter.classList.remove("hidden");
@@ -378,9 +357,7 @@ export default class World extends EventEmitter {
         });
         pages[current_page - 2].classList.toggle("selected");
         this.rooms[current_page - 2].setBackground();
-        this.rooms[current_page - 2]
-          .getModel()
-          .scale.copy(this.rooms[current_page - 2].getScale());
+        this.rooms[current_page - 2].getModel().scale.copy(this.rooms[current_page - 2].getScale());
         this.rooms[current_page - 2]
           .getModel()
           .position.copy(this.rooms[current_page - 2].getRightPosition());
@@ -391,21 +368,17 @@ export default class World extends EventEmitter {
           onComplete: async () => {
             current_page -= 1;
             await visitRoom(this.rooms[current_page - 1].getData().id);
-            await localStorage.setItem(
-              "roomId",
-              this.rooms[current_page - 1].getData().id
-            );
+            await localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
             likes.innerText = this.rooms[current_page - 1].getLikes();
             views.innerText = localStorage.getItem("viewCount");
             cardTitle.innerText = this.rooms[current_page - 1].getData().title;
-            cardComment.innerText =
-              this.rooms[current_page - 1].getData().content;
-            cardWriter.innerText =
-              this.rooms[current_page - 1].getData().writer.nickname;
+            cardComment.innerText = this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
             console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
 
             infoCard.classList.remove("hidden");
+            cardBody.classList.remove("hidden");
             cardTitle.classList.remove("hidden");
             cardComment.classList.remove("hidden");
             cardWriter.classList.remove("hidden");
@@ -646,18 +619,59 @@ export default class World extends EventEmitter {
 
   setIframe() {
     let root = new THREE.Object3D();
-    root.position.set(0, 0, -8);
+    root.opacity = 0;
+    root.position.set(-0.7, -1.8, 9);
     this.scene.add(root);
 
     let test = this.makeIframeObject(1, 1);
-    test.rotation.set(0, Math.PI * 0.25, 0);
+    test.rotation.set(0.3, 3, 0.28);
     test.css3dObject.element.textContent =
-      "I am an HTML <div> element mixed into the WebGL scene. This text is editable!";
+      "Myroom";
+    test.css3dObject.element.style.fontSize = "0.1px";
     test.css3dObject.element.style.opacity = "1";
-    test.css3dObject.element.style.background = "tomato";
+    test.css3dObject.element.style.setBackground = "red";
+    test.css3dObject.element.style.fontFamily = "Arial";
+    test.css3dObject.element.style.fontWeight = "bold";
+
+
+    const gui = new dat.GUI();
+    gui.add(test.position, "x");
+    gui.add(test.position, "y");
+    gui.add(test.position, "z");
+    gui.add(test.rotation, "x");
+    gui.add(test.rotation, "y");
+    gui.add(test.rotation, "z");
 
     root.add(test);
   }
+
+  makeIframeObject(width, height) {
+    const obj = new THREE.Object3D();
+
+    const element = document.createElement("div");
+    element.width = width + "px";
+    element.height = height + "px";
+
+    let css3dObject = new CSS3DObject(element);
+    obj.css3dObject = css3dObject;
+    obj.add(css3dObject);
+
+    // make an invisible plane for the DOM element to chop
+    // clip a WebGL geometry with it.
+    var material = new THREE.MeshPhongMaterial({
+      transparent: true,
+      opacity: 0,
+      blending: THREE.NoBlending,
+      // side	: THREE.DoubleSide,
+    });
+    var geometry = new THREE.BoxGeometry(width, height, 0.1);
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.opacity = 0;
+    obj.add(mesh);
+
+    return obj;
+  }
+
 
   setHeart() {
     const heartX = -25;
@@ -726,10 +740,7 @@ export default class World extends EventEmitter {
       color: 0xf5626b,
     });
 
-    const geometryHeart = new THREE.ExtrudeGeometry(
-      heartShape,
-      extrudeSettings
-    );
+    const geometryHeart = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
     this.heart = new THREE.Mesh(geometryHeart, materialRed);
 
     this.heart.position.set(0.1, 1.7, 8);
@@ -740,72 +751,49 @@ export default class World extends EventEmitter {
     this.scene.add(this.heart);
   }
 
-  setText() {
+  setText(text) {
     const fontLoader = new FontLoader();
 
     fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
-      const textGeometry = new TextGeometry("Hello Three.js", {
+      const textGeometry = new TextGeometry(text, {
         font: font,
-        size: 0.5,
-        height: 0.2,
+        size: 0.2,
+        height: 0.0001,
         curveSegments: 12,
         bevelEnabled: true,
-        bevelThickness: 0.03,
+        bevelThickness: 0.02,
         bevelSize: 0.02,
         bevelOffset: 0,
         bevelSegments: 5,
       });
-      textGeometry.computeBoundingBox();
-      textGeometry.center();
+      // textGeometry.computeBoundingBox();
+      // textGeometry.center();
 
-      const textMaterial = new THREE.MeshBasicMaterial({
-        color: 0x000000,
-        wireframe: true,
-      });
+      const textureLoader = new THREE.TextureLoader()
+      const matcapTexture = textureLoader.load('/textures/1.png')
+
+      const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
       this.text = new THREE.Mesh(textGeometry, textMaterial);
 
-      this.text.position.set(0, -1, 8);
-      this.text.rotation.set(0, Math.PI * 0.25, 0);
+      // right lying position
+      this.text.position.set(-0.2, -1.6, 6);
+      this.text.rotation.set(1, Math.PI, 0.54);
+
+      // right top position
+      // this.text.position.set(1.43, 1.13, 8);
+      // this.text.rotation.set(-0.5, 3.6, 0.08);
 
       this.scene.add(this.text);
 
-      // const gui = new dat.GUI();
-      // gui.add(this.text.position, "x");
-      // gui.add(this.text.position, "y");
-      // gui.add(this.text.position, "z");
-      // gui.add(this.text.rotation, "x");
-      // gui.add(this.text.rotation, "y");
-      // gui.add(this.text.rotation, "z");
+      const gui = new dat.GUI();
+      gui.add(this.text.scale, "scale");
+      gui.add(this.text.position, "x");
+      gui.add(this.text.position, "y");
+      gui.add(this.text.position, "z");
+      gui.add(this.text.rotation, "x");
+      gui.add(this.text.rotation, "y");
+      gui.add(this.text.rotation, "z");
     });
-  }
-
-  makeIframeObject(width, height) {
-    const obj = new THREE.Object3D();
-
-    // this.iframe.src = [ './views/login.html' ];
-
-    // const element = document.createElement('iframe');
-    const element = document.createElement("div");
-    element.width = width + "px";
-    element.height = height + "px";
-
-    let css3dObject = new CSS3DObject(element);
-    obj.css3dObject = css3dObject;
-    obj.add(css3dObject);
-
-    // make an invisible plane for the DOM element to chop
-    // clip a WebGL geometry with it.
-    var material = new THREE.MeshPhongMaterial({
-      opacity: 0.15,
-      color: new THREE.Color(0xfafafa),
-      blending: THREE.NoBlending,
-      // side	: THREE.DoubleSide,
-    });
-    var geometry = new THREE.BoxGeometry(width, height, 0.1);
-    var mesh = new THREE.Mesh(geometry, material);
-    obj.add(mesh);
-
-    return obj;
   }
 
   getHeart() {

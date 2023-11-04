@@ -1,12 +1,12 @@
 let dummyJSON = [
   {
     id: 3,
-    title: "내방",
-    content: "이쁘지?",
-    interestType: "EXERCISE",
+    title: "청춘예찬",
+    content: "그들에게 생명을 불어 넣는 것은 따뜻한 봄바람이다. 풀밭에 속잎나고, 가지에 싹이 트고, 꽃 피고 새 우는 봄날의 천지는 얼마나 기쁘며, 얼마나 아름다우냐?",
+    interestType: "PICTURE",
     writer: {
       memberId: 1,
-      nickname: "마팅",
+      nickname: "민태원",
       profileImgURL: null,
     },
     commentCount: 0,

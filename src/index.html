@@ -67,7 +67,7 @@
           <!-- login 모달 창 -->
           <div class="modal top fade" id="login-modal" tabindex="-1" data-bs-backdrop="false">
             <div class="modal-dialog">
-              <div class="modal-content">
+              <div class="modal-content" style='font-family: "youtube", sans-serif;'>
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="login-modal">Login</h1>
                   <button
@@ -78,7 +78,7 @@
                   ></button>
                 </div>
 
-                <div class="modal-body">로그인 하시겠습니까?</div>
+                <div class="modal-body" style='font-family: "kopub", sans-serif;'>로그인 하시겠습니까?</div>
 
                 <div class="modal-footer pagination">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -226,12 +226,12 @@
       </div>
     </div>
 
-    <div class="info-card card" style="width: 18rem; position:absolute; left: 10%; top: 24%; border:none; z-index: 10;">
-      <ul class="list-group list-group-flush info-card">
-        <li class="info-card-title hidden"></li>
-        <li class="info-card-writer hidden" style="overflow: auto; max-height:15rem; min-height: 5rem;"></li>
-        <li class="info-card-comment hidden"></li>
-      </ul>
+    <div class="info-card card hidden" style="border: none; background-color: rgba(255, 255, 255, 0.9)">
+      <div class="info-card-body card-body hidden">
+        <h5 class="info-card-title card-title hidden"></h5>
+        <h6 class="info-card-writer card-subtitle mb-2 text-muted hidden"></h6>
+        <p class="info-card-comment card-text hidden"></p>
+      </div>
     </div>
 
     <div class="btn-to-room hidden">
