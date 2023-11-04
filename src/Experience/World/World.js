@@ -340,8 +340,10 @@ export default class World extends EventEmitter {
           onComplete: async () => {
             current_page += 1;
             cardTitle.innerText = this.rooms[current_page - 1].getData().title;
-            cardComment.innerText = this.rooms[current_page - 1].getData().content;
-            cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
+            cardComment.innerText =
+              this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText =
+              this.rooms[current_page - 1].getData().writer.nickname;
             await visitRoom(this.rooms[current_page - 1].getData().id);
             await localStorage.setItem(
               "roomId",
@@ -349,14 +351,7 @@ export default class World extends EventEmitter {
             );
             likes.innerText = this.rooms[current_page - 1].getLikes();
             views.innerText = localStorage.getItem("viewCount");
-<<<<<<< Updated upstream
-=======
-            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
-            cardComment.innerText =
-              this.rooms[current_page - 1].getData().content;
-            cardWriter.innerText =
-              this.rooms[current_page - 1].getData().writer.nickname;
->>>>>>> Stashed changes
+
             console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
 
@@ -400,8 +395,10 @@ export default class World extends EventEmitter {
           onComplete: async () => {
             current_page -= 1;
             cardTitle.innerText = this.rooms[current_page - 1].getData().title;
-            cardComment.innerText = this.rooms[current_page - 1].getData().content;
-            cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
+            cardComment.innerText =
+              this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText =
+              this.rooms[current_page - 1].getData().writer.nickname;
             await visitRoom(this.rooms[current_page - 1].getData().id);
             await localStorage.setItem(
               "roomId",
@@ -409,14 +406,7 @@ export default class World extends EventEmitter {
             );
             likes.innerText = this.rooms[current_page - 1].getLikes();
             views.innerText = localStorage.getItem("viewCount");
-<<<<<<< Updated upstream
-=======
-            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
-            cardComment.innerText =
-              this.rooms[current_page - 1].getData().content;
-            cardWriter.innerText =
-              this.rooms[current_page - 1].getData().writer.nickname;
->>>>>>> Stashed changes
+
             console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
 
@@ -597,13 +587,8 @@ export default class World extends EventEmitter {
 
   setFrames(type, frame, data) {
     const textureLoader = new THREE.TextureLoader();
-
-    let dd = [
-      "https://images.pexels.com/photos/2081327/pexels-photo-2081327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "https://images.pexels.com/photos/261763/pexels-photo-261763.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    ];
     for (let j = 0; j < Math.min(data.length, frame.length); j++) {
-      const texture = textureLoader.load(dd[j]);
+      const texture = textureLoader.load(data[j]);
       texture.wrapS = THREE.RepeatWrapping;
       texture.wrapT = THREE.RepeatWrapping;
       if (type === "exercise" || type === "gaming") {
@@ -625,19 +610,19 @@ export default class World extends EventEmitter {
           texture.repeat.set(1.5, 1.5);
           texture.rotation = -Math.PI * 0.5;
         }
-      } else if(type === "photo") {
-        if(j === 0) {
-          texture.rotation = Math.PI * 0.5
-        } else if(j === 1) {
-          texture.rotation = Math.PI * 0.5
-        } else if(j === 2) {
-          texture.rotation = Math.PI * 0.5
-        } else if(j === 3) {
-          texture.rotation = Math.PI * 0.5
+      } else if (type === "photo") {
+        if (j === 0) {
+          texture.rotation = Math.PI * 0.5;
+        } else if (j === 1) {
+          texture.rotation = Math.PI * 0.5;
+        } else if (j === 2) {
+          texture.rotation = Math.PI * 0.5;
+        } else if (j === 3) {
+          texture.rotation = Math.PI * 0.5;
         }
-      } else if(type === "gaming") {
-        texture.repeat.set(0.4, 0.4)
-        texture.rotation = Math.PI
+      } else if (type === "gaming") {
+        texture.repeat.set(0.4, 0.4);
+        texture.rotation = Math.PI;
       }
     }
   }
