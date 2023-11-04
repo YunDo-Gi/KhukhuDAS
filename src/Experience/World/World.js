@@ -268,7 +268,7 @@ export default class World extends EventEmitter {
         })
         .catch((e) => {
           this.getRooms(dummyJSON); // 디폴트로 받아오는 데이터
-          this.setApts(dummyJSON2); // 디폴트로 받아오는 데이터
+          this.setApts(dummyJSON); // 디폴트로 받아오는 데이터
         });
     }
 
@@ -553,15 +553,31 @@ export default class World extends EventEmitter {
   }
 
   setFrames(type, frame, data) {
+    const textureLoader = new THREE.TextureLoader()
     for (let j = 0; j < Math.min(data.length, frame.length); j++) {
+      const texture = textureLoader.load(data[j])
+      texture.wrapS = THREE.RepeatWrapping
+      texture.wrapT = THREE.RepeatWrapping
       if (type === "exercise" || type === "gaming") {
         frame[j].children[1].material = new THREE.MeshBasicMaterial({
-          map: new THREE.TextureLoader().load(data[j]),
+          map: texture,
         });
-      } else {
+      } 
+      else {
         frame[j].material = new THREE.MeshBasicMaterial({
-          map: new THREE.TextureLoader().load(data[j]),
+          map: texture,
         });
+      }
+      texture.colorSpace = THREE.SRGBColorSpace
+      if(type === "reading") {
+        if(j === 0) {
+          texture.repeat.set(1, 1)
+          texture.rotation = Math.PI * 0.5
+          texture.matrix.setUvTransform( 1, 0, 1, 1, 0, 0.5, 0.5 )
+        } else if(j === 1) {
+          texture.repeat.set(1.5, 1.5)
+          texture.rotation = -Math.PI * 0.5
+        }
       }
     }
   }

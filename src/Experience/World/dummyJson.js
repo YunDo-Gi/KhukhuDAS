@@ -3,7 +3,7 @@ let dummyJSON = [
     id: 3,
     title: "청춘예찬",
     content: "그들에게 생명을 불어 넣는 것은 따뜻한 봄바람이다. 풀밭에 속잎나고, 가지에 싹이 트고, 꽃 피고 새 우는 봄날의 천지는 얼마나 기쁘며, 얼마나 아름다우냐?",
-    interestType: "PICTURE",
+    interestType: "READING",
     writer: {
       memberId: 1,
       nickname: "민태원",
@@ -15,10 +15,9 @@ let dummyJSON = [
     viewCount: 0,
     likeCount: 1,
     fileURLs: [
-      "background/basic_bg.png",
-      "background/game_bg.png",
-      "background/basic_bg.png",
-      "background/game_bg.png",
+      "photo/reading_2_1.jpg",
+      "photo/reading_1_1.jpg",
+      "photo/reading_2.jpg",
     ],
   },
   {
