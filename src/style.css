@@ -273,6 +273,54 @@ button {
   fill: rgba(255, 255, 255, 1);
 }
 
+.text1
+{
+  position: fixed;
+  top: 25%;
+  right: 50%;
+  transform: translate(30vw, -50%);
+  background-color: transparent;
+  z-index: 500;
+  color: whitesmoke;
+  font-size: 25px;
+  font-weight: 700;
+  font-family: "youtube", sans-serif;
+  display: flex;
+  align-items: center;
+}
+
+.text2
+{
+  position: fixed;
+  top: 35%;
+  right: 50%;
+  transform: translate(30vw, -50%);
+  background-color: transparent;
+  z-index: 500;
+  color: whitesmoke;
+  font-family: "youtube", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.text3
+{
+  position: fixed;
+  top: 30%;
+  right: 50%;
+  transform: translate(30vw, -50%);
+  background-color: transparent;
+  z-index: 500;
+  color: whitesmoke;
+  font-family: "youtube", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
 .likes-wrapper {
   position: fixed;
   top: 25%;
