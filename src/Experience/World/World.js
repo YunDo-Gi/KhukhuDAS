@@ -320,13 +320,13 @@ export default class World extends EventEmitter {
           ease: "power2.inOut",
           onComplete: async () => {
             current_page += 1;
+            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
+            cardComment.innerText = this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
             await visitRoom(this.rooms[current_page - 1].getData().id);
             await localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
             likes.innerText = this.rooms[current_page - 1].getLikes();
             views.innerText = localStorage.getItem("viewCount");
-            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
-            cardComment.innerText = this.rooms[current_page - 1].getData().content;
-            cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
             console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
 
@@ -367,13 +367,13 @@ export default class World extends EventEmitter {
           ease: "power2.inOut",
           onComplete: async () => {
             current_page -= 1;
+            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
+            cardComment.innerText = this.rooms[current_page - 1].getData().content;
+            cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
             await visitRoom(this.rooms[current_page - 1].getData().id);
             await localStorage.setItem("roomId", this.rooms[current_page - 1].getData().id);
             likes.innerText = this.rooms[current_page - 1].getLikes();
             views.innerText = localStorage.getItem("viewCount");
-            cardTitle.innerText = this.rooms[current_page - 1].getData().title;
-            cardComment.innerText = this.rooms[current_page - 1].getData().content;
-            cardWriter.innerText = this.rooms[current_page - 1].getData().writer.nickname;
             console.log(this.rooms[current_page - 1].getData());
             getComment(this.rooms[current_page - 1].getData().id);
 
@@ -578,6 +578,19 @@ export default class World extends EventEmitter {
           texture.repeat.set(1.5, 1.5)
           texture.rotation = -Math.PI * 0.5
         }
+      } else if(type === "photo") {
+        if(j === 0) {
+          texture.rotation = Math.PI * 0.5
+        } else if(j === 1) {
+          texture.rotation = Math.PI * 0.5
+        } else if(j === 2) {
+          texture.rotation = Math.PI * 0.5
+        } else if(j === 3) {
+          texture.rotation = Math.PI * 0.5
+        }
+      } else if(type === "gaming") {
+        texture.repeat.set(0.4, 0.4)
+        texture.rotation = Math.PI
       }
     }
   }
