@@ -2,26 +2,26 @@
 font-weight: 500;
 font-style: normal; */
 
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR&display=swap");
 
 @font-face {
-  font-family: 'kopub';
-  src: url('/fonts/KOPUBWORLD DOTUM MEDIUM.TTF') format('truetype');
+  font-family: "kopub";
+  src: url("/fonts/KOPUBWORLD DOTUM MEDIUM.TTF") format("truetype");
 }
 
 @font-face {
-  font-family: 'kopub-bold';
-  src: url('/fonts/KOPUBWORLD DOTUM BOLD.TTF') format('truetype');
+  font-family: "kopub-bold";
+  src: url("/fonts/KOPUBWORLD DOTUM BOLD.TTF") format("truetype");
 }
 
 @font-face {
-  font-family: 'youtube';
-  src: url('/fonts/YOUTUBE-SANS-MEDIUM.TTF') format('truetype');
+  font-family: "youtube";
+  src: url("/fonts/YOUTUBE-SANS-MEDIUM.TTF") format("truetype");
 }
 
 @font-face {
-  font-family: 'scdream';
-  src: url('/fonts/SCDREAM6.OTF') format('opentype');
+  font-family: "scdream";
+  src: url("/fonts/SCDREAM6.OTF") format("opentype");
 }
 
 * {
@@ -83,7 +83,7 @@ button {
   height: auto;
 }
 
-.info-card{
+.info-card {
   position: absolute;
   width: 18rem;
   top: 25%;
@@ -91,16 +91,16 @@ button {
   transform: translate(-40vw, 0);
 }
 
-.info-card-title{
-  font-family: 'scdream', sans-serif;
+.info-card-title {
+  font-family: "scdream", sans-serif;
 }
 
-.info-card-writer{
-  font-family: 'kopub-bold', sans-serif;
+.info-card-writer {
+  font-family: "kopub-bold", sans-serif;
 }
 
-.info-card-comment{
-  font-family: 'kopub', sans-serif;
+.info-card-comment {
+  font-family: "kopub", sans-serif;
 }
 
 /* Landing Page */
@@ -552,6 +552,9 @@ button {
   top: 7% !important;
   pointer-events: auto;
 }
+.carousel {
+  height: inherit;
+}
 .menu__btn {
   position: fixed;
   top: 20px;
@@ -615,4 +618,3 @@ body {
   font-family: "Instagram Sans", sans-serif;
   font-family: "Instagram Sans Headline", sans-serif;
 }
-
