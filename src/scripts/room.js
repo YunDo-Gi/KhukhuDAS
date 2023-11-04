@@ -24,15 +24,30 @@ const setData = (data) => {
 const createCarousel = async (chuncks) => {
   // 초기화
   indicator.innerHTML = "";
-  inner.innerHTML = "";
+  inner.innerHTML = `<button
+          class="carousel-control-prev"
+          data-bs-target="#carouselCaption"
+          data-bs-slide="prev"
+          style="height: fit-content; width: fit-content; top: 50%"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button
+          class="carousel-control-next"
+          data-bs-target="#carouselCaption"
+          data-bs-slide="next"
+          style="height: fit-content; width: fit-content; top: 50%"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>`;
 
   const frame = document.querySelector(".iframe-wrapper");
   const carousel_caption = document.querySelector("#carouselCaption");
   const carousel_inner = document.querySelector(".carousel-inner");
   carousel_caption.style.width = frame.style.width;
   carousel_caption.style.height = frame.style.height;
-  carousel_inner.style.width = frame.style.width;
-  carousel_inner.style.height = frame.style.height;
+  // carousel_inner.style.width = frame.style.width;
+  // carousel_inner.style.height = frame.style.height;
 
   for (let i = 0; i < chuncks.length; i++) {
     // 요소 생성
@@ -49,7 +64,7 @@ const createCarousel = async (chuncks) => {
     item.style.height = frame.style.height;
 
     let img = document.createElement("img");
-    img.classList.add("previewImg" + i);
+    img.classList.add("previewImg");
     img.classList.add("d-block");
     img.style.width = frame.style.width;
     img.style.height = frame.style.height;

@@ -74,10 +74,7 @@ form.addEventListener("submit", async (e) => {
     if (res.status == 200 || res.status == 201) {
       const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
       const { value, done } = await reader.read();
-      alert(
-        "방이 생성되었습니다.\n방 번호 : " +
-          value.substring(17, value.length - 1)
-      );
+      alert("방이 생성되었습니다.");
       location.href = "../index.html";
     } else alert("다시 한번 확인해 주시기 바랍니다.");
   } catch (e) {

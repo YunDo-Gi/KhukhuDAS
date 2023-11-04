@@ -552,8 +552,18 @@ button {
   top: 7% !important;
   pointer-events: auto;
 }
-.carousel {
+#carouselCaption {
   height: inherit;
+}
+.carousel-inner {
+  height: inherit;
+}
+.carousel-item {
+  height: inherit;
+}
+.previewImg {
+  height: inherit;
+  width: inherit;
 }
 .menu__btn {
   position: fixed;
