@@ -72,7 +72,7 @@ public class JwtService {
 
     public Authentication getAuthentication(UserDetails userDetails) {
         log.info("토큰 인증 정보 조회 시작");
-        log.info("[getAuthentication] 토큰 인증 정보 조회 완료, UserDetails UserName : {}",
+        log.info("UserDetails UserName : {}",
                 userDetails.getUsername());
         return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),
                 userDetails.getAuthorities());
@@ -93,7 +93,7 @@ public class JwtService {
         } catch (IllegalArgumentException e) {
             log.info("JWT 토큰이 잘못되었습니다.");
         } catch (Exception e) {
-                log.info("JWT가 이상합니다.");
+                log.info("JWT 토큰이 쪼매 이상합니다.");
         }
         return false;
     }

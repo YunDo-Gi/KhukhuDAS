@@ -45,9 +45,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 예외 처리 : 들어온 토큰 값이 올바르지 않은 경우 다른 체인으로 넘어감.
         final Optional<String> accessToken = jwtService.extractAccessToken(request);
 
-        // 재인증하지 않기 위해 사용자가 인증되었는지 확인.
-        // 로그인은 되어있고 아직 인증은 안된 경우
-        // context는 container의 인스턴스!
         log.info("[doFilterInternal] token 값 유효성 체크 시작" + " 토큰 : " + accessToken);
         if (accessToken.isPresent() && SecurityContextHolder.getContext().getAuthentication() == null
                 && jwtService.validateToken(accessToken.get()) && !redisService.hasKey(accessToken.get())) {

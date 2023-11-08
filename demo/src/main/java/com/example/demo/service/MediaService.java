@@ -96,10 +96,10 @@ public class MediaService {
 
             }
             return fileNameList;
-            } catch(Exception e){
-                log.info("error : " + e.getMessage());
-                throw new InternalServerException(e);
-            }
+        } catch(Exception e){
+            log.info("error : " + e.getMessage());
+            throw new InternalServerException(e);
+        }
     }
 
 
